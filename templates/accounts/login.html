@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in — Mtaani</title><style>body{font-family:system-ui,sans-serif;max-width:420px;margin:16px auto;padding:0 12px}input{width:100%;padding:8px;margin:6px 0;box-sizing:border-box}button{padding:10px 16px}ul.errorlist{color:#b00}</style></head>
+<body>
+<h1>Karibu</h1>
+{% if messages %}<ul>{% for m in messages %}<li>{{ m }}</li>{% endfor %}</ul>{% endif %}
+<form method="post">{% csrf_token %}
+<input name="username" placeholder="Username or email">
+<input name="password" type="password" placeholder="Password">
+<button type="submit">Log in</button></form>
+<p><a href="{% url 'accounts:recover_request' %}">Forgot password?</a> ·
+<a href="{% url 'accounts:signup' %}">Join</a></p>
+</body></html>

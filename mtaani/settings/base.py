@@ -89,4 +89,13 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_ROOT = BASE_DIR / "mediafiles"
 MEDIA_URL = "media/"
 
+# Prompt 04: adapter wiring (mock-first; real adapters swap via env only).
+SMS_ADAPTER = env("SMS_ADAPTER", default="apps.core.comms.MockSMS")
+EMAIL_ADAPTER = env("EMAIL_ADAPTER", default="apps.core.comms.MockEmail")
+
+# Session hygiene (Prompt 04; hardening continues in Prompt 41).
+SESSION_COOKIE_SAMESITE = "Lax"
+
+LOGIN_REDIRECT_URL = "home"
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
