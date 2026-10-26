@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-10-25
-> **Current phase:** planning (build contract complete, execution not started)
+> **Current phase:** build — Phase 0 (Foundation): Prompts 01–03 of 42 landed
 > **Overall health:** green
 
 ---
@@ -17,6 +17,9 @@ KDPA-compliant from day one.
 
 ### Done
 - [x] Product brief ingested into repo (`docs/product-brief.md`)
+- [x] Prompt 01 — scaffold: Django 6.1.2 venv, settings split, compose (portable) + conda Postgres 18/PostGIS on :5434 (this host), 3 smoke tests
+- [x] Prompt 02 — core vocabulary: 9 enums + TimestampedModel + testing utils, 15 tests
+- [x] Prompt 03 — geo: haversine cross-checked against PostGIS, 2 km privacy grid, ward seed, PostGIS migration + system check, 7 tests
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -25,10 +28,10 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Nothing — awaiting green light to execute Prompt 01
+- [ ] Prompt 04 — auth, verification & account recovery (next up)
 
 ### Not Started
-- [ ] Prompts 01–42 execution
+- [ ] Prompts 04–42 execution
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -55,14 +58,16 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Execute Prompt 01 (repo scaffold & dev environment) when Walker
-> gives the green light — or delegate it as a one-file-owned subagent task.
+> **Next:** Execute Prompt 04 — auth, verification & account recovery
+> (`apps/accounts/` + `apps/core/comms.py`, MockSMS/MockEmail adapters, 04 owns comms).
 
 ## 6. Environment & Tooling Notes
 
 - Runtime / language: Python 3.14 available on Jetson host; Django 6 supports it
-- Database: PostgreSQL 14 client present; PostGIS 16 via `docker compose`
-  (Docker 29.9.2 confirmed working on host)
+- Database (THIS host): walker-owned PostgreSQL 18.6 + PostGIS 3.6, micromamba env `pg`,
+  127.0.0.1:5434 — `make db-start` / `make db-stop` (docker daemon unusable: missing
+  xt_addrtype kernel module; conda path needs no root)
+- Database (generic hosts): `docker compose up` → postgis/postgis:16
 - Secrets location: `.env` (from `.env.example`), never committed
 - Hermes skills used: software-development-workflows (prompts-first pattern),
   project-state-management, remedy_personality_picker (Phosphorus for README)
@@ -71,8 +76,9 @@ KDPA-compliant from day one.
 
 ## 7. Recent Session Log
 
-- 2026-10-25: Ingested brief, researched (GTFS/KDPA/bundles/competitors),
-  wrote ADR-0001 + 42-prompt PROMPTS.md, scaffolded repo + remote. Ready to push.
+- 2026-10-25: Contract, research, ADR, repo scaffold (see git root-commit).
+- 2026-10-25: Provisioned no-root Postgres 18/PostGIS via micromamba after docker
+  daemon failure; executed Prompts 01–03 one-commit-per-prompt, 25 tests green.
 
 ## 8. References
 
