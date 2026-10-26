@@ -1096,7 +1096,7 @@ Parallelizable groups (one subagent each, no shared files):
 |---|--------|--------|
 | 01 | Repo scaffold & dev environment | ✅ |
 | 02 | Core types, enums & budget utils | ✅ |
-| 03 | Settings, PostGIS & geo utilities | ☐ |
+| 03 | Settings, PostGIS & geo utilities | ✅ |
 | 04 | Auth, verification & recovery | ☐ |
 | 05 | Design system, i18n shell & PWA | ☐ |
 | 06 | Image compression pipeline | ☐ |

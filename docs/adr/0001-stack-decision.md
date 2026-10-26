@@ -53,3 +53,24 @@ JS size; template-first means any future native app needs a JSON API layer
 (the apps already separate query functions from views, so DRF endpoints can
 wrap them later); PostGIS-in-Docker is a hard dev-environment requirement,
 enforced by Prompt 01's smoke test and CI's service container.
+---
+
+## Amendment (2026-10-25, recorded during Prompts 01–03 execution)
+
+Two execution realities diverged from the original decision; recorded here
+rather than silently overwritten:
+
+1. **GeoDjango model fields dropped — PostGIS via SQL functions instead.**
+   Models keep plain numeric lon/lat columns; `apps/core/geo.py` casts to
+   geography in SQL (`ST_MakePoint(...)::geography`, `ST_DWithin`).
+   Rationale: GeoDjango fields drag GDAL/GEOS system libraries onto every
+   dev host; the SQL route keeps the dependency surface minimal (Jetson,
+   macOS, any Linux) while keeping full PostGIS power. Generated geography
+   columns + GiST indexes arrive where scale demands them (Prompt 19).
+2. **The Jetson dev host runs a walker-owned PostgreSQL 18.6 + PostGIS 3.6
+   from a micromamba env (`~/micromamba/envs/pg`), not docker.** The local
+   docker daemon fails on a missing kernel module (`xt_addrtype`) and the
+   agent has no root; a conda-managed Postgres under `$HOME` needs no root
+   at any point. `docker-compose.yml` remains the canonical portable path
+   for other hosts; this host's DB lives on `127.0.0.1:5434`
+   (`make db-start` / `make db-stop`).
