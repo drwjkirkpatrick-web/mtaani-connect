@@ -1099,7 +1099,7 @@ Parallelizable groups (one subagent each, no shared files):
 | 03 | Settings, PostGIS & geo utilities | ✅ |
 | 04 | Auth, verification & recovery | ✅ |
 | 05 | Design system, i18n shell & PWA | ✅ |
-| 06 | Image compression pipeline | ☐ |
+| 06 | Image compression pipeline | ✅ |
 | 07 | Profiles & privacy controls | ☐ |
 | 08 | Guides CRUD & safety warnings | ☐ |
 | 09 | Offline saved guides | ☐ |

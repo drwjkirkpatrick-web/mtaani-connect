@@ -7,6 +7,7 @@ from . import views
 urlpatterns = [
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("accounts/", include("apps.accounts.urls")),
+    path("media/", include("apps.media.urls")),
     # Prompt 05: language toggle (cookie-persisted), offline shell + module stubs.
     path("lang/<str:code>/", views.set_lang, name="set_lang"),
     path("offline/", TemplateView.as_view(template_name="offline.html"), name="offline"),

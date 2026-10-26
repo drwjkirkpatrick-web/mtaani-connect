@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     # Mtaani apps — one Django app per prompt (PROMPTS.md hard rule).
     "apps.core",
     "apps.accounts",
+    "apps.media",
 ]
 
 MIDDLEWARE = [

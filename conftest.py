@@ -1,7 +1,7 @@
 """Root conftest. Settings come from pyproject [tool.pytest.ini_options].
 
-Prompt 02 adds shared fixtures in apps/core/testing.py; per-prompt tests
-import from there.
+Shared fixtures live in apps/core/testing.py (Prompt 02); pytest only
+auto-registers fixtures from conftest files — re-export them here so every
+test module can use them.
 """
-
-# NOTE: intentionally minimal for Prompt 01; fixtures accrue per prompt.
+from apps.core.testing import client_auth, fresh_user  # noqa: F401
