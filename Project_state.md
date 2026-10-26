@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-10-25
-> **Current phase:** build — Phase 0 (Foundation): Prompts 01–05 of 42 landed
+> **Current phase:** build — Phase 0 (Foundation) COMPLETE (01–07); Phase 1 (Community) starts next
 > **Overall health:** green
 
 ---
@@ -22,6 +22,8 @@ KDPA-compliant from day one.
 - [x] Prompt 03 — geo: haversine cross-checked against PostGIS, 2 km privacy grid, ward seed, PostGIS migration + system check, 7 tests
 - [x] Prompt 04 — auth: mock-first comms adapters, E.164 phone validation, OTP flows (hashed/single-use/expiring/rate-limited), KDPA consent events, recovery tokens, login throttle, 19 tests
 - [x] Prompt 05 — PWA shell: mobile-first base template (bottom tab bar), 2.9 KB hand-written CSS (15 KB budget), SW with GET-only/no-auth/never-stale gates + offline page, manifest + generated icons, EN/SW i18n (LocaleMiddleware + polib-compiled catalogs, 20 strings), 15 tests + real-server smoke (12 routes 200, lang round-trip)
+- [x] Prompt 06 — image pipeline: pure core/images.py (EXIF+GPS-IFD stripped and tested, WebP budgets std≤1280px/40KB + thumb≤320px/15KB, no-upscale policy), apps/media MediaRef + upload endpoint; conftest now registers shared fixtures; 12 tests
+- [x] Prompt 07 — profiles: allow-list public_data (strict key-set test = the privacy guarantee), location granularity ladder (ward/city/country), per-field-group visibility (public/members/private), precise-location consent stored but unconsumed, staff-only seller verification gate, avatar via pipeline; 12 tests
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -30,7 +32,7 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Prompt 06 — image compression pipeline (shared service) (next up)
+- [ ] Prompt 08 — guides: local knowledge CRUD + safety warnings (Phase 1 begins)
 
 ### Not Started
 - [ ] Prompts 04–42 execution
@@ -60,9 +62,10 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Execute Prompt 06 — image compression pipeline: `apps/core/images.py`
-> + `apps/media/` (Pillow arrives here; EXIF/GPS stripped on every upload, WebP
-> variants with enforced size budgets). Hero emoji is 🚐; suite at 59 tests.
+> **Next:** Execute Prompt 08 — Guides (WikiHow for Kenya): `apps/guides/`
+> — categories, ordered steps, safety warnings enforced in clean() for
+> MEDICAL/ELECTRICAL/CONSTRUCTION, revisions, community confirmations.
+> Suite at 83 tests (Phase 0 complete).
 
 ## 6. Environment & Tooling Notes
 
@@ -86,6 +89,9 @@ KDPA-compliant from day one.
   19 new tests, suite at 44 green.
 - 2026-10-26: Repo public + pushed; 'Mtaani' spelling confirmed (mtaa + locative -ni);
   hero emoji 🚐 set (README + repo description/topics); Prompt 05 landed, 59 tests green.
+- 2026-10-26: Prompts 06 (image pipeline: EXIF/GPS strip verified, WebP budgets,
+  no-upscale fix) + 07 (profiles: allow-list serializer, privacy ladder, staff gate)
+  landed — PHASE 0 COMPLETE, suite at 83 tests green.
 
 ## 8. References
 
