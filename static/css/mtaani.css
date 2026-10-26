@@ -1,0 +1,45 @@
+/* Mtaani Connect — one hand-written sheet (~15 KB hard budget, PROMPTS.md 05).
+   WHY no framework: bundle economics — ~KES 10 buys 70 MB daily on Kenyan
+   prepaids; every KB is the user's money. Palette: matatu green + fare-yellow. */
+:root{
+  --green:#0b7a3b;--green-dark:#085c2c;--yellow:#f2a900;--ink:#1c2321;
+  --paper:#faf9f6;--muted:#5f6b66;--line:#e3e0d8;--danger:#b3261e;
+  --radius:10px;--tabbar-h:56px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+     background:var(--paper);color:var(--ink)}
+a{color:var(--green-dark)}
+.topbar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;
+        padding:10px 14px;background:var(--green);color:#fff;z-index:10}
+.brand{font-weight:700;letter-spacing:.3px}
+.lang-switch{display:flex;gap:4px}
+.lang-switch a{padding:3px 9px;border:1px solid rgba(255,255,255,.7);border-radius:999px;
+               color:#fff;text-decoration:none;font-size:.8rem}
+.lang-switch a.active{background:#fff;color:var(--green-dark);font-weight:600}
+.offline-banner{background:var(--yellow);color:#3b2c00;text-align:center;padding:6px;font-size:.85rem}
+.messages{list-style:none;margin:0;padding:0}
+.messages .msg{margin:8px 14px;padding:8px 12px;border-radius:var(--radius);
+               background:#eef7ef;font-size:.9rem}
+.messages .msg.error{background:#fdecea;color:var(--danger)}
+.content{padding:14px;max-width:720px;margin:0 auto calc(var(--tabbar-h) + 14px)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+      padding:12px;margin-bottom:12px}
+.card h1{font-size:1.35rem;margin:0 0 6px}
+.btn{display:inline-block;background:var(--green);color:#fff;border:0;border-radius:var(--radius);
+     padding:10px 16px;font-size:1rem;text-decoration:none;margin:4px 4px 4px 0}
+.btn.secondary{background:#fff;color:var(--green-dark);border:1px solid var(--green)}
+input,select,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid var(--line);
+                      border-radius:var(--radius);font-size:1rem}
+input[type=submit],button{background:var(--green);color:#fff;border:0;
+                          border-radius:var(--radius);padding:10px 16px;font-size:1rem}
+.errorlist{color:var(--danger);list-style:none;padding-left:0;font-size:.85rem}
+.stub{text-align:center;color:var(--muted);padding:32px 8px}
+.tabbar{position:fixed;left:0;right:0;bottom:0;display:flex;height:var(--tabbar-h);
+        background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+     font-size:.68rem;color:var(--muted);text-decoration:none}
+.tab .tab-icon{font-size:1.2rem}
+.tab.active{color:var(--green-dark);font-weight:600}
+@media(min-width:720px){.content{padding:20px}}

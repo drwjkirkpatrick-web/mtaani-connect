@@ -1,0 +1,5 @@
+{% load i18n %}<nav class="lang-switch" aria-label="{% trans 'Language' %}">
+{% for code, label in languages %}
+  <a class="{% if code == current %}active{% endif %}" href="{% url 'set_lang' code %}?next={{ next|urlencode }}">{{ label }}</a>
+{% endfor %}
+</nav>

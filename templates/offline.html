@@ -1,0 +1,23 @@
+{% load i18n %}<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% trans "Offline" %} — Mtaani</title>
+  <!-- WHY inline CSS: this page is served from the SW cache when the network
+       is gone; it must render with zero external requests. -->
+  <style>
+    body{font-family:system-ui,sans-serif;background:#faf9f6;color:#1c2321;margin:0;
+         display:flex;min-height:100vh;align-items:center;justify-content:center}
+    .box{max-width:420px;padding:24px;text-align:center}
+    h1{color:#085c2c}
+    p{color:#5f6b66;line-height:1.5}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>{% trans "You are offline" %}</h1>
+    <p>{% trans "One app for how Kenya moves, learns, trades, and looks out for each other." %}</p>
+  </div>
+</body>
+</html>

@@ -1098,7 +1098,7 @@ Parallelizable groups (one subagent each, no shared files):
 | 02 | Core types, enums & budget utils | ✅ |
 | 03 | Settings, PostGIS & geo utilities | ✅ |
 | 04 | Auth, verification & recovery | ✅ |
-| 05 | Design system, i18n shell & PWA | ☐ |
+| 05 | Design system, i18n shell & PWA | ✅ |
 | 06 | Image compression pipeline | ☐ |
 | 07 | Profiles & privacy controls | ☐ |
 | 08 | Guides CRUD & safety warnings | ☐ |

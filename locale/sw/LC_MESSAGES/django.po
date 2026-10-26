@@ -1,0 +1,71 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mtaani Connect 0.5\n"
+"Language: sw\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Mtaani Connect"
+msgstr "Mtaani Connect"
+
+msgid "Home"
+msgstr "Nyumbani"
+
+msgid "Guides"
+msgstr "Mwongozo"
+
+msgid "Market"
+msgstr "Soko"
+
+msgid "Chats"
+msgstr "Mazungumzo"
+
+msgid "Transport"
+msgstr "Usafiri"
+
+msgid "Log in"
+msgstr "Ingia"
+
+msgid "Join"
+msgstr "Jiunge"
+
+msgid "Log out"
+msgstr "Toka"
+
+msgid "You are offline"
+msgstr "Hauna mtandao"
+
+msgid "Back online"
+msgstr "Mtandao umerudi"
+
+msgid "Offline"
+msgstr "Nje ya mtandao"
+
+msgid "Search"
+msgstr "Tafuta"
+
+msgid "Settings"
+msgstr "Mipangilio"
+
+msgid "Later"
+msgstr "Baadaye"
+
+msgid "Coming soon"
+msgstr "Inakuja hivi karibuni"
+
+msgid "Verify"
+msgstr "Thibitisha"
+
+msgid "Language"
+msgstr "Lugha"
+
+msgid "Welcome"
+msgstr "Karibu"
+
+msgid ""
+"One app for how Kenya moves, learns, trades, and looks out for each other."
+msgstr ""
+"Programu moja kwa kusafiri, kujifunza, kufanya biashara na kuwasaidiana "
+"Kenya."

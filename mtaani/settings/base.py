@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -51,6 +52,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
+                "django.template.context_processors.i18n",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
@@ -80,6 +82,13 @@ DATABASES = {
 AUTH_USER_MODEL = "accounts.User"
 
 LANGUAGE_CODE = "en-us"
+# Prompt 05: i18n shell — English + Kiswahili from day one (hard rule).
+USE_I18N = True
+LANGUAGES = [
+    ("en", "English"),
+    ("sw", "Kiswahili"),
+]
+LOCALE_PATHS = [BASE_DIR / "locale"]
 # NOTE: display timezone; storage stays UTC because USE_TZ=True.
 TIME_ZONE = "Africa/Nairobi"
 USE_TZ = True

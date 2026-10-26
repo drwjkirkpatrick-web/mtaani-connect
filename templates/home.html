@@ -1,12 +1,17 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mtaani Connect</title>
-</head>
-<body>
-  <h1>Mtaani Connect</h1>
-  <p>Placeholder home. The mobile-first design system lands in Prompt 05.</p>
-</body>
-</html>
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Mtaani Connect" %}{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>{% trans "Mtaani Connect" %}</h1>
+  <p>{% trans "One app for how Kenya moves, learns, trades, and looks out for each other." %}</p>
+</div>
+{% if user.is_authenticated %}
+<div class="card">{% trans "Welcome" %}, {{ user.username }}.</div>
+{% else %}
+<div class="card">
+  <a class="btn" href="{% url 'accounts:signup' %}">{% trans "Join" %}</a>
+  <a class="btn secondary" href="{% url 'accounts:login' %}">{% trans "Log in" %}</a>
+</div>
+{% endif %}
+{% endblock %}
