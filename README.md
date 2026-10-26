@@ -1,4 +1,4 @@
-# 🔥 Mtaani Connect
+# 🚐 Mtaani Connect
 
 **One app for how Kenya actually moves, learns, trades, and looks out for each other.**
 
