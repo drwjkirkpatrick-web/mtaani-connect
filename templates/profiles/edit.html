@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Settings" %} — Mtaani{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>{% trans "Settings" %}</h1>
+  {% if messages %}<ul class="messages">{% for m in messages %}<li class="msg {{ m.tags }}">{{ m }}</li>{% endfor %}</ul>{% endif %}
+  <form method="post">{% csrf_token %}{{ form.as_p }}
+    <button type="submit">{% trans "Save" %}</button></form>
+  <form method="post" action="{% url 'profiles:me_avatar' %}" enctype="multipart/form-data">
+    {% csrf_token %}<input type="file" name="image" accept="image/*">
+    <button type="submit">Avatar</button></form>
+  <p><a href="{% url 'profiles:me_privacy' %}">Privacy / Faragha</a> ·
+     <a href="{% url 'profiles:profile' request.user.username %}">Public view</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Settings" %} — Mtaani{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Privacy / Faragha</h1>
+  <form method="post">{% csrf_token %}{{ form.as_p }}
+    <button type="submit">Save</button></form>
+</div>
+{% endblock %}
