@@ -143,8 +143,9 @@ mock-first adapters, everything tested (83 passing). Clone, `make setup`,
 
 ## License
 
-Proprietary — all rights reserved while co-founder and partner conversations
-are underway.
+**MIT** — anyone may use, study, change, and share this code, including
+commercially, as long as the license and attribution travel with it. See
+`LICENSE`.
 
 *“Mtaani Connect” is a working name; the codebase doesn't care what it's
 called.*
