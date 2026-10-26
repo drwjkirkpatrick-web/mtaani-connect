@@ -1,0 +1,23 @@
+# NOTE: canonical dev DB for generic hosts (postgis/postgis:16).
+# WHY: PostGIS is a PROMPTS.md hard rule; SQLite cannot stand in.
+# On the Jetson dev host the DB is a walker-owned conda Postgres on 5434
+# (see scripts/db_*.sh) because the docker daemon is unavailable there.
+services:
+  db:
+    image: postgis/postgis:16
+    environment:
+      POSTGRES_DB: ${DB_NAME:-mtaani}
+      POSTGRES_USER: ${DB_USER:-mtaani}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-mtaani_dev}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-mtaani} -d ${DB_NAME:-mtaani}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

@@ -1094,7 +1094,7 @@ Parallelizable groups (one subagent each, no shared files):
 
 | # | Prompt | Status |
 |---|--------|--------|
-| 01 | Repo scaffold & dev environment | ☐ |
+| 01 | Repo scaffold & dev environment | ✅ |
 | 02 | Core types, enums & budget utils | ☐ |
 | 03 | Settings, PostGIS & geo utilities | ☐ |
 | 04 | Auth, verification & recovery | ☐ |

@@ -1,0 +1,28 @@
+[project]
+name = "mtaani-connect"
+version = "0.1.0"
+description = "Mtaani Connect - Kenya community super-app (building from PROMPTS.md)"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=6.0,<7",
+    "django-environ>=0.11",
+    "psycopg[binary]>=3.2,<4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-django>=4.11",
+]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = { find = { include = ["mtaani*", "apps*"] } }
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "mtaani.settings.test"
+python_files = ["test_*.py"]
+addopts = "-q"
