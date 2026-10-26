@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-10-25
-> **Current phase:** build — Phase 0 (Foundation): Prompts 01–03 of 42 landed
+> **Current phase:** build — Phase 0 (Foundation): Prompts 01–04 of 42 landed
 > **Overall health:** green
 
 ---
@@ -20,6 +20,7 @@ KDPA-compliant from day one.
 - [x] Prompt 01 — scaffold: Django 6.1.2 venv, settings split, compose (portable) + conda Postgres 18/PostGIS on :5434 (this host), 3 smoke tests
 - [x] Prompt 02 — core vocabulary: 9 enums + TimestampedModel + testing utils, 15 tests
 - [x] Prompt 03 — geo: haversine cross-checked against PostGIS, 2 km privacy grid, ward seed, PostGIS migration + system check, 7 tests
+- [x] Prompt 04 — auth: mock-first comms adapters, E.164 phone validation, OTP flows (hashed/single-use/expiring/rate-limited), KDPA consent events, recovery tokens, login throttle, 19 tests
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -28,7 +29,7 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Prompt 04 — auth, verification & account recovery (next up)
+- [ ] Prompt 05 — design system, i18n shell & PWA skeleton (next up)
 
 ### Not Started
 - [ ] Prompts 04–42 execution
@@ -58,8 +59,8 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Execute Prompt 04 — auth, verification & account recovery
-> (`apps/accounts/` + `apps/core/comms.py`, MockSMS/MockEmail adapters, 04 owns comms).
+> **Next:** Execute Prompt 05 — design system, i18n shell & PWA skeleton
+> (`templates/base.html`, `static/`, locale en/sw, service worker; 44 tests green at `make test`).
 
 ## 6. Environment & Tooling Notes
 
@@ -79,6 +80,8 @@ KDPA-compliant from day one.
 - 2026-10-25: Contract, research, ADR, repo scaffold (see git root-commit).
 - 2026-10-25: Provisioned no-root Postgres 18/PostGIS via micromamba after docker
   daemon failure; executed Prompts 01–03 one-commit-per-prompt, 25 tests green.
+- 2026-10-25: Prompt 04 landed (commit 5d3a73b): auth/verification/recovery/throttle,
+  19 new tests, suite at 44 green.
 
 ## 8. References
 
