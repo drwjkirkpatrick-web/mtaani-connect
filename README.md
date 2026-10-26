@@ -1,86 +1,150 @@
 # 🚐 Mtaani Connect
 
-**One app for how Kenya actually moves, learns, trades, and looks out for each other.**
+**One app for everyday life in the mtaa — how you get around, what you know, what you sell, and who you trade with.**
 
-Mtaani Connect is a community super-app built for the phones, bundles, and daily
-reality of urban Kenya — not a Silicon Valley feed with a matatu sticker on it.
-Seven modules, one promise: help people move efficiently, solve practical
-problems, earn, exchange value, and build stronger communities.
+*Why the name: "mtaa" is Swahili for street or neighborhood. Add "-ni" and
+"mtaani" means "out there in the streets" — where everyday life actually
+happens. The 🚐 is the matatu, because getting people moving is the flagship.*
 
-- **Track matatus honestly.** Live positions, arrival estimates, and disruption
-  alerts — with visible confidence labels, and a plain "no live data" when there
-  is none. We never invent a position, an ETA, or a fare.
-- **Learn what works here.** Step-by-step guides for cooking, farming, repairs,
-  and business — written by and for Kenyans, with AI that adapts instructions to
-  what's actually at your duka (clearly labeled, community-verified).
-- **Trade and barter.** Goods, services, and the differentiator: structured
-  barter with counteroffers, mutual reviews, and dispute workflows — no escrow
-  games, no custody of your money, no surprises.
-- **A feed that helps.** Local relevance and usefulness beat engagement bait.
-  Yesterday's genuinely useful post outranks five-minutes-ago rage.
+Imagine the stage, the market, and the WhatsApp group rolled into one
+trustworthy app that lives on the phone you already have, works on the data
+bundle you already buy, and never plays tricks on you.
 
-## Repository status: build contract complete
+---
 
-This repo currently holds the **product brief**, the **research grounding**, and
-the **build contract: `PROMPTS.md`** — 42 numbered, testable prompts organized
-into 6 phases that map one-to-one onto the roadmap. Each prompt is
-self-contained (a cold-start agent or contractor can execute it alone), ships
-with its own tests, and lands as exactly one commit.
+## What it does (four everyday jobs)
 
-| Phase | Prompts | Goal |
-|-------|---------|------|
-| 0 — Foundation | 01–07 | Auth, profiles, design system, PostGIS geo layer, PWA shell |
-| 1 — Community | 08–16 | Guides, offline saving, posts, utility feed, Q&A, search, moderation |
-| 2 — Commerce | 17–24 | Listings, barter + negotiation, messaging, reviews, disputes |
-| 3 — Transport | 25–31 | Route DB (open GTFS seed), authorized tracking, live map, alerts |
-| 4 — Intelligence | 32–35 | Route planning, AI local-adaptation, full Kiswahili UI |
-| 5 — Scale & Trust | 36–42 | Abuse prevention, privacy-safe analytics, KDPA workflows, deploy |
+**Catch your matatu without the guesswork.** See where your vehicle is (when
+the crew or the sacco is sharing it), get a heads-up when it's nearing your
+stage, and know about delays, closures and flooding — reported by riders
+like you. And here's the rule that makes it trustworthy: if the app doesn't
+know where a matatu is, **it says so.** No fake dots. No made-up arrival
+times. No invented fares.
 
-## Technology choices (ADR-0001)
+**Learn things that work here.** Step-by-step guides for cooking, farming,
+repairs and business — written by people like you, for the tools and
+ingredients you can actually find at the duka. There's also a helper that
+adapts a guide to what *you* have ("no oven? here's the jiko version") —
+and it always admits when it's the computer talking, because a guess that
+pretends to be a fact is worse than no answer.
 
-- **Django modular monolith + PostgreSQL 16 / PostGIS** — the brief's stated
-  architecture; geo is core, and PostGIS is the brief's explicit requirement.
-- **Server-rendered templates + HTMX-style progressive enhancement + Leaflet** —
-  page payloads stay tiny for 3G and 70 MB daily bundles. No SPA bundle tax.
-- **PWA (installable, offline-capable)** — Android-first on low-cost phones
-  without a native build; iOS later.
-- **Mock-first adapters** — SMS, push, and AI providers are interfaces with
-  deterministic mocks, so every test runs offline and no prompt needs paid keys.
-- **Privacy by design, Kenya Data Protection Act 2019** — ward-level location
-  by default, EXIF stripped from uploads, logged consent, subject
-  access/deletion workflows, and tracking that is public *only* during active
-  authorized sessions. See `docs/adr/0001-stack-decision.md`.
+**Buy, sell, and swap.** A marketplace for goods and skills — and the thing
+nobody else offers: proper **barter**. Trade two kilos of maize and an hour
+of sewing for a solar lamp plus a little cash on top. Make offers, make
+counteroffers, shake hands, leave each other reviews, and if a deal goes
+wrong there's a real way to report it. Important: the app never holds your
+money. It helps two people agree and keeps the receipts; it doesn't try to
+become a bank.
 
-## Grounded in research, not vibes
+**Talk without giving your number away.** Ask a seller about a listing,
+negotiate a swap, chat in groups — through the app, so your phone number
+and your exact location stay yours unless *you* decide to share them.
 
-The prompt set was written against real sources (full list with links in
-`docs/research-notes.md`): the open **Digital Matatus GTFS** (135+ routes,
-~3,000 stops) seeds the route database; **Kenyan bundle economics**
-(~KES 10 / 70 MB daily) set the enforced page-weight budgets; the **Kenya Data
-Protection Act 2019** and ODPC guidance define the consent, minimization, and
-subject-rights prompts; and the competitive landscape (booking/tracking apps,
-SACCO fleet tools) shaped the differentiation: community first, honest data,
-barter as a first-class citizen.
+## Five promises we hold ourselves to
 
-## What we're looking for
+1. **We never lie to you.** Missing data gets a clear "no live data right
+   now," never a confident guess dressed up as a fact.
+2. **We respect your bundle.** Data is money — about KES 10 buys 70 MB for a
+   day. So every page is kept tiny on purpose, photos are squeezed before
+   they travel, and guides can be saved for offline reading. The app is
+   cheap to use, or we've failed.
+3. **Your privacy is the default, not a scavenger hunt.** You share your
+   ward or your neighborhood — never your exact location unless you say so.
+   Photos have their hidden location tags quietly removed before anyone
+   sees them. You can ask for a copy of your data, or its deletion, and we
+   keep records to prove what you agreed to and when (Kenya's Data
+   Protection Act, taken seriously, not as fine print).
+4. **Useful beats addictive.** The feed ranks what's genuinely helpful and
+   what's nearby — not what keeps you doom-scrolling. Yesterday's useful
+   post outranks five-minutes-ago outrage.
+5. **Community before extraction.** The core stays affordable or free.
+   Money-making features come only after real people prove they want them.
 
-Per the brief: technical partners, pilot SACCOs in Nairobi, and user research
-(15–20 interviews) to validate module priority — the build sequence flips
-Phases 1 and 3 if research says transport is the urgent need. The contract is
-written so that flip is cheap.
+## How we're building it: a recipe book, not a moonshot
 
-## Repo layout
+Before writing a line of code, we wrote a **recipe book** for the whole app:
+42 small, numbered recipes (`PROMPTS.md`). Each recipe adds exactly one thing,
+must pass its own little exam before it counts as done, and gets sealed and
+recorded before the next one starts. There are already **80+ of these little
+exams**, and the app has to pass *all of them, every single time*, before
+anything is called finished. If we ever break a promise above, an exam fails
+and the build stops until it's honest again.
 
-```
-PROMPTS.md                 # The build contract — 42 testable prompts
-docs/product-brief.md      # The brief this repo executes
-docs/research-notes.md    # Sources + how each shaped the prompts
-docs/adr/                  # Architecture decision records
-Project_state.md           # Living status: where we are, what's next
-```
+The order is like building a house:
+
+| Stage | What gets built | In plain words |
+|-------|-----------------|----------------|
+| 1. Foundation *(done)* | Steps 01–07 | Joining, logging in safely, your profile and privacy controls, the app shell, photo handling |
+| 2. Community | Steps 08–16 | The guides, posts, questions, search, and the tools that keep the neighborhood civil |
+| 3. The market | Steps 17–24 | Listings, barter with counteroffers, private chats, reviews, dispute handling |
+| 4. The matatu flagship | Steps 25–31 | The route map (from real open data), live tracking *with permission*, alerts |
+| 5. Smart helpers | Steps 32–35 | Journey planning, the adapting guide-helper, full Kiswahili |
+| 6. Strength & scale | Steps 36–42 | Spam protection, honest numbers for the team, launch preparation |
+
+## Where we are today
+
+**The foundation is finished (steps 1–7 of 42).** Concretely, the app can
+already:
+
+- let you join, log in, and verify by code (through a stand-in messaging
+  service while we choose real providers — nothing here needs a paid key to
+  work or be tested)
+- give you a profile with real privacy controls: show "Kawangware," just
+  "Nairobi," or nothing at all — your choice, enforced in code
+- install on an Android phone's home screen straight from the browser — no
+  app store, no big download — and keep working offline for saved pages
+- speak **English and Kiswahili**, switchable anytime
+- take your photo uploads and quietly do two jobs: strip the hidden
+  location tag phones embed in pictures, and squeeze the file small so it
+  costs less to share
+
+## Where the ideas come from — not vibes
+
+- **The route map starts from real open data** — Digital Matatus, a project
+  where university teams rode and mapped about 135 Nairobi matatu routes,
+  publicly and for free. We treat it as a starting sketch the community
+  corrects, never gospel.
+- **The bundle budgets come from actual carrier prices** — real Safaricom
+  and Airtel bundle costs set the page-size limits the exams enforce.
+- **The privacy rules come from Kenya's Data Protection Act (2019)** —
+  consent you can prove, data kept only as long as needed, deletion on
+  request.
+- **We studied what already exists** — booking apps, sacco fleet tools,
+  traffic feeds — and deliberately built the missing layer: the community
+  around all of it.
+
+(Full sources and links: `docs/research-notes.md`.)
+
+## What's next
+
+Step 8: the guides — "how to do things, for here" — with mandatory safety
+warnings on anything medical, electrical, or structural. Then the market and
+barter. Then the matatu pilot.
+
+## Want in?
+
+- **SACCOs and operators** — we need 3–5 willing to pilot tracking in Nairobi
+- **Commuters** — 15–20 short interviews to check our priorities (if research
+  says transport is the burning need, the build order flips — the recipe book
+  was written to make that flip cheap)
+- **Technical partners** — the contract, research, and current state are all
+  in this repo, in plain view
+
+**Contact:** [your name, email or phone]
+
+## For technical readers
+
+`PROMPTS.md` is the build contract: 42 self-contained, testable prompts, one
+commit each. `docs/` holds the product brief, research notes with sources,
+and architecture decision records; `Project_state.md` is the live status.
+Stack in one line: Django + PostGIS-backed PostgreSQL, server-rendered PWA,
+mock-first adapters, everything tested (83 passing). Clone, `make setup`,
+`make db-start`, `make test`.
 
 ## License
 
-Proprietary — all rights reserved pending co-founder/partner agreements.
+Proprietary — all rights reserved while co-founder and partner conversations
+are underway.
 
-*Working name "Mtaani Connect" is a placeholder; the codebase is name-agnostic.*
+*“Mtaani Connect” is a working name; the codebase doesn't care what it's
+called.*
