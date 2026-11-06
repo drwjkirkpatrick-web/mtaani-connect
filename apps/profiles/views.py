@@ -18,7 +18,13 @@ def profile_view(request, username):
     user = get_object_or_404(get_user_model(), username=username)
     profile = get_profile(user)
     data = public_data(profile, viewer_is_member=request.user.is_authenticated)
-    return render(request, "profiles/profile.html", {"p": data})
+    # Prompt 16 parent wiring: earned trust badges (public service only).
+    from apps.trust.services import helpfulness_badges
+    return render(
+        request,
+        "profiles/profile.html",
+        {"p": data, "trust_badges": helpfulness_badges(user)},
+    )
 
 
 @login_required

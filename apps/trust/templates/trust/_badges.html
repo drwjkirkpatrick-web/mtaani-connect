@@ -1,0 +1,14 @@
+{# Trust badges partial (Prompt 16). Include on profiles / next to answers: #}
+{# the view builds trust_badges = services.helpfulness_badges(user).        #}
+{# WHY dicts not model rows: the caller never touches trust internals and   #}
+{# labels are gettexted server-side — the partial renders just badge spans. #}
+{% if trust_badges %}
+<ul class="trust-badges">
+  {% for badge in trust_badges %}
+  <li class="trust-badge">
+    <span class="badge">{{ badge.label }}</span>
+    <span class="muted">{{ badge.category_label }}</span>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}

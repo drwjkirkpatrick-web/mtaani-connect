@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "apps.moderation",
     "apps.feed",
     "apps.search",
+    "apps.trust",
 ]
 
 MIDDLEWARE = [

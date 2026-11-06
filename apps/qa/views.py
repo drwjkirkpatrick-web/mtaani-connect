@@ -83,6 +83,15 @@ def question_detail(request, pk):
             request.user.qa_answer_votes.filter(answer__question=question)
             .values_list("answer_id", flat=True)
         )
+    # Prompt 16 parent wiring: each answer's author carries their earned
+    # badges next to the answer (public service; memo per unique author).
+    from apps.trust.services import helpfulness_badges
+    badges_by_author: dict[int, list] = {}
+    for a in answers:
+        if a.author_id not in badges_by_author:
+            badges_by_author[a.author_id] = helpfulness_badges(a.author)
+        # NOTE: display-only dynamic attr — nothing is persisted on Answer.
+        a.trust_badges = badges_by_author[a.author_id]
     return render(
         request,
         "qa/detail.html",

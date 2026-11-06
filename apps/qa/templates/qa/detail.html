@@ -33,6 +33,7 @@
         <div class="card"><strong>⚠ {% trans "Safety" %}</strong>{{ a.safety_warning|linebreaks }}</div>
         {% endif %}
         <p class="muted">{% trans "Answered by" %} {{ a.author }}</p>
+        {% if a.trust_badges %}{% include "trust/_badges.html" with trust_badges=a.trust_badges %}{% endif %}
         {% if user.is_authenticated %}
         {% if a.pk in my_votes %}
         <form method="post" action="{% url 'qa:vote' a.pk %}">{% csrf_token %}

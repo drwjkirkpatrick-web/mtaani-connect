@@ -6,6 +6,8 @@
   {% if p.avatar_thumb %}<img src="/media/{{ p.avatar_thumb }}" alt="{{ p.display_name }}" width="80" height="80">{% endif %}
   <h1>{{ p.display_name }}</h1>
   {% if p.is_verified_seller %}<p class="badge">✓ verified seller</p>{% endif %}
+  {# Prompt 16: earned help badges — provenance, admin-tunable thresholds. #}
+  {% include "trust/_badges.html" %}
   {% if p.location %}<p>{{ p.location }}</p>{% endif %}
   {% if p.bio %}<p>{{ p.bio }}</p>{% endif %}
   {% if p.skills %}<p><strong>{% trans "Skills" context "profile" %}:</strong> {{ p.skills|join:", " }}</p>{% endif %}
