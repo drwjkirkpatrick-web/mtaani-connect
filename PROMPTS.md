@@ -1111,11 +1111,11 @@ Parallelizable groups (one subagent each, no shared files):
 | 15 | Moderation v1 | ✅ |
 | 16 | Trust signals & helpfulness | ✅ |
 | 17 | Marketplace listings (goods) | ✅ |
-| 18 | Service listings & portfolios | ☐ |
+| 18 | Service listings & portfolios | ✅ |
 | 19 | Listing search & geo filters | ☐ |
 | 20 | Messaging v1 | ✅ |
-| 21 | Barter & cash-plus-exchange | ☐ |
-| 22 | Reviews & reputation | ☐ |
+| 21 | Barter & cash-plus-exchange | ✅ |
+| 22 | Reviews & reputation | ✅ |
 | 23 | Disputes & fraud flags | ☐ |
 | 24 | Listing lifecycle | ☐ |
 | 25 | Route & stage database + GTFS seeder | ☐ |

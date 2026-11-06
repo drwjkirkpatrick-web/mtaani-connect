@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 2 (Commerce) under way: 17, 20 complete; 18+21+22 next, then 23, 24, 19
+> **Current phase:** build — Phase 2 (Commerce): 17/18/20/21/22 complete; 23+24 next, then 19
 > **Overall health:** green
 
 ---
@@ -75,6 +75,17 @@ KDPA-compliant from day one.
       moderation allow-list joins listings+messaging, messaging phase-race
       fallback + listing resolver shim removed, posts listing previews LIVE
       (honest UNAVAILABLE when gone); 385 tests
+- [x] Prompt 18 — services marketplace: separate ServiceListing, rate-type
+      matrix in clean(), ≤8-image portfolio (three layers), provider page,
+      reviews hook via contract doors; 44 tests
+- [x] Prompt 21 — barter & cash-plus: versioned offer lineage (self-FK
+      parents, ping-pong parties), strict model-enforced state machine with
+      full illegal-move matrix, 7-day injected-clock expiry sweep, zero
+      custody (stated cash only; MPesaAdapter stub documented); 33 tests
+- [x] Prompt 22 — reviews & reputation: mutual DB-constrained reviews,
+      sweep-only publication (pairs same tick / lone at 14d), 1-star dispute
+      note gate, reputation_for() (0.6 stars + 0.4 trust), partials on
+      profiles + services' display door + barter's review doors; 35 tests (497)
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -83,8 +94,8 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Phase 2 wave — Prompts 18 (service listings), 21 (barter), 22 (reviews)
-      in parallel; then 23 (disputes), 24 (lifecycle), 19 (listing geo search)
+- [ ] Phase 2 wave — Prompts 23 (disputes) + 24 (listing lifecycle) in
+      parallel; then 19 (listing geo search) to close Phase 2
 
 ### Not Started
 - [ ] Phase 3 (25–31), Phase 4 (32–34), Phase 5 (36–42)
@@ -114,10 +125,11 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Phase 2 wave — Prompt 18 (service listings + portfolios),
-> Prompt 21 (barter/cash-plus with strict state machine, no custody),
-> Prompt 22 (mutual reviews; two-phase publish) in parallel. Then
-> 23 (disputes), 24 (listing lifecycle), 19 (geo search). Suite at 385.
+> **Next:** Prompt 23 (Disputes: evidence-linked cases, heuristic FLAGS only,
+> human confirm gate) and Prompt 24 (Listing lifecycle: ACTIVE→PAUSED/SOLD/
+> EXPIRED, 30-day expiry + renew, 7-day bump cap, category-edit re-approval)
+> in parallel; then Prompt 19 (ST_DWithin geo rings + index-assert tests).
+> Suite at 497.
 
 ## 6. Environment & Tooling Notes
 
