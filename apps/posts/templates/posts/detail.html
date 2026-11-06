@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Post" %} — Mtaani{% endblock %}
+{% block content %}
+<article class="card post-detail">
+  <header>
+    <p class="muted">{{ post.author.username }}</p>
+    {% if post.educational %}<span class="badge">{% trans "Educational" %}</span>{% endif %}
+    {# WHY a status badge only when NOT published: a published post should
+       carry no status noise at all; drafts/removed are visible to their
+       author only and must say so (no fabricated states). #}
+    {% if post.status != 'PUBLISHED' %}<span class="badge">{{ post.get_status_display }}</span>{% endif %}
+  </header>
+  {# PITFALL GUARD: |linebreaks (fixed allow-list transform on escaped text).
+      NEVER |safe — user HTML cannot exist anywhere in post content. #}
+  <div class="post-body">{{ post.text|linebreaks }}</div>
+
+  {% if attachments %}
+  <ul class="post-photos">
+    {% for row in attachments %}
+    <li><img src="/media/{{ row.image.standard_path }}" alt="{% trans 'Post photo' %}" loading="lazy" width="{{ row.image.standard_w }}" height="{{ row.image.standard_h }}"></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {# Server-rendered reference preview (typed refs only — never raw URLs). #}
+  {% include "posts/_preview.html" with preview=preview %}
+
+  {% if is_author %}
+  <footer>
+    <a href="{% url 'posts:edit' post.pk %}">{% trans "Edit" %}</a> ·
+    <a href="{% url 'posts:delete' post.pk %}">{% trans "Remove" %}</a>
+    <span class="muted"> · {% trans "Photos you attach stay in your album." %}</span>
+  </footer>
+  {% endif %}
+</article>
+{% endblock %}

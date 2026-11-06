@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Posts" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Posts" %}</h1>
+{# NOTE: the ?tag=educational filter is a plain GET param — no JS needed. #}
+<div class="chips">
+  <a class="badge{% if not active_tag %} active{% endif %}" href="{% url 'posts:list' %}">{% trans "All" %}</a>
+  <a class="badge{% if active_tag == 'educational' %} active{% endif %}" href="?tag=educational">{% trans "Educational" %}</a>
+</div>
+<ul class="post-list">
+  {% for item in posts %}
+    {# item.post / item.preview — the preview is built in the VIEW per
+       viewer (a model property cannot know who is looking at it). #}
+    <li class="card">
+      <p class="muted">{{ item.post.author.username }}</p>
+      {# WHY two renderings: word-of-mouth posts are SHORT — a short post
+         must feel first-class and is shown in full; a long one is truncated
+         politely with an explicit read-out link, never silently eaten.
+         Both branches render escaped plain text — NEVER |safe. #}
+      {% if item.post.text|length <= 280 %}
+      <div class="post-body">{{ item.post.text|linebreaks }}</div>
+      {% else %}
+      <div class="post-body">{{ item.post.text|truncatechars:280 }}</div>
+      {% endif %}
+      {% with rows=item.post.attachments.all %}
+      {% if rows %}
+      <ul class="post-thumbs">
+        {# LIST pages load the small lazy thumbnail of the FIRST photo — a
+           feed skims; the detail page shows every photo full size. #}
+        <li><a href="{% url 'posts:detail' item.post.pk %}"><img src="/media/{{ rows.0.image.thumb_path }}" alt="{% trans 'Post photo' %}" loading="lazy" width="{{ rows.0.image.thumb_w }}" height="{{ rows.0.image.thumb_h }}"></a></li>
+        <li class="muted">{% blocktranslate count counter=rows|length %}1 photo{% plural %}{{ counter }} photos{% endblocktranslate %}</li>
+      </ul>
+      {% endif %}
+      {% endwith %}
+      {% if item.post.educational %}<span class="badge">{% trans "Educational" %}</span>{% endif %}
+      {% include "posts/_preview.html" with preview=item.preview %}
+      <p class="muted"><a href="{% url 'posts:detail' item.post.pk %}">{% trans "View post" %}</a></p>
+    </li>
+  {% empty %}
+  <li class="card">
+    <p>{% trans "Nothing here yet." %}</p>
+    <p class="muted">{% trans "Share a tip, a deal you saw, or a question for your neighbours." %}</p>
+  </li>
+  {% endfor %}
+</ul>
+{% if page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}{% if active_tag %}&amp;tag={{ active_tag }}{% endif %}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}{% if active_tag %}&amp;tag={{ active_tag }}{% endif %}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{% if user.is_authenticated %}<a class="btn" href="{% url 'posts:create' %}">{% trans "Share a post" %}</a>{% endif %}
+{% endblock %}

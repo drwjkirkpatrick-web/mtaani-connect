@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Share a post" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% if post %}{% trans "Edit your post" %}{% else %}{% trans "Share a post" %}{% endif %}</h1>
+<form method="post" action="{% if post %}{% url 'posts:edit' post.pk %}{% else %}{% url 'posts:create' %}{% endif %}">
+  {% csrf_token %}
+  {{ form.text.as_p }}
+  {# WHY this hint, not a live JS counter: it teaches the CULTURE — short
+     word-of-mouth posts are first-class here. Server-side MaxLength is the
+     real gate; the maxlength attribute is client decoration only. #}
+  <p class="muted">{% blocktranslate %}Up to {{ max_chars }} characters — a short post is welcome as it is.{% endblocktranslate %}</p>
+  {{ form.educational.as_p }}
+  {{ form.ref_guide.as_p }}
+  <p class="muted">{% trans "Listing links arrive with the marketplace (17). Tip: link a how-to guide so neighbours can act on your post." %}</p>
+  <button type="submit">{% if post %}{% trans "Save" %}{% else %}{% trans "Post" %}{% endif %}</button>
+  <a class="muted" href="{% if post %}{% url 'posts:detail' post.pk %}{% else %}{% url 'posts:list' %}{% endif %}">{% trans "Cancel" %}</a>
+</form>
+{% endblock %}

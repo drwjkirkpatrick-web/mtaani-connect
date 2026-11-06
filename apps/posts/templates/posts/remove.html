@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Remove post" %} — Mtaani{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>{% trans "Remove this post?" %}</h1>
+  {# NOTE: soft remove — the content becomes REMOVED and disappears from all
+     public surfaces; rows survive for moderation evidence (hard rule). #}
+  <p class="muted">{% trans "It disappears from public views. The record stays for trust and dispute evidence." %}</p>
+  <p>{{ post.text|truncatechars:200 }}</p>
+  <form method="post" action="{% url 'posts:delete' post.pk %}">
+    {% csrf_token %}
+    <button type="submit">{% trans "Yes, remove it" %}</button>
+    <a href="{% url 'posts:detail' post.pk %}">{% trans "Cancel" %}</a>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{# Reference preview card — server-rendered from TYPED refs only (Prompt 10).
+   Three honest states (PROMPTS.md no-fabrication rule):
+     guide/OK          → title from the guides app's public functions
+     guide/UNAVAILABLE → say it plainly, link nothing
+     listing/NO_DATA   → Prompt 17 does not exist yet: "coming soon", no fake
+                         data, no dead link.
+   No |safe ever — titles are escaped by the template engine automatically. #}
+{% load i18n %}
+{% if preview %}
+  {% if preview.kind == 'listing' %}
+  <div class="card linkcard">
+    <span class="muted">{% trans "Listing preview coming soon" %}</span>
+  </div>
+  {% elif not preview.url %}
+  <div class="card linkcard">
+    <span class="muted">{% trans "Guide no longer available" %}</span>
+  </div>
+  {% else %}
+  <a class="card linkcard" href="{{ preview.url }}">
+    <span class="badge">{% trans "Guide" %}</span>
+    {{ preview.title }}
+  </a>
+  {% endif %}
+{% endif %}

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "apps.media",
     "apps.profiles",
     "apps.guides",
+    "apps.posts",
 ]
 
 MIDDLEWARE = [
