@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ thread.title }} — {% trans "Chats" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{{ thread.title }}</h1>
+{# ORIGIN CONTRACT: always the honest 'Listing #<pk>' for listing threads until the parent consolidation FKs the reference (never guessed listing metadata). #}
+<p class="muted" data-origin="{{ thread.origin_kind }}">
+  {% if origin_reference %}{% trans "Listing" %} #{{ origin_reference }}{% else %}{% trans "Direct conversation" %}{% endif %}
+  · {% if other %}{{ other.username }}{% else %}{% trans "(waiting for the other member)" %}{% endif %}
+  · <a href="{% url 'messaging:privacy' %}">{% trans "Privacy note" %}</a>
+</p>
+{% if me.muted %}
+<section class="card muted-note" data-muted="true">
+  <p>{% trans "You muted this conversation — it's hidden from your chats list. Your history stays right here." %}</p>
+  <form method="post" action="{% url 'messaging:unmute' thread.pk %}">
+    {% csrf_token %}
+    <button type="submit">{% trans "Unmute" %}</button>
+  </form>
+</section>
+{% endif %}
+<ul class="message-list">
+  {% for message in message_list %}
+  <li class="message{% if message.sender_id == me.user_id %} mine{% endif %}" data-message="{{ message.pk }}">
+    <span class="sender muted">{% if message.sender_id == me.user_id %}{% trans "You" %}{% else %}{{ other.username }}{% endif %}</span>
+    {# WHY linebreaksbr, never |safe: bodies are PLAIN TEXT — user HTML must never render. #}
+    <p>{{ message.body|linebreaksbr }}</p>
+    {% for slot in message.image_refs.all %}
+    <img src="/media/{{ slot.image.thumb_path }}" alt="{% trans 'Photo' %}" width="{{ slot.image.thumb_w }}" height="{{ slot.image.thumb_h }}" loading="lazy">
+    {% endfor %}
+    {% if message.sender_id == me.user_id %}
+      {# HONEST RECEIPTS: 'Seen' only when BOTH members show receipts, and
+         only for your own sends (see services.seen_flags). #}
+      {% if message.pk in seen_ids %}<span class="receipt" data-receipt="seen">{% trans "Seen" %}</span>{% endif %}
+    {% endif %}
+  </li>
+  {% empty %}
+  <li class="card"><p class="muted">{% trans "No messages yet — say hello." %}</p></li>
+  {% endfor %}
+</ul>
+<section class="card" id="send">
+  {# SPAM/REPORT CONTROL: one compact report form (prompt 15 queue) for the
+     messages on this page; a successful report auto-mutes the thread for the
+     reporter. Rate-limited reports answer with a notice, never a crash. #}
+  <details>
+    <summary>{% trans "Report a message" %}</summary>
+    <form method="post" action="{% url 'messaging:report_message' thread.pk %}">
+      {% csrf_token %}
+      {% if report_form.non_field_errors %}<p class="msg error">{{ report_form.non_field_errors }}</p>{% endif %}
+      <p>
+        <label for="{{ report_form.message_pk.id_for_label }}">{{ report_form.message_pk.label }}</label>
+        {{ report_form.message_pk }}
+      </p>
+      <p>
+        <label for="{{ report_form.reason.id_for_label }}">{{ report_form.reason.label }}</label>
+        {{ report_form.reason }}
+      </p>
+      <p>{{ report_form.note }}</p>
+      <button type="submit">{% trans "Send report" %}</button>
+    </form>
+  </details>
+  <dl class="controls">
+    <dt>{% trans "Read receipts" %}</dt>
+    <dd>
+      {# opt-out per user per thread; default ON. #}
+      <form method="post" action="{% url 'messaging:receipts' thread.pk %}">
+        {% csrf_token %}
+        <input type="hidden" name="opt_in" value="{% if me.show_receipts %}false{% else %}true{% endif %}">
+        <button type="submit">{% if me.show_receipts %}{% trans "Hide my read receipts" %}{% else %}{% trans "Show my read receipts" %}{% endif %}</button>
+      </form>
+    </dd>
+  </dl>
+  <form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.body.errors }}
+    <p>
+      <label for="id_body">{% trans "Message" %}</label>
+      {{ form.body }}
+    </p>
+    <p>
+      <label for="id_images">{% trans "Photos" %} (≤ {{ max_images }})</label>
+      <input type="file" id="id_images" name="images" accept="image/*" multiple>
+    </p>
+    <button type="submit">{% trans "Send" %}</button>
+  </form>
+</section>
+{% endblock %}

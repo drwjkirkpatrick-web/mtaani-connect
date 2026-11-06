@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Listing not available" %} — Mtaani{% endblock %}
+{% block content %}
+<section class="card" data-listing-status="unavailable">
+  <h1>{% trans "This listing isn't available for messages yet" %}</h1>
+  <p>{{ notice }}</p>
+  {# WHY nothing else on this page: the PROMPTS.md no-fabrication rule — when
+     the listing can't be verified (marketplace syncing or removed), the app
+     must not invent a seller, a chat or any listing data. Nothing sent, no
+     thread created. #}
+  <p class="muted">{% trans "It may have been removed, or the marketplace is still syncing. Nothing was sent and no conversation was created — try again from the listing." %}</p>
+  <a class="btn" href="{% url 'messaging:list' %}">{% trans "Back to chats" %}</a>
+</section>
+{% endblock %}

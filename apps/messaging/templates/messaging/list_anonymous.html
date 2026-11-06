@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Chats" %} — Mtaani{% endblock %}
+{% block content %}
+{# WHY a rendered page (not a redirect): the shell test / base.html tab
+   contract renders every tab route for an anonymous visitor — like /guides/.
+   NO chat data, NO thread titles leak here: it is only a sign-in prompt. #}
+<section class="card" data-auth="required">
+  <h1>{% trans "Chats" %}</h1>
+  <p>{% trans "Coming soon" %} — {% trans "your conversations, signed in." %}</p>
+  <p>{% trans "Sign in to see your conversations and to answer listing enquiries." %}</p>
+  <a class="btn" href="{{ login_url }}?next=/chats/">{% trans "Sign in" %}</a>
+  <p class="muted"><a href="{% url 'messaging:privacy' %}">{% trans "Privacy note" %}</a></p>
+</section>
+{% endblock %}

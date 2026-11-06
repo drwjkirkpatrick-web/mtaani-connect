@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Chat privacy note" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Chat privacy note" %}</h1>
+<p>{% blocktrans %}Chats on Mtaani Connect are private between the two members in the conversation. This page states plainly what V1 protects — and what it does not.{% endblocktrans %}</p>
+<p>{% blocktrans %}Messages travel over TLS and are stored on our servers. There is NO end-to-end encryption in this version; it is being evaluated for a later release. We say that openly instead of implying more protection than there is.{% endblocktrans %}</p>
+<p>{% blocktrans %}The system never shows or posts your phone number. A phone number reaches a chat only when a member types it in themselves — that is an explicit choice, made per message.{% endblocktrans %}</p>
+<p>{% blocktrans %}When a message looks like it carries a phone number, moderation gets a flag for scam-pattern review (phone-number scams are the top marketplace risk). A flag never blocks your message by itself.{% endblocktrans %}</p>
+<p>{% blocktrans %}A reported message goes to human review in the moderation queue.{% endblocktrans %}</p>
+<p><a class="btn" href="{% url 'messaging:list' %}">{% trans "Back to chats" %}</a></p>
+{% endblock %}

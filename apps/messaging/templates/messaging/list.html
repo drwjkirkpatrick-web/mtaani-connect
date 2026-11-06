@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Chats" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Chats" %}</h1>
+{% if enquiry %}
+<section class="card" data-enquiry="{{ enquiry.id }}">
+  <h2>{% trans "Start a buying enquiry" %}</h2>
+  {# ORIGIN CONTRACT: the honest 'Listing #<pk>' label until the parent's consolidation step links threads to the listings table — never guessed listing data. #}
+  <p><strong>{{ enquiry.title }}</strong></p>
+  <p class="muted">{% trans "Buying happens in this chat — the system never shows or posts contact details. A member sharing their phone number is choosing to type it themselves; such messages are flagged for moderation's scam-pattern review." %}</p>
+  <form method="post" action="{% url 'messaging:start_for_listing' %}">
+    {% csrf_token %}
+    <input type="hidden" name="listing" value="{{ enquiry.id }}">
+    <button type="submit">{% trans "Message the seller" %}</button>
+  </form>
+</section>
+{% endif %}
+<p class="muted chat-views">
+  {% if muted_only %}
+    {% trans "Showing conversations you muted (the report flow mutes a thread for you)." %}
+    <a href="{% url 'messaging:list' %}">{% trans "Back to all chats" %}</a>
+  {% else %}
+    <a href="?show=muted">{% trans "Show muted chats" %}</a>
+    {% if enquiry %}<a href="{% url 'messaging:privacy' %}">{% trans "Privacy note" %}</a>{% endif %}
+  {% endif %}
+</p>
+<ul class="guide-list thread-list">
+  {% for thread in threads %}
+  <li class="card thread" data-thread="{{ thread.pk }}">
+    <a href="{% url 'messaging:detail' thread.pk %}"><strong>{{ thread.title }}</strong></a>
+    <p class="muted">
+      {% if thread.origin_kind == 'listing' %}
+        {% trans "Listing" %} #{{ thread.origin_listing_id }}
+      {% else %}
+        {% trans "Direct chat" %}
+      {% endif %}
+      {% if thread.unread_n %}
+        <span class="badge unread" data-unread="{{ thread.unread_n }}">{{ thread.unread_n }}</span>
+      {% endif %}
+    </p>
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "Coming soon" %} — {% trans "community messaging for Kenya." %}</p>
+    <p class="muted">{% trans "Ask about something in the market and the chat starts here." %}</p></li>
+  {% endfor %}
+</ul>
+{% if page_obj and page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}{% if muted_only %}&amp;show=muted{% endif %}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}{% if muted_only %}&amp;show=muted{% endif %}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{% endblock %}

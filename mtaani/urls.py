@@ -22,8 +22,10 @@ urlpatterns = [
     path("feed/", include("apps.feed.urls")),
     path("search/", include("apps.search.urls")),
     path("trust/", include("apps.trust.urls")),
-    # Prompt 17 takes over /market/ (stub retired); chats (20) next.
+    # Prompt 17/20 take over the market + chats stubs.
     path("market/", include("apps.listings.urls")),
-    path("chats/", TemplateView.as_view(template_name="stub.html"), name="chats_stub"),
+    path("chats/", include("apps.messaging.urls")),
+    # NOTE: stub route is a placeholder until its app takes over with include():
+    # Transport (25).
     path("transport/", TemplateView.as_view(template_name="stub.html"), name="transport_stub"),
 ]

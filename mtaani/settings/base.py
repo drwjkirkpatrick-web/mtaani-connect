@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "apps.search",
     "apps.trust",
     "apps.listings",
+    "apps.messaging",
 ]
 
 MIDDLEWARE = [
