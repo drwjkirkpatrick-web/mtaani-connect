@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Moderation queue" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Moderation queue" %}</h1>
+{# NOTE: role gate is enforced by the view (require_moderator -> 403); this page is a tool, not a public surface. #}
+<h2>{% trans "Open reports" %} ({{ page_obj.paginator.count }})</h2>
+<ul class="report-list">
+  {% for report in reports %}
+  <li class="card">
+    <p><strong>{{ report.get_reason_display }}</strong> · <span class="muted">{{ report.status }}</span></p>
+    <p class="muted">{% trans "Reported by" %} {{ report.reporter.username }}
+      · {{ report.created_at|date:"Y-m-d H:i" }}
+      · {% trans "Target" %}: {{ report.target_summary }}
+      {% if not report.target %}({% trans "content deleted by its author" %}){% endif %}</p>
+    {% if report.note %}<p>{{ report.note }}</p>{% endif %}
+    <form method="post" action="{% url 'moderation:resolve' report.pk %}">
+      {% csrf_token %}
+      <input type="text" name="decision_note" placeholder="{% trans "Short decision note" %}" maxlength="200">
+      <button type="submit" name="decision" value="review">{% trans "Review" %}</button>
+      <button type="submit" name="decision" value="remove">{% trans "Remove content" %}</button>
+      <button type="submit" name="decision" value="restore">{% trans "Restore" %}</button>
+      <button type="submit" name="decision" value="dismiss">{% trans "Dismiss" %}</button>
+    </form>
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "No open reports." %}</p></li>
+  {% endfor %}
+</ul>
+
+<h2>{% trans "Suspension drafts" %}</h2>
+{# WHY two listed steps: draft (this form) and confirm (below) must be DIFFERENT moderators — the service refuses drafter==confirmer. #}
+<ul class="suspension-list">
+  {% for draft in drafts %}
+  <li class="card">
+    <p><strong>{{ draft.target.username }}</strong> — {{ draft.reason }}</p>
+    <p class="muted">{% trans "Drafted by" %} {{ draft.drafted_by.username }}</p>
+    {% if draft.drafted_by_id != user.id %}
+    <form method="post" action="{% url 'moderation:confirm' draft.pk %}">
+      {% csrf_token %}
+      <button type="submit">{% trans "Confirm suspension" %}</button>
+    </form>
+    {% else %}<p class="muted">{% trans "You drafted this — another moderator must confirm." %}</p>{% endif %}
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "No suspension drafts awaiting confirmation." %}</p></li>
+  {% endfor %}
+</ul>
+{% if page_obj and page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{% endblock %}

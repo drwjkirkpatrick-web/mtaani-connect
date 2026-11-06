@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Report content" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Report content" %}</h1>
+{# NOTE: this page is only a convenience shell; sibling templates usually POST straight to moderation:report_create with hidden fields. #}
+<form method="post" action="{% url 'moderation:report_create' %}">
+  {% csrf_token %}
+  {{ form.content_type.errors }}
+  {% if form.errors %}<p class="muted">{{ form.non_field_errors }}</p>{% endif %}
+  <p><label for="id_content_type">{{ form.content_type.label }}</label><br>{{ form.content_type }}</p>
+  <p><label for="id_object_id">{{ form.object_id.label }}</label><br>{{ form.object_id }}</p>
+  <p><label for="id_reason">{{ form.reason.label }}</label><br>{{ form.reason }}</p>
+  <p><label for="id_note">{{ form.note.label }}</label><br>{{ form.note }}</p>
+  {{ form.next }}
+  <button type="submit">{% trans "Send report" %}</button>
+</form>
+<p class="muted">{% trans "Reports are limited to 10 per hour; misuse of the report system is discouraged." %}</p>
+{% endblock %}
