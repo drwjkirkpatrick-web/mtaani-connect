@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "apps.groups",
     "apps.moderation",
     "apps.feed",
+    "apps.search",
 ]
 
 MIDDLEWARE = [

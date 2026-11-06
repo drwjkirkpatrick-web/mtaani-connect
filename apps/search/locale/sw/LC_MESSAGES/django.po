@@ -1,0 +1,45 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mtaani Connect (apps.search) 1.0\n"
+"Language: sw\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Search Mtaani Connect"
+msgstr "Tafuta Mtaani Connect"
+
+msgid "Search guides, posts, questions and people."
+msgstr "Tafuta miongozo, machapisho, maswali na watu."
+
+msgid "Type a few words and press Search."
+msgstr "Andika maneno machache kisha bonyeza Tafuta."
+
+msgid "%(count)s result"
+msgid_plural "%(count)s results"
+msgstr[0] "matokeo %(count)s"
+msgstr[1] "matokeo %(count)s"
+
+msgid "See all"
+msgstr "Tazama zote"
+
+msgid "No results for “%(q)s”."
+msgstr "Hakuna matokeo kwa “%(q)s”."
+
+msgid "Try different words or check your spelling."
+msgstr "Jaribu maneno mengine au angalia tahajia yako."
+
+msgid "Posts"
+msgstr "Machapisho"
+
+msgid "Questions"
+msgstr "Maswali"
+
+msgid "People"
+msgstr "Watu"
+
+# NOTE: "Guides", "Search", "Mtaani Connect" reuse the project-level
+# locale/sw catalog (LOCALE_PATHS take precedence); duplicate entries here
+# would be shadowed anyway, so they are intentionally absent.

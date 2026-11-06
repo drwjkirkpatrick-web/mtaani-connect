@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n %}
+{# Prompt 14 — cross-entity search results. WHY one flat page with grouped
+   sections, not separate pages per app: one box, one keystroke, grouped
+   answers. Each group header links to the entity app's OWN filtered list. #}
+
+{% block title %}{% translate "Search" %} · Mtaani Connect{% endblock %}
+
+{% block content %}
+<form class="search-form" action="{{ search_url }}" method="get">
+  <label class="search-label" for="search-q">{% translate "Search Mtaani Connect" %}</label>
+  <input id="search-q" type="search" name="q" value="{{ query }}" maxlength="100"
+         placeholder="{% translate 'Search guides, posts, questions and people.' %}">
+  <button type="submit" class="search-btn">{% translate "Search" %}</button>
+</form>
+
+{% if query %}
+  {% if groups %}
+    {% for group in groups %}
+    <section class="search-group">
+      <h2 class="search-group-title">
+        {{ group.label }}
+        <span class="search-count">{% blocktrans count count=group.count %}{{ count }} result{% plural %}{{ count }} results{% endblocktrans %}</span>
+        {% if group.link %}
+          <a class="search-see-all" href="{{ group.link }}">{% translate "See all" %} →</a>
+        {% endif %}
+      </h2>
+      <ul class="search-results">
+        {% for item in group.items %}
+        <li class="search-item">
+          <a href="{{ item.url }}">{{ item.title }}</a>
+          {% if item.meta %}<span class="search-meta">{{ item.meta }}</span>{% endif %}
+          {% if item.snippet %}<span class="search-snippet">{{ item.snippet }}</span>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endfor %}
+  {% else %}
+    {# Empty state — bilingual copy is test-contract surface (Prompt 14). #}
+    <p class="search-empty">{% blocktrans with q=query %}No results for “{{ q }}”.{% endblocktrans %}</p>
+    <p class="search-empty-hint">{% translate "Try different words or check your spelling." %}</p>
+  {% endif %}
+{% else %}
+  <p class="search-empty">{% translate "Search guides, posts, questions and people." %}</p>
+  <p class="search-empty-hint">{% translate "Type a few words and press Search." %}</p>
+{% endif %}
+{% endblock %}
