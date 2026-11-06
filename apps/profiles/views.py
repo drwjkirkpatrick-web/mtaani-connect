@@ -20,10 +20,16 @@ def profile_view(request, username):
     data = public_data(profile, viewer_is_member=request.user.is_authenticated)
     # Prompt 16 parent wiring: earned trust badges (public service only).
     from apps.trust.services import helpfulness_badges
+    # Prompt 22 parent wiring: reputation rollup (deal reviews + trust).
+    from apps.reviews.services import reputation_for
     return render(
         request,
         "profiles/profile.html",
-        {"p": data, "trust_badges": helpfulness_badges(user)},
+        {
+            "p": data,
+            "trust_badges": helpfulness_badges(user),
+            "reputation": reputation_for(user),
+        },
     )
 
 

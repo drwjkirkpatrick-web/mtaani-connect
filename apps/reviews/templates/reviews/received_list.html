@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Reviews of you" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Reviews of you" %}</h1>
+
+{# The acceptance: reputation feeds profile display — this page shows the #}
+{# same partial a profile includes, from the same services dict.          #}
+{% include "reviews/_reputation.html" %}
+
+{% if entries %}
+<ul class="reviews-list">
+  {% for entry in entries %}
+  <li class="card review">
+    <p class="stars" aria-label="{{ entry.review.stars }}/5">
+      {% for flag in entry.stars_row %}{% if flag %}★{% else %}☆{% endif %}{% endfor %}
+    </p>
+    <p class="muted">
+      {% blocktranslate with deal=entry.deal_label trimmed %}Deal: {{ deal }}{% endblocktranslate %}
+    </p>
+    {% if entry.review.text %}<p>{{ entry.review.text|linebreaks }}</p>{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="muted">{% trans "No published reviews yet — reviews appear here only once the counterpart has submitted too, or after 14 days." %}</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Reviews you left" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Reviews you left" %}</h1>
+{% if entries %}
+<ul class="reviews-list">
+  {% for entry in entries %}
+  <li class="card review my-review">
+    <p class="stars" aria-label="{{ entry.review.stars }}/5">
+      {% for flag in entry.stars_row %}{% if flag %}★{% else %}☆{% endif %}{% endfor %}
+    </p>
+    <span class="badge">{% if entry.review.status == 'DRAFT' %}{% trans "Held — publishes with the counterpart's review, or after 14 days" %}{% else %}{% trans "Published" %}{% endif %}</span>
+    <p class="muted">
+      {% blocktranslate with deal=entry.deal_label trimmed %}Deal: {{ deal }}{% endblocktranslate %}
+    </p>
+    {% if entry.review.text %}<p>{{ entry.review.text|linebreaks }}</p>{% endif %}
+    {# NOTE: no edit/remove here by contract — reviews are immutable once #}
+    {# left; the sweep is their only state change.                       #}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="muted">{% trans "You have not left any reviews yet — after a deal, leave one from the deal you completed." %}</p>
+{% endif %}
+{% endblock %}

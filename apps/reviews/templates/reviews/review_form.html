@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Leave a review" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Leave a review" %}</h1>
+{# WHY the explanation lives on the page: the hold rule (publish when both #}
+{# sides submit, else after 14 days) is the non-retaliation promise — say  #}
+{# it before submission, not as a surprise afterwards.                    #}
+<p class="muted">{% trans "Your review is held until the counterpart submits theirs — then both publish together. If they never do, it publishes 14 days after you write it. Nobody can read your rating early." %}</p>
+
+{% if deal_title %}<p class="muted">{% blocktranslate with deal=deal_title trimmed %}Reviewing the counterpart of: {{ deal }}{% endblocktranslate %}</p>{% endif %}
+
+<form method="post" action="{% url 'reviews:leave' %}">
+  {% csrf_token %}
+  {{ form.non_field_errors.as_ul }}
+  {{ form.deal_app.as_p }}
+  {{ form.deal_id.as_p }}
+  {{ form.stars.as_p }}
+  {{ form.text.as_p }}
+  {{ form.dispute_note.as_p }}
+  <button type="submit">{% trans "Submit review" %}</button>
+</form>
+{% endblock %}

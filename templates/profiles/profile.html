@@ -8,6 +8,9 @@
   {% if p.is_verified_seller %}<p class="badge">✓ verified seller</p>{% endif %}
   {# Prompt 16: earned help badges — provenance, admin-tunable thresholds. #}
   {% include "trust/_badges.html" %}
+  {# Prompt 22: deal-review + trust reputation rollup — symmetric, no
+     retaliation window; feeds the profile display per the acceptance. #}
+  {% include "reviews/_reputation.html" %}
   {% if p.location %}<p>{{ p.location }}</p>{% endif %}
   {% if p.bio %}<p>{{ p.bio }}</p>{% endif %}
   {% if p.skills %}<p><strong>{% trans "Skills" context "profile" %}:</strong> {{ p.skills|join:", " }}</p>{% endif %}

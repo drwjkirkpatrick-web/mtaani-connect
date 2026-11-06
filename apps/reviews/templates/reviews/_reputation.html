@@ -1,0 +1,23 @@
+{# Reputation partial (Prompt 22). Profiles/other pages include it with:  #}
+{#   {% include "reviews/_reputation.html" %}                              #}
+{# after building reputation = services.reputation_for(user) in the view. #}
+{# WHY a display dict, not a model row: consumers never touch review      #}
+{# internals — the shape (score, star_flags, counts) IS the contract, and #}
+{# every string is gettexted server-side. Never render user HTML here:    #}
+{# text fields must arrive escaped ({{ }}), the row shows stars only.     #}
+{% load i18n %}
+<div class="card reputation-panel">
+  <p class="stars reputation-stars" aria-label="{% trans "Reputation" %} {% if reputation.stars_filled %}{{ reputation.stars_filled }}/5{% else %}{% trans "no reviews yet" %}{% endif %}">
+    {% for flag in reputation.star_flags %}{% if flag %}★{% else %}☆{% endif %}{% endfor %}
+  </p>
+  <p>
+    <strong>{{ reputation.score }}</strong> / {{ reputation.scale }}
+    <span class="muted">
+      {% blocktranslate with n=reputation.deal_reviews.lifetime count=reputation.deal_reviews.last90 trimmed %}
+        from {{ n }} deal reviews ({{ count }} in the last 90 days)
+      {% endblocktranslate %}
+      {% if reputation.trust.score_zero_to_one %}· {% blocktranslate with s=reputation.trust.score_zero_to_one trimmed %}trust usefulness {{ s }}{% endblocktranslate %}{% endif %}
+    </span>
+  </p>
+  <p class="muted small">{{ reputation.formula }}</p>
+</div>
