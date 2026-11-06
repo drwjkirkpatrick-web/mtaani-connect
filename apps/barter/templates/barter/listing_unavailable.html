@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Offer" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Offer unavailable" %}</h1>
+<section class="card" data-unavailable="listing">
+  {% if own_listing %}
+  <p>{% trans "That is your own listing — offers start from someone else's listing, or from a direct negotiation by username." %}</p>
+  {% else %}
+  <p>{{ reason|default:_("That listing isn't available for offers.") }}</p>
+  {% endif %}
+  <p class="muted">{% trans "You can still start a direct trade by username." %}</p>
+  <a href="{% url 'barter:new' %}">{% trans "Compose an offer" %}</a>
+</section>
+{% endblock %}

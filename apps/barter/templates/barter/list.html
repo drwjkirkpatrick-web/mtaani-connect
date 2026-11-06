@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Barter" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Barter & cash-plus" %}</h1>
+<p class="muted">
+  {% trans "Trade goods, skills and time — with or without a stated cash part. Two members settle any cash between themselves (M-Pesa); this app never holds money or items." %}
+</p>
+
+<section data-inbox="waiting-for-me">
+  <h2>{% trans "Waiting on you" %}</h2>
+  <ul class="guide-list">
+    {% for card in incoming %}
+    <li class="card" data-offer="{{ card.row.pk }}" data-status="{{ card.status }}">
+      <a href="{% url 'barter:detail' card.row.pk %}"><strong>{{ card.row.initiator.username }}</strong>
+        <span class="badge state">{{ card.status }}</span></a>
+      <p class="muted">
+        {% trans "They give" %}: {% for i in card.give %}{{ i }}; {% endfor %} — 
+        {% trans "they want" %}: {% for i in card.want %}{{ i }}; {% endfor %}
+        {% if card.row.cash_amount %} {% trans "plus KES" %} {{ card.row.cash_amount }}{% endif %}
+      </p>
+    </li>
+    {% empty %}
+    <li><p class="muted">{% trans "Nothing waiting on you." %}</p></li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section data-inbox="on-the-table">
+  <h2>{% trans "You offered" %}</h2>
+  <ul class="guide-list">
+    {% for card in outgoing %}
+    <li class="card" data-offer="{{ card.row.pk }}" data-status="{{ card.status }}">
+      <a href="{% url 'barter:detail' card.row.pk %}"><strong>{{ card.row.counterpart.username }}</strong>
+        <span class="badge state">{{ card.status }}</span></a>
+      <p class="muted">
+        {% trans "You give" %}: {% for i in card.give %}{{ i }}; {% endfor %} — 
+        {% trans "you want" %}: {% for i in card.want %}{{ i }}; {% endfor %}
+        {% if card.row.cash_amount %} {% trans "plus KES" %} {{ card.row.cash_amount }}{% endif %}
+      </p>
+    </li>
+    {% empty %}
+    <li><p class="muted">{% trans "No open offers of your own." %} <a href="{% url 'barter:new' %}">{% trans "Offer a trade" %}</a></p></li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section data-inbox="drafts">
+  <h2>{% trans "Your drafts" %}</h2>
+  <ul class="guide-list">
+    {% for card in drafts %}
+    <li class="card" data-offer="{{ card.row.pk }}" data-status="{{ card.status }}">
+      <a href="{% url 'barter:detail' card.row.pk %}"><span class="badge state">{{ card.status }}</span>
+        {% trans "for" %} {{ card.row.counterpart.username }}</a>
+      <p class="muted">{% for i in card.give %}{{ i }}; {% endfor %}{% if card.row.cash_amount %} {% trans "+ KES" %} {{ card.row.cash_amount }}{% endif %}</p>
+    </li>
+    {% empty %}
+    <li><p class="muted">{% trans "No drafts." %} <a href="{% url 'barter:new' %}">{% trans "Offer a trade" %}</a></p></li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section data-inbox="settled">
+  <h2>{% trans "Recently settled" %}</h2>
+  <ul class="guide-list">
+    {% for card in settled %}
+    <li class="card" data-offer="{{ card.row.pk }}" data-status="{{ card.status }}">
+      <a href="{% url 'barter:detail' card.row.pk %}"><span class="badge state">{{ card.status }}</span>
+        {% if card.row.initiator_id == user.pk %}{{ card.row.counterpart.username }}{% else %}{{ card.row.initiator.username }}{% endif %}</a>
+    </li>
+    {% empty %}
+    <li><p class="muted">{% trans "No completed exchanges yet." %}</p></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

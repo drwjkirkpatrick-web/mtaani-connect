@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "apps.listings",
     "apps.messaging",
     "apps.services",
+    "apps.barter",
 ]
 
 MIDDLEWARE = [

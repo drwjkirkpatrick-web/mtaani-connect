@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ heading }} — {% trans "Barter" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{{ heading }}</h1>
+
+{% if listing_title %}
+<section class="card" data-origin="listing">
+  <h2>{% trans "From the market" %}</h2>
+  <p><strong>{{ listing_title }}</strong></p>
+</section>
+{% elif origin_id %}
+<section class="card" data-origin="listing">
+  {# ORIGIN CONTRACT: the honest 'Listing #<pk>' label until a resolution lands here — no guessed listing data, ever. #}
+  <p>{% trans "Listing" %} #{{ origin_id }}</p>
+</section>
+{% endif %}
+
+{% if counter_against %}
+<section class="card" data-counter-of="{{ counter_against.pk }}">
+  <h2>{% trans "You are answering these terms" %}</h2>
+  <table>
+    <tr><th>{% trans "They give" %}</th><td>{% for item in counter_against.give %}{{ item.item }}{% if item.qty %} ({{ item.qty }}){% endif %}; {% endfor %}</td></tr>
+    <tr><th>{% trans "They want" %}</th><td>{% for item in counter_against.want %}{{ item.item }}{% if item.qty %} ({{ item.qty }}){% endif %}; {% endfor %}{% if counter_against.cash_amount %} {% trans "plus KES" %} {{ counter_against.cash_amount }}{% endif %}</td></tr>
+  </table>
+</section>
+{% endif %}
+
+{% if form.non_field_errors %}
+<p class="error" data-errors="form">{% for err in form.non_field_errors %}{{ err }}{% endfor %}</p>
+{% endif %}
+
+<form method="post" action="{{ post_to }}" data-barter-compose>
+  {% csrf_token %}
+  <fieldset>
+    <legend>{% trans "Deal type" %}</legend>
+    {{ form.mode }}
+    {{ form.mode.errors }}
+  </fieldset>
+  <fieldset class="cash-panel" data-cash="stated-only">
+    <legend>{% trans "Cash part (if any)" %}</legend>
+    {{ form.cash_amount }}
+    {{ form.cash_amount.errors }}
+    <p class="muted" data-honesty="no-custody">{{ form.cash_amount.help_text }}</p>
+  </fieldset>
+  {% if form.counterpart_username %}{# only the ROOT offer picks a counterpart #}
+  <fieldset>
+    <legend>{% trans "For whom" %}</legend>
+    {{ form.counterpart_username }}
+    {{ form.counterpart_username.errors }}
+  </fieldset>
+  {% endif %}
+  {% if form.origin_listing %}{{ form.origin_listing }}{% endif %}
+
+  <fieldset data-side="GIVE">
+    <legend>{% trans "I give" %}</legend>
+    <p class="muted">{% trans "One item per row — quantity is free text ('2 kg', 'sewing hour')." %}</p>
+    {{ give_set.non_form_errors }}
+    {% for row in give_set %}
+      {% if row.errors %}<p class="error" data-errors="give-row">{{ row.errors }}</p>{% endif %}
+      <div data-item-row="{{ forloop.counter }}">
+        {{ row.item }} {{ row.qty }}
+      </div>
+    {% endfor %}
+  </fieldset>
+  <fieldset data-side="WANT">
+    <legend>{% trans "I want" %}</legend>
+    {{ want_set.non_form_errors }}
+    {% for row in want_set %}
+      {% if row.errors %}<p class="error" data-errors="want-row">{{ row.errors }}</p>{% endif %}
+      <div data-item-row="{{ forloop.counter }}">
+        {{ row.item }} {{ row.qty }}
+      </div>
+    {% endfor %}
+  </fieldset>
+  <button type="submit">{% if edit_draft %}{% trans "Save draft" %}{% elif counter_mode %}{% trans "Save counter draft" %}{% else %}{% trans "Save draft" %}{% endif %}</button>
+</form>
+<p class="muted">
+  {% trans "A draft is yours alone — nothing moves until you send it, and after it is on the table the terms are locked." %}
+</p>
+{% endblock %}

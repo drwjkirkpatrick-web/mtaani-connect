@@ -26,6 +26,7 @@ urlpatterns = [
     path("market/", include("apps.listings.urls")),
     path("chats/", include("apps.messaging.urls")),
     path("services/", include("apps.services.urls")),
+    path("barter/", include("apps.barter.urls")),
     # NOTE: stub route is a placeholder until its app takes over with include():
     # Transport (25).
     path("transport/", TemplateView.as_view(template_name="stub.html"), name="transport_stub"),

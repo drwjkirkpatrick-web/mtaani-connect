@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+  {% if tip %}{{ tip.pk }}{% elif row %}{{ row.pk }}{% endif %} — {% trans "Barter" %} — Mtaani
+{% endblock %}
+{% block content %}
+<h1>{% trans "Barter negotiation" %}</h1>
+
+{% if tip %}
+<section class="card state-panel" data-state="{{ tip.status }}" data-tip="{{ tip.pk }}">
+  <p><span class="badge state">{{ tip.status }}</span></p>
+  {% if tip.origin_listing_id %}<p class="muted">{% trans "From listing" %} #{{ tip.origin_listing_id }}</p>{% endif %}
+  <p><strong>{% trans "Deal type" %}:</strong> {{ tip.mode }}</p>
+  {% if tip.mode == 'CASH_PLUS' or tip.mode == 'CASH' %}
+  <div class="cash-panel" data-cash="{{ tip.cash_amount }}">
+    <p><strong>{% trans "Stated cash" %}:</strong> KES {{ tip.cash_amount }}</p>
+    {# NO-CUSTODY HONESTY (spec verbatim): the app never holds money or items — say it plainly wherever cash shows. #}
+    <p class="muted" data-honesty="no-custody">{{ cash_note }}</p>
+  </div>
+  {% else %}
+  <p class="muted">{% trans "Barter only — no money changes hands through this app." %}</p>
+  {% endif %}
+</section>
+{% else %}
+<section class="card state-panel"><p><span class="badge state">{{ row.status }}</span></p></section>
+{% endif %}
+
+<div class="moves" data-tip="{% if tip %}{{ tip.pk }}{% endif %}">
+  {% if actions.can_send %}
+  <form method="post" action="{% url 'barter:send' row.pk %}">{% csrf_token %}<button type="submit" data-move="send">{% trans "Send this offer" %}</button></form>
+  {% endif %}
+  {% if actions.can_accept %}
+  <form method="post" action="{% url 'barter:accept' tip.pk %}">{% csrf_token %}<button type="submit" data-move="accept">{% trans "Accept these terms" %}</button></form>
+  {% endif %}
+  {% if actions.can_counter %}
+  <a data-move="counter" href="{% url 'barter:counter' tip.pk %}">{% trans "Counter with new terms" %}</a>
+  {% endif %}
+  {% if actions.can_edit %}
+  <a data-move="edit" href="{% url 'barter:edit' row.pk %}">{% trans "Edit draft" %}</a>
+  {% endif %}
+  {% if actions.can_complete %}
+  <form method="post" action="{% url 'barter:complete' tip.pk %}">{% csrf_token %}<button type="submit" data-move="complete">{% trans "Mark the exchange done" %}</button></form>
+  {% endif %}
+  {% if actions.can_cancel %}
+  <form method="post" action="{% url 'barter:cancel' tip.pk %}">{% csrf_token %}<button type="submit" data-move="cancel">{% trans "Cancel this negotiation" %}</button></form>
+  {% endif %}
+</div>
+
+<section class="trail" data-lineage="root-to-now">
+  <h2>{% trans "The negotiation so far" %}</h2>
+  {% for v in trail %}
+  <article class="card version" data-version="{{ forloop.counter }}" data-status="{{ v.row.status }}">
+    <h3>
+      {% if forloop.first %}{% trans "Original offer" %}
+      {% elif v.row == tip %}{% trans "Current terms" %}
+      {% else %}{% trans "Version" %} {{ forloop.counter }}
+      {% endif %}
+      — <span class="badge state">{{ v.row.status }}</span>
+      {% if v.row == row %}<span class="muted">{% trans "(this page)" %}</span>{% endif %}
+    </h3>
+    {% if v.row.initiator_id == request.user.pk %}<p class="muted">{% trans "You made this offer" %}</p>
+    {% else %}<p class="muted">{% trans "Offered to you by" %} {{ v.row.initiator.username }}</p>{% endif %}
+    <table>
+      <tr><th>{% trans "I give" %}</th><td>{% for item in v.give %}{{ item.item }}{% if item.qty %} ({{ item.qty }}){% endif %}{% if not forloop.last %}; {% endif %}{% endfor %}</td></tr>
+      <tr><th>{% trans "I want" %}</th><td>{% for item in v.want %}{{ item.item }}{% if item.qty %} ({{ item.qty }}){% endif %}{% if not forloop.last %}; {% endif %}{% endfor %}</td></tr>
+    </table>
+    {% if v.row.cash_amount %}<p><strong>{% trans "Stated cash" %}:</strong> KES {{ v.row.cash_amount }}</p>{% endif %}
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}
