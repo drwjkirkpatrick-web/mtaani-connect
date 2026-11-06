@@ -21,6 +21,11 @@ detail page's lifecycle panel posts them; refusals flash plain reasons):
   renew         /market/<pk>/renew/   — EXPIRED → ACTIVE, fresh timestamp
   bump          /market/<pk>/bump/    — refresh position, 7-day cap
   recategorize  /market/<pk>/category/ — gated door → UNDER_REVIEW + flag
+
+Prompt 19 geo search (ADDITIVE — the list/detail flows never change):
+  search        /market/search/ — GET distance-ring form (area picked from
+                the WardPoint dropdown + 5/10/25 km; category, price band
+                and condition filters). Query code: apps/listings/search.py.
 """
 from django.urls import path
 
@@ -42,4 +47,8 @@ urlpatterns = [
     path("<int:pk>/renew/", views.listing_renew, name="renew"),
     path("<int:pk>/bump/", views.listing_bump, name="bump"),
     path("<int:pk>/category/", views.listing_recategorize, name="recategorize"),
+    # Prompt 19 (additive): GET ring search — see docstring above. Placed
+    # after the existing routes; ?search/ path is never shadowed by <int:pk>/,
+    # which only captures numeric segments.
+    path("search/", views.listing_search, name="search"),
 ]

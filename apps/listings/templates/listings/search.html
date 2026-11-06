@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load i18n %}
+{# Prompt 19 — distance-ring listing search. WHY a separate GET form page
+   (not merged into /market/): the list route keeps its exact behavior, and
+   this page owns the honest ward-level contract: the viewer PICKS an area
+   from the list of known approximate ward centres — their own position is
+   never asked for, read or stored (KDPA). Rings are 5/10/25 km only. #}
+
+{% block title %}{% translate "Find near a ward" %} — Mtaani{% endblock %}
+
+{% block content %}
+<h1>{% translate "Find listings near a ward" %}</h1>
+
+<form method="get" action="{{ search_url }}">
+  <p class="muted">{% translate "Pick a known ward centre — distance is measured ward-to-ward (approximate). Your own position is never used." %}</p>
+  <label for="geo-area">{% translate "Ward to measure from" %}</label>
+  <select id="geo-area" name="area">
+    <option value="">{% translate "Any ward" %}</option>
+    {% for area_name in areas %}
+    <option value="{{ area_name }}" {% if active.area == area_name %}selected{% endif %}>{{ area_name }}</option>
+    {% endfor %}
+  </select>
+  <label for="geo-km">{% translate "Within" %}</label>
+  <select id="geo-km" name="km">
+    <option value="">{% translate "Any distance" %}</option>
+    {% for km in ring_km %}
+    <option value="{{ km }}" {% if active.km == km|stringformat:"s" %}selected{% endif %}>{% blocktranslate with km=km %}{{ km }} km{% endblocktranslate %}</option>
+    {% endfor %}
+  </select>
+  <label for="geo-category">{% translate "Category" %}</label>
+  <select id="geo-category" name="category">
+    <option value="">{% translate "All categories" %}</option>
+    {% for value, label in categories %}
+    <option value="{{ value }}" {% if active.category == value %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <label for="geo-condition">{% translate "Condition" %}</label>
+  <select id="geo-condition" name="condition">
+    <option value="">{% translate "Any condition" %}</option>
+    {% for value, label in conditions %}
+    <option value="{{ value }}" {% if active.condition == value %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <label for="geo-min">{% translate "Price from (KSh)" %}</label>
+  <input id="geo-min" type="number" min="0" step="1" name="min_price" value="{{ active.min_price }}">
+  <label for="geo-max">{% translate "up to" %}</label>
+  <input id="geo-max" type="number" min="0" step="1" name="max_price" value="{{ active.max_price }}">
+  <button type="submit">{% translate "Search" %}</button>
+</form>
+
+{% if meta.notices %}
+<ul class="notices muted">
+  {# WHY a list: several filters can degrade at once; each name states a #}
+  {# plain reason, never a bare "error" (one rule with lifecycle flashes). #}
+  {% for notice in meta.notices %}<li>{{ notice }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+{% if meta.ring_applied %}
+<p class="muted">
+  {% blocktranslate with area=meta.area_name km=meta.km %}Ring: everything within {{ km }} km of {{ area }} — measured approximately from ward to ward, never address-level.{% endblocktranslate %}
+</p>
+{% endif %}
+
+<ul class="post-list">
+  {% for listing in results %}
+  <li class="card">
+    <p class="muted">{{ listing.seller.username }} · {{ listing.get_category_display }}</p>
+    <h2 class="listing-title"><a href="{% url 'listings:detail' listing.pk %}">{{ listing.title }}</a></h2>
+    <p>
+      {% if listing.price is not None %}{% blocktranslate with amount=listing.price %}KSh {{ amount }}{% endblocktranslate %}
+      {% elif listing.price_negotiable %}{% translate "Negotiable / Bei ya maongezi" %}
+      {% else %}<span class="muted">{% translate "No price set" %}</span>{% endif %}
+      · {{ listing.get_condition_display }}
+      · {% blocktranslate with ward=listing.ward %}Ward: {{ ward }}{% endblocktranslate %}
+      {% if listing.ring_distance_km %} · {% blocktranslate with km=listing.ring_distance_km area=meta.area_name %}≈ {{ km|floatformat:1 }} km from {{ area }} (ward-level){% endblocktranslate %}{% endif %}
+    </p>
+  </li>
+  {% empty %}
+  <li class="card">
+    {% if meta.ring_applied %}
+      {# THE honest empty state (spec): say what a ring can and cannot see. #}
+      <p>
+        {% blocktranslate with area=meta.area_name km=meta.km %}
+Nothing listed within {{ km }} km of {{ area }} right now.
+        {% endblocktranslate %}
+      </p>
+      {% if meta.available_areas %}
+      <p class="muted">
+        {% blocktranslate with areas=meta.available_areas|join:", " %}Rings measure from these approximate ward centres: {{ areas }}{% endblocktranslate %}
+      </p>
+      {% endif %}
+      <p class="muted">{% translate "Ward-level honesty: a listing in a ward we haven't mapped is left out of distance results instead of being guessed into them." %}</p>
+      <p><a href="{{ search_url }}">{% translate "Search everywhere instead" %}</a></p>
+    {% else %}
+      <p>{% translate "Coming soon" %} — {% translate "the market is filling in." %}</p>
+      <p>{% translate "Nothing matched those filters." %}</p>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+
+{% if page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {# WHY base_query: the pager carries the WHOLE current search state on #}
+  {# the URL — no JS, works on low-end phones (same rule as the market). #}
+  {% if page_obj.has_previous %}<a href="{{ search_url }}?{% if base_query %}{{ base_query }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">{% translate "Prev" %}</a>{% endif %}
+  {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}<a href="{{ search_url }}?{% if base_query %}{{ base_query }}&amp;{% endif %}page={{ page_obj.next_page_number }}">{% translate "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+
+<p class="muted">
+  <a href="{% url 'listings:list' %}">{% translate "Back to the market" %}</a>
+</p>
+{% endblock %}

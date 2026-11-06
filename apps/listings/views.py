@@ -19,8 +19,9 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_GET, require_POST
 
 from apps.core import images
 from apps.core.types import ContentStatus
@@ -28,7 +29,17 @@ from apps.media.services import save_upload
 
 from .forms import ListingForm
 from .lifecycle import EXPIRY_DAYS, LifecycleError
-from .models import LISTING_CATEGORIES, MAX_IMAGES, MSG_TOO_MANY_IMAGES, Listing
+from .models import (
+    LISTING_CATEGORIES,
+    MAX_IMAGES,
+    MSG_TOO_MANY_IMAGES,
+    Condition,
+    Listing,
+)
+# Prompt 19 (additive): the search QUERY code lives in search.py; this view
+# module only composes the GET form (and the import keeps app-level imports
+# wired through urls.py, which also registers the WardPoint model early).
+from .search import RING_KM, WardPoint, search_listings
 from .services import (
     _assert_seller,
     add_listing_image,
@@ -352,3 +363,60 @@ def listing_image_upload(request, pk: int):
         },
         status=201,
     )
+
+
+# ===========================================================================
+# Prompt 19 (ADDITIVE — every route/behavior above untouched): the
+# distance-ring search page. The QUERY itself lives in search.py (spec);
+# this small GET-only view composes the form, honest notices and pagination.
+# KDPA: the user PICKS an area — their own position is never requested,
+# read, or stored anywhere in this flow.
+
+@require_GET
+def listing_search(request):
+    "?area=&km=&category=&min_price=&max_price=&condition= — ring search."
+    results, meta = search_listings(
+        viewer=request.user if request.user.is_authenticated else None,
+        category=request.GET.get("category"),
+        condition=request.GET.get("condition"),
+        min_price=request.GET.get("min_price"),
+        max_price=request.GET.get("max_price"),
+        area=request.GET.get("area"),
+        km=request.GET.get("km"),
+    )
+    page_obj = Paginator(results, 10).get_page(request.GET.get("page"))
+    # WHY echo every echoed value back: the form re-renders WHAT the search
+    # state actually is (strays already resolved to honest notices upstream).
+    active = {
+        "area": meta["area_name"] or (request.GET.get("area") or "").strip(),
+        # WHY str(): the select's option values are template-rendered
+        # strings; a canonical int must echo as the same "5/10/25" shape.
+        "km": str(meta["km"]) if meta["km"] is not None
+        else (request.GET.get("km") or "").strip(),
+        "category": (request.GET.get("category") or "").strip(),
+        "condition": (request.GET.get("condition") or "").strip(),
+        "min_price": (request.GET.get("min_price") or "").strip(),
+        "max_price": (request.GET.get("max_price") or "").strip(),
+    }
+    # WHY pre-stringified page links: this view shares the list page's
+    # no-JS rule — the pager must carry the WHOLE current search state.
+    page_params = request.GET.copy()
+    page_params.pop("page", None)
+    base_query = page_params.urlencode()
+    return render(
+        request,
+        "listings/search.html",
+        {
+            "results": list(page_obj.object_list),
+            "page_obj": page_obj,
+            "meta": meta,
+            "areas": WardPoint.objects.order_by("name").values_list("name", flat=True),
+            "ring_km": RING_KM,
+            "categories": LISTING_CATEGORIES,
+            "conditions": Condition.choices,
+            "active": active,
+            "search_url": reverse("listings:search"),
+            "base_query": base_query,
+        },
+    )
+

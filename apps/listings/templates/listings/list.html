@@ -17,6 +17,22 @@
   <input type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search titles…' %}" aria-label="{% trans 'Search listing titles' %}">
   <button type="submit">{% trans "Search" %}</button>
 </form>
+{# Prompt 19 (ADDITIVE block — nothing above changes): a one-row GET form #}
+{# into the distance search. WHY a typed ward name (not a dropdown): the #}
+{# market list view's context stays byte-for-byte untouched (one agent per #}
+{# file); the search page owns the full dropdown over known ward centres. #}
+{# The viewer never shares a position — only a (public) area name + ring. #}
+<form method="get" action="{% url 'listings:search' %}">
+  <label for="geo-list-area">{% trans "Search near a ward" %}</label>
+  <input id="geo-list-area" type="search" name="area" placeholder="{% trans 'e.g. Kawangware' %}" aria-label="{% trans 'Ward to measure from' %}">
+  <select name="km" aria-label="{% trans 'Within' %}">
+    <option value="5">5 km</option>
+    <option value="10">10 km</option>
+    <option value="25">25 km</option>
+  </select>
+  <button type="submit">{% trans "Find" %}</button>
+</form>
+
 <ul class="post-list">
   {% for listing in listings %}
   <li class="card">
