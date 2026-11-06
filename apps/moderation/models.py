@@ -24,7 +24,8 @@ from apps.core.types import ReportReason, TimestampedModel
 # names posts, guides, Q&A, listings, profiles, messages — Phase 2 landed
 # listings (Prompt 17 auto-flag) and messaging (Prompt 20 report flow);
 # add further apps as they land (values are app_labels, no migration needed).
-ALLOWED_TARGET_APPS = ("posts", "guides", "qa", "profiles", "listings", "messaging")
+ALLOWED_TARGET_APPS = ("posts", "guides", "qa", "profiles", "listings", "messaging",
+                       "services")
 
 MAX_NOTE_CHARS = 500
 

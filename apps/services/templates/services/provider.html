@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ provider_profile.display_name }} — {% trans "Services" %} — Mtaani{% endblock %}
+{% block content %}
+<article class="card provider-page">
+  <header>
+    <h1>{{ provider_profile.display_name }}</h1>
+    {# Verified badge is a human-gated status (Prompt 07) — shown when set. #}
+    {% if provider_profile.is_verified_seller %}<span class="badge">{% trans "Verified seller" %}</span>{% endif %}
+    {# Location is ward-COARSE via profiles' ladder — never more precise. #}
+    {% if provider_profile.location %}<p class="muted">{% blocktranslate with area=provider_profile.location %}Area: {{ area }}{% endblocktranslate %}</p>{% endif %}
+  </header>
+
+  {% if provider_profile.bio %}<div class="post-body">{{ provider_profile.bio|linebreaks }}</div>{% endif %}
+  {% if provider_profile.skills %}<p class="muted">{% trans "Skills:" %} {{ provider_profile.skills }}</p>{% endif %}
+
+  {# PROMPT 18 ACCEPTANCE: this page is services ONLY. By construction
+     (apps/services views + this template) goods listings and market links
+     never render here — a provider's rates and portfolio read alone. #}
+  <ul class="post-list">
+    {% for item in items %}
+    {% with service=item.service rows=item.rows %}
+    <li class="card">
+      <h2 class="listing-title"><a href="{% url 'services:detail' service.pk %}">{{ service.title }}</a></h2>
+      <p>
+        {# WHY the pair logic: one of three shapes, never number+negotiable. #}
+        {% if service.rate_amount is not None %}{% blocktranslate with amount=service.rate_amount %}KSh {{ amount }}{% endblocktranslate %}
+        {% if service.rate_type == 'HOURLY' %}{% trans "/ hour" %}{% endif %}
+        {% else %}<strong>{% trans "Negotiable / Bei ya maongezi" %}</strong>{% endif %}
+        · {{ service.get_category_display }}
+      </p>
+      {% if rows %}
+      <ul class="post-thumbs">
+        {# Provider profile shows the PORTFOLIO, not just one thumb — that
+           is the point (Prompt 18 acceptance). Images stay separate
+           cacheable requests; the HTML stays text-light. #}
+        {% for row in rows %}
+        <li><a href="{% url 'services:detail' service.pk %}"><img src="/media/{{ row.image.thumb_path }}" alt="{% trans 'Service portfolio image' %}" loading="lazy" width="{{ row.image.thumb_w }}" height="{{ row.image.thumb_h }}"></a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </li>
+    {% endwith %}
+    {% empty %}
+    <li class="card"><p>{% trans "No services listed here yet." %}</p></li>
+    {% endfor %}
+  </ul>
+
+  {# Enquiry contract (services pk space): messages, never phone. NOTE: no
+     per-user "Message" link here — the per-service detail page carries the
+     /chats/?service=<pk> link, because a thread opens FROM a concrete
+     enquiry (typed origin), not from a bare profile. #}
+</article>
+{% endblock %}

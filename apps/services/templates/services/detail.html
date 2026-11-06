@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ service.title }} — Mtaani{% endblock %}
+{% block content %}
+<article class="card listing-detail">
+  <header>
+    {# Provider identity via profiles' PUBLIC API only — no user dump. #}
+    <p class="muted">
+      <a href="{% url 'services:provider' service.provider_id %}">{{ provider_profile.display_name }}</a> · {{ service.get_category_display }}
+    </p>
+    <span class="badge">{{ service.get_rate_type_display }}</span>
+    {# NOTE: status badge only when NOT published — a live service carries
+       no status noise; private states say so (never fabricated). #}
+    {% if service.status != 'PUBLISHED' and is_provider %}<span class="badge">{{ service.get_status_display }}</span>{% endif %}
+  </header>
+  <h1 class="listing-title">{{ service.title }}</h1>
+  {% if service.title_sw %}<p class="muted">{{ service.title_sw }}</p>{% endif %}
+
+  <p>
+    {# THE rates block: rate-type + amount render as ONE of three shapes —
+       "KSh 800 / hour", "KSh 5000", or "Negotiable". The negotiable branch
+       never shows a number; the numbered branches never show "negotiable". #}
+    {% if service.rate_amount is not None %}{% blocktranslate with amount=service.rate_amount %}KSh {{ amount }}{% endblocktranslate %}
+    {% if service.rate_type == 'HOURLY' %}{% trans "/ hour" %}{% endif %}
+    {% else %}<strong>{% trans "Negotiable / Bei ya maongezi" %}</strong>{% endif %}
+  </p>
+
+  {# PITFALL GUARD: |linebreaks (fixed allow-list transform on escaped text).
+      NEVER |safe — user HTML cannot exist anywhere in service content. #}
+  <div class="post-body">{{ service.description|linebreaks }}</div>
+  {% if service.description_sw %}
+  <div class="post-body muted">{{ service.description_sw|linebreaks }}</div>
+  {% endif %}
+
+  {# Availability is a plain note (V1 has no bookings module) — honest text. #}
+  {% if service.availability_notes %}
+  <p class="muted">{% trans "Availability:" %} {{ service.availability_notes }}</p>
+  {% endif %}
+
+  {# THE portfolio grid — Prompt 18's core ask: samples of real work,
+     standard variants, lazy-loaded, each its own cacheable request. #}
+  {% if attachments %}
+  <ul class="post-photos">
+    {% for row in attachments %}
+    <li><img src="/media/{{ row.image.standard_path }}" alt="{% trans 'Service portfolio image' %}" loading="lazy" width="{{ row.image.standard_w }}" height="{{ row.image.standard_h }}"></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {# WHY ward only: the location line IS the privacy promise — a public page
+     never carries a street address or coordinates (clean() refuses
+     coordinate-shaped text; there is no other location field to leak). #}
+  <p class="muted">{% blocktranslate with ward=service.ward %}Area: {{ ward }} (ward only — meetings are agreed in your messages).{% endblocktranslate %}</p>
+
+  <footer>
+    {# ENQUIRY CONTRACT (services pk space): the plain string
+       /chats/?service=<pk> — messaging reads ?service=<pk> as the enquiry
+       origin. Contact NEVER happens on this page: no phone field exists. #}
+    <a class="btn" href="{{ enquiry_url }}">{% trans "Message provider" %}</a>
+    {% if is_provider %}
+    · <a href="{% url 'services:edit' service.pk %}">{% trans "Edit" %}</a>
+    · <a href="{% url 'services:remove' service.pk %}">{% trans "Remove" %}</a>
+    {% endif %}
+  </footer>
+
+  {# THE Prompt 22 hook: `reviews` is None while the reviews app is absent
+     or empty — one honest 'coming soon' line, never a blank box or a fake
+     count. When reviews land, they render under this header unchanged. #}
+  <section class="service-reviews">
+    <h2>{% trans "Reviews" %}</h2>
+    {% if reviews %}
+    <ul class="post-list">
+      {% for review in reviews %}
+      <li class="card">
+        {# NOTE: reviews decide their own dict/attr shape — both resolve here. #}
+        <p>{{ review.rating }} / 5 — {{ review.by }}</p>
+        {% if review.comment %}<p>{{ review.comment }}</p>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">{% trans "Reviews coming soon / Hakuna maoni bado." %}</p>
+    {% endif %}
+  </section>
+</article>
+{% endblock %}

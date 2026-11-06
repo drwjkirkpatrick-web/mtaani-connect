@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% if service %}{% trans "Edit service" %}{% else %}{% trans "Offer a service" %}{% endif %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% if service %}{% trans "Edit your service" %}{% else %}{% trans "Offer a service" %}{% endif %}</h1>
+<form method="post" action="{% if service %}{% url 'services:edit' service.pk %}{% else %}{% url 'services:create' %}{% endif %}">
+  {% csrf_token %}
+  {{ form.non_field_errors.as_ul }}
+  {{ form.title.as_p }}
+  {{ form.title_sw.as_p }}
+  {{ form.category.as_p }}
+  {{ form.rate_type.as_p }}
+  {{ form.rate_amount.as_p }}
+  {{ form.availability_notes.as_p }}
+  {{ form.description.as_p }}
+  {{ form.description_sw.as_p }}
+  {{ form.ward.as_p }}
+  {# NOTE: no portfolio picker here on purpose — images attach on the
+     service page after it exists (one image per POST through the Prompt 06
+     pipeline), exactly like listings. The hint teaches the 8-image cap. #}
+  <p class="muted">{% blocktranslate count counter=8 %}After it is up you can attach 1 portfolio image{% plural %}After it is up you can attach up to {{ counter }} portfolio images{% endblocktranslate %} — {% trans "show the actual skill: finished work, before/after beats promises." %}</p>
+  <button type="submit">{% if service %}{% trans "Save" %}{% else %}{% trans "List it" %}{% endif %}</button>
+  <a class="muted" href="{% if service %}{% url 'services:detail' service.pk %}{% else %}{% url 'services:list' %}{% endif %}">{% trans "Cancel" %}</a>
+</form>
+{% endblock %}

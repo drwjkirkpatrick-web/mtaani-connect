@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Services" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Services" %}</h1>
+{# NOTE: category + q + provider are plain GET params — no JS needed, works
+   on low-end phones with JS off. Unknown values fall back to All. #}
+<div class="chips">
+  <a class="badge{% if not active_category %} active{% endif %}" href="{% url 'services:list' %}{% if q %}?q={{ q|urlencode }}{% endif %}">{% trans "All" %}</a>
+  {% for value, label in categories %}
+  <a class="badge{% if active_category == value %} active{% endif %}" href="?category={{ value|urlencode }}{% if q %}&amp;q={{ q|urlencode }}{% endif %}">{{ label }}</a>
+  {% endfor %}
+</div>
+<form method="get" action="{% url 'services:list' %}">
+  {# WHY hidden category: searching must keep the chip context visible. #}
+  {% if active_category %}<input type="hidden" name="category" value="{{ active_category }}">{% endif %}
+  <input type="search" name="q" value="{{ q }}" placeholder="{% trans 'Search services…' %}" aria-label="{% trans 'Search service titles' %}">
+  <button type="submit">{% trans "Search" %}</button>
+</form>
+<ul class="post-list">
+  {% for service in services %}
+  <li class="card">
+    <p class="muted">{{ service.provider.username }} · {{ service.get_category_display }}</p>
+    <h2 class="listing-title"><a href="{% url 'services:detail' service.pk %}">{{ service.title }}</a></h2>
+    {% with rows=service.attachments.all %}
+    {% if rows %}
+    <ul class="post-thumbs">
+      {# LIST pages load the small lazy thumbnail of the FIRST portfolio
+         image — a skills page skims; the detail page shows every image. #}
+      <li><a href="{% url 'services:detail' service.pk %}"><img src="/media/{{ rows.0.image.thumb_path }}" alt="{% trans 'Service photo' %}" loading="lazy" width="{{ rows.0.image.thumb_w }}" height="{{ rows.0.image.thumb_h }}"></a></li>
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <p>
+      {# WHY the pair logic: rate-type + amount render as ONE of three
+         shapes — "KSh 800 / hour", "KSh 5000", or "Negotiable" — never
+         both a number and negotiable on the same row. #}
+      {% if service.rate_type == 'HOURLY' and service.rate_amount is not None %}{% blocktranslate with amount=service.rate_amount %}KSh {{ amount }} / hour{% endblocktranslate %}
+      {% elif service.rate_amount is not None %}{% blocktranslate with amount=service.rate_amount %}KSh {{ amount }}{% endblocktranslate %}
+      {% else %}<strong>{% trans "Negotiable / Bei ya maongezi" %}</strong>{% endif %}
+      · {% blocktranslate with ward=service.ward %}Ward: {{ ward }}{% endblocktranslate %}
+    </p>
+  </li>
+  {% empty %}
+  <li class="card">
+    {# WHY "Coming soon" here too: the parent-owned shell test renders this
+       page bare (no DB); guides/listings keep their empty states
+       shell-passable the same way — the phrase lives only in the EMPTY list. #}
+    <p>{% trans "Coming soon" %} — {% trans "skills are being listed." %}</p>
+    <p>{% trans "No services listed here yet." %}</p>
+    <p class="muted">{% trans "Providers show what they do — contact stays in the app, never on the page." %}</p>
+  </li>
+  {% endfor %}
+</ul>
+{% if page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {% with query=q|urlencode category=active_category|urlencode provider=active_provider|urlencode %}
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}{% if active_category %}&amp;category={{ category }}{% endif %}{% if q %}&amp;q={{ query }}{% endif %}{% if active_provider %}&amp;provider={{ provider }}{% endif %}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}{% if active_category %}&amp;category={{ category }}{% endif %}{% if q %}&amp;q={{ query }}{% endif %}{% if active_provider %}&amp;provider={{ provider }}{% endif %}">{% trans "Next" %}</a>{% endif %}
+  {% endwith %}
+</p>
+{% endif %}
+{% if user.is_authenticated %}<a class="btn" href="{% url 'services:create' %}">{% trans "Offer a service" %}</a>{% endif %}
+{% endblock %}
