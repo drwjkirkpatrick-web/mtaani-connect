@@ -1112,13 +1112,13 @@ Parallelizable groups (one subagent each, no shared files):
 | 16 | Trust signals & helpfulness | ✅ |
 | 17 | Marketplace listings (goods) | ✅ |
 | 18 | Service listings & portfolios | ✅ |
-| 19 | Listing search & geo filters | ☐ |
+| 19 | Listing search & geo filters | ✅ |
 | 20 | Messaging v1 | ✅ |
 | 21 | Barter & cash-plus-exchange | ✅ |
 | 22 | Reviews & reputation | ✅ |
 | 23 | Disputes & fraud flags | ✅ |
 | 24 | Listing lifecycle | ✅ |
-| 25 | Route & stage database + GTFS seeder | ☐ |
+| 25 | Route & stage database + GTFS seeder | ✅ |
 | 26 | Vehicle, SACCO & crew registration | ☐ |
 | 27 | Authorized tracking sessions | ☐ |
 | 28 | Location ingestion & live map | ☐ |

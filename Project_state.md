@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 2: 17–24 complete except 19 (geo search, next)
+> **Current phase:** build — Phase 2 CLOSED (17–19, 20–24); Phase 3 Transport under way (25 done)
 > **Overall health:** green
 
 ---
@@ -94,7 +94,15 @@ KDPA-compliant from day one.
 - [x] Prompt 24 — listing lifecycle: ACTIVE/PAUSED/SOLD/EXPIRED second axis,
       30-day injected-clock expiry sweep + one-tap renew, 7-day bump cap +
       bump-aware ordering, category-edit gate (UNDER_REVIEW) with moderator
-      approve_recategorize + audit; 47 tests (574)
+      approve_recategorize + audit; 47 tests
+- [x] Prompt 19 — listing geo search: WardPoint centroids (10 wards, data
+      migration 0004 + GIST), ST_DWithin 5/10/25 km rings around a PICKED
+      area, ward-granularity honesty, EXPLAIN-pinned index plan, promoted
+      slot stubbed invisible; 20 tests
+- [x] Prompt 25 — routes & GTFS: Route/Stage/RouteStage/Fare/Sacco + aliases
+      (trigram), Digital-Matatus-format seeder (probes columns; shapes never
+      fabricated; no-zip degrade; idempotent, preserves admin edits),
+      seed-quality labels, community CorrectionQueue; 27 tests (621)
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -103,10 +111,11 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Prompt 19 — listing geo search (ST_DWithin rings) — closes Phase 2
+- [ ] Phase 3 wave — Prompts 26 (fleet & crew registration) +
+      30 (passenger crowd reports) in parallel
 
 ### Not Started
-- [ ] Phase 3 (25–31), Phase 4 (32–34), Phase 5 (36–42)
+- [ ] Phase 3 remainder (27, 28, 29, 31), Phase 4 (32–35), Phase 5 (36–42)
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -133,10 +142,12 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Prompt 19 (Listing geo search: ST_DWithin 5/10/25 km rings around
-> a ward, geography index asserted via EXPLAIN, promoted-slot flag invisible
-> for now) — then Phase 3 Transport begins (25 GTFS seeder → 26 → 27 …).
-> Suite at 574.
+> **Next:** Prompt 26 (fleet: plate-validated vehicles, nickname search,
+> crew onboarding behind SACCO-admin approval, tenant isolation) and
+> Prompt 30 (crowd reports: boarders/alighters at a stage in a time window)
+> in parallel — both depend only on 25 which just landed. Then 27
+> (authorized tracking sessions), 28 + 29, 31. Suite at 621; PHASE 2
+> CLOSED (prompts 01–19, 20–24).
 
 ## 6. Environment & Tooling Notes
 
