@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Live tracking" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Live tracking" %}</h1>
+{% if raw_token %}
+<section data-test="token-once">
+  <h2>{% trans "Your publishing token — shown once" %}</h2>
+  <p>{% blocktranslate %}Copy it now: only its hash is stored and it will never be displayed again.{% endblocktranslate %}</p>
+  <p><code class="token" data-test="raw-token">{{ raw_token }}</code></p>
+  <p>{% trans "It works only for this one session and this one vehicle." %}</p>
+</section>
+{% endif %}
+<form method="post" class="stack">
+  {% csrf_token %}
+  <label>
+    {% trans "Vehicle" %}
+    <select name="vehicle" required data-test="vehicle-select">
+      <option value="">{% trans "Choose…" %}</option>
+      {% for row in vehicle_rows %}
+      <option value="{{ row.vehicle.pk }}"{% if row.live_session %} disabled data-test="already-live"{% endif %}>
+        {{ row.vehicle.plate }}{% if row.vehicle.nickname %} · {{ row.vehicle.nickname }}{% endif %}{% if row.live_session %} — {% trans "already live" %}{% endif %}
+      </option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>
+    {% blocktranslate with min=cap_min max=cap_max %}Cap in hours ({{ min }}–{{ max }}; leave blank for the {{ max }}-hour default){% endblocktranslate %}
+    <input type="number" name="cap_hours" min="{{ cap_min }}" max="{{ cap_max }}" inputmode="numeric">
+  </label>
+  <p class="muted">{% trans "Positions are public only while this session is live, and stop automatically at the cap." %}</p>
+  <button type="submit">{% trans "Start publishing" %}</button>
+</form>
+{% endblock %}

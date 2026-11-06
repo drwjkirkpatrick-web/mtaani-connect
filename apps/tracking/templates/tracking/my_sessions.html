@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "My tracking sessions" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "My tracking sessions" %}</h1>
+{% for row in rows %}
+<section>
+  <h2>{{ row.vehicle.plate }}{% if row.vehicle.nickname %} · {{ row.vehicle.nickname }}{% endif %}</h2>
+  <ul>
+    {% for session in row.sessions %}
+    <li data-test="session-row">
+      <span data-test="status">{{ session.derived_status }}</span>
+      {% if session.derived_status == "LIVE" %}
+      <form method="post" action="{% url 'tracking:end' session.pk %}" class="inline">
+        {% csrf_token %}
+        <button type="submit">{% trans "Stop publishing" %}</button>
+      </form>
+      <form method="post" action="{% url 'tracking:rotate' session.pk %}" class="inline">
+        {% csrf_token %}
+        <button type="submit">{% trans "Rotate token" %}</button>
+      </form>
+      {% endif %}
+      <span class="muted">
+        {% trans "Started" %} {{ session.started_at|date:"j M H:i" }}
+        {% if session.ends_at %}· {% trans "ended" %} {{ session.ends_at|date:"j M H:i" }}{% endif %}
+        · {{ session.visible_count }} {% trans "positions visible (privacy-filtered)" %}
+      </span>
+    </li>
+    {% empty %}
+    <li class="muted" data-test="none">{% trans "No sessions yet." %}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% empty %}
+<p class="muted" data-test="no-vehicles">{% trans "Your crew seat will appear once a SACCO approves it." %}</p>
+{% endfor %}
+<p><a href="{% url 'tracking:start' %}">{% trans "Start live tracking" %}</a></p>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Publishing token (shown once)" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Publishing token — shown once" %}</h1>
+<section data-test="token-once">
+  {% blocktranslate with sid=session.pk plate=session.vehicle.plate %}For session {{ sid }} on {{ plate }}. Copy this token now: only its hash is stored and it will never be displayed again.{% endblocktranslate %}
+  <p><code class="token" data-test="raw-token">{{ raw_token }}</code></p>
+  <p>{% trans "It works only for this one session and this one vehicle." %}</p>
+  <p><a href="{% url 'tracking:my_sessions' %}">{% trans "Back to my sessions" %}</a></p>
+</section>
+{% endblock %}

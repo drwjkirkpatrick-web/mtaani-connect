@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "apps.routes",
     "apps.fleet",
     "apps.crowd",
+    # Phase 3 wave 3 (Prompt 27 — privacy core of the flagship).
+    "apps.tracking",
 ]
 
 MIDDLEWARE = [
