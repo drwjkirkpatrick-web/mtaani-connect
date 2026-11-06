@@ -350,21 +350,46 @@ def test_unavailable_guide_reference_is_honest(ugali_guide, fresh_user):
 
 
 @pytest.mark.django_db
-def test_listing_preview_is_honest_placeholder(fresh_user):
-    """Prompt 17 (listings) does not exist yet: the preview is the NO_DATA
-    honesty placeholder — NO invented listing data, NO dead link."""
+def test_listing_preview_unavailable_when_listing_gone(fresh_user):
+    """Prompt 17 landed (parent consolidation): a ref to a listing that no
+    longer exists (draft/removed/inexistent id) is the honesty state —
+    NO invented listing data, NO dead link."""
     article = Post.objects.create(
         author=fresh_user, text="Nitauza mahindi hapa.", status=PUBLISHED,
         ref_listing=9,
     )
     detail = Client().get(f"/posts/{article.pk}/").content.decode()
-    assert "Listing preview coming soon" in detail
+    assert "Listing no longer available" in detail
     # The placeholder is a non-link card (no href) — no invented data either.
     assert '<div class="card linkcard">' in detail
     assert '<a class="card linkcard"' not in detail
     # And the list page shows the same placeholder card.
-    listing = Client().get("/posts/").content.decode()
-    assert "Listing preview coming soon" in listing
+    listing_page = Client().get("/posts/").content.decode()
+    assert "Listing no longer available" in listing_page
+
+
+@pytest.mark.django_db
+def test_listing_preview_live_via_public_read_door(fresh_user):
+    """Consolidation: an EXISTING published listing renders a live preview
+    card (title + link) via listings' public read door — one honest link."""
+    from decimal import Decimal
+    from apps.listings.services import create_listing
+
+    seller_user = get_user_model().objects.create_user(
+        username="mseller", password="pw12345!"
+    )
+    listing = create_listing(
+        seller=seller_user, title="Kunde mbichi", description="Fresh sukuma wiki bundles.",
+        category="second-hand", ward="Kawangware", price=Decimal("50.00"),
+    )
+    article = Post.objects.create(
+        author=fresh_user, text="Nimetoka shamba.", status=PUBLISHED,
+        ref_listing=listing.pk,
+    )
+    detail = Client().get(f"/posts/{article.pk}/").content.decode()
+    assert f'href="/market/{listing.pk}/"' in detail
+    assert "Kunde mbichi" in detail
+    assert '<span class="badge">Listing</span>' in detail
 
 
 # ---------------------------------------------------------------- mobile budgets

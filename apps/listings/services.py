@@ -42,15 +42,18 @@ PUBLISHED = ContentStatus.PUBLISHED.value
 # ---------------------------------------------------------------------------
 # Phone-pattern detector (Prompt 17 pitfall — the #1 scam vector).
 #
-# WHY two shapes: Kenyan mobiles are written as 07XX XXX XXX (national form)
-# or +254 7XX XXX XXX (international form), with spaces/dashes as separators.
+# WHY two shapes: Kenyan mobiles are written as 07XX/01XX XXX XXX (national
+# form — 01XX is the newer mobile range, same intent) or +254 7XX/1XX XXX XXX
+# (international form), with spaces/dashes as separators.
 # The alternation matches BOTH; the anchors keep phone-shaped words inside
 # longer tokens (price codes, dates like "07:00", "2019-07-15", "VIN0712…")
 # from matching. NOT auto-blocking: a match queues human review only — people
 # legitimately discuss phone-shaped things in public text.
+# NOTE (Prompt 20 consolidation): the 01XX range came over from messaging's
+# save-time flagger so ONE detector serves listings AND message analytics.
 _PHONE_SHAPES = re.compile(
-    r"(?<!\w)\+?254[-\s]?7\d{2}[-\s]?\d{3}[-\s]?\d{3}(?!\d)"   # +254 7XX XXX XXX
-    r"|(?<!\w)0[-\s]?7\d{2}[-\s]?\d{3}[-\s]?\d{3}(?!\d)"       # 07XX XXX XXX
+    r"(?<!\w)\+?254[-\s]?[71]\d{2}[-\s]?\d{3}[-\s]?\d{3}(?!\d)"   # +254 7XX/1XX XXX XXX
+    r"|(?<!\w)0[-\s]?[71]\d{2}[-\s]?\d{3}[-\s]?\d{3}(?!\d)"       # 07XX/01XX XXX XXX
 )
 
 

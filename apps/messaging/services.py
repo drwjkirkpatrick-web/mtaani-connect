@@ -12,7 +12,6 @@ parallel wave, so absence is an expected, handled state (never fabricated).
 """
 from __future__ import annotations
 
-from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Count, Q
@@ -22,13 +21,7 @@ from django.utils.translation import gettext_lazy as _
 from apps.core.types import ReportReason
 from apps.media.services import save_upload  # Prompt 06 pipeline (EXIF strip)
 from apps.moderation import services as moderation  # PUBLIC Prompt-15 door
-from apps.moderation.models import (  # public models: Prompt 15 imports these in its own tests
-    ALLOWED_TARGET_APPS,
-    AuditAction,
-    ModeratorAudit,
-    Report,
-    ReportStatus,
-)
+from apps.moderation.models import Report  # annotation type for report_message
 
 from .models import (
     MAX_IMAGES,
@@ -302,17 +295,9 @@ def send_message(*, thread, sender, body, uploads=None):
 def report_message(*, reporter, message, reason: str, note: str = "", now=None) -> Report:
     """Report a chat message into the Prompt 15 queue — the PUBLIC door only.
 
-    Two states, both graceful for the reporter:
-    - moderation.report_content (when 'messaging' is in their allow-list)
-      records the report;
-    - PHASE-RACE FALLBACK: moderation's ALLOWED_TARGET_APPS intentionally
-      does not list 'messaging' yet ("extend this tuple when messages land" —
-      their model docstring), and those internals are NOT mine to edit. Until
-      the parent's consolidation, the SAME queue rows (OPEN report +
-      REPORT_CREATED audit) are written directly via their public models,
-      with the rate limit and constants imported from their module — never
-      re-implemented. Parent deletes this branch when 'messaging' joins the
-      allow-list.
+    Parent consolidation: 'messaging' is in moderation's ALLOWED_TARGET_APPS,
+    so moderation.report_content records every path (OPEN report + audit,
+    rate-limited). One queue-write shape for the whole app.
     In BOTH cases a report by a non-member is refused (IDOR pitfall) and a
     successful report AUTO-MUTES the reporter's own participation.
     """
@@ -329,54 +314,16 @@ def report_message(*, reporter, message, reason: str, note: str = "", now=None) 
         # reporter is not part of.
         raise ValidationError(MSG_NOT_A_PARTICIPANT)
 
+    # Parent consolidation: 'messaging' joined moderation's
+    # ALLOWED_TARGET_APPS, so the PUBLIC door serves ALL report paths — the
+    # phase-race fallback is gone (one queue write, one audit row shape).
     try:
-        if message._meta.app_label in ALLOWED_TARGET_APPS:
-            report = moderation.report_content(
-                reporter=reporter, target=message, reason=reason_value, note=note, now=now
-            )
-        else:
-            report = _fallback_report(reporter, message, reason_value, note, now)
+        report = moderation.report_content(
+            reporter=reporter, target=message, reason=reason_value, note=note, now=now
+        )
     except ValidationError:
         raise  # rate limit (code='report_rate_limited') is handled by the view
     _auto_mute_reporter(participation)
-    return report
-
-
-def _fallback_report(reporter, message, reason_value, note, now) -> Report:
-    """PHASE-RACE ONLY (delete at parent consolidation): mirror of the public
-    door's queue write, byte-for-byte the same row shapes it would produce."""
-    now = timezone.now() if now is None else now
-    window_start = now - moderation.RATE_WINDOW
-    recent = Report.objects.filter(
-        reporter=reporter, created_at__gte=window_start
-    ).count()
-    if recent >= moderation.MAX_REPORTS_PER_HOUR:
-        # Same limit, same constants, same code — the view's graceful catch
-        # behaves identically no matter which path recorded the report.
-        raise moderation.RateLimitError(
-            _(
-                "You have reached the hourly limit of %(limit)s reports. "
-                "Please try again later."
-            )
-            % {"limit": moderation.MAX_REPORTS_PER_HOUR},
-            code="report_rate_limited",
-        )
-    report = Report(
-        reporter=reporter,
-        reason=reason_value,
-        note=(note or "").strip(),
-        target_ct=ContentType.objects.get_for_model(message),
-        target_id=message.pk,
-        status=ReportStatus.OPEN.value,
-    )
-    report.save()
-    ModeratorAudit.objects.create(
-        actor=reporter,
-        action=AuditAction.REPORT_CREATED.value,
-        target_ct=report.target_ct,
-        target_id=message.pk,
-        reason=reason_value,
-    )
     return report
 
 
@@ -390,47 +337,28 @@ def _auto_mute_reporter(participation: ThreadParticipant) -> None:
 # ------------------------------------------------- sibling-listing resolution
 
 
-# NOTE (parent consolidation): the listings app builds CONCURRENTLY; its
-# public read function's final name is not pinned yet. First callable wins at
-# runtime; the parent replaces this shim with the real API (or an FK) later.
-LISTING_PUBLIC_GETTERS = (
-    "get_public_listing",
-    "public_listing",
-    "get_listing",
-    "listing_detail",
-    "visible_listing",
-)
-_LISTING_OWNER_ATTRS = ("created_by", "owner", "seller", "user")
-_LISTING_TITLE_ATTRS = ("display_title", "title_en", "title_sw", "title")
-
-
 def resolve_public_listing(listing_id):
     """Read the sibling listing through its PUBLIC surface; returns
-    (owner_user, title_or_None) or None = 'not resolvable YET'.
+    (owner_user, title_or_None) or None = 'not available'.
 
-    WHY try/except around everything: an ImportError/AttributeError here is
-    the expected transient state while apps.listings lands in this wave —
-    the caller renders the honest pending page and never fabricates. A real
-    'listing missing/removed' ALSO lands here (honest, per the no-fabrication
-    rule); the parent's FK keeps history rendering 'Listing #<pk>' either way.
+    Parent consolidation: pinned to Prompt 17's real public read door
+    (apps.listings.services.get_visible_listing), shim dead.
+
+    WHY for_user=None: an enquiry may only open on a PUBLISHED listing —
+    someone else's draft/review/removal must resolve None (honest pending
+    page), never leak the seller. A removed listing resolves None too:
+    the thread history keeps rendering 'Listing #<pk>' (no fabrication).
     """
+    from apps.listings.services import get_visible_listing
+
     try:
-        from apps.listings import services as listing_services  #PUBLIC door only
-    except ImportError:
+        listing = get_visible_listing(int(listing_id), None)
+    except (TypeError, ValueError):
         return None
-    getter = next((g for g in LISTING_PUBLIC_GETTERS if callable(getattr(listing_services, g, None))), None)
-    if getter is None:
+    if listing is None:
         return None
-    try:
-        listing = getattr(listing_services, getter)(listing_id)
-    except Exception:  # noqa: BLE001 — the sibling owns its error shapes
-        return None
-    if not listing:
-        return None
-    owner = next((getattr(listing, a, None) for a in _LISTING_OWNER_ATTRS if getattr(listing, a, None) is not None), None)
+    owner = listing.seller
     if owner is None or not getattr(owner, "pk", None):
         return None  # cannot establish the seller — no thread, no fabrication
-    title = next((getattr(listing, a, None) for a in _LISTING_TITLE_ATTRS if getattr(listing, a, None)), None)
-    if isinstance(title, dict):  # defensive for translation-string shapes
-        title = None
-    return (owner, str(title) if title else None)
+    title = str(listing.title or listing.title_sw or "").strip()
+    return (owner, title or None)

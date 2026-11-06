@@ -23,6 +23,7 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.core.types import ContentStatus
 from apps.guides.services import latest_published_revision, visible_guides
+from apps.listings.services import get_visible_listing  # Prompt 17 consolidation
 from apps.media.models import MediaRef
 
 from .models import MAX_IMAGES, MSG_TOO_MANY_IMAGES, Post, PostImage
@@ -171,5 +172,19 @@ def reference_preview(*, ref_guide, ref_listing, viewer) -> dict | None:
             "url": reverse("guides:detail", args=[guide.pk]),
         }
     if ref_listing:
-        return {"kind": "listing", "state": "NO_DATA", "title": "", "url": ""}
+        # Prompt 17 consolidation: listings are LIVE now. The PUBLIC read
+        # door applies its single visibility policy (PUBLISHED is public;
+        # drafts/removed resolve None). No visible listing → the same
+        # honesty state as guides ("no longer available"), never invented
+        # data — the id travels only inside our own state.
+        listing = get_visible_listing(ref_listing, viewer)
+        if listing is None:
+            return {"kind": "listing", "state": "UNAVAILABLE", "title": "", "url": ""}
+        title = str(listing.title or listing.title_sw or "").strip()
+        return {
+            "kind": "listing",
+            "state": "OK",
+            "title": title or "Listing #%d" % ref_listing,
+            "url": f"/market/{listing.pk}/",
+        }
     return None

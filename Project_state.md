@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 1 (Community) COMPLETE (08–16); Phase 2 (Commerce) next: 17 + 20 parallel
+> **Current phase:** build — Phase 2 (Commerce) under way: 17, 20 complete; 18+21+22 next, then 23, 24, 19
 > **Overall health:** green
 
 ---
@@ -63,6 +63,18 @@ KDPA-compliant from day one.
       read-time rollups (lifetime + 90d), admin-tunable tier thresholds,
       once-only badge events; parent plugs scorer into feed + badge partial
       on profiles/QA; 20 tests (295 total)
+- [x] Prompt 17 — marketplace listings (goods): seedable categories,
+      price/negotiable, condition grades, ≤6 images (three enforcement
+      layers), ward-only location + coordinate-refusing clean(), phone
+      detector → human review queue, /market/ live; 53 tests (348)
+- [x] Prompt 20 — messaging v1: IDOR-safe threads (single for_participant
+      gate, 404s for non-members), marketplace-enquiry origin, immutable
+      messages, ≤4 images, honest read receipts with opt-out, unread badges,
+      report→auto-mute, TLS-no-E2E privacy page; 36 tests (384)
+- [x] Consolidation — one scam-detector (listings' canonical, +01XX/1XX),
+      moderation allow-list joins listings+messaging, messaging phase-race
+      fallback + listing resolver shim removed, posts listing previews LIVE
+      (honest UNAVAILABLE when gone); 385 tests
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -71,8 +83,8 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Phase 2 commerce — Prompt 17 (listings-goods) + Prompt 20 (messaging)
-      in parallel; then 18, 21, 22, 24 → 19 → 23
+- [ ] Phase 2 wave — Prompts 18 (service listings), 21 (barter), 22 (reviews)
+      in parallel; then 23 (disputes), 24 (lifecycle), 19 (listing geo search)
 
 ### Not Started
 - [ ] Phase 3 (25–31), Phase 4 (32–34), Phase 5 (36–42)
@@ -102,10 +114,10 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Phase 2 wave — Prompt 17 (Marketplace Listings-Goods) and Prompt
-> 20 (Messaging v1) in parallel, both gated on moderation role hooks. Then
-> 18 (service listings), 21 (barter), 22 (reviews), 24 (lifecycle), 19
-> (listing search), 23 (disputes). Suite at 295 tests.
+> **Next:** Phase 2 wave — Prompt 18 (service listings + portfolios),
+> Prompt 21 (barter/cash-plus with strict state machine, no custody),
+> Prompt 22 (mutual reviews; two-phase publish) in parallel. Then
+> 23 (disputes), 24 (listing lifecycle), 19 (geo search). Suite at 385.
 
 ## 6. Environment & Tooling Notes
 

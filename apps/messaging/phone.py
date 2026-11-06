@@ -1,52 +1,23 @@
-"""Phone-shape detector for Messaging v1 (Prompt 20) — LOCAL module-level copy.
+"""Phone-shape detector for Messaging v1 (Prompt 20) — thin adapter.
 
-WHY this exists: phone-number sharing through messages is allowed ONLY as
-explicit user choice, but the phone-pattern detector (Prompt 17) still flags
-it so moderation analytics can track scam patterns (phones are the #1 scam
-vector per PROMPTS.md). The flag is METADATA for analytics only — the message
-still sends; nothing here blocks or rewrites a message (that would be
-moderation's decision, in the Prompt 15 queue).
+Parent consolidation APPLIED: Prompt 17's canonical detector
+(apps.listings.services.detect_phone_patterns) is the single pattern
+contract for listings AND message analytics; its 01XX/1XX range absorbs
+what this module's local copy had. This adapter keeps the message-side
+save-time seam (`phone_shapes(text) -> bool`) so callers
+(apps/messaging/models.py Message.clean) don't change — the flag is
+METADATA for moderation analytics only; the message still sends. Nothing
+here blocks or rewrites a message (that is the human moderator's decision,
+in the Prompt 15 queue — people legitimately text phone-shaped things).
 
-NOTE (parent consolidation): apps.listings (Prompt 17) is being built in a
-sibling wave and owns the canonical detector. This module intentionally
-mirrors the contract `phone_shapes(text: str) -> bool` so the parent can
-replace the call sites (or import listings' implementation) without touching
-callers. See KENYAN_MOBILE_RE below — reported verbatim in the build report.
+WHY bool not the match: a per-message boolean keeps chat payloads clean;
+the matched strings belong to moderation tooling — storing more would just
+be a second place to leak PII (KDPA: don't store what you don't need).
 """
-import re
-
-# Matches Kenyan mobile-number shapes in free text, tolerant of the everyday
-# separators people type: spaces, dots, dashes, parentheses between groups.
-# Sources (prompt 17 verbatim): "07xx" / "+2547xx" patterns; 01xx/+2541xx is
-# the newer Kenyan mobile range and is intentionally included (same intent:
-# a mobile-shaped number). Anchoring lookarounds stop matches inside longer
-# digit runs (coordinates, prices, IDs) so analytics stay honest.
-#   - (?<![+\d])   nothing digit-or-plus glued on the left
-#   - prefix:      "0" (domestic) or "+254" / bare "254" (international)
-#   - operator:    "7XX" or "1XX" (mobile ranges)
-#   - then two triples, separator-tolerant, with no digit glued on the right.
-KENYAN_MOBILE_RE = re.compile(
-    r"""
-    (?<![+\d])            # left anchor: not inside a longer digit run
-    (?:                   # -- country / trunk prefix --
-        0                 #    domestic trunk zero
-      | \+?254            #    +254 or bare 254 (international)
-    )
-    [\s\-.(]{0,2}?        # separator between prefix and operator code
-    (?:7|1)\d{2}          # mobile operator code: 7XX / 1XX
-    [\s\-.]*\d{3}         # first triple (separator-tolerant)
-    [\s\-.]*\d{3}         # last triple
-    (?!\d)                # right anchor: not inside a longer digit run
-    """,
-    re.VERBOSE,
-)
+from apps.listings.services import detect_phone_patterns
 
 
 def phone_shapes(text: str) -> bool:
-    """True when `text` contains a Kenyan mobile-shaped number.
-
-    WHY bool not the match: the flag is a per-message boolean column at save
-    time; details (which shape, where) belong to moderation tooling, not to
-    chat payloads — storing more would just be a second place to leak PII.
-    """
-    return bool(text and KENYAN_MOBILE_RE.search(str(text)))
+    """True when `text` contains a Kenyan mobile-shaped number (07XX/01XX,
+    +2547XX/+2541XX, separator-tolerant; immune to prices/dates/coords)."""
+    return bool(text and detect_phone_patterns(str(text)))

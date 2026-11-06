@@ -1110,10 +1110,10 @@ Parallelizable groups (one subagent each, no shared files):
 | 14 | Cross-entity search | ✅ |
 | 15 | Moderation v1 | ✅ |
 | 16 | Trust signals & helpfulness | ✅ |
-| 17 | Marketplace listings (goods) | ☐ |
+| 17 | Marketplace listings (goods) | ✅ |
 | 18 | Service listings & portfolios | ☐ |
 | 19 | Listing search & geo filters | ☐ |
-| 20 | Messaging v1 | ☐ |
+| 20 | Messaging v1 | ✅ |
 | 21 | Barter & cash-plus-exchange | ☐ |
 | 22 | Reviews & reputation | ☐ |
 | 23 | Disputes & fraud flags | ☐ |

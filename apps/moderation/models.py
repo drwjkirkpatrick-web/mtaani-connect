@@ -21,9 +21,10 @@ from django.utils.translation import gettext_lazy as _
 from apps.core.types import ReportReason, TimestampedModel
 
 # App labels whose objects may be reported TODAY. The verbatim Prompt 15 spec
-# also names listings and messages — those apps land in Phase 2; extend this
-# tuple then (values are app_labels, so no migration is needed to add more).
-ALLOWED_TARGET_APPS = ("posts", "guides", "qa", "profiles")
+# names posts, guides, Q&A, listings, profiles, messages — Phase 2 landed
+# listings (Prompt 17 auto-flag) and messaging (Prompt 20 report flow);
+# add further apps as they land (values are app_labels, no migration needed).
+ALLOWED_TARGET_APPS = ("posts", "guides", "qa", "profiles", "listings", "messaging")
 
 MAX_NOTE_CHARS = 500
 
