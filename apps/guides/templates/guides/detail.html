@@ -62,5 +62,15 @@
   <p><a href="{% url 'guides:edit' guide.pk %}">{% trans "Edit" %}</a> ·
      <a href="{% url 'guides:delete' guide.pk %}">{% trans "Remove" %}</a></p>
   {% endif %}
+  {% if user.is_authenticated %}
+  {# Prompt 09: the 'Save for offline' affordance. POST + CSRF; the JSON
+     response doubles as the service worker's cache instruction (contract:
+     apps/guides/offline.py). Re-saving is harmless (idempotent). #}
+  <form method="post" action="{% url 'guides:offline_save' guide.pk %}" data-offline-json>
+    {% csrf_token %}
+    <button type="submit">{% if saved_offline %}{% trans "Saved for offline" %}{% else %}{% trans "Save for offline" %}{% endif %}</button>
+  </form>
+  <p class="muted"><a href="{% url 'guides:offline' %}">{% trans "Your offline guides" %}</a></p>
+  {% endif %}
 </article>
 {% endblock %}

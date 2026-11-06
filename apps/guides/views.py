@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.paginator import Paginator
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
@@ -17,6 +17,7 @@ from django.views.decorators.http import require_POST
 from apps.core import images
 from apps.core.types import ContentStatus
 
+from . import offline
 from . import services
 from .forms import (
     STEP_FORMSET_CREATE,
@@ -24,7 +25,7 @@ from .forms import (
     ConfirmationForm,
     GuideForm,
 )
-from .models import GUIDE_CATEGORIES, Guide, GuideRevision, GuideStep
+from .models import GUIDE_CATEGORIES, Guide, GuideRevision, GuideStep, OfflineSavedGuide
 
 # HARD RULE (PROMPTS.md budgets): a list surface shows at most 20 items per
 # page — keeps the page inside the 50 KB 3G budget no matter how much the
@@ -109,6 +110,17 @@ def guide_detail(request, pk):
             "confirm_form": ConfirmationForm(),
             "is_author": is_author,
             "can_publish": is_author and revision.status != ContentStatus.PUBLISHED.value,
+            # Prompt 09: the detail page labels the button — already saved vs
+            # save now — without any JS round-trip. Guarded: an anonymous
+            # visitor has no id to filter on (SimpleLazyObject must NOT
+            # reach the DB filter).
+            "saved_offline": (
+                OfflineSavedGuide.objects.filter(
+                    user=request.user, guide=guide
+                ).exists()
+                if request.user.is_authenticated
+                else False
+            ),
         },
     )
 
@@ -271,3 +283,72 @@ def guide_confirm(request, pk):
     else:
         messages.error(request, _("Tell us the ward where this worked."))
     return redirect("guides:detail", pk=guide.pk)
+
+
+# =====================================================================
+# Prompt 09 — offline saved guides (service-worker contract in offline.py)
+# =====================================================================
+
+
+@login_required
+def offline_list(request):
+    """The 'Save for offline' list (guides:offline).
+
+    The service worker caches THIS PAGE itself (parent contract: a
+    cache-first navigation for this URL) so the list opens with zero
+    connectivity — the server render here is the fresh authoritative copy
+    the worker re-caches on the next online sync.
+    """
+    data = offline.manifest(request.user, request.GET.get("page"))
+    return render(
+        request,
+        "guides/offline.html",
+        {
+            "entries": data["guides"],
+            "quota": data["quota"],
+            "used_mb": round(data["quota"]["used_bytes"] / (1024 * 1024), 1),
+            "count": data["count"],
+            "page_obj": None,  # explicit: walker pagination lives in data["page"/"pages"]
+            "current_page": data["page"],
+            "total_pages": data["pages"],
+        },
+    )
+
+
+@login_required
+def offline_manifest(request):
+    """GET /guides/offline-manifest.json (guides:offline_manifest).
+
+    Login required (302 -> login when anonymous): a member's offline list is
+    theirs alone. Pure JSON — the service worker's re-sync endpoint.
+    """
+    return JsonResponse(offline.manifest(request.user, request.GET.get("page")))
+
+
+@login_required
+@require_POST
+def offline_save(request, pk):
+    """POST /guides/<pk>/offline/save/ — 'Save for offline' (Prompt 09).
+
+    POST-only + CSRF-protected (a state change), login_required, idempotent.
+    Returns JSON the worker acts on immediately: {"saved": true, "hash",
+    "url", "pages", "images", ...} — cache it all now, store the hash.
+    A since-REMOVED guide can't be newly saved: get_object_or_404 on the
+    not-removed queryset.
+    """
+    guide = get_object_or_404(
+        Guide.objects.exclude(status=ContentStatus.REMOVED.value), pk=pk
+    )
+    return JsonResponse(offline.save_offline(user=request.user, guide=guide))
+
+
+@login_required
+@require_POST
+def offline_unsave(request, pk):
+    """POST /guides/<pk>/offline/unsave/ — remove the bookmark. JSON
+    {"saved": false}; the worker then evicts the cached page + images.
+    Allowed even on a REMOVED guide: a member must always be able to clean
+    up their own offline list (eviction is the user's right, not content's).
+    """
+    guide = get_object_or_404(Guide, pk=pk)
+    return JsonResponse(offline.unsave_offline(user=request.user, guide=guide))

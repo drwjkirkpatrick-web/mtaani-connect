@@ -220,6 +220,37 @@ class GuideStep(TimestampedModel):
             raise ValidationError({"position": _("Steps start at position 1.")})
 
 
+class OfflineSavedGuide(TimestampedModel):
+    """'Save for offline' bookmark (Prompt 09) — membership row, NOT a copy.
+
+    WHY this row holds no content: storage and truth stay on the server —
+    the phone's service worker keeps its own cache and the manifest JSON
+    (offline.py) tells it what changed. This row only answers "has member X
+    saved guide Y?" so the offline list and manifest stay minimal, honest
+    and quota-light. Content always comes from the PUBLISHED revision that
+    offline.latest_published_hash() hashes.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+        related_name="offline_saved_guides",
+    )
+    guide = models.ForeignKey(
+        Guide, on_delete=models.CASCADE, related_name="offline_saves"
+    )
+
+    class Meta:
+        ordering = ["-created_at"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "guide"], name="uniq_offline_save_per_user"
+            )
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.user} saved guide {self.guide_id} for offline"
+
+
 class GuideConfirmation(TimestampedModel):
     """'This worked for me in [ward]' — the community verification signal.
 

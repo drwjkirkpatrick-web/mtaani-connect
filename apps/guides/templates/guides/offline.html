@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Offline guides" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Offline guides" %}</h1>
+{# Prompt 09: this page is ITSELF service-worker cached — the contract makes
+   it readable with zero connectivity. What you see below is the server's
+   fresh authoritative copy; the SW re-caches it on every online sync. #}
+{% if quota.warning %}
+{# Quota: warn at 50 MB used — the estimate comes from offline.estimate_used_bytes. #}
+<div class="card" role="alert">
+  ⚠ {% trans "Offline storage is over 50 MB. Remove guides you no longer need." %}
+</div>
+{% endif %}
+<p class="muted">
+  {% trans "Saved guides stay readable without spending data." %}
+  {% trans "Storage used:" %} {{ used_mb }} {% trans "MB" %}
+</p>
+<ul class="guide-list">
+  {% for entry in entries %}
+  <li class="card">
+    <a href="{{ entry.url }}"><strong>{{ entry.title }}</strong></a>
+    <p class="muted">
+      {# HONESTY FLAG (Prompt 09): a guide with no published revision (or
+         since removed) is labelled exactly that — never a fake hash. #}
+      {% if entry.state == "no_data" %}
+      {% trans "No published version yet — nothing kept offline." %}
+      {% else %}
+      {% trans "Version" %} {{ entry.version }} · {% trans "Ready offline" %}{% if entry.images %} · {% trans "photos kept too" %}{% endif %}
+      {% endif %}
+    </p>
+    <form method="post" action="{% url 'guides:offline_unsave' entry.guide %}" data-offline-json>
+      {% csrf_token %}
+      <button type="submit">{% trans "Remove from offline" %}</button>
+    </form>
+  </li>
+  {% empty %}
+  <li class="card">
+    {% trans "Nothing saved for offline yet." %}
+    {% trans "Open a guide and choose Save for offline." %}
+  </li>
+  {% endfor %}
+</ul>
+{% if total_pages > 1 %}
+<p class="pager muted">
+  {% if current_page > 1 %}<a href="?page={{ current_page|add:"-1" }}">{% trans "Prev" %}</a>{% endif %}
+  {{ current_page }}/{{ total_pages }}
+  {% if current_page < total_pages %}<a href="?page={{ current_page|add:"1" }}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{% endblock %}
