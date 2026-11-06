@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
-> **Last updated:** 2026-11-05
-> **Current phase:** build — Phase 0 (Foundation) COMPLETE (01–07); Phase 1 (Community) in progress (08 complete)
+> **Last updated:** 2026-11-06
+> **Current phase:** build — Phase 1 (Community) in progress: 08–10, 12, 13, 15 complete; 11/14/16 next
 > **Overall health:** green
 
 ---
@@ -30,6 +30,29 @@ KDPA-compliant from day one.
       every edit = new draft revision, published view = latest PUBLISHED revision,
       ward-coarse community confirmations, EN→SW title fallback always labelled,
       no user HTML (linebreaks only); 22 tests (105 total)
+- [x] Prompt 09 — offline saved guides: OfflineSavedGuide + paged
+      offline-manifest.json with content-only revision hashes (gsh1: sha256),
+      50 MB quota estimate + warning, no_data honesty state; parent SW glue:
+      guide cache on save, hash-only re-sync (dates never), manifest-authoritative
+      sweep, offline list page cache-first; 18 tests (Prompt 09 total: 123)
+- [x] Prompt 10 — posts & photos: ≤2,000-char posts, 4-image cap enforced
+      in clean() + upload endpoint, typed guide reference + honest listing
+      placeholder (17 pending), educational tag, short-form first-class; 23 tests (146)
+- [x] Prompt 12 — Q&A + AI-answer labeling: is_machine boolean is the single
+      data-driven badge source (no form/view path sets it; set_machine_answer
+      service is Prompt 33's doorway), asker-accept with safety gate
+      (MEDICAL/ELECTRICAL needs a human-verified community answer), verified
+      votes; 33 tests (179)
+- [x] Prompt 13 — follows & groups: asymmetric Follow (unique pair, no
+      self-edge), idempotent services, follower counts hidden below 10
+      (visible_follower_count, no count column to bypass), GroupKind groups
+      with owner/member/moderator roles, feed hook member_group_ids contract
+      test; 40 tests (219)
+- [x] Prompt 15 — moderation v1: generic-FK reports (reason enum, allow-listed
+      targets), revocable user blocks with sibling-usable visibility filters,
+      immutable audit rows, two-actor suspension draft→confirm gate, report
+      rate limit 10/rolling-hour (injected clock), removals only set
+      ContentStatus.REMOVED (never hard-deleted); 30 tests (249)
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -38,10 +61,11 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Prompt 09 — offline saved guides (manifest endpoint + service-worker caching)
+- [ ] Wave 2 — Prompts 11 (feed), 14 (search), 16 (trust) in parallel; then
+      Prompt 35 (i18n completion) once content prompts settle
 
 ### Not Started
-- [ ] Prompts 09–42 execution
+- [ ] Phase 2 (17–24), Phase 3 (25–31), Phase 4 (32–34), Phase 5 (36–42)
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -68,11 +92,11 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Execute Prompt 09 — Offline Saved Guides: `apps/guides/offline.py`
-> + offline template, `/guides/offline-manifest.json` (revision hashes, not
-> dates — clocks lie), service-worker caching on save (parent edits
-> `static/sw.js` per Prompt 09 spec), 50 MB quota warning.
-> Suite at 105 tests (Phase 1 under way).
+> **Next:** Wave 2 in parallel — Prompt 11 (Utility Feed: pure injected-clock
+> `rank()`, 10-item pages + explicit end-of-feed), Prompt 14 (Cross-Entity
+> Search: maintained SearchVector + pg_trgm bilingual matching), Prompt 16
+> (Trust Signals & Helpfulness). Each: `apps/<name>/` + tests, one commit each.
+> Suite at 250 tests (incl. 1 parent SW-contract test).
 
 ## 6. Environment & Tooling Notes
 

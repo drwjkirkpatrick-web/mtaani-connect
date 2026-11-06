@@ -55,6 +55,27 @@ def test_sw_source_gates():
     assert "sw.js" in (STATIC / "js/app.js").read_text(encoding="utf-8")
 
 
+def test_sw_offline_guides_contract():
+    """Prompt 09: the parent-owned SW implements the manifest contract from
+    apps/guides/offline.py — hash-based re-sync only, manifest authoritative.
+    WHY source-string assertions: the sync decision lives in JS, which pytest
+    cannot execute; the string pins keep the JS and the Python contract from
+    silently diverging (e.g. someone reintroducing date-based re-sync)."""
+    sw = (STATIC / "sw.js").read_text(encoding="utf-8")
+    js = (STATIC / "js/app.js").read_text(encoding="utf-8")
+    # authoritative manifest + per-version caches
+    assert 'MANIFEST_PATH = "/guides/offline-manifest.json"' in sw
+    assert 'GUIDE_CACHE = "mtaani-guides-" + CACHE_VERSION' in sw
+    # re-sync compares revision HASHES (never dates — clocks lie)
+    assert "stored.h === g.hash" in sw
+    assert "stored === g.hash ||" not in sw  # no sneaky date compare
+    # no_data honesty state is honored, never revalidated
+    assert "g.hash === null" in sw
+    # app.js hands save/unsave payloads to the SW; sync throttled 30 min
+    assert '"OFFLINE_SAVE"' in js and '"OFFLINE_UNSAVE"' in js and '"OFFLINE_SYNC"' in js
+    assert "30 * 60 * 1000" in js
+
+
 def test_offline_page_self_contained(client):
     response = client.get("/offline/")
     assert response.status_code == 200
