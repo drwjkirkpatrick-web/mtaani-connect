@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Dispute queue" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Dispute queue" %}</h1>
+{# NOTE: role gate enforced by the view (is_moderator -> 403). Tiers are read-time: a case never silently closes — it just keeps escalating. #}
+<h2>{% trans "Cases awaiting decision" %}</h2>
+<ul class="case-list">
+  {% for item in rows %}
+  <li class="card">
+    <p>
+      {% if item.escalated %}<strong class="muted">{% trans "ESCALATED" %}</strong> ·{% endif %}
+      <strong>{{ item.label }}</strong> · {{ item.case.status }} · {{ item.tier }}
+    </p>
+    <p class="muted">{% trans "Opened" %} {{ item.case.opened_at|date:"Y-m-d H:i" }}
+       · {% trans "Case" %}: <a href="{% url 'disputes:detail' item.case.pk %}">{{ item.case.pk }}</a></p>
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "No open cases." %}</p></li>
+  {% endfor %}
+</ul>
+
+<h2>{% trans "Proposals awaiting confirmation" %}</h2>
+{# WHY the proposal list is a DIFFERENT human's job: the confirmer must not be the proposer — the service refuses it. #}
+<ul>
+  {% for item in proposals %}
+  <li class="card">
+    <p><strong>{{ item.proposal.proposed_action }}</strong> — {{ item.label }}
+       · <span class="muted">{% trans "Proposed by" %} {{ item.proposal.proposed_by.username }}</span></p>
+    <p><a href="{% url 'disputes:detail' item.proposal.case.pk %}">{% trans "Review case" %}</a></p>
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "No pending proposals." %}</p></li>
+  {% endfor %}
+</ul>
+
+<h2>{% trans "Fraud flags (annotations — humans decide)" %}</h2>
+<ul>
+  {% for flag in recent_flags %}
+  <li class="card">
+    <p><strong>{{ flag.get_heuristic_display }}</strong> · {{ flag.target }}
+       <span class="muted">{{ flag.created_at|date:"Y-m-d H:i" }}</span></p>
+    <p>{{ flag.note }}</p>
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "No fraud flags recorded." %}</p></li>
+  {% endfor %}
+</ul>
+{% endblock %}

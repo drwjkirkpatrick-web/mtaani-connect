@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "apps.services",
     "apps.barter",
     "apps.reviews",
+    "apps.disputes",
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Open a dispute" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Open a dispute" %}</h1>
+{% if deal_label %}<p class="muted">{% trans "Deal:" %} {{ deal_label }}</p>{% endif %}
+<p class="muted">{% trans "One open case per deal — describe exactly what was promised and what happened. Messages from the negotiation are attached automatically." %}</p>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">{% trans "Open case" %}</button>
+  <a href="{% url 'disputes:my_cases' %}">{% trans "Back to my cases" %}</a>
+</form>
+{% endblock %}

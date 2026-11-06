@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "My dispute cases" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "My dispute cases" %}</h1>
+<p><a href="{% url 'disputes:open' %}">{% trans "Open a new case" %}</a></p>
+<ul class="case-list">
+  {% for case, tier, label in cases %}
+  <li class="card">
+    <p><strong>{{ label }}</strong> · {{ case.status }}
+       · <span class="muted">{% trans "Age:" %} {{ tier }}</span></p>
+    {# WHY the tier shows here too: members see their case aging honestly — nothing is hidden and nothing closes silently. #}
+    <p class="muted">{{ case.what_happened|truncatechars:120 }}</p>
+    <p><a href="{% url 'disputes:detail' case.pk %}">{% trans "Open case" %}</a></p>
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "No dispute cases yet." %}</p></li>
+  {% endfor %}
+</ul>
+{% endblock %}

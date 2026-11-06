@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Dispute case" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Dispute case" %} {{ case.pk }}</h1>
+<p class="muted">
+  {% trans "Deal" %}: {{ label }} · {{ case.deal_app }}#{{ case.deal_id }} ·
+  {% trans "Status" %}: <strong>{{ case.status }}</strong> ·
+  {% trans "Age" %}: {{ tier }}
+  {# NOTE: the aging tier is computed read-time; nothing auto-closes. #}
+</p>
+
+<h2>{% trans "The claim" %}</h2>
+<p><strong>{% trans "What was promised" %}</strong></p>
+<p>{{ case.what_promised|linebreaksbr }}</p>
+<p><strong>{% trans "What happened" %}</strong></p>
+<p>{{ case.what_happened|linebreaksbr }}</p>
+<p class="muted">{% trans "Opened by" %} {{ case.opener.username }}
+  · {{ case.opened_at|date:"Y-m-d H:i" }}</p>
+
+<h2>{% trans "Evidence" %}</h2>
+{# WHY ids only: rows reference messages/offers/images — the viewer sees them only through the owner-app doors they are allowed. #}
+<ul class="evidence-list">
+  {% for entry in evidence %}
+  <li class="card">
+    <p><strong>{{ entry.kind }}</strong> · {{ entry.added_by.username }}
+       · <span class="muted">{{ entry.created_at|date:"Y-m-d H:i" }}</span></p>
+    {% if entry.visible %}
+      {% if entry.kind == "MESSAGE" and entry.payload.version %}
+        <p>{% trans "Offer version" %} #{{ entry.payload.version }} —
+           {{ entry.payload.mode }}{% if entry.payload.cash %} · KSh {{ entry.payload.cash }}{% endif %}
+           · {{ entry.payload.items }} · {{ entry.payload.status }}</p>
+      {% elif entry.kind == "MESSAGE" and entry.payload.body %}
+        <p>{{ entry.payload.sender }} @ {{ entry.payload.when|date:"Y-m-d H:i" }}</p>
+        <p>{{ entry.payload.body|linebreaksbr }}</p>
+      {% elif entry.kind == "IMAGE" %}
+        <p class="muted">{% trans "Image attached (" %}{{ entry.payload.detail }}){% trans " — MediaRef" %} {{ entry.payload.ref.pk }}</p>
+      {% elif entry.kind == "TEXT" %}
+        <p>{{ entry.payload.text|linebreaksbr }}</p>
+      {% else %}
+        <p class="muted">{% trans "That message no longer exists." %}</p>
+      {% endif %}
+    {% else %}
+      <p class="muted">{% trans "Not visible to you." %}</p>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "No evidence attached yet." %}</p></li>
+  {% endfor %}
+</ul>
+
+<h2>{% trans "Proposals" %}</h2>
+<ul class="proposal-list">
+  {% for proposal in proposals %}
+  <li class="card">
+    <p><strong>{{ proposal.proposed_action }}</strong>
+       · <span class="muted">{% trans "Proposed by" %} {{ proposal.proposed_by.username }}
+       {% if proposal.confirmed_at %}· {% trans "Confirmed by" %} {{ proposal.confirmed_by.username }}
+       · {{ proposal.confirmed_at|date:"Y-m-d H:i" }}{% else %}· {% trans "awaiting confirmation by a DIFFERENT moderator" %}{% endif %}</span></p>
+    {% if proposal.note %}<p>{{ proposal.note }}</p>{% endif %}
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "No outcomes proposed yet." %}</p></li>
+  {% endfor %}
+</ul>
+
+{% if case.decided_at %}
+<p><strong>{% trans "Decision" %}:</strong> {{ case.outcome|default:"—" }}
+  {% if case.decided_note %} — {{ case.decided_note }}{% endif %}
+  · {{ case.decided_by.username }} · {{ case.decided_at|date:"Y-m-d H:i" }}</p>
+{% endif %}
+
+{% if moderator %}
+<h2>{% trans "Moderator actions" %}</h2>
+<form method="post" action="{% url 'disputes:start_review' case.pk %}" class="inline">
+  {% csrf_token %}<button type="submit">{% trans "Pick up (under review)" %}</button>
+</form>
+
+{# THE GATE: propose executes nothing; confirm is a DIFFERENT moderator. #}
+<form method="post" action="{% url 'disputes:propose' case.pk %}">
+  <fieldset>
+    <legend>{% trans "Propose outcome" %}</legend>
+    {{ proposal_form.as_p }}
+    <button type="submit">{% trans "Propose (no action)" %}</button>
+  </fieldset>
+</form>
+
+<form method="post" action="{% url 'disputes:confirm_proposal' case.pk %}">
+  <fieldset>
+    <legend>{% trans "Confirm a proposal (different moderator)" %}</legend>
+    <select name="proposal" required>
+      <option value="">{% trans "— pick a pending proposal —" %}</option>
+      {% for proposal in proposals %}
+      {% if not proposal.confirmed_at %}
+      <option value="{{ proposal.pk }}">#{{ proposal.pk }} — {{ proposal.proposed_action }} ({% trans "proposed by" %} {{ proposal.proposed_by.username }})</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+    <input type="text" name="decision_note" placeholder="{% trans "Decision note" %}" maxlength="200">
+    <button type="submit">{% trans "Execute on confirm" %}</button>
+  </fieldset>
+</form>
+
+<form method="post" action="{% url 'disputes:resolve' case.pk %}">
+  <input type="text" name="decision_note" placeholder="{% trans "Resolution note" %}" maxlength="200">
+  <button type="submit">{% trans "Resolve (no action)" %}</button>
+</form>
+<form method="post" action="{% url 'disputes:dismiss' case.pk %}">
+  <input type="text" name="decision_note" placeholder="{% trans "Dismissal note" %}" maxlength="200">
+  <button type="submit">{% trans "Dismiss" %}</button>
+</form>
+
+<form method="post" action="{% url 'disputes:evidence_add' case.pk %}">
+  <fieldset>
+    <legend>{% trans "Attach evidence" %}</legend>
+    <input type="text" name="text" placeholder="{% trans "A short evidence note" %}" maxlength="500">
+    <button type="submit" name="kind" value="text">{% trans "Attach note" %}</button>
+  </fieldset>
+</form>
+
+{% else %}
+<h2>{% trans "Attach evidence" %}</h2>
+<form method="post" action="{% url 'disputes:evidence_add' case.pk %}">
+  <input type="text" name="text" placeholder="{% trans "Add a short note to the case" %}" maxlength="500">
+  <button type="submit" name="kind" value="text">{% trans "Attach note" %}</button>
+</form>
+{% endif %}
+{% endblock %}
