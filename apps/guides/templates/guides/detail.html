@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ revision.display_title }} — Mtaani{% endblock %}
+{% block content %}
+<article>
+  <h1>{{ revision.display_title }}</h1>
+  {# PROMPT 08 i18n contract: an English title shown because the Kiswahili
+     title is missing must be LABELLED — never silently swapped. #}
+  {% if revision.title_is_fallback %}
+  <p class="badge">{% trans "English title shown — no Kiswahili title yet" %}</p>
+  {% endif %}
+  {% if revision.status != 'PUBLISHED' %}
+  <p class="badge">{% trans "Draft preview — only you can see this" %}</p>
+  {% endif %}
+  <p class="muted">
+    {{ guide.get_category_display }} · {{ guide.get_skill_level_display }} ·
+    {% if user.is_authenticated %}<a href="{% url 'profiles:profile' guide.created_by %}">{{ guide.created_by }}</a>{% else %}{{ guide.created_by }}{% endif %}
+    · <a href="{% url 'guides:history' guide.pk %}">{% trans "History" %}</a>
+  </p>
+  {% if revision.safety_warning %}
+  {# Safety warning from the revision snapshot; linebreaks only — never |safe. #}
+  <div class="card"><strong>⚠ {% trans "Safety" %}</strong>{{ revision.safety_warning|linebreaks }}</div>
+  {% endif %}
+  <ol>
+    {% for step in steps %}
+    <li>
+      {{ step.text|linebreaks }}
+      {# PITFALL GUARD: step.text renders via |linebreaks (fixed allow-list
+         transform on escaped plain text). NEVER |safe. #}
+      {% if step.image %}<img src="/media/{{ step.image.standard_path }}" alt="{% trans 'Step photo' %}" loading="lazy" width="{{ step.image.standard_w }}" height="{{ step.image.standard_h }}">{% endif %}
+    </li>
+    {% empty %}
+    <li class="muted">{% trans "No steps yet." %}</li>
+    {% endfor %}
+  </ol>
+  <section>
+    <h2>{% trans "This worked for me" %}</h2>
+    <ul>
+      {% for c in confirmations %}
+      <li>{{ c.user }} — {{ c.ward }}{% if c.note %} · {{ c.note }}{% endif %}</li>
+      {% empty %}
+      <li class="muted">{% trans "No confirmations yet." %}</li>
+      {% endfor %}
+    </ul>
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'guides:confirm' guide.pk %}">{% csrf_token %}
+      {{ confirm_form.as_p }}
+      <button type="submit">{% trans "It worked for me" %}</button>
+    </form>
+    {% else %}
+    <p class="muted"><a href="/accounts/login/">{% trans "Log in" %}</a> {% trans "to confirm this worked." %}</p>
+    {% endif %}
+  </section>
+  {% if can_publish %}
+  {# Approval flow: the newest revision is a draft until the author publishes it. #}
+  <form method="post" action="{% url 'guides:publish' guide.pk %}">{% csrf_token %}
+    <input type="hidden" name="revision_id" value="{{ revision.pk }}">
+    <button type="submit">{% trans "Publish this revision" %}</button>
+  </form>
+  {% endif %}
+  {% if is_author %}
+  <p><a href="{% url 'guides:edit' guide.pk %}">{% trans "Edit" %}</a> ·
+     <a href="{% url 'guides:delete' guide.pk %}">{% trans "Remove" %}</a></p>
+  {% endif %}
+</article>
+{% endblock %}

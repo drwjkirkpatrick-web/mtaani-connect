@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Remove guide" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Remove guide" %}</h1>
+<p>{{ guide.display_title }}</p>
+<p class="muted">{% trans "This hides the guide from everyone. Nothing is deleted — moderators can still see it if it is reported." %}</p>
+<form method="post">{% csrf_token %}
+  <button type="submit">{% trans "Yes, remove it" %}</button>
+  <a href="{% url 'guides:detail' guide.pk %}">{% trans "Cancel" %}</a>
+</form>
+{% endblock %}

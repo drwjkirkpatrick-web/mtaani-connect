@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
-> **Last updated:** 2026-10-25
-> **Current phase:** build — Phase 0 (Foundation) COMPLETE (01–07); Phase 1 (Community) starts next
+> **Last updated:** 2026-11-05
+> **Current phase:** build — Phase 0 (Foundation) COMPLETE (01–07); Phase 1 (Community) in progress (08 complete)
 > **Overall health:** green
 
 ---
@@ -24,6 +24,12 @@ KDPA-compliant from day one.
 - [x] Prompt 05 — PWA shell: mobile-first base template (bottom tab bar), 2.9 KB hand-written CSS (15 KB budget), SW with GET-only/no-auth/never-stale gates + offline page, manifest + generated icons, EN/SW i18n (LocaleMiddleware + polib-compiled catalogs, 20 strings), 15 tests + real-server smoke (12 routes 200, lang round-trip)
 - [x] Prompt 06 — image pipeline: pure core/images.py (EXIF+GPS-IFD stripped and tested, WebP budgets std≤1280px/40KB + thumb≤320px/15KB, no-upscale policy), apps/media MediaRef + upload endpoint; conftest now registers shared fixtures; 12 tests
 - [x] Prompt 07 — profiles: allow-list public_data (strict key-set test = the privacy guarantee), location granularity ladder (ward/city/country), per-field-group visibility (public/members/private), precise-location consent stored but unconsumed, staff-only seller verification gate, avatar via pipeline; 12 tests
+- [x] Prompt 08 — guides: local knowledge CRUD + safety warnings — Guide/
+      GuideStep/GuideRevision/GuideConfirmation, safety-warning gate enforced in
+      clean() on BOTH Guide and GuideRevision (MEDICAL/ELECTRICAL/CONSTRUCTION),
+      every edit = new draft revision, published view = latest PUBLISHED revision,
+      ward-coarse community confirmations, EN→SW title fallback always labelled,
+      no user HTML (linebreaks only); 22 tests (105 total)
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -32,10 +38,10 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Prompt 08 — guides: local knowledge CRUD + safety warnings (Phase 1 begins)
+- [ ] Prompt 09 — offline saved guides (manifest endpoint + service-worker caching)
 
 ### Not Started
-- [ ] Prompts 04–42 execution
+- [ ] Prompts 09–42 execution
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -62,10 +68,11 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Execute Prompt 08 — Guides (WikiHow for Kenya): `apps/guides/`
-> — categories, ordered steps, safety warnings enforced in clean() for
-> MEDICAL/ELECTRICAL/CONSTRUCTION, revisions, community confirmations.
-> Suite at 83 tests (Phase 0 complete).
+> **Next:** Execute Prompt 09 — Offline Saved Guides: `apps/guides/offline.py`
+> + offline template, `/guides/offline-manifest.json` (revision hashes, not
+> dates — clocks lie), service-worker caching on save (parent edits
+> `static/sw.js` per Prompt 09 spec), 50 MB quota warning.
+> Suite at 105 tests (Phase 1 under way).
 
 ## 6. Environment & Tooling Notes
 

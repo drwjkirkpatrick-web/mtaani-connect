@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "apps.accounts",
     "apps.media",
     "apps.profiles",
+    "apps.guides",
 ]
 
 MIDDLEWARE = [

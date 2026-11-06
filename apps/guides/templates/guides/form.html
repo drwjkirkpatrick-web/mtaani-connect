@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% if creating %}{% trans "Share a guide" %}{% else %}{% trans "Edit guide" %}{% endif %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% if creating %}{% trans "Share a guide" %}{% else %}{% trans "Edit guide" %}{% endif %}</h1>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+  {{ form.as_p }}
+  <h2>{% trans "Steps" %}</h2>
+  <p class="muted">{% trans "Number the steps in order (1, 2, 3…). Leave a row empty to skip it." %}</p>
+  {% if not creating %}
+  <p class="muted">{% trans "Editing saves a new draft revision — the published guide does not change until you publish it. Photos are not carried over, so re-add the ones you want." %}</p>
+  {% endif %}
+  {{ formset.management_form }}
+  {{ formset.non_form_errors }}
+  {% for f in formset %}{{ f.as_p }}{% endfor %}
+  <button type="submit">{% if creating %}{% trans "Publish guide" %}{% else %}{% trans "Save draft revision" %}{% endif %}</button>
+</form>
+{% endblock %}

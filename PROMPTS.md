@@ -1101,7 +1101,7 @@ Parallelizable groups (one subagent each, no shared files):
 | 05 | Design system, i18n shell & PWA | ✅ |
 | 06 | Image compression pipeline | ✅ |
 | 07 | Profiles & privacy controls | ✅ |
-| 08 | Guides CRUD & safety warnings | ☐ |
+| 08 | Guides CRUD & safety warnings | ✅ |
 | 09 | Offline saved guides | ☐ |
 | 10 | Posts & photos | ☐ |
 | 11 | Utility feed ranking | ☐ |

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Guides" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Guides" %}</h1>
+{# NOTE: search + category filter are plain GET params — no JS needed. #}
+<form method="get" action="{% url 'guides:list' %}">
+  <label for="id_q" class="muted">{% trans "Search guides" %}</label>
+  <input type="search" id="id_q" name="q" value="{{ q }}">
+  <input type="hidden" name="category" value="{{ active_category }}">
+  <button type="submit">{% trans "Search" %}</button>
+</form>
+<div class="chips">
+  <a class="badge{% if not active_category %} active{% endif %}" href="{% url 'guides:list' %}">{% trans "All" %}</a>
+  {% for value, label in categories %}
+  <a class="badge{% if value == active_category %} active{% endif %}" href="?category={{ value }}">{{ label }}</a>
+  {% endfor %}
+</div>
+<ul class="guide-list">
+  {% for guide in guides %}
+  <li class="card">
+    <a href="{% url 'guides:detail' guide.pk %}"><strong>{{ guide.display_title }}</strong></a>
+    <p class="muted">{{ guide.get_category_display }} · {{ guide.get_skill_level_display }}{% if guide.safety_warning %} · ⚠ {% trans "Safety note" %}{% endif %}</p>
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "Coming soon" %} — {% trans "community guides for Kenya." %}</p>
+    <p class="muted">{% trans "Know how to do something well? Share it." %}</p></li>
+  {% endfor %}
+</ul>
+{% if page_obj and page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}{% if active_category %}&amp;category={{ active_category }}{% endif %}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}{% if active_category %}&amp;category={{ active_category }}{% endif %}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{% if user.is_authenticated %}<a class="btn" href="{% url 'guides:create' %}">{% trans "Share a guide" %}</a>{% endif %}
+{% endblock %}

@@ -12,9 +12,10 @@ urlpatterns = [
     # Prompt 05: language toggle (cookie-persisted), offline shell + module stubs.
     path("lang/<str:code>/", views.set_lang, name="set_lang"),
     path("offline/", TemplateView.as_view(template_name="offline.html"), name="offline"),
+    # Prompt 08: Guides take over /guides/ (stub removed).
+    path("guides/", include("apps.guides.urls")),
     # NOTE: stub routes are placeholders until each app takes over with include():
-    # Guides (08), Market (17), Chats (20), Transport (25).
-    path("guides/", TemplateView.as_view(template_name="stub.html"), name="guides_stub"),
+    # Market (17), Chats (20), Transport (25).
     path("market/", TemplateView.as_view(template_name="stub.html"), name="market_stub"),
     path("chats/", TemplateView.as_view(template_name="stub.html"), name="chats_stub"),
     path("transport/", TemplateView.as_view(template_name="stub.html"), name="transport_stub"),
