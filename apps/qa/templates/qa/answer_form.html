@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Write an answer" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{{ question.display_title }}</h1>
+{% if question.risky %}
+<p class="badge">⚠ {{ question.get_safety_category_display }} — {% trans "answers to this question must include a safety warning." %}</p>
+{% endif %}
+{{ question.body|linebreaks }}
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">{% trans "Post answer" %}</button>
+</form>
+<p class="muted">{% trans "Plain text only — no formatting." %}</p>
+{% endblock %}

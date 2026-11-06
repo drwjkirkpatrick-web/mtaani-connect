@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Q&A" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Questions and answers" %}</h1>
+{# NOTE: search + safety filter are plain GET params, like guides — no JS. #}
+<form method="get" action="{% url 'qa:list' %}">
+  <label for="id_q" class="muted">{% trans "Search questions" %}</label>
+  <input type="search" id="id_q" name="q" value="{{ q }}">
+  <input type="hidden" name="category" value="{{ active_category }}">
+  <button type="submit">{% trans "Search" %}</button>
+</form>
+<div class="chips">
+  <a class="badge{% if not active_category %} active{% endif %}" href="{% url 'qa:list' %}">{% trans "All" %}</a>
+  {% for value, label in categories %}
+  <a class="badge{% if value == active_category %} active{% endif %}" href="?category={{ value }}">{{ label }}</a>
+  {% endfor %}
+</div>
+<ul class="qa-list">
+  {% for question in questions %}
+  <li class="card">
+    <a href="{% url 'qa:detail' question.pk %}"><strong>{{ question.display_title }}</strong></a>
+    {% if question.title_is_fallback %}<span class="muted">{% trans "English question shown — no Kiswahili yet" %}</span>{% endif %}
+    {# QUESTION-CONTEXT FLAG: one question-level safety badge; answers inherit it. #}
+    {% if question.risky %}<span class="badge">⚠ {{ question.get_safety_category_display }}</span>{% endif %}
+    <p class="muted">{% blocktranslate count question.answer_count as counter %}{{ counter }} answer{% plural %}{{ counter }} answers{% endblocktranslate %}
+      {% if question.accepted_answer %} · ✓ {% trans "accepted answer" %}{% endif %}</p>
+  </li>
+  {% empty %}
+  <li class="card"><p>{% trans "No questions yet." %}</p>
+    <p class="muted">{% trans "Stuck on something practical? Ask the community." %}</p></li>
+  {% endfor %}
+</ul>
+{% if page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}{% if active_category %}&amp;category={{ active_category }}{% endif %}{% if q %}&amp;q={{ q|urlencode }}{% endif %}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}{% if active_category %}&amp;category={{ active_category }}{% endif %}{% if q %}&amp;q={{ q|urlencode }}{% endif %}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{% if user.is_authenticated %}<a class="btn" href="{% url 'qa:ask' %}">{% trans "Ask a question" %}</a>{% endif %}
+{% endblock %}

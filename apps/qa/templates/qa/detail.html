@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ question.display_title }} — Mtaani{% endblock %}
+{% block content %}
+<article>
+  <h1>{{ question.display_title }}</h1>
+  {% if question.title_is_fallback %}
+  <p class="badge">{% trans "English question shown — no Kiswahili yet" %}</p>
+  {% endif %}
+  {% if question.risky %}
+  {# Question-context flag: every answer below must carry its own warning. #}
+  <p class="badge">⚠ {% blocktranslate with label=question.get_safety_category_display %}{{ label }} — take care and verify before acting{% endblocktranslate %}</p>
+  {% endif %}
+  <p class="muted">{% trans "Asked by" %} {{ question.asked_by }}</p>
+  {% if question.body %}{{ question.body|linebreaks }}{% endif %}
+
+  <section>
+    <h2>{% trans "Answers" %}</h2>
+    <ul class="qa-answers">
+    {% for a in answers %}
+      <li class="card">
+        <p class="badge-row">
+          {# PROVENANCE LABELS: all of these come from the row's data — the
+             accepted OneToOne and the is_machine boolean — never convention. #}
+          {% if a.pk == accepted_pk %}<span class="badge">✓ {% trans "Accepted answer" %}</span>{% endif %}
+          {% if a.is_machine %}<span class="badge badge-ai">{% trans "AI answer — verify before relying on it" %}</span>{% endif %}
+          {% if a.risky %}<span class="badge">⚠ {% trans "Safety" %}</span>{% endif %}
+          <span class="muted">{% blocktranslate count a.vote_count as counter %}{{ counter }} community verification{% plural %}{{ counter }} community verifications{% endblocktranslate %}</span>
+        </p>
+        {{ a.body|linebreaks }}
+        {# PITFALL GUARD: answer text renders via |linebreaks. NEVER |safe. #}
+        {% if a.risky and a.safety_warning %}
+        <div class="card"><strong>⚠ {% trans "Safety" %}</strong>{{ a.safety_warning|linebreaks }}</div>
+        {% endif %}
+        <p class="muted">{% trans "Answered by" %} {{ a.author }}</p>
+        {% if user.is_authenticated %}
+        {% if a.pk in my_votes %}
+        <form method="post" action="{% url 'qa:vote' a.pk %}">{% csrf_token %}
+          <button type="submit" name="undo" value="1">{% trans "Undo my verification" %}</button>
+        </form>
+        {% elif a.author_id == user.pk %}
+        <p class="muted">{% trans "You cannot verify your own answer." %}</p>
+        {% else %}
+        <form method="post" action="{% url 'qa:vote' a.pk %}">{% csrf_token %}
+          <button type="submit">{% trans "This worked — verify" %}</button>
+        </form>
+        {% endif %}
+        {% else %}
+        <p class="muted"><a href="/accounts/login/">{% trans "Log in" %}</a> {% trans "to verify answers." %}</p>
+        {% endif %}
+        {% if can_accept and a.pk != accepted_pk %}
+        <form method="post" action="{% url 'qa:accept' question.pk a.pk %}">{% csrf_token %}
+          <button type="submit">{% trans "Accept this answer" %}</button>
+        </form>
+        {% endif %}
+      </li>
+      {% empty %}
+      <li class="muted">{% trans "No answers yet — the community will help soon." %}</li>
+    {% endfor %}
+    </ul>
+    {% if user.is_authenticated %}
+    <a class="btn" href="{% url 'qa:answer' question.pk %}">{% trans "Write an answer" %}</a>
+    {% else %}
+    <p class="muted"><a href="/accounts/login/">{% trans "Log in" %}</a> {% trans "to answer." %}</p>
+    {% endif %}
+  </section>
+</article>
+{% endblock %}

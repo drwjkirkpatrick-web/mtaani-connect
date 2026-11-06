@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Ask a question" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Ask a question" %}</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">{% trans "Post question" %}</button>
+</form>
+<p class="muted">{% trans "Plain text only — no formatting." %}</p>
+{% endblock %}
