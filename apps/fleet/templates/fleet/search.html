@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Find a matatu" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Find a matatu" %}</h1>
+<p class="muted">{% trans "Search by plate, the beloved nickname, or a route it works." %}</p>
+<form method="get">
+  <label for="id_q" class="muted">{% trans "Plate or nickname" %}</label>
+  <input type="search" id="id_q" name="q" value="{{ q }}">
+  <button type="submit">{% trans "Search" %}</button>
+</form>
+{% if queried and not vehicles %}
+<p class="muted" data-test="no-hits">{% trans "No matatu matches — nothing invented to fill the list." %}</p>
+{% endif %}
+<ul class="route-list">
+{% for vehicle in vehicles %}
+  <li class="card">
+    <strong>{{ vehicle.plate }}</strong>
+    {% if vehicle.nickname %}<span class="muted">· {{ vehicle.nickname }}</span>{% endif %}
+    <span class="badge">{{ vehicle.sacco.name }}</span>
+    <span class="muted">{% blocktranslate count counter=vehicle.capacity %}{{ counter }} seat{% plural %}{{ counter }} seats{% endblocktranslate %}</span>
+    {% for route in vehicle.routes.all %}<span class="badge">{{ route }}</span>{% endfor %}
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

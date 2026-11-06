@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Crew board" %}: {{ vehicle.plate }} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Crew board" %}: {{ vehicle.plate }}</h1>
+<p><span class="badge">{{ vehicle.sacco }}</span>
+  <span class="badge">{% blocktranslate count counter=approved_count %}{{ counter }} approved seat{% plural %}{{ counter }} approved seats{% endblocktranslate %}</span></p>
+<ul>
+  {% for seat in seats %}
+  <li>
+    {{ seat.user.username }} — {{ seat.get_role_display }}
+    <span class="badge">{{ seat.get_status_display }}</span>
+    {% if seat.status == "APPROVED" %}
+    <form method="post" action="{% url 'fleet:crew_revoke' seat.pk %}">{% csrf_token %}
+      <button type="submit">{% trans "Revoke" %}</button>
+    </form>
+    {% elif seat.status == "PENDING" %}
+    <form method="post" action="{% url 'fleet:crew_approve' seat.pk %}">{% csrf_token %}
+      <button type="submit">{% trans "Approve" %}</button>
+    </form>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li class="muted">{% trans "Nobody on this crew yet." %}</li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'fleet:vehicle_detail' vehicle.pk %}">{% trans "Back to vehicle" %}</a></p>
+{% endblock %}

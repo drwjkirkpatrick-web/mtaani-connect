@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Request a crew seat" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Request a crew seat" %}</h1>
+<p class="muted">{% trans "Your request sits pending until a SACCO admin approves it — the human gate before any position authority." %}</p>
+<form method="post">
+  {% csrf_token %}
+  {{ form.non_field_errors.as_ul }}
+  {{ form.vehicle.as_p }}
+  {{ form.role.as_p }}
+  <button type="submit">{% trans "Request it" %}</button>
+  <a class="muted" href="{% url 'fleet:crew_mine' %}">{% trans "My crew seats" %}</a>
+</form>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ vehicle.plate }} — Mtaani{% endblock %}
+{% block content %}
+<h1>{{ vehicle.plate }}</h1>
+{% if vehicle.nickname %}<p class="muted">{% trans "Nickname" %}: {{ vehicle.nickname }}</p>{% endif %}
+<p>
+  <span class="badge">{{ vehicle.sacco }}</span>
+  <span class="badge">{% blocktranslate count counter=vehicle.capacity %}{{ counter }} seat{% plural %}{{ counter }} seats{% endblocktranslate %}</span>
+  <span class="badge">{{ vehicle.status }}</span>
+</p>
+<h2>{% trans "Operating routes" %}</h2>
+<form method="post" action="{% url 'fleet:vehicle_routes' vehicle.pk %}">
+  {% csrf_token %}
+  <fieldset>
+    {% for route in route_options %}
+    <label><input type="checkbox" name="routes" value="{{ route.pk }}"
+      {% if route.pk in vehicle_route_ids %}checked{% endif %}> {{ route }}</label>
+    {% empty %}
+    <p class="muted">{% trans "No routes in the network yet — nothing to assign." %}</p>
+    {% endfor %}
+  </fieldset>
+  <button type="submit">{% trans "Save routes" %}</button>
+</form>
+<h2>{% trans "Crew roster" %}</h2>
+<ul>
+  {% for seat in crew %}
+  <li>
+    {{ seat.get_role_display }} — {{ seat.user.username }} <span class="badge">{{ seat.get_status_display }}</span>
+    {% if seat.status == "APPROVED" %}
+    <form method="post" action="{% url 'fleet:crew_revoke' seat.pk %}">{% csrf_token %}
+      <button type="submit">{% trans "Revoke" %}</button>
+    </form>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li class="muted">{% trans "No crew seats yet." %}</li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'fleet:crew_roster' vehicle.pk %}">{% trans "Crew board" %}</a> ·
+   <a href="{% url 'fleet:dashboard' %}">{% trans "Back to dashboard" %}</a></p>
+{% endblock %}

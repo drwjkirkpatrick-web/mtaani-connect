@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Operator dashboard" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Operator dashboard" %}</h1>
+<p class="muted">{% trans "Your SACCO's fleet — only vehicles of SACCOs you administer." %}</p>
+<ul class="chips">
+  {% for sacco in saccos %}<li class="badge">{{ sacco }}</li>{% endfor %}
+  <li class="badge">{% blocktranslate count counter=pending_total %}{{ counter }} crew request{% plural %}{{ counter }} crew requests{% endblocktranslate %}</li>
+</ul>
+<p><a href="{% url 'fleet:vehicle_register' %}">{% trans "Register a vehicle" %}</a>
+   · <a href="{% url 'fleet:crew_pending' %}">{% trans "Crew approval queue" %}</a></p>
+{% if not vehicles %}
+<p class="muted" data-test="empty-fleet">{% trans "No vehicles registered yet — none invented to fill the list." %}</p>
+{% endif %}
+<ul class="route-list">
+{% for vehicle in vehicles %}
+  <li class="card">
+    <strong>{{ vehicle.plate }}</strong>
+    {% if vehicle.nickname %}<span class="muted">· {{ vehicle.nickname }}</span>{% endif %}
+    {% if vehicle.status == "RETIRED" %}<span class="badge">{% trans "retired" %}</span>{% endif %}
+    <span class="muted">{% blocktranslate count counter=vehicle.capacity %}{{ counter }} seat{% plural %}{{ counter }} seats{% endblocktranslate %}</span>
+    {% for route in vehicle.routes.all %}<span class="badge">{{ route }}</span>{% endfor %}
+    <span class="badge">{% blocktranslate %}{{ vehicle.approved_crew }} crew · {{ vehicle.pending_crew }} pending{% endblocktranslate %}</span>
+    <nav>
+      <a href="{% url 'fleet:vehicle_detail' vehicle.pk %}">{% trans "Manage" %}</a>
+      <form method="post" action="{% url 'fleet:vehicle_retire' vehicle.pk %}">{% csrf_token %}
+        <button type="submit">{% trans "Retire" %}</button>
+      </form>
+    </nav>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

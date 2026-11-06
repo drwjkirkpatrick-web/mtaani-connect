@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Register a vehicle" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Register a vehicle" %}</h1>
+<p class="muted">{% trans "Plates like KCA 123K, KDA 123AB or legacy KZ 8463. Nicknames are the beloved matatu names — searchable." %}</p>
+<form method="post">
+  {% csrf_token %}
+  {{ form.non_field_errors.as_ul }}
+  {{ form.sacco.as_p }}
+  {{ form.plate.as_p }}
+  {{ form.nickname.as_p }}
+  {{ form.capacity.as_p }}
+  {{ form.routes.as_p }}
+  <button type="submit">{% trans "Register it" %}</button>
+  <a class="muted" href="{% url 'fleet:dashboard' %}">{% trans "Cancel" %}</a>
+</form>
+{% endblock %}

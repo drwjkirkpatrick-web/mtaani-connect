@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Crew approval queue" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Crew approval queue" %}</h1>
+<p class="muted">{% trans "Requests on YOUR vehicles only. Approving must be done by a different human than the applicant." %}</p>
+<ul>
+  {% for seat in seats %}
+  <li class="card">
+    <strong>{{ seat.user.username }}</strong>
+    {% trans "asks for" %} {{ seat.get_role_display }}
+    {% trans "on" %} {{ seat.vehicle.plate }} @ {{ seat.vehicle.sacco.name }}
+    <form method="post" action="{% url 'fleet:crew_approve' seat.pk %}">{% csrf_token %}
+      <button type="submit">{% trans "Approve" %}</button>
+    </form>
+  </li>
+  {% empty %}
+  <li class="muted" data-test="queue-empty">{% trans "No pending crew requests." %}</li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'fleet:dashboard' %}">{% trans "Back to dashboard" %}</a></p>
+{% endblock %}

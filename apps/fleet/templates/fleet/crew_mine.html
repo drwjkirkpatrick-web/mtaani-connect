@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "My crew seats" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "My crew seats" %}</h1>
+<ul>
+  {% for seat in seats %}
+  <li>
+    {{ seat.vehicle.plate }} {% if seat.vehicle.nickname %}· {{ seat.vehicle.nickname }}{% endif %}
+    — {{ seat.get_role_display }} @ {{ seat.vehicle.sacco }}
+    <span class="badge">{{ seat.get_status_display }}</span>
+  </li>
+  {% empty %}
+  <li class="muted" data-test="no-seats">{% trans "No crew seats requested yet." %}</li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'fleet:crew_request' %}">{% trans "Request a crew seat" %}</a></p>
+{% endblock %}
