@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{# Group detail (Prompt 13): description, join/leave (POST-only), paged member
+   list. Group posts arrive with Prompt 10; the feed consumes this group via
+   apps.groups.services.member_group_ids — one function call, that's it. #}
+{% block title %}{{ group.name }} — Mtaani{% endblock %}
+{% block content %}
+<p class="muted">{{ group.get_kind_display }}{% if group.ward %} · {{ group.ward }}{% endif %}</p>
+<h1>{{ group.name }}</h1>
+{% if group.description %}<p>{{ group.description|linebreaksbr }}</p>
+{% else %}<p class="muted">{% trans "No description yet." %}</p>{% endif %}
+
+{% if user.is_authenticated %}
+  {% if my_role == 'owner' %}
+  <p class="muted">{% trans "You own this group." %}</p>
+  {% elif my_role %}
+  {# Leave is POST-only: state changes are never triggered by GET. #}
+  <form method="post" action="{% url 'groups:leave' group.pk %}">
+    {% csrf_token %}
+    <button type="submit">{% trans "Leave group" %}</button>
+    {% if my_role == 'moderator' %}<span class="badge">{% trans "You moderate here" %}</span>{% endif %}
+  </form>
+  {% else %}
+  <form method="post" action="{% url 'groups:join' group.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="btn">{% trans "Join group" %}</button>
+  </form>
+  {% endif %}
+{% endif %}
+
+<h2>{% trans "Members" %}</h2>
+<p class="muted">{% blocktrans count counter=member_count %}{{ counter }} member{% plural %}{{ counter }} members{% endblocktrans %}</p>
+<ul class="guide-list">
+  {% for membership in memberships %}
+  <li class="card">
+    <a href="{% url 'profiles:profile' membership.user.username %}"><strong>{{ membership.user.username }}</strong></a>
+    {% if membership.role != 'member' %}<span class="badge">{{ membership.get_role_display }}</span>{% endif %}
+  </li>
+  {% empty %}
+  <li class="card"><p class="muted">{% trans "No members yet." %}</p></li>
+  {% endfor %}
+</ul>
+{% if page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{% endblock %}

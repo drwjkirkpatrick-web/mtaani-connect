@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{# Following list page (Prompt 13). No follower counts are rendered on this
+   surface at all — the below-10 privacy floor applies to follower counts,
+   and only the followers page shows that (gated) number. #}
+{% block title %}{{ header.display_name }} · {% trans "Following" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% blocktrans with name=header.display_name %}Who {{ name }} follows{% endblocktrans %}</h1>
+<ul class="guide-list">
+  {% for follow in rows %}
+  <li class="card">
+    <a href="{% url 'profiles:profile' follow.followee.username %}"><strong>{{ follow.followee.username }}</strong></a>
+    {% if follow.viewer_can_unfollow %}
+    {# Unfollow is POST-only: state changes are never triggered by GET. #}
+    <form method="post" action="{% url 'follows:unfollow' follow.followee.pk %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ back_url }}">
+      <button type="submit">{% trans "Unfollow" %}</button>
+    </form>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li class="card"><p class="muted">{% blocktrans with name=header.display_name %}{{ name }} is not following anyone yet.{% endblocktrans %}</p></li>
+  {% endfor %}
+</ul>
+{% if page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{% endblock %}

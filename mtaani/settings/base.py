@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "apps.guides",
     "apps.posts",
     "apps.qa",
+    "apps.follows",
+    "apps.groups",
 ]
 
 MIDDLEWARE = [

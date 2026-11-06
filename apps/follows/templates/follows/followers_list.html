@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+{# Followers list page (Prompt 13). NOTE the privacy floor: the follower
+   count in context comes from services.visible_follower_count — below 10 it
+   is None and NO number is rendered anywhere on the page. Templates must
+   never touch the raw count; the leak test enforces that. #}
+{% block title %}{{ header.display_name }} · {% trans "Followers" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{{ header.display_name }} · {% trans "Followers" %}</h1>
+{% if follower_count is not None %}
+<p class="badge">{% blocktrans count counter=follower_count %}{{ counter }} follower{% plural %}{{ counter }} followers{% endblocktrans %}</p>
+{% else %}
+<p class="muted">{% trans "Growing — the follower count appears once it reaches 10." %}</p>
+{% endif %}
+<ul class="guide-list">
+  {% for follow in rows %}
+  <li class="card">
+    <a href="{% url 'profiles:profile' follow.follower.username %}"><strong>{{ follow.follower.username }}</strong></a>
+    {% if follow.viewer_can_follow %}
+    {# "Follow back" — same idempotent POST route the profile page would use. #}
+    <form method="post" action="{% url 'follows:follow' follow.follower.pk %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ back_url }}">
+      <button type="submit">{% trans "Follow back" %}</button>
+    </form>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li class="card"><p class="muted">{% blocktrans with name=header.display_name %}No one follows {{ name }} yet.{% endblocktrans %}</p></li>
+  {% endfor %}
+</ul>
+{% if page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{% endblock %}

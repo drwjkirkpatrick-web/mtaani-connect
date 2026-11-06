@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{# Group list (Prompt 13): public, kind-filtered via plain GET — no JS. #}
+{% block title %}{% trans "Groups" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Groups" %}</h1>
+<div class="chips">
+  <a class="badge{% if not active_kind %} active{% endif %}" href="{% url 'groups:list' %}">{% trans "All" %}</a>
+  {% for value, label in kinds %}
+  <a class="badge{% if value == active_kind %} active{% endif %}" href="?kind={{ value }}">{{ label }}</a>
+  {% endfor %}
+</div>
+<ul class="guide-list">
+  {% for group in groups %}
+  <li class="card">
+    <a href="{% url 'groups:detail' group.pk %}"><strong>{{ group.name }}</strong></a>
+    <p class="muted">{{ group.get_kind_display }}{% if group.ward %} · {{ group.ward }}{% endif %}</p>
+  </li>
+  {% empty %}
+  <li class="card"><p class="muted">{% trans "No groups here yet — start one for an interest, an estate or a profession." %}</p></li>
+  {% endfor %}
+</ul>
+{% if page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}{% if active_kind %}&amp;kind={{ active_kind }}{% endif %}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}{% if active_kind %}&amp;kind={{ active_kind }}{% endif %}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{% if user.is_authenticated %}<a class="btn" href="{% url 'groups:create' %}">{% trans "Start a group" %}</a>{% endif %}
+{% endblock %}

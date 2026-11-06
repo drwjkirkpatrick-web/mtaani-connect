@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+{# Group create form (Prompt 13): server-rendered, no JS. #}
+{% block title %}{% trans "Start a group" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Start a group" %}</h1>
+<p class="muted">{% trans "Groups bring people together around an interest, an estate (neighbourhood) or a profession." %}</p>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">{% trans "Create group" %}</button>
+</form>
+{% endblock %}
