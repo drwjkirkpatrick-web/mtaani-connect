@@ -309,7 +309,23 @@ def test_text_cap_enforced(fresh_user, other_user, seller_listing):
 
 
 @pytest.mark.django_db
-def test_one_star_requires_a_dispute_note(fresh_user, other_user, seller_listing):
+def test_one_star_note_gates_on_open_disputes(fresh_user, other_user, seller_listing):
+    """Post-23 contract: the ≥20-char dispute note is required ONLY when a
+    dispute is OPEN on the deal (Prompt 23 landed; the gate auto-tightened
+    via the dispute_open_for_deal door)."""
+    from apps.disputes.services import open_case
+
+    # No open dispute → a 1-star review needs no note at all.
+    ok = _held_buyer_review(fresh_user, seller_listing, stars=1)
+    assert ok.status == "DRAFT"
+    DealReview.objects.all().delete()  # the per-deal unique frees the fixture
+
+    # Seller opens the deal's dispute → 1-star now REQUIRES the note.
+    open_case(
+        opener=other_user, deal_app="listings", deal_id=seller_listing.pk,
+        what_promised="Fresh maize, delivered by Friday.",
+        what_happened="Maize arrived dry and half was mouldy.",
+    )
     with pytest.raises(ValidationError) as bare:
         _held_buyer_review(fresh_user, seller_listing, stars=1)
     assert models.MSG_DISPUTE_NOTE_REQUIRED in [str(m) for m in bare.value.messages]
@@ -340,9 +356,9 @@ def test_non_one_star_needs_no_dispute_note(fresh_user, other_user, seller_listi
 
 
 def test_dispute_gate_contract_for_prompt_23(monkeypatch):
-    """When Prompt 23 lands, the 1-star note binds to OPEN disputes on the
-    deal. Prove the gate narrows (not disappears) without that app existing:
-    stub its public door via sys.modules and assert both branches."""
+    """Prompt 23 HAS landed: the 1-star note binds only to OPEN disputes via
+    the real dispute_open_for_deal door. Prove the wiring both ways —
+    stub the door for branch determinism and assert the narrowed contract."""
     import sys
     from types import ModuleType
 
@@ -352,19 +368,20 @@ def test_dispute_gate_contract_for_prompt_23(monkeypatch):
         return module
 
     try:
-        # Today: no disputes app → the note is required for EVERY 1-star.
-        assert models._dispute_note_required_for(1, "listings", 1) is True
-        # After 23 lands with an open dispute on this deal → still required…
+        # Real app in the tree, no dispute fixture → not required.
+        assert models._dispute_note_required_for(1, "listings", 1) is False
+        # Open dispute on this deal → required…
         monkeypatch.setitem(sys.modules, "apps.disputes.services", _stub(True))
         monkeypatch.setitem(sys.modules, "apps.disputes", ModuleType("apps.disputes"))
         assert models._dispute_note_required_for(1, "listings", 1) is True
-        # …and NOT required when no dispute is open (the spec's tightening).
+        # …and not required when no dispute is open (the spec's narrowing).
         monkeypatch.setitem(sys.modules, "apps.disputes.services", _stub(False))
         assert models._dispute_note_required_for(1, "listings", 1) is False
     finally:
         # sys.modules stubs must never leak into sibling imports.
         for name in ("apps.disputes", "apps.disputes.services"):
             sys.modules.pop(name, None)
+    # The gate is 1-star only — never requires a note for other stars.
     assert models._dispute_note_required_for(2, "listings", 1) is False
 
 
@@ -550,7 +567,24 @@ def test_leave_view_rejects_bad_input(
         },
     )
     assert DealReview.objects.count() == 0
-    # 1-star without the dispute note is refused on the form level:
+    # 1-star with no OPEN dispute now carries NO note (post-23 gate):
+    ok = client_auth.post(
+        reverse("reviews:leave"),
+        {
+            "deal_app": "listings", "deal_id": seller_listing.pk,
+            "stars": "1", "dispute_note": "",
+        },
+    )
+    assert DealReview.objects.count() == 1
+    assert ok.status_code == 302
+
+    # …and once a dispute IS open, the empty note is refused on the form:
+    from apps.disputes.services import open_case
+    open_case(
+        opener=other_user, deal_app="listings", deal_id=seller_listing.pk,
+        what_promised="Clean maize by Friday.",
+        what_happened="Half the bag was mouldy.",
+    )
     response = client_auth.post(
         reverse("reviews:leave"),
         {
@@ -558,7 +592,7 @@ def test_leave_view_rejects_bad_input(
             "stars": "1", "dispute_note": "",
         },
     )
-    assert DealReview.objects.count() == 0
+    assert DealReview.objects.count() == 1  # still one — refused, not saved
     assert response.status_code == 200  # re-rendered form with the notice
 
 

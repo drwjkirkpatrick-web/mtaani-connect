@@ -31,6 +31,7 @@ from apps.media.services import save_upload
 
 PUBLISHED = ContentStatus.PUBLISHED.value
 REMOVED = ContentStatus.REMOVED.value
+UNDER_REVIEW = ContentStatus.UNDER_REVIEW.value  # Prompt 24 category gate
 
 # The moderation module's target allow-list is parent-owned; the parent's
 # Phase-2 duty (see apps/moderation/models.py comment) is to add "listings"
@@ -241,7 +242,13 @@ def test_edit_round_trip_and_seller_gate(client_auth, fresh_user):
     assert response.status_code == 302
     listing.refresh_from_db()
     assert listing.title == "Bei mpya: kito"
-    assert listing.status == PUBLISHED          # status is NOT editable via edit
+    # Prompt 24 consolidation: a category change on a LIVE market row is
+    # GATED (bait-and-switch prevention) — moderation axis flips to review;
+    # the LIFECYCLE axis stays ACTIVE (two independent axes).
+    assert listing.status == UNDER_REVIEW
+    assert listing.category_gate is True   # pending on its own column
+    assert listing.review_flagged is False # phone flag untouched
+    assert listing.lifecycle == "ACTIVE"
 
 
 @pytest.mark.django_db

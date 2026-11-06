@@ -60,6 +60,8 @@ class AuditAction(models.TextChoices):
     SUSPENSION_DRAFTED = "SUSPENSION_DRAFTED", _("Suspension drafted")
     SUSPENSION_CONFIRMED = "SUSPENSION_CONFIRMED", _("Suspension confirmed")
     SUSPENSION_CANCELLED = "SUSPENSION_CANCELLED", _("Suspension cancelled")
+    # Prompt 24 consolidation: the recategorization gate's moderation side.
+    RECAT_APPROVED = "RECAT_APPROVED", _("Recategorization approved")
 
 
 class Report(TimestampedModel):
