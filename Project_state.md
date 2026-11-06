@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 1 (Community) in progress: 08–10, 12, 13, 15 complete; 11/14/16 next
+> **Current phase:** build — Phase 1 (Community) COMPLETE (08–16); Phase 2 (Commerce) next: 17 + 20 parallel
 > **Overall health:** green
 
 ---
@@ -53,6 +53,16 @@ KDPA-compliant from day one.
       immutable audit rows, two-actor suspension draft→confirm gate, report
       rate limit 10/rolling-hour (injected clock), removals only set
       ContentStatus.REMOVED (never hard-deleted); 30 tests (249)
+- [x] Prompt 11 — utility feed: pure injected-clock rank() (max 9.0 scoring
+      table in docstring), 10-item pages + explicit end-of-feed, read-only
+      assembly over sibling public APIs; 11 tests
+- [x] Prompt 14 — cross-entity search: SearchDocument maintained by Postgres
+      triggers (other apps untouched), pg_trgm trusted extension, bilingual
+      en+sw single vector, trigram typo tolerance, grouped results; 14 tests
+- [x] Prompt 16 — trust signals: helpful votes (generic-FK posts/qa),
+      read-time rollups (lifetime + 90d), admin-tunable tier thresholds,
+      once-only badge events; parent plugs scorer into feed + badge partial
+      on profiles/QA; 20 tests (295 total)
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -61,11 +71,11 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Wave 2 — Prompts 11 (feed), 14 (search), 16 (trust) in parallel; then
-      Prompt 35 (i18n completion) once content prompts settle
+- [ ] Phase 2 commerce — Prompt 17 (listings-goods) + Prompt 20 (messaging)
+      in parallel; then 18, 21, 22, 24 → 19 → 23
 
 ### Not Started
-- [ ] Phase 2 (17–24), Phase 3 (25–31), Phase 4 (32–34), Phase 5 (36–42)
+- [ ] Phase 3 (25–31), Phase 4 (32–34), Phase 5 (36–42)
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -92,11 +102,10 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Wave 2 in parallel — Prompt 11 (Utility Feed: pure injected-clock
-> `rank()`, 10-item pages + explicit end-of-feed), Prompt 14 (Cross-Entity
-> Search: maintained SearchVector + pg_trgm bilingual matching), Prompt 16
-> (Trust Signals & Helpfulness). Each: `apps/<name>/` + tests, one commit each.
-> Suite at 250 tests (incl. 1 parent SW-contract test).
+> **Next:** Phase 2 wave — Prompt 17 (Marketplace Listings-Goods) and Prompt
+> 20 (Messaging v1) in parallel, both gated on moderation role hooks. Then
+> 18 (service listings), 21 (barter), 22 (reviews), 24 (lifecycle), 19
+> (listing search), 23 (disputes). Suite at 295 tests.
 
 ## 6. Environment & Tooling Notes
 

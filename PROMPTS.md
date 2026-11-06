@@ -1104,12 +1104,12 @@ Parallelizable groups (one subagent each, no shared files):
 | 08 | Guides CRUD & safety warnings | ✅ |
 | 09 | Offline saved guides | ✅ |
 | 10 | Posts & photos | ✅ |
-| 11 | Utility feed ranking | ☐ |
+| 11 | Utility feed ranking | ✅ |
 | 12 | Q&A with AI-answer labeling | ✅ |
 | 13 | Follows & groups | ✅ |
-| 14 | Cross-entity search | ☐ |
+| 14 | Cross-entity search | ✅ |
 | 15 | Moderation v1 | ✅ |
-| 16 | Trust signals & helpfulness | ☐ |
+| 16 | Trust signals & helpfulness | ✅ |
 | 17 | Marketplace listings (goods) | ☐ |
 | 18 | Service listings & portfolios | ☐ |
 | 19 | Listing search & geo filters | ☐ |
