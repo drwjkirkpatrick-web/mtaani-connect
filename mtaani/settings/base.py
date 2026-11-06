@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "apps.barter",
     "apps.reviews",
     "apps.disputes",
+    # Phase 3 begins (Prompt 25) while Prompt 19 closes Phase 2.
+    "apps.routes",
 ]
 
 MIDDLEWARE = [

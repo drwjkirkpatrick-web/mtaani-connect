@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ route.name_en }} — Mtaani{% endblock %}
+{% block content %}
+<h1>{{ route.name_en }}{% if route.name_sw %} <span class="muted">· {{ route.name_sw }}</span>{% endif %}
+  {% if route.corridor_color %}<span class="badge" style="background: {{ route.corridor_color }}">&nbsp;</span>{% endif %}
+</h1>
+<p class="muted">
+  {% for sacco in route.saccos.all %}{{ sacco.name }}{% if not forloop.last %}, {% endif %}{% empty %}{% trans "SACCO not recorded" %}{% endfor %}
+</p>
+{# WHY the seed badge lives here: the 2018 GTFS is stale and this page is #}
+{# the one place users take directions from — we label quality, always. #}
+{% if seed_quality %}<p class="badge badge-seed">{% trans "seed-quality data (2018 GTFS) — corrected by the community over time" %}</p>{% endif %}
+
+<h2>{% trans "Stages" %}</h2>
+<ol class="stage-order">
+  {% for rs in stages %}
+  <li>
+    <a href="{% url 'routes:stage_detail' rs.stage.pk %}">{{ rs.stage.name }}</a>
+    {% if forloop.first %}<span class="badge">{% trans "start" %}</span>{% endif %}
+  </li>
+  {% empty %}
+  <li class="muted">{% trans "No stage order recorded yet (the feed's trip data is missing or admins haven't linked stages)." %}</li>
+  {% endfor %}
+</ol>
+
+<h2>{% trans "Observed fares" %}</h2>
+<ul class="fare-list">
+  {% for fare in fares %}
+  <li class="card">
+    {{ fare.from_stage.name }} → {{ fare.to_stage.name }}:
+    <strong>{{ fare.range_display }}</strong>
+    <span class="badge">{{ fare.confidence_display }}</span>
+    {# NOTE: ranges, never "official" prices — fares move with time and rain. #}
+  </li>
+  {% empty %}
+  <li class="muted">{% trans "No observed fares yet. GTFS feeds carry none — fares are added by admins and the community." %}</li>
+  {% endfor %}
+</ul>
+
+<h2>{% trans "On the map" %}</h2>
+{% if line_kind == "gtfs" %}
+<p><span class="badge">{% trans "route line from GTFS shapes.txt (2018 seed)" %}</span></p>
+{% elif line_kind == "stage_to_stage" %}
+{# The PROMPTS.md 25 pitfall, made visible: approximate join, plainly labeled. #}
+<p>
+  <span class="badge">{% trans "stage-to-stage line — approximate, NOT the real road path" %}</span>
+  <span class="muted">{% trans "(no GTFS shape data for this route)" %}</span>
+</p>
+{% else %}
+<p class="muted">{% trans "No line available — stages lack coordinates on this route." %}</p>
+{% endif %}
+<div id="route-line" data-kind="{{ line_kind }}" data-points="{{ line_points_json }}"></div>
+<p class="muted"><a href="{% url 'routes:correction_new' %}?route={{ route.pk }}">{% trans "Report a correction (wrong stage order / missing route)" %}</a></p>
+{% endblock %}

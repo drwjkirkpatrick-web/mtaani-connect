@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "My corrections" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "My corrections" %}</h1>
+<ul class="correction-list">
+  {% for item in items %}
+  <li class="card">
+    <strong>{{ item.get_kind_display }}</strong> · <span class="badge">{{ item.get_status_display }}</span>
+    {% if item.route %}<a href="{% url 'routes:detail' item.route.pk %}">{{ item.route.name_en }}</a>{% endif %}
+    {% if item.stage %}{{ item.stage.name }}{% endif %}
+    <p>{{ item.note }}</p>
+    {% if item.resolution_note %}<p class="muted">{% trans "Moderator:" %} {{ item.resolution_note }}</p>{% endif %}
+  </li>
+  {% empty %}
+  <li class="muted">{% trans "You haven't reported anything yet." %}</li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'routes:correction_new' %}">{% trans "Report a correction" %}</a></p>
+{% endblock %}

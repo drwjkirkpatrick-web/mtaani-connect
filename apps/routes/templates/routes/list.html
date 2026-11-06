@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Routes" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Matatu routes" %}</h1>
+<p class="muted">
+  {% trans "Nairobi route network — search by stage nickname, SACCO or destination." %}
+</p>
+{# NOTE: seed honesty — this database is seeded from the STALE 2018 Digital #}
+{# Matatus GTFS. Everything is editable; a community correction queue feeds #}
+{# moderators. The badge below says so on every seed-driven surface. #}
+{% if not seeder_available %}
+<p class="muted" data-test="no-zip">
+  {% trans "No GTFS zip found. Routes added by hand in admin are the source of truth — nothing is invented to fill the list." %}
+</p>
+{% endif %}
+<ul class="chips">
+  <li class="badge">{% blocktranslate count counter=stats.routes %}{{ counter }} route{% plural %}{{ counter }} routes{% endblocktranslate %}</li>
+  <li class="badge">{% blocktranslate count counter=stats.stages %}{{ counter }} stage{% plural %}{{ counter }} stages{% endblocktranslate %}</li>
+  <li class="badge">{% blocktranslate count counter=stats.saccos %}{{ counter }} SACCO{% plural %}{{ counter }} SACCOs{% endblocktranslate %}</li>
+  <li class="badge badge-seed">{% trans "seed-quality (2018 GTFS) — community-corrected" %}</li>
+</ul>
+<form method="get" action="{% url 'routes:search' %}">
+  <label for="id_q" class="muted">{% trans "Find a stage or route" %}</label>
+  <input type="search" id="id_q" name="q" value="{{ q }}">
+  <button type="submit">{% trans "Search" %}</button>
+</form>
+<ul class="route-list">
+  {% for route in routes %}
+  <li class="card">
+    <a href="{% url 'routes:detail' route.pk %}"><strong>{{ route.name_en }}</strong>
+      {% if route.name_sw %}<span class="muted">· {{ route.name_sw }}</span>{% endif %}</a>
+    <p class="muted">
+      {% for sacco in route.saccos.all %}{{ sacco.name }}{% if not forloop.last %}, {% endif %}{% empty %}{% trans "SACCO not recorded" %}{% endfor %}
+    </p>
+  </li>
+  {% empty %}
+  <li class="card">
+    <p>
+      {% if seeder_available %}
+      {% trans "No routes yet — run the GTFS import in admin." %}
+      {% else %}
+      {% trans "No GTFS zip found." %} {% trans "Routes can be added by hand in admin — nothing is invented to fill the list." %}
+      {% endif %}
+    </p>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

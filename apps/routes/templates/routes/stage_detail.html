@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ stage.name }} — Mtaani{% endblock %}
+{% block content %}
+<h1>{{ stage.name }}</h1>
+<p>
+  {% if stage.continuous_stop %}
+  <span class="badge">{% trans "hailable en route — crews accept passengers along the segment, not only at the bay" %}</span>
+  {% else %}
+  <span class="muted">{% trans "boarding at the marked bay" %}</span>
+  {% endif %}
+</p>
+<h2>{% trans "Known as" %}</h2>
+{% if stage.aliases.all %}
+<ul class="alias-list">
+  {% for a in stage.aliases.all %}<li>{{ a.alias }}</li>{% endfor %}
+</ul>
+{% else %}
+<p class="muted">{% trans "No nicknames recorded yet." %}</p>
+{% endif %}
+<h2>{% trans "Location" %}</h2>
+{% if stage.coordinate %}
+<p class="muted">{% trans "Public stop location (approximate, seed data):" %} {{ stage.lat }}, {{ stage.lon }}</p>
+{% else %}
+<p class="muted">{% trans "No coordinates recorded — nothing is invented to fill the map." %}</p>
+{% endif %}
+<h2>{% trans "Routes through here" %}</h2>
+<ul class="route-list">
+  {% for rs in routes %}
+  <li class="card">
+    <a href="{% url 'routes:detail' rs.route.pk %}"><strong>{{ rs.route.name_en }}</strong></a>
+    <span class="muted">{% translate "position" %} {{ rs.position }}</span>
+  </li>
+  {% empty %}
+  <li class="muted">{% trans "No route links this stage yet." %}</li>
+  {% endfor %}
+</ul>
+{% if fares %}
+<h2>{% trans "Observed fares from here" %}</h2>
+<ul class="fare-list">
+  {% for fare in fares %}
+  <li class="card">
+    → {{ fare.to_stage.name }} ({{ fare.route.name_en }}):
+    <strong>{{ fare.range_display }}</strong> <span class="badge">{{ fare.confidence_display }}</span>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+<p class="muted"><a href="{% url 'routes:correction_new' %}?stage={{ stage.pk }}">{% trans "Report a wrong position or missing route" %}</a></p>
+{% endblock %}

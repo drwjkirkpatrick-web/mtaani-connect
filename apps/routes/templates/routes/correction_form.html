@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Report a correction" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Report a correction" %}</h1>
+<p class="muted">{% trans "Found a wrong stage order, a missing route or an off fare? Tell a moderator — people, not scripts, fix the network." %}</p>
+<form method="post" action="{% url 'routes:correction_new' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">{% trans "Send correction" %}</button>
+</form>
+{% endblock %}

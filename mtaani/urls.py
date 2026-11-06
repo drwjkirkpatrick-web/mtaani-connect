@@ -29,5 +29,6 @@ urlpatterns = [
     path("barter/", include("apps.barter.urls")),
     path("reviews/", include("apps.reviews.urls")),
     path("disputes/", include("apps.disputes.urls")),
+    path("routes/", include("apps.routes.urls")),
     path("transport/", TemplateView.as_view(template_name="stub.html"), name="transport_stub"),
 ]

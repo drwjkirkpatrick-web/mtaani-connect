@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Correction queue" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Correction queue" %}</h1>
+{# WHY local queue, not moderation.Report: 'routes' isn't in moderation's #}
+{# allowed-target labels YET — the parent wires it at consolidation. Until #}
+{# then moderators work this list; row fields mirror Report 1:1. #}
+<h2>{% trans "Open" %}</h2>
+<ul class="correction-list">
+  {% for item in items %}
+  <li class="card">
+    <strong>{{ item.get_kind_display }}</strong>
+    {% if item.route %} · <a href="{% url 'routes:detail' item.route.pk %}">{{ item.route.name_en }}</a>{% endif %}
+    {% if item.stage %} · {{ item.stage.name }}{% endif %}
+    <p>{{ item.note }} — <span class="muted">{{ item.opened_by.username }}</span></p>
+    <form method="post" action="{% url 'routes:correction_resolve' item.pk %}">
+      {% csrf_token %}
+      <input type="text" name="resolution_note" placeholder="{% trans 'Resolution note' %}" required>
+      <button type="submit">{% trans "Resolve" %}</button>
+    </form>
+  </li>
+  {% empty %}
+  <li class="muted">{% trans "Queue empty." %}</li>
+  {% endfor %}
+</ul>
+<h2>{% trans "Recently resolved" %}</h2>
+<ul class="correction-list">
+  {% for item in resolved %}
+  <li class="card muted">
+    {{ item.get_kind_display }}
+    {% if item.route %} · {{ item.route.name_en }}{% endif %}
+    {% if item.stage %} · {{ item.stage.name }}{% endif %}
+    — {{ item.resolution_note }}
+  </li>
+  {% empty %}
+  <li class="muted">{% trans "Nothing yet." %}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

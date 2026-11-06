@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Search routes" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Search the network" %}</h1>
+<form method="get" action="{% url 'routes:search' %}">
+  <label for="id_q" class="muted">{% trans "Nickname, stage, SACCO or destination" %}</label>
+  <input type="search" id="id_q" name="q" value="{{ q }}">
+  <button type="submit">{% trans "Search" %}</button>
+</form>
+{# NOTE: trigram tolerance means typo-ish nicknames ("Manyanga"-style, #}
+{# "Ambassador"↔"Ambassadeur") still reach the right entries. #}
+{% if queried %}
+  {% if route_rows or stage_rows %}
+  <h2>{% trans "Routes" %}</h2>
+  <ul class="route-list">
+    {% for r in route_rows %}
+    <li class="card">
+      <a href="{% url 'routes:detail' r.id %}"><strong>{{ r.name_en }}</strong>
+        {% if r.name_sw %}<span class="muted">· {{ r.name_sw }}</span>{% endif %}</a>
+      {# WHY flags: we tell WHERE the hit came from (name / SACCO / stage), #}
+      {# so results never mislead about why they matched. #}
+      <p class="muted">{% if r.sacco_hit %}{% trans "SACCO match" %} · {% endif %}{% if r.stage_hit %}{% trans "stage/destination match" %}{% endif %}</p>
+    </li>
+    {% endfor %}
+  </ul>
+  <h2>{% trans "Stages" %}</h2>
+  <ul class="stage-list">
+    {% for s in stage_rows %}
+    <li class="card">
+      <a href="{% url 'routes:stage_detail' s.id %}"><strong>{{ s.name }}</strong></a>
+      {% if s.continuous_stop %}<span class="badge">{% trans "hailable en route" %}</span>{% endif %}
+      {# KDPA: no coordinates rendered here — stage pages link through. #}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="muted">{% trans "No match. Try a nickname, SACCO or destination — or open a 'missing route' correction." %}</p>
+  {% endif %}
+{% else %}
+  <p class="muted">{% trans "e.g. 'Manyanga', 'Ambassadeur', 'Kinoo' — approximate spellings work." %}</p>
+{% endif %}
+{% endblock %}
