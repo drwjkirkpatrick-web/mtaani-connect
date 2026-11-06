@@ -25,7 +25,7 @@ from apps.core.types import ReportReason, TimestampedModel
 # listings (Prompt 17 auto-flag) and messaging (Prompt 20 report flow);
 # add further apps as they land (values are app_labels, no migration needed).
 ALLOWED_TARGET_APPS = ("posts", "guides", "qa", "profiles", "listings", "messaging",
-                       "services", "barter", "reviews")
+                       "services", "barter", "reviews", "routes")
 
 MAX_NOTE_CHARS = 500
 
