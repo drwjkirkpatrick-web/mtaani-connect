@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "My crowd reports" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "My crowd reports" %}</h1>
+<p class="muted">
+  {# Only the member's OWN history is personal; public feeds show counts. #}
+  {% trans "Reports you filed at stages. Other riders see these as weighted counts, not your name." %}
+</p>
+<ul class="crowd-mine">
+  {% for row in rows %}
+  <li class="card">
+    <strong>{{ row.display }}</strong>
+    {% if row.note %}<span class="muted">— "{{ row.note }}"</span>{% endif %}
+    <span class="muted">{% translate "filed" %} {{ row.created_at|date:"j M Y, G:i" }}</span>
+  </li>
+  {% empty %}
+  <li class="muted">{% trans "You have not filed any crowd reports yet." %}</li>
+  {% endfor %}
+</ul>
+<p><a class="badge" href="{% url 'crowd:report_new' %}">{% trans "File a report" %}</a></p>
+{% endblock %}

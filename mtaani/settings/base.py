@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # Phase 3 begins (Prompt 25) while Prompt 19 closes Phase 2.
     "apps.routes",
     "apps.fleet",
+    "apps.crowd",
 ]
 
 MIDDLEWARE = [

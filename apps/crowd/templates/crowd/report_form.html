@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "File a crowd report" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "File a crowd report" %}</h1>
+<p class="muted">
+  {% trans "Tell other riders what the stage looks like right now. Reports are events at stages — never guessed vehicle positions." %}
+</p>
+<form method="post" action="{% url 'crowd:report_new' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">{% trans "Send report" %}</button>
+</form>
+{% endblock %}

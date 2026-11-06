@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Crowd reports" %} — {{ stage.name }} — Mtaani{% endblock %}
+{% block content %}
+<h1>{{ stage.name }}</h1>
+<p class="muted">
+  {% trans "Community transport signals — riders at this stage, weighted by trust and freshness." %}
+</p>
+<p>
+  <a class="badge" href="{{ report_url }}">{% trans "Report what you see here" %}</a>
+</p>
+<ul class="crowd-feed" data-test="crowd-stage-feed">
+  {% for row in rows %}
+  <li class="card" data-test="crowd-report-row">
+    {# The HONEST line: count + kind, never a username, never a position. #}
+    <strong>{{ row.display }}</strong>
+    {% if row.destination_hint %}<span class="muted"> — {{ row.destination_hint }}</span>{% endif %}
+    {% if row.note %}<span class="muted">— "{{ row.note }}"</span>{% endif %}
+    <span class="muted">{% translate "reported" %} {{ row.age_min|floatformat:0 }} {% translate "min ago" %}</span>
+    <span class="badge">{{ row.confidence }}</span>
+    {% if row.route_id %}<a class="badge" href="{% url 'routes:detail' row.route_id %}">{{ row.route_name }}</a>{% endif %}
+  </li>
+  {% empty %}
+  <li class="muted" data-test="crowd-empty">{% trans "No current rider reports for this stage — nothing is shown when nobody has reported anything recent." %}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
