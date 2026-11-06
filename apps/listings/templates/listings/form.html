@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% if listing %}{% trans "Edit listing" %}{% else %}{% trans "Sell something" %}{% endif %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% if listing %}{% trans "Edit your listing" %}{% else %}{% trans "Sell something" %}{% endif %}</h1>
+<form method="post" action="{% if listing %}{% url 'listings:edit' listing.pk %}{% else %}{% url 'listings:create' %}{% endif %}">
+  {% csrf_token %}
+  {{ form.non_field_errors.as_ul }}
+  {{ form.title.as_p }}
+  {{ form.title_sw.as_p }}
+  {{ form.category.as_p }}
+  {{ form.condition.as_p }}
+  {{ form.price.as_p }}
+  {{ form.price_negotiable.as_p }}
+  {{ form.description.as_p }}
+  {{ form.description_sw.as_p }}
+  {{ form.ward.as_p }}
+  {# NOTE: no image picker here on purpose — photos attach on the listing
+     page after it exists (one photo per POST through the Prompt 06
+     pipeline), exactly like posts. The hint teaches the 6-photo cap. #}
+  <p class="muted">{% blocktranslate count counter=6 %}After it is up you can attach 1 photo{% plural %}After it is up you can attach up to {{ counter }} photos{% endblocktranslate %} — {% trans "small, real photos of the actual item sell fastest." %}</p>
+  <button type="submit">{% if listing %}{% trans "Save" %}{% else %}{% trans "List it" %}{% endif %}</button>
+  <a class="muted" href="{% if listing %}{% url 'listings:detail' listing.pk %}{% else %}{% url 'listings:list' %}{% endif %}">{% trans "Cancel" %}</a>
+</form>
+{% endblock %}

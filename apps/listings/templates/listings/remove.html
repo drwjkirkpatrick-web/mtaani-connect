@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Remove listing" %} — Mtaani{% endblock %}
+{% block content %}
+<article class="card">
+  <h1>{% trans "Remove this listing?" %}</h1>
+  <p>{{ listing.title }}</p>
+  {# WHY confirm page, not JS confirm(): members browse on borrowed bundles
+     and old browsers — a server-side confirm works everywhere. #}
+  <p class="muted">{% trans "It is hidden for everyone, not deleted — moderators may still read it if a dispute needs the record." %}</p>
+  <form method="post" action="{% url 'listings:remove' listing.pk %}">
+    {% csrf_token %}
+    <button type="submit">{% trans "Yes, remove it" %}</button>
+    <a class="muted" href="{% url 'listings:detail' listing.pk %}">{% trans "Keep it" %}</a>
+  </form>
+</article>
+{% endblock %}

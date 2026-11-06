@@ -22,9 +22,8 @@ urlpatterns = [
     path("feed/", include("apps.feed.urls")),
     path("search/", include("apps.search.urls")),
     path("trust/", include("apps.trust.urls")),
-    # NOTE: stub routes are placeholders until each app takes over with include():
-    # Market (17), Chats (20), Transport (25).
-    path("market/", TemplateView.as_view(template_name="stub.html"), name="market_stub"),
+    # Prompt 17 takes over /market/ (stub retired); chats (20) next.
+    path("market/", include("apps.listings.urls")),
     path("chats/", TemplateView.as_view(template_name="stub.html"), name="chats_stub"),
     path("transport/", TemplateView.as_view(template_name="stub.html"), name="transport_stub"),
 ]

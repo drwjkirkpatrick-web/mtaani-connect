@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "apps.feed",
     "apps.search",
     "apps.trust",
+    "apps.listings",
 ]
 
 MIDDLEWARE = [

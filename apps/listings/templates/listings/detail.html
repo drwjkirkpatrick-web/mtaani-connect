@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ listing.title }} — Mtaani{% endblock %}
+{% block content %}
+<article class="card listing-detail">
+  <header>
+    <p class="muted">{{ listing.seller.username }} · {{ listing.get_category_display }}</p>
+    <span class="badge">{{ listing.get_condition_display }}</span>
+    {# WHY a badge only for seller/staff: the flag is moderation state, not
+       public gossip — a buyer sees a clean page; the seller sees why
+       messaging traffic might be quiet (queued for review). #}
+    {% if is_flag_visible %}<span class="badge">{% trans "Queued for review" %}</span>{% endif %}
+    {# NOTE: status badge only when NOT published — a live listing carries
+       no status noise; private states say so (never fabricated). #}
+    {% if listing.status != 'PUBLISHED' and is_seller %}<span class="badge">{{ listing.get_status_display }}</span>{% endif %}
+  </header>
+  <h1 class="listing-title">{{ listing.title }}</h1>
+  {% if listing.title_sw %}<p class="muted">{{ listing.title_sw }}</p>{% endif %}
+
+  <p>
+    {% if listing.price is not None %}{% blocktranslate with amount=listing.price %}KSh {{ amount }}{% endblocktranslate %}
+    {# WHY elif: "price or negotiable" — one branch wins, as on the list. #}
+    {% elif listing.price_negotiable %}<strong>{% trans "Negotiable / Bei ya maongezi" %}</strong>
+    {% else %}<span class="muted">{% trans "No price set" %}</span>{% endif %}
+  </p>
+
+  {# PITFALL GUARD: |linebreaks (fixed allow-list transform on escaped text).
+      NEVER |safe — user HTML cannot exist anywhere in listing content. #}
+  <div class="post-body">{{ listing.description|linebreaks }}</div>
+  {% if listing.description_sw %}
+  <div class="post-body muted">{{ listing.description_sw|linebreaks }}</div>
+  {% endif %}
+
+  {% if attachments %}
+  <ul class="post-photos">
+    {% for row in attachments %}
+    <li><img src="/media/{{ row.image.standard_path }}" alt="{% trans 'Listing photo' %}" loading="lazy" width="{{ row.image.standard_w }}" height="{{ row.image.standard_h }}"></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {# WHY ward only: the location line IS the privacy promise — a public page
+     never carries a street address or coordinates (clean() refuses
+     coordinate-shaped text; there is no other location field to leak). #}
+  <p class="muted">{% blocktranslate with ward=listing.ward %}Area: {{ ward }} (ward only — pickup points are agreed in your messages).{% endblocktranslate %}</p>
+
+  <footer>
+    {# ENQUIRY CONTRACT (Prompt 20): the plain string /chats/?listing=<pk> —
+       messaging reads ?listing=<pk> as the enquiry origin. Contact NEVER
+       happens on this page: no phone field exists on the model. #}
+    <a class="btn" href="{{ enquiry_url }}">{% trans "Message seller" %}</a>
+    {% if is_seller %}
+    · <a href="{% url 'listings:edit' listing.pk %}">{% trans "Edit" %}</a>
+    · <a href="{% url 'listings:remove' listing.pk %}">{% trans "Remove" %}</a>
+    {% endif %}
+  </footer>
+</article>
+{% endblock %}

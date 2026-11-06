@@ -20,7 +20,7 @@
 <nav class="tabbar" aria-label="Main">
   <a class="tab{% if request.path == '/' %} active{% endif %}" href="/"><span class="tab-icon">🏠</span>{% trans "Home" %}</a>
   <a class="tab{% if request.path == '/guides/' %} active{% endif %}" href="{% url 'guides:list' %}"><span class="tab-icon">📖</span>{% trans "Guides" %}</a>
-  <a class="tab{% if request.path == '/market/' %} active{% endif %}" href="{% url 'market_stub' %}"><span class="tab-icon">🧺</span>{% trans "Market" %}</a>
+  <a class="tab{% if request.path == '/market/' %} active{% endif %}" href="{% url 'listings:list' %}"><span class="tab-icon">🧺</span>{% trans "Market" %}</a>
   <a class="tab{% if request.path == '/chats/' %} active{% endif %}" href="{% url 'chats_stub' %}"><span class="tab-icon">💬</span>{% trans "Chats" %}</a>
   <a class="tab{% if request.path == '/transport/' %} active{% endif %}" href="{% url 'transport_stub' %}"><span class="tab-icon">🚐</span>{% trans "Transport" %}</a>
 </nav>
