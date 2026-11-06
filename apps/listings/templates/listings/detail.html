@@ -13,6 +13,10 @@
     {# NOTE: status badge only when NOT published — a live listing carries
        no status noise; private states say so (never fabricated). #}
     {% if listing.status != 'PUBLISHED' and is_seller %}<span class="badge">{{ listing.get_status_display }}</span>{% endif %}
+    {# Prompt 24: lifecycle badge, PLAIN render (no color/weight guessing from
+       anyone's mood): PAUSED / SOLD / EXPIRED read as words. Only on public
+       rows — a private (draft/removed) row already carries its status badge. #}
+    {% if listing.status == 'PUBLISHED' and listing.lifecycle != 'ACTIVE' %}<span class="badge">{{ listing.get_lifecycle_display }}</span>{% endif %}
   </header>
   <h1 class="listing-title">{{ listing.title }}</h1>
   {% if listing.title_sw %}<p class="muted">{{ listing.title_sw }}</p>{% endif %}
@@ -54,5 +58,43 @@
     · <a href="{% url 'listings:remove' listing.pk %}">{% trans "Remove" %}</a>
     {% endif %}
   </footer>
+
+  {# ---- Prompt 24 lifecycle panel (seller only, public rows only). WHY
+       forms, not links: every CTA changes state → POST the way remove does;
+       a stray GET must never mutate a listing. Each branch shows exactly the
+       moves lifecycle.py's table makes legal — nothing else renders. #}
+  {% if is_seller and listing.status == 'PUBLISHED' %}
+  <section class="lifecycle-panel card" aria-label="{% trans 'Listing lifecycle' %}">
+    {% if listing.lifecycle == 'ACTIVE' %}
+    <form method="post" action="{% url 'listings:pause' listing.pk %}">{% csrf_token %}<button class="btn" type="submit">{% trans "Pause" %}</button></form>
+    <form method="post" action="{% url 'listings:sold' listing.pk %}">{% csrf_token %}<button class="btn" type="submit">{% trans "Sold" %}</button></form>
+    <form method="post" action="{% url 'listings:bump' listing.pk %}">{% csrf_token %}<button class="btn" type="submit">{% trans "Bump to top" %}</button></form>
+    {# THE gated door (edit rules): price/description ride the normal Edit
+       form; changing the CATEGORY on a live row goes to the moderators
+       first (bait-and-switch prevention) — it flips this row to
+       Under review until they reconfirm. #}
+    <form method="post" action="{% url 'listings:recategorize' listing.pk %}">
+      {% csrf_token %}
+      <label for="id-recategorize">{% trans "Change category (needs moderator check)" %}</label>
+      <select id="id-recategorize" name="category">
+        {% for value, label in listing_categories %}
+        <option value="{{ value }}"{% if value == listing.category %} selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <button class="btn" type="submit">{% trans "Send" %}</button>
+    </form>
+    {% elif listing.lifecycle == 'PAUSED' %}
+    <form method="post" action="{% url 'listings:resume' listing.pk %}">{% csrf_token %}<button class="btn" type="submit">{% trans "Resume" %}</button></form>
+    <form method="post" action="{% url 'listings:sold' listing.pk %}">{% csrf_token %}<button class="btn" type="submit">{% trans "Sold" %}</button></form>
+    {% elif listing.lifecycle == 'EXPIRED' %}
+    {# THE one-tap renew: identical content, fresh timestamp — no re-typing,
+       no moderator (acceptance: listings renew without moderator load). #}
+    <form method="post" action="{% url 'listings:renew' listing.pk %}">{% csrf_token %}<button class="btn" type="submit">{% trans "Renew" %}</button></form>
+    <p class="muted">{% trans "This listing expired — renewing puts it back with the same details." %}</p>
+    {% else %}
+    <p class="muted">{% trans "Sold — thanks for the trade." %}</p>
+    {% endif %}
+  </section>
+  {% endif %}
 </article>
 {% endblock %}

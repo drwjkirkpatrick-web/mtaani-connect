@@ -23,24 +23,69 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from apps.core import images
+from apps.core.types import ContentStatus
 from apps.media.services import save_upload
 
 from .forms import ListingForm
+from .lifecycle import EXPIRY_DAYS, LifecycleError
 from .models import LISTING_CATEGORIES, MAX_IMAGES, MSG_TOO_MANY_IMAGES, Listing
 from .services import (
     _assert_seller,
     add_listing_image,
+    bump_listing,
     create_listing,
     edit_listing,
+    edit_listing_category,
     get_visible_listing,
     listing_image_count,
+    mark_listing_sold,
+    pause_listing,
     remove_listing,
+    renew_listing,
+    resume_listing,
     visible_listings,
 )
 
 # WHY a module constant: the route is the cross-app contract (see module
 # docstring); template + tests + future barter flows all print the same root.
 CHATS_URL_ROOT = "/chats/"
+
+# --- lifecycle flash copy (Prompt 24). NOTE: EN/Sw pairs like Prompt 17's;
+#     state refusals flash the plain-language reason straight from
+#     lifecycle.py (LifecycleError), never a bare "error". --------------------
+MSG_PAUSED = _("Listing parked. Tap Resume when trading again. / Imepumzishwa.")
+MSG_RESUMED = _("Listing back on sale. / Imerudishwa sokoni.")
+MSG_SOLD = _("Marked sold — congrats! / Imeuzwa.")
+# WHY the %(days)s: the window length is lifecycle.EXPIRY_DAYS' job — the
+# flash copies it at call time; nobody re-types the 30.
+MSG_RENEWED = _(
+    "Renewed — same details, fresh %(days)s-day window. / Imeanadishwa, "
+    "siku %(days)s mpya."
+) % {"days": EXPIRY_DAYS}
+MSG_BUMPED = _("Bumped to the top. / Imesukuma juu.")
+MSG_RECATEGORIZED = _(
+    "Category change sent to the moderators — the listing is hidden until "
+    "they reconfirm it. / Imetumwa kwa ukaguzi."
+)
+MSG_CATEGORY_SAVED = _("Category saved. / Imehifadhiwa.")
+
+
+def _lifecycle_post(request, pk, *, verb, service, ok_message):
+    """ONE seller-only POST round-trip shared by every lifecycle CTA:
+    look up, gate (Prompt 17's seller gate → 403 for strangers), run the
+    service, flash ONE plain-language message, land back on the detail
+    page. State refusals (LifecycleError) flash their reason as an error
+    message — never a 500, never a silent success."""
+    listing = get_object_or_404(Listing, pk=pk)
+    _assert_seller(request.user, listing, verb)
+    try:
+        service(listing=listing, by_user=request.user)
+    except LifecycleError as exc:
+        first = exc.messages[0] if exc.messages else str(exc)
+        messages.error(request, str(first))
+    else:
+        messages.success(request, ok_message)
+    return redirect("listings:detail", pk=pk)
 
 
 def listing_list(request):
@@ -94,6 +139,9 @@ def listing_detail(request, pk: int):
             "listing": listing,
             "attachments": listing.attachments.select_related("image"),
             "is_seller": listing.seller_id == request.user.pk,
+            # Prompt 24: the gated category door's option list (values from
+            # LISTING_CATEGORIES — labels translate, values never do).
+            "listing_categories": LISTING_CATEGORIES,
             # NOTE: plain-STRING contract link (see module docstring) — the
             # enquiry origin messaging documents as ?listing=<pk>.
             "enquiry_url": f"{CHATS_URL_ROOT}?listing={listing.pk}",
@@ -163,6 +211,89 @@ def listing_remove(request, pk: int):
         messages.success(request, _("Listing removed. / Tangazo limeondolewa."))
         return redirect("listings:list")
     return render(request, "listings/remove.html", {"listing": listing})
+
+
+# ===========================================================================
+# Lifecycle CTAs (Prompt 24) — six POST-only, seller-only one-taps off the
+# detail page's lifecycle panel. All POST by design: state changes on a
+# click, never a stray GET (same rule as the remove route). All land back
+# on the detail page with ONE plain-language message.
+
+@login_required
+@require_POST
+def listing_pause(request, pk: int):
+    """Seller taps Pause: instantly off the market, back whenever."""
+    return _lifecycle_post(
+        request, pk, verb="pause",
+        service=pause_listing, ok_message=MSG_PAUSED,
+    )
+
+
+@login_required
+@require_POST
+def listing_resume(request, pk: int):
+    """Seller taps Resume (PAUSED rows only)."""
+    return _lifecycle_post(
+        request, pk, verb="resume",
+        service=resume_listing, ok_message=MSG_RESUMED,
+    )
+
+
+@login_required
+@require_POST
+def listing_mark_sold(request, pk: int):
+    """Seller taps Sold: terminal; reviews (Prompt 22) anchor on sold_at."""
+    return _lifecycle_post(
+        request, pk, verb="mark sold",
+        service=mark_listing_sold, ok_message=MSG_SOLD,
+    )
+
+
+@login_required
+@require_POST
+def listing_renew(request, pk: int):
+    """THE one-tap renew (EXPIRED rows only): identical content, fresh
+    timestamp — no moderator, no re-typing."""
+    return _lifecycle_post(
+        request, pk, verb="renew", service=renew_listing, ok_message=MSG_RENEWED
+    )
+
+
+@login_required
+@require_POST
+def listing_bump(request, pk: int):
+    """One free bump up the list, capped once per 7 days."""
+    return _lifecycle_post(
+        request, pk, verb="bump", service=bump_listing, ok_message=MSG_BUMPED
+    )
+
+
+@login_required
+@require_POST
+def listing_recategorize(request, pk: int):
+    """THE gated category door (Prompt 24 edit rules): a category change on
+    a LIVE row goes to moderation (UNDER_REVIEW + review_flagged) until a
+    human re-approves — bait-and-switch prevention. The lifecycle panel's
+    mini-form is its sender; the ordinary edit form keeps Prompt 17's
+    pinned behavior (see services.py note + final report)."""
+    listing = get_object_or_404(Listing, pk=pk)
+    _assert_seller(request.user, listing, "change the category of")
+    category = (request.POST.get("category") or "").strip()
+    try:
+        # NOTE: LifecycleError (an illegal-state refusal) subclasses
+        # ValidationError here → one catch covers both refusals.
+        row = edit_listing_category(
+            listing=listing, editor=request.user, category=category
+        )
+    except ValidationError as exc:
+        first = exc.messages[0] if exc.messages else str(exc)
+        messages.error(request, str(first))
+    else:
+        if row.status == ContentStatus.UNDER_REVIEW.value:
+            messages.warning(request, MSG_RECATEGORIZED)
+        else:
+            messages.success(request, MSG_CATEGORY_SAVED)
+    return redirect("listings:detail", pk=pk)
 
 
 @require_POST

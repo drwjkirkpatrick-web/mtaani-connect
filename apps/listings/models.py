@@ -62,6 +62,24 @@ class Condition(models.TextChoices):
     WORN = "worn", _("Worn")
 
 
+# THE SECOND AXIS (Prompt 24): lifecycle is orthogonal to ContentStatus.
+# WHY two fields at all: ContentStatus (core types) answers "is the listing
+# PUBLIC?" (moderation's axis: DRAFT/PUBLISHED/UNDER_REVIEW/REMOVED), while
+# lifecycle answers "is the seller still TRADING it?" (ACTIVE/PAUSED/SOLD/
+# EXPIRED). The market list needs PUBLISHED *and* ACTIVE; a moderation flag
+# can hold a still-active seller, and a sold listing is history, not spam.
+# Vocabulary frozen here (hard rule: persist .value, labels translate).
+class ListingLifecycle(models.TextChoices):
+    """Seller-side trading state (Prompt 24). Legal moves live ONLY in
+    apps/listings/lifecycle.py's TRANSITIONS table — services never
+    hand-rename a state."""
+
+    ACTIVE = "ACTIVE", _("Active")
+    PAUSED = "PAUSED", _("Paused")
+    SOLD = "SOLD", _("Sold")
+    EXPIRED = "EXPIRED", _("Expired")
+
+
 # WHY 6, not 4: goods listings want the whole item visible (all sides); the
 # cap is enforced in THREE places (model clean(), the upload endpoint, and
 # the per-attachment clean() — PROMPTS.md pitfall: client checks are
@@ -164,6 +182,34 @@ class Listing(TimestampedModel):
     review_flagged = models.BooleanField(
         _("Flagged for review"), default=False, db_index=True
     )
+    # Prompt 24 consolidation: the anti-bait-and-switch category gate needed
+    # its own column. WHY not review_flagged: that flag MEANS "the phone
+    # detector matched the current public text" and the detector legitimately
+    # clears it on any edit — one flag, two meanings, and the gate's state
+    # kept being erased by clean text. `category_gate` is the ONLY state the
+    # recategorization flow writes; moderators clear it at re-approval
+    # (services.approve_recategorize, Prompt 37's dashboard wires the view).
+    category_gate = models.BooleanField(
+        _("Awaiting category re-approval"), default=False, db_index=True
+    )
+    # --- lifecycle axis (Prompt 24, additive; see ListingLifecycle) ---------
+    lifecycle = models.CharField(
+        _("Lifecycle"),
+        max_length=16,
+        choices=ListingLifecycle.choices,
+        default=ListingLifecycle.ACTIVE,
+        db_index=True,
+    )
+    # WHY nullable stamps, not a log table: Prompt 24 needs exactly THREE sale
+    # facts and ONE current-position fact — the last pause is "not trading
+    # now", the last renewal is the expiry-sweep age anchor, the last bump is
+    # the list-order anchor and its own 7-day cap. An event log would buy
+    # moderation detail Prompt 24 never asked for. sold_at IS the fact of
+    # trade completion, referenced by Prompt 22 reviews.
+    sold_at = models.DateTimeField(_("Sold at"), null=True, blank=True)
+    paused_at = models.DateTimeField(_("Paused at"), null=True, blank=True)
+    renewed_at = models.DateTimeField(_("Renewed at"), null=True, blank=True)
+    bumped_at = models.DateTimeField(_("Bumped at"), null=True, blank=True)
     images = models.ManyToManyField(
         "media.MediaRef", through="ListingImage", related_name="listings", blank=True
     )

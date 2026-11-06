@@ -11,6 +11,16 @@ Route set (final report ships these names to the parent + sibling apps):
   edit          /market/<pk>/edit/ — seller-only
   image_upload  /market/<pk>/images/upload/ — POST-only JSON (6-image cap)
   remove        /market/<pk>/remove/ — soft remove → REMOVED (seller-only)
+
+Prompt 24 lifecycle routes (all POST-only, seller-only one-taps; the
+detail page's lifecycle panel posts them; refusals flash plain reasons):
+
+  pause         /market/<pk>/pause/   — ACTIVE → PAUSED
+  resume        /market/<pk>/resume/  — PAUSED → ACTIVE
+  sold          /market/<pk>/sold/    — ACTIVE/PAUSED → SOLD (terminal)
+  renew         /market/<pk>/renew/   — EXPIRED → ACTIVE, fresh timestamp
+  bump          /market/<pk>/bump/    — refresh position, 7-day cap
+  recategorize  /market/<pk>/category/ — gated door → UNDER_REVIEW + flag
 """
 from django.urls import path
 
@@ -25,4 +35,11 @@ urlpatterns = [
     path("<int:pk>/edit/", views.listing_edit, name="edit"),
     path("<int:pk>/images/upload/", views.listing_image_upload, name="image_upload"),
     path("<int:pk>/remove/", views.listing_remove, name="remove"),
+    # Prompt 24 lifecycle (POST-only seller one-taps — see docstring):
+    path("<int:pk>/pause/", views.listing_pause, name="pause"),
+    path("<int:pk>/resume/", views.listing_resume, name="resume"),
+    path("<int:pk>/sold/", views.listing_mark_sold, name="sold"),
+    path("<int:pk>/renew/", views.listing_renew, name="renew"),
+    path("<int:pk>/bump/", views.listing_bump, name="bump"),
+    path("<int:pk>/category/", views.listing_recategorize, name="recategorize"),
 ]
