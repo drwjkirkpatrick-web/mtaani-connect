@@ -1116,8 +1116,8 @@ Parallelizable groups (one subagent each, no shared files):
 | 20 | Messaging v1 | ✅ |
 | 21 | Barter & cash-plus-exchange | ✅ |
 | 22 | Reviews & reputation | ✅ |
-| 23 | Disputes & fraud flags | ☐ |
-| 24 | Listing lifecycle | ☐ |
+| 23 | Disputes & fraud flags | ✅ |
+| 24 | Listing lifecycle | ✅ |
 | 25 | Route & stage database + GTFS seeder | ☐ |
 | 26 | Vehicle, SACCO & crew registration | ☐ |
 | 27 | Authorized tracking sessions | ☐ |

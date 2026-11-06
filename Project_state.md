@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 2 (Commerce): 17/18/20/21/22 complete; 23+24 next, then 19
+> **Current phase:** build — Phase 2: 17–24 complete except 19 (geo search, next)
 > **Overall health:** green
 
 ---
@@ -86,6 +86,15 @@ KDPA-compliant from day one.
       sweep-only publication (pairs same tick / lone at 14d), 1-star dispute
       note gate, reputation_for() (0.6 stars + 0.4 trust), partials on
       profiles + services' display door + barter's review doors; 35 tests (497)
+- [x] Prompt 23 — disputes & fraud: per-deal cases (one open each, root-
+      normalized), id-only evidence (barter trail + enquiry messages),
+      propose→different-human-confirm via moderation's public machinery,
+      heuristics annotate only (duplicate text/new-account bulk/pay phrases),
+      dispute_open_for_deal binds reviews' gate; 29 tests
+- [x] Prompt 24 — listing lifecycle: ACTIVE/PAUSED/SOLD/EXPIRED second axis,
+      30-day injected-clock expiry sweep + one-tap renew, 7-day bump cap +
+      bump-aware ordering, category-edit gate (UNDER_REVIEW) with moderator
+      approve_recategorize + audit; 47 tests (574)
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -94,8 +103,7 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Phase 2 wave — Prompts 23 (disputes) + 24 (listing lifecycle) in
-      parallel; then 19 (listing geo search) to close Phase 2
+- [ ] Prompt 19 — listing geo search (ST_DWithin rings) — closes Phase 2
 
 ### Not Started
 - [ ] Phase 3 (25–31), Phase 4 (32–34), Phase 5 (36–42)
@@ -125,11 +133,10 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Prompt 23 (Disputes: evidence-linked cases, heuristic FLAGS only,
-> human confirm gate) and Prompt 24 (Listing lifecycle: ACTIVE→PAUSED/SOLD/
-> EXPIRED, 30-day expiry + renew, 7-day bump cap, category-edit re-approval)
-> in parallel; then Prompt 19 (ST_DWithin geo rings + index-assert tests).
-> Suite at 497.
+> **Next:** Prompt 19 (Listing geo search: ST_DWithin 5/10/25 km rings around
+> a ward, geography index asserted via EXPLAIN, promoted-slot flag invisible
+> for now) — then Phase 3 Transport begins (25 GTFS seeder → 26 → 27 …).
+> Suite at 574.
 
 ## 6. Environment & Tooling Notes
 
