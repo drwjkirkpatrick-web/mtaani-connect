@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "apps.follows",
     "apps.groups",
     "apps.moderation",
+    "apps.feed",
 ]
 
 MIDDLEWARE = [

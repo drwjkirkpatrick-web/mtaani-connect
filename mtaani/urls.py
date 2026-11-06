@@ -19,6 +19,7 @@ urlpatterns = [
     path("follows/", include("apps.follows.urls")),
     path("groups/", include("apps.groups.urls")),
     path("moderation/", include("apps.moderation.urls")),
+    path("feed/", include("apps.feed.urls")),
     # NOTE: stub routes are placeholders until each app takes over with include():
     # Market (17), Chats (20), Transport (25).
     path("market/", TemplateView.as_view(template_name="stub.html"), name="market_stub"),

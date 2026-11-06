@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Feed" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Your feed" %}</h1>
+{# NOTE: utility-first, NOT engagement bait (PROMPTS.md Prompt 11) — the #}
+{# ordering was decided once in apps/feed/ranking.py's scoring table; the #}
+{# template only badges facts the breakdown asserts: Following / Local.  #}
+{# Ward VALUES stay off the page (KDPA: coarse labels only, and only the #}
+{# viewer's own context, never another member's). #}
+<ul class="post-list">
+  {% for row in items %}
+    <li class="card">
+      <p class="muted">{{ row.post.author.username }}</p>
+      {# Same short-post rule as the posts list (never |safe — plain text). #}
+      {% if row.post.text|length <= 280 %}
+      <div class="post-body">{{ row.post.text|linebreaks }}</div>
+      {% else %}
+      <div class="post-body">{{ row.post.text|truncatechars:280 }}</div>
+      {% endif %}
+      {% if row.breakdown.followed %}<span class="badge">{% trans "Following" %}</span>{% endif %}
+      {% if row.breakdown.local %}<span class="badge">{% trans "Local" %}</span>{% endif %}
+      {% if row.post.educational %}<span class="badge">{% trans "Educational" %}</span>{% endif %}
+      {% if row.post.ref_guide_id %}<span class="badge">{% trans "Guide linked" %}</span>{% endif %}
+      <p class="muted"><a href="{% url 'posts:detail' row.post.pk %}">{% trans "View post" %}</a></p>
+    </li>
+  {% empty %}
+    <li class="card">
+      <p>{% trans "Nothing in your feed yet." %}</p>
+      <p class="muted">{% trans "Follow the neighbours whose tips you use, or share something useful yourself." %}</p>
+    </li>
+  {% endfor %}
+</ul>
+{% if page_obj.paginator.num_pages > 1 %}
+<p class="pager muted">
+  {# WHY plain links: no infinite scroll, no JS — data you can see and pay for. #}
+  {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">{% trans "Prev" %}</a>{% endif %}
+  {{ page_obj.number }}/{% trans "page" %} {{ page_obj.paginator.num_pages }}
+  {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>{% endif %}
+</p>
+{% endif %}
+{# THE explicit end-of-feed state: a muted card that NAMES the end whenever #}
+{# the page you are on is the last one — page 1 included. #}
+{% if end_of_feed %}
+<p class="card end-of-feed" role="note">
+  <span class="muted">{% trans "That's everything for now. This feed is finite on purpose — come back when your neighbours share more." %}</span>
+</p>
+{% endif %}
+{% endblock %}
