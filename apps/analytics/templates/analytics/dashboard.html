@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Ops dashboard" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Ops dashboard" %}</h1>
+<p class="muted">
+  {% blocktrans trimmed with start=range_start|date:"Y-m-d" end=range_end|date:"Y-m-d" %}
+    Aggregate-only (counts by day — never by user): {{ start }} to {{ end }}.
+  {% endblocktrans %}
+</p>
+<p>
+  <a{% if days == 7 %} aria-current="true"{% endif %} href="?days=7">{% trans "Last 7 days" %}</a> ·
+  <a{% if days == 30 %} aria-current="true"{% endif %} href="?days=30">{% trans "Last 30 days" %}</a>
+</p>
+{# THE utility line: "is the app useful?" — share of feed items that teach or enable local trade; time-on-app is deliberately not a metric. #}
+<p><strong>{% trans "Feed local share" %}:</strong>
+  {% if feed_local_share_pct is not None %}{{ feed_local_share_pct }}%
+  {% else %}<span class="muted">{% trans "no data yet" %}</span>{% endif %}
+</p>
+<ul class="metric-cards">
+  {% for card in cards %}
+  <li class="card" data-metric="{{ card.key }}">
+    <strong>{{ card.label }}</strong>
+    <p>
+      {% trans "window" %}: {% if card.window is not None %}{{ card.window }}{% else %}<span class="muted">{% trans "—" %}</span>{% endif %}
+      · {% trans "today" %}: {% if card.today is not None %}{{ card.today }}{% else %}<em class="muted">{% trans "not computed yet" %}</em>{% endif %}
+    </p>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -6402,3 +6402,132 @@ msgstr "⚠ Tahadhari ya usalama — kopwa mwongozo, kama vile iliyoandikwa:"
 msgctxt "profile"
 msgid "Skills"
 msgstr "Ujuzi"
+
+msgid "%(closed)s closed · %(live)s live"
+msgstr "%(closed)s zimefungwa · %(live)s ziko hai"
+
+msgid "Aggregate-only (counts by day — never by user): %(start)s to %(end)s."
+msgstr ""
+"Kwa jumla tu (hesabu kwa siku — si kwa mtumiaji): %(start)s hadi %(end)s."
+
+msgid "Daily SACCO aggregate"
+msgstr "Jumla ya siku ya SACCO"
+
+msgid "Daily SACCO aggregates"
+msgstr "Jumla za siku za SACCO"
+
+msgid "Daily active users (estimate)"
+msgstr "Watumiaji hai wa siku (makadirio)"
+
+msgid "Daily aggregate"
+msgstr "Jumla ya siku"
+
+msgid "Daily aggregates"
+msgstr "Jumla za siku"
+
+msgid "Day"
+msgstr "Siku"
+
+msgid "Day (East Africa)"
+msgstr "Siku (Afrika Mashariki)"
+
+msgid "Feed local share"
+msgstr "Sehemu ya maudhui ya mtaa kwenye mtiririko"
+
+msgid "Fleet tracking hours"
+msgstr "Saa za ufuatiliaji wa magari"
+
+msgid "Guides published"
+msgstr "Miongozano iliyochapishwa"
+
+msgid "Last 30 days"
+msgstr "Siku 30 zilizopita"
+
+msgid "Last 7 days"
+msgstr "Siku 7 zilizopita"
+
+msgid "Listings created"
+msgstr "Bidhaa zilizowekwa"
+
+msgid "Metric"
+msgstr "Kipimo"
+
+msgid "Moderation queue load"
+msgstr "Mzigo wa foleni ya uangalizi"
+
+msgid "Moderation queue open"
+msgstr "Foleni ya uangalizi wazi"
+
+msgid "Moderators only."
+msgstr "Kwa waangalizi tu."
+
+msgid "No aggregates yet — run the daily rebuild."
+msgstr "Hakuna jumla bado — endesha ujenzi wa kila siku."
+
+msgid "Oldest open report age"
+msgstr "Umri wa ripoti ya zamani zaidi wazi"
+
+msgid "Ops dashboard"
+msgstr "Dashibodi ya uendeshaji"
+
+msgid "Posts created"
+msgstr "Machapisho yaliyotengwa"
+
+msgid "Report volume by day"
+msgstr "Idadi ya ripoti kwa siku"
+
+msgid "SACCO id"
+msgstr "ID ya SACCO"
+
+msgid "SACCO operator seat required."
+msgstr "Unahitaji nafasi ya mwendeshaji wa SACCO."
+
+msgid "Session hours (last {{ days }} days)"
+msgstr "Saa za mikutano (siku {{ days }} zilizopita)"
+
+msgid "Sessions started"
+msgstr "Mikutano ulioanza"
+
+msgid "Sessions started by day"
+msgstr "Mikutano ulioanza kwa siku"
+
+msgid "That SACCO is not yours."
+msgstr "SACCO hiyo si yako."
+
+msgid "Too many requests. Please wait a moment and try again."
+msgstr "Maombi mengi mno. Subiri kidogo kisha ujaribu tena."
+
+msgid "Tracking sessions started"
+msgstr "Vikao vya ufuatiliaji vilivyoanza"
+
+msgid "Value"
+msgstr "Thamani"
+
+msgid ""
+"Your SACCO's data only; other SACCOs' numbers are unreachable by design."
+msgstr ""
+"Takwimu za SACCO yako tu; za SACCO nyingine hazipatikani kwa makusudi."
+
+msgid "daily open-queue counts"
+msgstr "hesabu za foleni wazi za kila siku"
+
+msgid "hours"
+msgstr "masaa"
+
+msgid "no data yet"
+msgstr "hakuna takwimu bado"
+
+msgid "not computed yet"
+msgstr "haijahesabiwa bado"
+
+msgid "queue empty"
+msgstr "foleni tupu"
+
+msgid "today"
+msgstr "leo"
+
+msgid "window"
+msgstr "dirisha"
+
+msgid "—"
+msgstr "—"

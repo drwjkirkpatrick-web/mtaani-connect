@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Moderation queue load" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Moderation queue load" %}</h1>
+{# NOTE: aggregates only. Open reports themselves (with reporters) live in the moderation queue; this page holds no per-user rows. #}
+<ul class="metric-cards">
+  <li class="card"><strong>{% trans "Open reports" %}</strong><p>{{ status.open }}</p></li>
+  <li class="card"><strong>{% trans "Under review" %}</strong><p>{{ status.under_review }}</p></li>
+  <li class="card"><strong>{% trans "Oldest open report age" %}</strong>
+    <p>{% if status.oldest_open_age_hours is not None %}{{ status.oldest_open_age_hours }} {% trans "hours" %}{% else %}<span class="muted">{% trans "queue empty" %}</span>{% endif %}</p>
+  </li>
+</ul>
+<h2>{% trans "Report volume by day" %} <span class="muted">({% trans "daily open-queue counts" %})</span></h2>
+<table class="volume">
+  <tr><th>{% trans "Day" %}</th><th>{% trans "Value" %}</th></tr>
+  {% for row in volume_rows %}
+  <tr><td>{{ row.date }}</td><td>{% if row.value is not None %}{{ row.value }}{% else %}—{% endif %}</td></tr>
+  {% empty %}
+  <tr><td colspan="2" class="muted">{% trans "No aggregates yet — run the daily rebuild." %}</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

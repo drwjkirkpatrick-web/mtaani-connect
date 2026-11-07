@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Fleet tracking hours" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Fleet tracking hours" %} — {{ selected.name }}</h1>
+<p class="muted">{% trans "Your SACCO's data only; other SACCOs' numbers are unreachable by design." %}</p>
+{% if saccos|length > 1 %}
+<p>
+  {% for s in saccos %}<a href="?sacco={{ s.pk }}">{{ s.name }}</a>{% if not forloop.last %} · {% endif %}{% endfor %}
+</p>
+{% endif %}
+<ul class="metric-cards">
+  <li class="card"><strong>{% trans "Session hours (last {{ days }} days)" %}</strong>
+    <p>{% if hours.hours is not None %}{{ hours.hours }}h{% else %}—{% endif %}</p>
+    <p class="muted">{% blocktrans with closed=hours.closed live=hours.live %}{{ closed }} closed · {{ live }} live{% endblocktrans %}</p>
+  </li>
+</ul>
+<h2>{% trans "Sessions started by day" %}</h2>
+<table class="volume">
+  <tr><th>{% trans "Day" %}</th><th>{% trans "Started" %}</th></tr>
+  {% for row in hours.by_day %}
+  <tr><td>{{ row.date }}</td><td>{% if row.value is not None %}{{ row.value }}{% else %}—{% endif %}</td></tr>
+  {% empty %}
+  <tr><td colspan="2" class="muted">{% trans "No aggregates yet — run the daily rebuild." %}</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}
