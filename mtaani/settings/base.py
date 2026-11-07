@@ -78,6 +78,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Prompt 41: CSP + nosniff/referrer/COOP headers on EVERY response.
+    "apps.core.security_headers.SecurityHeadersMiddleware",
     # Prompt 36: systematic server-side throttles — LAST so a refused
     # request never reaches a view, and it needs request.user. One
     # enforcement site: the existing DB doors (moderation 10/h etc.) keep
@@ -145,8 +147,41 @@ MEDIA_URL = "media/"
 SMS_ADAPTER = env("SMS_ADAPTER", default="apps.core.comms.MockSMS")
 EMAIL_ADAPTER = env("EMAIL_ADAPTER", default="apps.core.comms.MockEmail")
 
-# Session hygiene (Prompt 04; hardening continues in Prompt 41).
+# Session hygiene (Prompt 04; Prompt 41 hardening below).
 SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_HTTPONLY = True
+# Prod MUST set SESSION_COOKIE_SECURE=1 (or any HTTPS cookie transport);
+# a local http dev run keeps False so login works over plain localhost.
+SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=False)
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
+
+# Prompt 41 — transport/headers hardening (all overridable in prod env).
+SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=False)
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=0)  # prod: 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
+X_FRAME_OPTIONS = "DENY"
+
+# Prompt 41 — CSP BEFORE tightening (the Leaflet pitfall): the map loads
+# tiles from openstreetmap.org and Leaflet 1.9.4 from unpkg.com (SRI-pinned);
+# the crew page's small inline script is why script-src carries
+# 'unsafe-inline' for now — the NEXT hardening pass moves that inline JS to
+# a nonce strategy (planned in docs/runbooks/security.md), NOT silently.
+CONTENT_SECURITY_POLICY = {
+    "default-src": ["'self'"],
+    "img-src": ["'self'", "data:", "https://*.tile.openstreetmap.org"],
+    "script-src": ["'self'", "https://unpkg.com", "'unsafe-inline'"],
+    "style-src": ["'self'", "https://unpkg.com", "'unsafe-inline'"],
+    "connect-src": ["'self'"],
+    "base-uri": ["'self'"],
+    "form-action": ["'self'"],
+    "frame-ancestors": ["'none'"],
+}
 
 LOGIN_REDIRECT_URL = "home"
 
