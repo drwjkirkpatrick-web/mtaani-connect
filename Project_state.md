@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 3 waves: 25–30 landed; 31 (alerts) next, then Phase 4
+> **Current phase:** build — Phase 3 CLOSED (25–31); Phase 4 Intelligence begins (32)
 > **Overall health:** green
 
 ---
@@ -119,7 +119,11 @@ KDPA-compliant from day one.
   with 2 MiB tile-budget stub, zoom caps, honest empty state; 49 tests
 - [x] Prompt 29 — crew trip page: <20 KB four-state page, low-battery geo
   polling, versioned offline buffer (200 cap + KB counter), 27 doors only;
-  22 tests (838)
+  22 tests
+- [x] Prompt 31 — arrival estimates & follow alerts: vehicle/route follows,
+  one-tap notify opts, honest-arithmetic ETA (rolling speed + remaining
+  distance, ±25% band, ESTIMATE label inseparable, silence without data),
+  30-min alert dedupe, MockPush adapter registry; 29 tests
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -128,10 +132,11 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Prompt 31 — arrival estimates & follow alerts — closes Phase 3
+- [ ] Prompt 32 — traffic & route planning (Dijkstra over the stage graph)
 
 ### Not Started
-- [ ] Phase 4 (32–35: AI/ML answers, model answer door, ML ops), Phase 5 (36–42)
+- [ ] Phase 4 remainder (33 AI layer, 34 local-adaptation assistant, 35
+      multilingual completion), Phase 5 (36–42)
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -158,12 +163,10 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Prompt 31 (Arrival estimates & follow alerts — depends on 28 ✓
-> and 13 ✓) closes Phase 3. Then Phase 4: 32 → 33 → 34/35. NOTE: the 28/29
-> wave died mid-flight on an Ollama Cloud billing 429 and was finished
-> parent-side from the partials. Sweeps to cron at launch: barter
-> expire_stale_offers, listings expire_stale_listings, reviews
-> publish_due_reviews, tracking expire_sessions + prune_pings. Suite at 838.
+> **Next:** Prompt 32 (Traffic & route planning: Dijkstra over the stage
+> graph estate→estate; traffic reports as first-class events; crowd feeds
+> in) — then 33 (AI abstraction layer) → 34 ("Ask Mtaani" assistant) →
+> 35 (multilingual). Suite at 867; PHASE 3 CLOSED (25–31).
 
 ## 6. Environment & Tooling Notes
 
