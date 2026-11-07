@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% load i18n %}
+{# ==========================================================================
+Prompt 29 — the crew phone's ONE low-data trip page (apps.crew).
+
+WHY ONE PAGE: the brief's assumption under test — crew will share location
+IF battery/data cost is low AND VISIBLE. Four honest states (server machine
+shared with the status JSON):
+
+  NOT_AUTHORIZED   seat not approved — honest copy + link to fleet:crew_mine
+  AUTHORIZED_IDLE  pick vehicle (+ optional route/direction), cost facts
+  PUBLISHING       live indicator, data-used counter, End trip. The raw
+                   session token renders ONCE (Prompt 27 display-once):
+                   ONLY in this response's raw-token element, read by the
+                   JS into a MEMORY variable of the SAME render — never a
+                   cookie, never localStorage. A reload shows PUBLISHING
+                   minus token and that tab honestly cannot send new pings.
+  ENDED            honest summary: server-stored count + held device queue
+                   are real; device sent/failed render "—" (the form
+                   submit navigated away, killing the tab's memory BY the
+                   same display-once rule) + the 12 h cap reminder.
+
+JS CONTRACT (pins in tests/test_crew_flow.py — keep these markers verbatim):
+  tunables at the top: POLL_MS 60000, POLL_MS_DEGRADED 120000 after
+  consecutive failures, MAX_AGE_MS 120000 (maximumAge, coarse-efficient),
+  HIGH_ACCURACY false ALWAYS (the battery pitfall), BUFFER_MAX 200 with a
+  VISIBLE drop-OLDEST notice, BATCH_MAX 50 (28's ceiling), versioned
+  localStorage key data-storage-key, write-through per fix;
+  flush triggers: buffer ≥ batch max, connectivity returning (online
+  event), or a retry timer after a failed flush; the posted prefix is
+  cleared ONLY on a response body `accepted === true`;
+  counter is PURE: round(((reqBytes + resBytes) / 1024) * 10) / 10;
+  queue entries carry session_id — a new trip boot CLEARS pings held for
+  an ended session with a visible notice (they can never be sent).
+NOTE: no headless JS in this repo's tests — the mirror in
+tests/test_crew_flow.py exercises the same algorithm; these marker pins
+hold JS and mirror together. JS is INLINE (this app owns no static/ files).
+========================================================================== #}
+{% block title %}{% trans "My trip" %} — Mtaani{% endblock %}
+{% block content %}
+{# NOTE: a <section>, not <main> — base.html already provides the page's
+   <main class="content">; nesting another <main> would be invalid HTML. #}
+<section data-test="crew-trip-root" data-state="{{ state }}"
+      data-ingest-url="{{ ingester.url }}"
+      data-ingest-header="{{ ingester.header }}"
+      data-batch-max="{{ ingester.batch_max }}"
+      data-buffer-max="{{ ingester.buffer_max }}"
+      data-storage-key="{{ ingester.storage_key }}"
+      {% if live %}data-session-id="{{ live.session_pk }}" data-vehicle-id="{{ live.vehicle_id }}"{% endif %}>
+  <h1>{% trans "My trip" %}</h1>
+  {% if state == "NOT_AUTHORIZED" %}
+  <section data-test="not-authorized">
+    <p>{% trans "Trips open once a SACCO admin has approved your crew seat. Nothing is published until then." %}</p>
+    <p><a href="{% url 'fleet:crew_mine' %}">{% trans "Check my crew seats" %}</a></p>
+  </section>
+  {% elif state == "AUTHORIZED_IDLE" %}
+  <form method="post" action="{% url 'crew:trip_start' %}" data-test="start-form">
+    {% csrf_token %}
+    <label data-test="vehicle">{% trans "Vehicle" %}
+      <select name="vehicle" required>
+        <option value="">{% trans "Choose…" %}</option>
+        {% for row in vehicle_rows %}
+        <option value="{{ row.vehicle_id }}">{{ row.plate }}{% if row.nickname %} · {{ row.nickname }}{% endif %}</option>
+        {% empty %}
+        <option value="" disabled>{% trans "No active vehicle holds your seat right now." %}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label data-test="route">{% trans "Route (optional)" %}
+      <select name="route">
+        <option value="">{% trans "Not sure" %}</option>
+        {% for r in routes %}<option value="{{ r.pk }}">{{ r.name_en }}</option>{% endfor %}
+      </select>
+    </label>
+    <label data-test="direction">{% trans "Direction" %}
+      <select name="direction">
+        <option value="FORWARD">{% trans "As listed" %}</option>
+        <option value="REVERSE">{% trans "Return" %}</option>
+      </select>
+    </label>
+    <button type="submit" data-test="start-btn">{% trans "Start publishing" %}</button>
+  </form>
+  <p class="muted">{% blocktranslate with s=ingester.poll_seconds cap=cap_hours %}While publishing, one small fix about every {{ s }} s, low-accuracy mode, batched before sending — data stays cheap. Positions are public only while this trip is live and stop on their own after {{ cap }} h.{% endblocktranslate %}</p>
+  {% elif state == "PUBLISHING" %}
+  {% for live in live_rows %}
+  <section data-test="publishing">
+    <h2>{% trans "Publishing ·" %} {{ live.plate }}</h2>
+    {% if live.token_once %}
+    <p data-test="token-once">{% trans "Shown once — copy it now; only its hash is stored and it never shows again." %}
+      <code data-test="raw-token">{{ live.raw_token }}</code></p>
+    {% else %}
+    <p class="muted">{% trans "Trip still live, but this page can no longer send pings without the show-once token — nothing new goes out from this tab. Press End trip when done." %}</p>
+    {% endif %}
+    <p data-test="trip-counter">{% trans "Sent about" %} <span data-sent-kb>—</span> · {% trans "queued" %} <span data-queued>—</span></p>
+    <p class="muted">{% blocktranslate with until=live.until %}Public while live — until {{ until }}, then it stops on its own.{% endblocktranslate %}</p>
+    <form method="post" action="{% url 'crew:trip_end' live.session_pk %}" data-test="trip-end-form">
+      {% csrf_token %}
+      <button type="submit" data-test="trip-end-btn">{% trans "End trip" %}</button>
+    </form>
+  </section>
+  {% endfor %}
+  {% else %}
+  <section data-test="ended">
+    <h2>{% trans "Trip ended" %}</h2>
+    <p>{% trans "Publishing stopped. Nothing goes out from an ended trip." %}</p>
+    <ul data-test="ended-summary">
+      <li>{% trans "Stored by the server" %}: {{ ended.pings_stored }}</li>
+      <li>{% trans "Held in the device queue" %}: <span data-queued>—</span></li>
+      <li>{% trans "Sent (device counter, this tab)" %}: <span data-stat-sent>—</span></li>
+      <li>{% trans "Failed sends (device counter, this tab)" %}: <span data-stat-failed>—</span></li>
+    </ul>
+    <p class="muted">{% blocktranslate with h=cap_hours %}Reminder: a trip stops on its own after {{ h }} h — the session cap. A forgotten trip never publishes past it.{% endblocktranslate %}</p>
+  </section>
+  {% endif %}
+  <noscript><p class="muted" data-test="no-js-fallback">{% trans "This page starts and ends trips without JavaScript; its live counters need it." %}</p></noscript>
+  <p data-test="trip-error" class="muted"></p>
+  <script>
+(function () {
+  "use strict";
+  // ======= TUNABLES (battery/data money — read these first) =======
+  var POLL_MS = 60000;            // one fix per 60 s — never a tight GPS loop
+  var POLL_MS_DEGRADED = 120000;  // relax to 120 s after consecutive failures
+  var MAX_AGE_MS = 120000;        // maximumAge: reuse coarse fixes (2 min)
+  var BATCH_MAX = 50;             // ingest batch ceiling (28's contract)
+  var BUFFER_MAX = 200;           // device queue cap — drop OLDEST, never silent
+  var HIGH_ACCURACY = false;      // enableHighAccuracy FALSE — ALWAYS (battery)
+  var root = document.querySelector('[data-test="crew-trip-root"]');
+  if (!root) { return; }
+  var state = root.getAttribute("data-state");
+  // ENDED: the only JS job is displaying the still-HONEST stored queue.
+  if (state === "ENDED") {
+    var held = buf();
+    var n = root.querySelector("[data-queued]");
+    if (n) { n.textContent = String(held.length); }
+    return;
+  }
+  if (state !== "PUBLISHING") { return; } // idle/refused: no device flow at all
+  var tEl = root.querySelector('[data-test="raw-token"]');
+  var token = tEl ? tEl.textContent.trim() : null;
+  if (!token) { return; } // reloaded tab: memory-only token is gone; honest no-flush
+  var key = root.getAttribute("data-storage-key") || "mtaani.crew.trip.v1";
+  var capN = parseInt(root.getAttribute("data-buffer-max") || "200", 10);
+  var batchMax = parseInt(root.getAttribute("data-batch-max") || "50", 10);
+  var sid = root.getAttribute("data-session-id") || "";
+  var vid = parseInt(root.getAttribute("data-vehicle-id") || "0", 10);
+  var url = (root.getAttribute("data-ingest-url") || "")
+      .replace("{session_id}", sid);                    // 28's URL seam
+  var hname = root.getAttribute("data-ingest-header") || "X-Session-Token";
+  var sentKB = 0; // counter lives in MEMORY for this render (never stored)
+  function buf() {
+    try { return JSON.parse(localStorage.getItem(key) || "[]"); }
+    catch (e) { return []; }
+  }
+  function save(pings) { localStorage.setItem(key, JSON.stringify(pings)); }
+  function el(sel) { return root.querySelector(sel); }
+  function text(sel, s) { var n = el(sel); if (n) { n.textContent = s; } }
+  // PURE counter math: request bytes + response bytes -> KB (one decimal).
+  function toKB(reqBytes, resBytes) {
+    return Math.round(((reqBytes + resBytes) / 1024) * 10) / 10;
+  }
+  function show() {
+    text("[data-sent-kb]", sentKB.toFixed(1) + " KB");
+    text("[data-queued]", String(buf().length));
+  }
+  function stat(s) { text('[data-test="trip-error"]', s); show(); }
+  // A new trip boot: pings held for a DIFFERENT (ended) session can never
+  // be accepted — drop them with a visible notice instead of smuggling
+  // them into the next session's pipeline.
+  var fresh = [];
+  var staleCount = 0;
+  buf().forEach(function (p) {
+    if (String(p.session_id) === String(sid)) { fresh.push(p); }
+    else { staleCount += 1; }
+  });
+  if (staleCount > 0) {
+    save(fresh); // cleared loudly, never silently smuggled over sessions
+    stat("Held fixes from the ended trip cannot go out — cleared " + staleCount + ".");
+  }
+  function queue(ping) {        // write-through on each fix; capped queue
+    var pings = buf();
+    pings.push(ping);
+    var dropped = 0;
+    while (pings.length > capN) { pings.shift(); dropped += 1; } // drop OLDEST
+    save(pings);                 // never silent: say what was dropped
+    if (dropped > 0) { stat("Buffer full — dropped " + dropped + " oldest (cap " + capN + ")."); }
+    show();
+    if (buf().length >= batchMax) { flush(); } // batch trigger: full batch
+  }
+  function flush() {            // ONE fetch per call; batch ≤ BATCH_MAX
+    if (!navigator.onLine) { stat("Offline — buffered."); return; }
+    var pings = buf();
+    if (pings.length === 0) { return; }
+    var batch = pings.slice(0, batchMax).map(function (p) {
+      return { recorded_at: p.recorded_at, lat: p.lat, lon: p.lon,
+        speed_kmh: p.speed_kmh };              // only the contract's fields
+    });
+    var body = JSON.stringify({ vehicle_id: vid, pings: batch });
+    var headers = { "Content-Type": "application/json" };
+    headers[hname] = token;                    // ONE-TIME token as the header
+    fetch(url, { method: "POST", headers: headers, body: body })
+      .then(function (r) {
+        return r.json().then(function (data) {
+          var cl = r.headers.get("content-length");
+          sentKB += toKB(body.length, cl ? parseInt(cl, 10) : 0);
+          if (r.ok && data && data.accepted === true) { // clear ONLY on accept
+            save(buf().slice(batch.length));    // the posted prefix only
+            show();
+          } else { stat("Refused — kept buffered. Nothing lost."); }
+        }, function () { stat("Unclear answer — kept buffered."); });
+      })
+      .catch(function () {        // network failure: keep buffer, retry
+        stat("Offline — buffered. Retrying in a minute.");
+        setTimeout(flush, 60000);
+      });
+  }
+  var fails = 0;                  // consecutive failures degrade the rate
+  function timer() {
+    setTimeout(poll, fails > 0 ? POLL_MS_DEGRADED : POLL_MS);
+  }
+  function start() {
+    if (!navigator.geolocation) { stat("No location on this phone — trip still live."); return; }
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      fails = 0;
+      queue({
+        session_id: Math.abs(parseInt(sid, 10)),
+        recorded_at: new Date(pos.timestamp).toISOString(),
+        lat: Math.round(pos.coords.latitude * 1e6) / 1e6,
+        lon: Math.round(pos.coords.longitude * 1e6) / 1e6,
+        speed_kmh: Math.round((pos.coords.speed || 0) * 3.6),
+      });
+      timer();                    // back to the normal (or degraded) rate
+    }, function () {
+      fails += 1;                 // degrade; trip itself keeps going
+      timer();
+    }, {
+      enableHighAccuracy: HIGH_ACCURACY, maximumAge: MAX_AGE_MS, timeout: 30000,
+    });
+  }
+  start();
+  window.addEventListener("online", flush); // connectivity returns → flush
+})();
+  </script>
+</section>
+{% endblock %}
