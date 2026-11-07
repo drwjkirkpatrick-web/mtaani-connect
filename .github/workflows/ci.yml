@@ -85,4 +85,7 @@ jobs:
       - name: Dependency audit — pip-audit strict
         run: |
           pip install pip-audit
-          pip-audit --strict
+          # --skip-editable: the local project itself is not on PyPI (the
+          # audit fails on it otherwise); its DEPENDENCIES above are still
+          # resolved and audited from the install environment.
+          pip-audit --strict --skip-editable
