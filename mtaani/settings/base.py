@@ -66,6 +66,8 @@ INSTALLED_APPS = [
     # Phase 5 (Prompts 37, 38; 36 = pure library in core).
     "apps.analytics",
     "apps.monetize",
+    # Phase 5 wave 2 (Prompt 40; 39 = tests/scripts only, no app).
+    "apps.compliance",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
