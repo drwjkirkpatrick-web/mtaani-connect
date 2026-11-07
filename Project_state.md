@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 5 wave 1 landed (36–38); 39/40 next, then 41/42
+> **Current phase:** build — Phase 5 wave 2 landed (39, 40 salvaged); 41/42 remain
 > **Overall health:** green
 
 ---
@@ -161,6 +161,17 @@ KDPA-compliant from day one.
   (nothing grants itself), ratio-6 interleave with mandatory en+sw
   labels or ValueError, merchant tier FLAGS (FREE mirrors 18's caps),
   honest SACCO stubs, zero feed-ranking imports; 35 tests
+- [x] Prompt 39 — data-budget audit: route manifest vs the 50 KB budget
+  (anon + authed) with manifest-drift enforcement, page-2/size-discipline/
+  clamp probes, constant-count N+1 hunts (feed/market/map/qa/guides),
+  end-to-end image-variant chain (thumb on lists, standard on detail),
+  slow-3G in-suite sim (<8 s usable), SW no-auth-JSON caching re-pinned;
+  all budgets HOLD; 13 tests
+- [x] Prompt 40 — KDPA compliance: DataMap + inventory parity both ways
+  (+ tight PII scan audit), DSAR access archive / idempotent anonymize
+  (evidence + audit trails survive), consent ledger + export, retention
+  sweep through real 27 doors, DPIA for live location, ODPC checklist;
+  26 tests
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -169,12 +180,12 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Phase 5 wave 2 — 40 (KDPA compliance) + 39 (performance/data-budget
-      audit); then 41 (security & backups) + 42 (deployment) close it
+- [ ] Prompts 41 (security hardening & backups) + 42 (deployment & launch)
 
 ### Not Started
-- [ ] Build-wide: parent consolidation leftovers (38's search-results
-      promoted seam; throttle per-view doc noted at integration)
+- [ ] Post-build: cron scheduler wiring (sweeps list in ops notes), ODPC
+      registration (human), pilot conversations, promoted-slot seam if
+      demanded (38's library ready)
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -201,10 +212,10 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Phase 5 wave 2: 40 (KDPA workflows: DSAR export/purge, consent
-> ledger, retention sweeps — depends 04 ✓ 27 ✓) + 39 (test_budgets.py +
-> scripts/audit_pages.py) in parallel; then 41 (hardening & backups) +
-> 42 (deploy docs + CI). Suite at 1073.
+> **Next:** Prompts 41 (headers/CSP/cookies/secrets-sweep/backup+restore
+> drill) + 42 (deploy/ runbook, launch docs, CI) — parent-side or
+> dispatched once Ollama credits return; the 429 killed the wave-2 pair
+> and both were salvaged in-place. Suite at 1112.
 
 ## 6. Environment & Tooling Notes
 

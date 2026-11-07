@@ -1132,8 +1132,8 @@ Parallelizable groups (one subagent each, no shared files):
 | 36 | Rate limiting & abuse prevention | ✅ |
 | 37 | Privacy-safe analytics & admin | ✅ |
 | 38 | Monetization hooks (off by default) | ✅ |
-| 39 | Performance & data-budget audit | ☐ |
-| 40 | KDPA compliance workflows | ☐ |
+| 39 | Performance & data-budget audit | ✅ |
+| 40 | KDPA compliance workflows | ✅ |
 | 41 | Security hardening & backups | ☐ |
 | 42 | Deployment, CI & launch docs | ☐ |
 
