@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Merchant tiers — Mtaani{% endblock %}
+
+{% block content %}
+<h1>Merchant tiers</h1>
+<p class="muted">
+  Enrollment is staff-only and tiers grant NOTHING by themselves: a tier's
+  portfolio-size and refresh-cadence numbers are feature flags the owning apps
+  look up (enforcement lands in their gates). Billing is a future prompt once
+  demand is proven.
+  / Kujiandikisha ni kwa uongozi tu; daraja hazitoji zenyewe. Bili ni prompti ijayo.
+</p>
+
+<h2>Tier registry / Rejista ya daraja</h2>
+<ul>
+  {% for set in feature_sets %}
+  <li>
+    {{ set.tier }} — {{ set.label_en }} / {{ set.label_sw }}:
+    portfolio ≤ {{ set.portfolio_size_cap }} rows · refresh ≥ {{ set.refresh_cadence_hours }}h
+  </li>
+  {% endfor %}
+</ul>
+
+<h2>Enrollees / Waliopewa daraja</h2>
+<ul class="post-list">
+  {% for row in enrollees %}
+  <li class="card">
+    <h2 class="listing-title">{{ row.enrollment.user.username }}</h2>
+    <p class="muted">
+      Stored tier: {{ row.enrollment.tier }}
+      {% if row.enrollment.tier_set_by %}
+      (set {{ row.enrollment.tier_set_at|date:"Y-m-d H:i" }} by {{ row.enrollment.tier_set_by.username }})
+      {% endif %}
+    </p>
+    <p class="muted">
+      Effective caps now: portfolio ≤ {{ row.effective.portfolio_size_cap }} ·
+      refresh ≥ {{ row.effective.refresh_cadence_hours }}h
+      {% if row.effective.tier != row.enrollment.tier %}
+      · registry OFF → reading Free / rejista imezimwa
+      {% endif %}
+    </p>
+    <form method="post" action="{% url 'monetize:merchant_tier' row.enrollment.pk %}" class="inline">
+      {% csrf_token %}
+      <input type="hidden" name="tier" value="pro">
+      <button type="submit">Set Pro / Weka Pro</button>
+    </form>
+    <form method="post" action="{% url 'monetize:merchant_tier' row.enrollment.pk %}" class="inline">
+      {% csrf_token %}
+      <input type="hidden" name="tier" value="free">
+      <button type="submit">Set Free / Weka Bure</button>
+    </form>
+  </li>
+  {% empty %}
+  <li class="card muted">
+    No merchants enrolled — tiers grant themselves nothing.
+    / Hakuna wauzaji waliojiandikisha — daraja hazitoji zenyewe.
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

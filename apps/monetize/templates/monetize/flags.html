@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Monetization flags — Mtaani{% endblock %}
+
+{% block content %}
+<h1>Monetization flags</h1>
+<p class="muted">
+  Off by default — armed but pointed at nothing until a staff member flips a
+  flag deliberately (every flip lands an audit row below). Billing is a future
+  prompt once demand is proven: nothing here prices anything or processes
+  payments.
+  / Zimezimwa kwa chaguo-msingi — hakuna kitu kinaonyeshwa kwa pesa mpaka uongozi
+  iwashe bendera waziwazi (kila mabadiliko huandikwa kwenye rekodi ya ukaguzi).
+  Bili ni jambo la prompti ijayo.
+</p>
+
+<ul class="post-list">
+  {% for flag in flags %}
+  <li class="card">
+    <h2 class="listing-title">{{ flag.key }}</h2>
+    <p class="muted">{{ flag.label }} — {{ flag.label_sw }}</p>
+    <p class="muted">
+      {% if flag.enabled %}
+      ON since {{ flag.enabled_at|date:"Y-m-d H:i" }} by {{ flag.enabler.username }}
+      {% else %}
+      OFF — nobody has flipped this. / Bado haijawashwa.
+      {% endif %}
+    </p>
+    <form method="post" action="{% url 'monetize:flag_flip' flag.pk 'enable' %}" class="inline">
+      {% csrf_token %}
+      <button type="submit" {% if flag.enabled %}disabled{% endif %}>Enable / Wasisha</button>
+    </form>
+    <form method="post" action="{% url 'monetize:flag_flip' flag.pk 'disable' %}" class="inline">
+      {% csrf_token %}
+      <button type="submit" {% if not flag.enabled %}disabled{% endif %}>Disable / Zima</button>
+    </form>
+  </li>
+  {% empty %}
+  <li class="card muted">No flags exist (wrong database — they are seeded OFF by migration). / Hakuna bendera.</li>
+  {% endfor %}
+</ul>
+
+<h2>Audit trail / Rekodi ya ukaguzi</h2>
+{% if audits %}
+<ul>
+  {% for a in audits %}
+  <li>
+    {{ a.created_at|date:"Y-m-d H:i" }} · {{ a.get_surface_display }} ·
+    {{ a.get_action_display }} · by {{ a.actor.username|default:"—" }}
+    {% if a.note %}· {{ a.note }}{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="muted">
+  Nothing has ever flipped — monetization has pointed at nothing so far.
+  / Bado hakuna kitu kilichowashwa kamwe.
+</p>
+{% endif %}
+{% endblock %}

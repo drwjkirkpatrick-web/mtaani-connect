@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}{{ sacco.name }} premium tools — Mtaani{% endblock %}
+
+{% block content %}
+<h1>{{ sacco.name }} — premium tools</h1>
+<p class="muted">
+  A command-page: the SACCO's admins and platform staff see the premium tool
+  registry for this SACCO. Every surface ships its copy in English + Kiswahili
+  and an audit row when it is switched on.
+  / Zana maalum za kikundi hiki; kila kubadiliko huandikwa kwenye rekodi ya ukaguzi.
+</p>
+
+{% if tool %}
+<ul class="post-list">
+  <li class="card">
+    <h2 class="listing-title">{{ tool.label_en }}</h2>
+    <p class="muted">{{ tool.label_sw }} · {{ tool.tool }}</p>
+
+    {% if visible_enabled %}
+    <p>
+      Enabled {{ tool.enabled_at|date:"Y-m-d H:i" }} by {{ tool.enabler.username }}
+    </p>
+    <p class="muted">{{ stub_enabled_en }}</p>
+    <p class="muted">{{ stub_enabled_sw }}</p>
+    <p class="muted"><strong>Documented payload shape (schema, not data):</strong></p>
+    <pre class="muted">{{ payload_doc_debug }}</pre>
+    <ul>
+      {% for field, meaning, example in payload_shape %}
+      <li><code>{{ field }}</code> — {{ meaning }} (e.g. {{ example }})</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>{{ stub_disabled_en }}</p>
+    <p class="muted">{{ stub_disabled_sw }}</p>
+    {% if tool.enabled and not master_on %}
+    <p class="muted">
+      This tool was switched on, but the platform-wide SACCO premium registry
+      flag is off — nothing is active anywhere until staff enable it.
+      / Zana imewashwa, ila bendera kuu ya rejista imezimwa.
+    </p>
+    {% endif %}
+    {% endif %}
+
+    {% if is_staff_view %}
+    <form method="post" action="{% url 'monetize:sacco_tool_flip' sacco.pk %}" class="inline">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="enable">
+      <button type="submit" {% if tool.enabled %}disabled{% endif %}>Enable / Wasisha</button>
+    </form>
+    <form method="post" action="{% url 'monetize:sacco_tool_flip' sacco.pk %}" class="inline">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="disable">
+      <button type="submit" {% if not tool.enabled %}disabled{% endif %}>Disable / Zima</button>
+    </form>
+    {% endif %}
+  </li>
+</ul>
+
+<h2>Tool audit trail / Ukaguzi wa zana</h2>
+{% if audits %}
+<ul>
+  {% for a in audits %}
+  <li>
+    {{ a.created_at|date:"Y-m-d H:i" }} · {{ a.get_action_display }} ·
+    by {{ a.actor.username|default:"—" }}{% if a.note %} · {{ a.note }}{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="muted">Nothing has been switched on yet. / Bado hakuna kilichowashwa.</p>
+{% endif %}
+
+{% else %}
+<ul class="post-list">
+  <li class="card">
+    <p>
+      No premium tool is registered for {{ sacco.name }} yet. / Hakuna zana bado.
+    </p>
+    <p class="muted">
+      Staff can register the v1 stub (fleet analytics — sessions) in the
+      Django admin; it starts OFF.
+      / Uongozi hujiandikisha kwa Django admin; inaanza imezimwa.
+    </p>
+  </li>
+</ul>
+{% endif %}
+{% endblock %}
