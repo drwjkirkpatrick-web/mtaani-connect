@@ -1,0 +1,19 @@
+# Caddy reverse proxy — automatic HTTPS is Caddy's default stance; these
+# headers assume the Django app sets its own CSP/nosniff (Prompt 41
+# middleware), so Caddy only adds the transport bits Django cannot know.
+# Replace the domain with the launch domain.
+
+mtaani.example {
+  encode zstd gzip
+
+  reverse_proxy app:8000 {
+    # Django's SECURE_PROXY_SSL_HEADER expects this proto:
+    header_up X-Forwarded-Proto {scheme}
+  }
+
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    # Caddy strips server fingerprints by default.
+    -Server
+  }
+}

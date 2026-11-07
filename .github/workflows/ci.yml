@@ -1,0 +1,88 @@
+name: ci
+
+# The whole test stack runs on EVERY PR — the pitfall is a CI that quietly
+# lacks PostGIS and skips geo: this workflow uses the REAL
+# postgis/postgis:16-3.4 service container and FAILS loudly if the
+# extension is missing. No untrusted interpolations of any kind here
+# (no untrusted payload values are echoed into run blocks — reviewed 2026-11).
+# This repo's local venv runs on 3.14 but requires-python is >=3.12; 3.13
+# is the CI pin (stable interpreter, in-range for the dependency floors).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_DB: mtaani_ci
+          POSTGRES_USER: mtaani
+          POSTGRES_PASSWORD: ci-postgres-not-a-secret
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U mtaani -d mtaani_ci"
+          --health-interval 10s
+          --health-retries 6
+    env:
+      DB_NAME: mtaani_ci
+      DB_PORT: "5432"
+      DB_USER: mtaani
+      DB_HOST: 127.0.0.1
+      DB_PASSWORD: ci-postgres-not-a-secret
+      PGPASSWORD: ci-postgres-not-a-secret
+      DEBUG: "0"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install
+        run: |
+          pip install --upgrade pip
+          pip install --no-cache-dir -e ".[dev]" "gunicorn>=21" "pip-audit"
+
+      # THE PITFALL GUARD: prove the extension exists BEFORE anything runs.
+      - name: PostGIS really present (fail loud, not silent-skip)
+        run: |
+          python - <<'PY'
+          import os
+          import psycopg  # the project's own pinned driver (psycopg[binary])
+          conn = psycopg.connect(
+              dbname="mtaani_ci", user="mtaani",
+              password="ci-postgres-not-a-secret",
+              host="127.0.0.1", port=int(os.environ["DB_PORT"]),
+          )
+          with conn.cursor() as cur:
+              cur.execute("SELECT extname FROM pg_extension WHERE extname='postgis'")
+              assert cur.fetchall(), "PostGIS MISSING — geo tests would be lying"
+          print("postgis ok")
+          PY
+
+      - name: Migrations complete (no uncommitted model drift)
+        run: python manage.py makemigrations --check --dry-run
+
+      - name: System checks
+        run: python manage.py check
+
+      - name: Full test suite (geo included — extension proven above)
+        run: python -m pytest
+
+      - name: Budget suite named explicitly
+        run: python -m pytest tests/test_budgets.py -q
+
+      - name: Geo/planner suites named explicitly
+        run: python -m pytest tests/test_traffic.py tests/test_listing_search.py tests/test_routes.py -q
+
+      - name: Dependency audit — pip-audit strict
+        run: |
+          pip install pip-audit
+          pip-audit --strict

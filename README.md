@@ -139,7 +139,7 @@ commit each. `docs/` holds the product brief, research notes with sources,
 and architecture decision records; `Project_state.md` is the live status.
 Stack in one line: Django + PostGIS-backed PostgreSQL, server-rendered PWA,
 mock-first adapters, everything tested (83 passing). Clone, `make setup`,
-`make db-start`, `make test`.
+the deploy story in `deploy/`, security/backup runbooks in `docs/runbooks/`. The suite is the contract's enforcement (1,120+ tests: modules, page budgets, security, data-budget audit).
 
 ## License
 

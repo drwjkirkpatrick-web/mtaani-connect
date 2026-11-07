@@ -1,5 +1,6 @@
 """Root URLconf. Placeholder home until Prompt 05's design system lands."""
 from django.contrib import admin
+from django.http import JsonResponse
 from django.urls import include, path
 from django.views.generic import TemplateView
 
@@ -44,5 +45,8 @@ urlpatterns = [
     path("analytics/", include("apps.analytics.urls")),
     path("monetize/", include("apps.monetize.urls")),
     path("compliance/", include("apps.compliance.urls")),
+    # Prompt 42: health endpoint for Caddy/uptime checks — plain 200 JSON,
+    # DB-free, so the reverse proxy and uptime monitors can poke it.
+    path("health/", lambda request: JsonResponse({"ok": True}), name="health"),
     path("transport/", TemplateView.as_view(template_name="stub.html"), name="transport_stub"),
 ]

@@ -390,6 +390,9 @@ def _manifest():
     """
     return [
         dict(label="home", key=(None, "home"), url=lambda w: "/"),
+        # Prompt 42: the health endpoint is a proxy probe, deliberately
+        # EXEMPT (a JSON one-liner; its only budget is its own name).
+        dict(label="health", key=(None, "health"), url=lambda w: "/health/"),
         dict(label="accounts signup", key=("accounts", "signup"), url=lambda w: reverse("accounts:signup")),
         dict(label="accounts login", key=("accounts", "login"), url=lambda w: reverse("accounts:login")),
         dict(label="accounts recover request", key=("accounts", "recover_request"), url=lambda w: reverse("accounts:recover_request")),
