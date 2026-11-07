@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 4 CLOSED (32–35); Phase 5 begins (36–38)
+> **Current phase:** build — Phase 5 wave 1 landed (36–38); 39/40 next, then 41/42
 > **Overall health:** green
 
 ---
@@ -147,6 +147,20 @@ KDPA-compliant from day one.
   (msgfmt absent — compilemessages documented for deploy); content-lang
   prefs (en/sw/both, session fallback), pure neutral-fallback chips,
   Sheng-free-form content documented; PHASE 4 CLOSED
+- [x] Prompt 36 — rate limiting: PURE sliding-window buckets (import-time
+  purity test), per-user+per-IP two-phase, anonymous→IP degrade,
+  progressive lockouts (3 strikes/24h → 60-min doubling cap 24h),
+  ThrottleMiddleware registered LAST, rules test-pinned to existing door
+  numbers, Memory store in tests + Redis stub recipe for 42; 41 tests
+- [x] Prompt 37 — privacy-safe analytics: DailyAggregate columns pinned
+  EXACTLY {id,date,metric,value} (a user_id column fails the suite),
+  zero relations, sacco_id plain integer; rebuild_daily door-by-door
+  (local-share None not 0, DAU labeled estimate); ops/moderator/sacco
+  dashboards scoped; 42 sw translations swept in; 14 tests
+- [x] Prompt 38 — monetization hooks OFF: flags+append-only audit
+  (nothing grants itself), ratio-6 interleave with mandatory en+sw
+  labels or ValueError, merchant tier FLAGS (FREE mirrors 18's caps),
+  honest SACCO stubs, zero feed-ranking imports; 35 tests
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -155,12 +169,12 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Phase 5 wave 1 — 36 (rate limiting) + 37 (analytics) + 38
-      (monetization hooks)
+- [ ] Phase 5 wave 2 — 40 (KDPA compliance) + 39 (performance/data-budget
+      audit); then 41 (security & backups) + 42 (deployment) close it
 
 ### Not Started
-- [ ] Phase 5 remainder (39 budgets audit, 40 KDPA compliance, 41 security/
-      backups, 42 deployment & launch)
+- [ ] Build-wide: parent consolidation leftovers (38's search-results
+      promoted seam; throttle per-view doc noted at integration)
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -187,9 +201,10 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Phase 5: dispatch 36 + 37 + 38 in parallel (disjoint dirs;
-> throttle middleware is parent-owned in mtaani/settings/ at integration),
-> then 40+39, then 41+42. Suite at 983; PHASE 4 CLOSED (32–35).
+> **Next:** Phase 5 wave 2: 40 (KDPA workflows: DSAR export/purge, consent
+> ledger, retention sweeps — depends 04 ✓ 27 ✓) + 39 (test_budgets.py +
+> scripts/audit_pages.py) in parallel; then 41 (hardening & backups) +
+> 42 (deploy docs + CI). Suite at 1073.
 
 ## 6. Environment & Tooling Notes
 
