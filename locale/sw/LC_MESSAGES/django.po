@@ -6531,3 +6531,284 @@ msgstr "dirisha"
 
 msgid "—"
 msgstr "—"
+
+msgid "A %s request is already open for this account."
+msgstr "Ombi la %s tayari limefunguliwa kwa akaunti hii."
+
+msgid "A refusal needs a written reason."
+msgstr "Kukataa kunahitaji sababu iliyoandikwa."
+
+msgid "Access (export my data)"
+msgstr "Kufikia (kuleta takwimu zangu)"
+
+msgid "Access archive (readable)"
+msgstr "Kimbunda cha ufikiaji (kinachosomwa)"
+
+msgid "App"
+msgstr "Programutendaji"
+
+msgid "Back to the data map"
+msgstr "Rudi kwenye ramani ya takwimu"
+
+msgid "Back to the queue"
+msgstr "Rudi kwenye foleni"
+
+msgid "CONFIRM erasure (anonymize the account)"
+msgstr "THIBITIA kufuta (fanya akaunti iwe isiyojulikana)"
+
+msgid "Consent"
+msgstr "Idhini"
+
+msgid "Consent ledger export"
+msgstr "Kutoa leja ya idhini"
+
+msgid "Consent timeline"
+msgstr "Mtiririko wa idhini"
+
+msgid "Consent timeline (KDPA §32 evidence)"
+msgstr "Mtiririko wa idhini (ushahidi wa KDPA §32)"
+
+msgid "Consent timeline search"
+msgstr "Utafutaji wa mtiririko wa idhini"
+
+msgid "Contract"
+msgstr "Mkataba"
+
+msgid "Correct my data"
+msgstr "Sahihisha takwimu zangu"
+
+msgid "Correction (point me at profile edit)"
+msgstr "Kusahihisha (elekeza kwenye kuhariri wasifu)"
+
+msgid "DSAR queue"
+msgstr "Foleni ya DSAR"
+
+msgid "Data map"
+msgstr "Ramani ya takwimu"
+
+msgid "Data map entries"
+msgstr "Maelezo ya ramani ya takwimu"
+
+msgid "Data map entry"
+msgstr "Kipengele cha ramani ya takwimu"
+
+msgid "Data request"
+msgstr "Ombi la takwimu"
+
+msgid "Data requests"
+msgstr "Maombi ya takwimu"
+
+msgid "Delete my account"
+msgstr "Futa akaunti yangu"
+
+msgid "Deletion (anonymize me)"
+msgstr "Kufuta (nifanye isiyojulikana)"
+
+msgid "Deletion request is pending — a compliance reviewer will confirm it."
+msgstr "Ombi la kufuta lina subiri — mtazamaji wa uzingatavu atathibitisha."
+
+msgid "Download a readable file of everything this app holds for me"
+msgstr ""
+"Pakua faili inayosomeka ya kila kitu programu hii inayoshika kwa ajili yangu"
+
+msgid ""
+"Every model that holds personal data, its purpose, lawful basis (CONSENT / "
+"CONTRACT / LEGITIMATE_INTEREST / LEGAL_OBLIGATION) and retention. The "
+"registry syncs from the hand-maintained inventory on every load — what you "
+"read is what the code does."
+msgstr ""
+"Kila mfano unayoshika takwimu za mtu binafsi, madhumuni yake, msingi halali "
+"(IDHINI / MKATABA / MASLAHA HALALI / WAJIBU WA KISHERIA) na muda wa "
+"kuhifadhi. Rejista inasawazishwa na orodha iliyoandaliwa kwa mkono kwa kila "
+"kupakia — unachokisoma ndilo msimbo unachofanya."
+
+msgid "Export my data"
+msgstr "Leta takwimu zangu"
+
+msgid "Export the whole ledger"
+msgstr "Leta leja yote"
+
+msgid "Export this timeline"
+msgstr "Leta mtiririko huu"
+
+msgid "Handled at"
+msgstr "Ilihudumiwa saa"
+
+msgid "Handled by"
+msgstr "Ilihudumiwa na"
+
+msgid "KDPA data map & DSAR queue"
+msgstr "Ramani ya takwimu ya KDPA & foleni ya DSAR"
+
+msgid "Lawful basis"
+msgstr "Msingi halali"
+
+msgid "Legal obligation"
+msgstr "Wajibu wa kisheria"
+
+msgid "Legitimate interest"
+msgstr "Maslahi halali"
+
+msgid "List non-empty, distinct field names."
+msgstr "Orodhesha majina ya sehemu zisizo tupu, tofauti."
+
+msgid "Mark fulfilled (archive shown below)"
+msgstr "Weka imefanywa (kimbunda kimeonyeshwa hapa chini)"
+
+msgid "Mark fulfilled (member self-served the correction)"
+msgstr "Weka imefanywa (mwanachama alijisahihisha)"
+
+msgid "Member note"
+msgstr "Maelezo ya mwanachama"
+
+msgid "Member username:"
+msgstr "Jina la mtumiaji la mwanachama:"
+
+msgid "My consent timeline"
+msgstr "Mtiririko wangu wa idhini"
+
+msgid "My requests"
+msgstr "Maombi yangu"
+
+msgid "No consent record yet."
+msgstr "Hakuna kumbukumbu ya idhini bado."
+
+msgid "No consent recorded."
+msgstr "Hakuna idhini iliyorekodiwa."
+
+msgid "No requests yet."
+msgstr "Hakuna maombi bado."
+
+msgid "No such member."
+msgstr "Hakuna mwanachama kama huyo."
+
+msgid "None yet."
+msgstr "Hakuna bado."
+
+msgid "Notes"
+msgstr "Maelezo"
+
+msgid "Only an OPEN request can be handled."
+msgstr "Ombi la WAZI tu linaweza kuhudumiwa."
+
+msgid "Open data requests"
+msgstr "Maombi ya takwimu wazi"
+
+msgid "Operator note (optional):"
+msgstr "Maelezo ya mwendeshaji (hiari):"
+
+msgid "Operator note:"
+msgstr "Maelezo ya mwendeshaji:"
+
+msgid "Personal fields"
+msgstr "Sehemu za kibinafsi"
+
+msgid "Personal-data fields"
+msgstr "Sehemu za takwimu binafsi"
+
+msgid "Pick a lawful basis from the DPA vocabulary."
+msgstr "Chagua msingi halali kutoka msamiati wa DPA."
+
+msgid "Profile corrections are self-serve —"
+msgstr "Kusahihisha wasifu ni kwa mtumiaji mwenyewe —"
+
+msgid "Purpose of processing"
+msgstr "Madhumuni ya uchakataji"
+
+msgid "Recently handled"
+msgstr "Ilihudumiwa hivi karibuni"
+
+msgid "Refusal reason (required):"
+msgstr "Sababu ya kukataa (inahitajika):"
+
+msgid "Refuse"
+msgstr "Kataa"
+
+msgid "Refused"
+msgstr "Imekataliwa"
+
+msgid "Request account deletion"
+msgstr "Omba kufutwa kwa akaunti"
+
+msgid "Request fulfilled."
+msgstr "Ombi limefanywa."
+
+msgid "Request recorded in the DSAR ledger."
+msgstr "Ombi limerekodiwa kwenye leja ya DSAR."
+
+msgid "Request refused with reason."
+msgstr "Ombi limekataliwa kwa sababu."
+
+msgid "Requester"
+msgstr "Mwombaji"
+
+msgid "Retention (days)"
+msgstr "Ufadhili (siku)"
+
+msgid "Search by username:"
+msgstr "Tafuta kwa jina la mtumiaji:"
+
+msgid "Search the queue"
+msgstr "Tafuta foleni"
+
+msgid "Stamp when it was handled."
+msgstr "Weka alama ya saa iliohudumiwa."
+
+msgid "Table"
+msgstr "Jedwali"
+
+msgid "The archive below is what the member gets; fulfil to stamp it."
+msgstr ""
+"Kimbunda hapa chini ndicho mwanachama anapata; timiza ili kuweka alama."
+
+msgid "This account is anonymized; nothing to request."
+msgstr "Akaunti hii imefanywa isiyojulikana; hakuna cha kuomba."
+
+msgid "Unknown action."
+msgstr "Kitendo kisichojulikana."
+
+msgid "Unknown request kind."
+msgstr "Aina ya ombi isiyojulikana."
+
+msgid "Unknown request status."
+msgstr "Hali ya ombi isiyojulikana."
+
+msgid "WHY this processing exists (the DPA purpose statement)."
+msgstr "KWA NINI uchakataji huu upo (taarifa ya madhumuni ya DPA)."
+
+msgid "Why (kept in the ledger):"
+msgstr "Kwa nini (inehifadhiwa kwenye leja):"
+
+msgid "Your data"
+msgstr "Takwimu zako"
+
+msgid ""
+"Your data stays yours: export it, ask for deletion, or correct your profile "
+"— every ask is recorded in the DSAR ledger."
+msgstr ""
+"Takwimu zako ni zako: leta zake, omba kufutwa, au sahihisha wasifu wako — "
+"kila ombi linakumbukwa kwenye leja ya DSAR."
+
+msgid "account lifetime"
+msgstr "uishi wa akaunti"
+
+msgid "archive generated in-line for the member"
+msgstr "kimbunda kilitengenezwa hapa kwa mwanachama"
+
+msgid "edit your profile"
+msgstr "hariri wasifu wako"
+
+msgid "from"
+msgstr "kutoka"
+
+msgid "note"
+msgstr "elezo"
+
+msgid "open"
+msgstr "wazi"
+
+msgid "opened"
+msgstr "limefunguliwa"
+
+msgid "self-serve correction at profiles:me"
+msgstr "kusahihisha kwa mtumiaji mwenyewe profiles:me"
