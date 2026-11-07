@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Consent timeline" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Consent timeline (KDPA §32 evidence)" %}</h1>
+<form method="get">
+  <label>{% trans "Member username:" %} <input type="text" name="user" value="{{ searched }}"></label>
+  <button type="submit">{% trans "Search" %}</button>
+</form>
+
+{% if member %}
+<h2>{{ member.username }}</h2>
+{% for c in consents %}
+<p>{{ c.created_at|date:"Y-m-d H:i" }} — {{ c.purpose_key }} v{{ c.doc_version }}{% if c.source_ip %} ({% trans "from" %} {{ c.source_ip }}){% endif %}</p>
+{% empty %}
+<p class="muted">{% trans "No consent recorded." %}</p>
+{% endfor %}
+<p><a href="{% url 'compliance:consent_export' %}?user={{ member.username }}">{% trans "Export this timeline" %}</a></p>
+{% elif searched %}
+<p class="muted">{% trans "No such member." %}</p>
+{% endif %}
+
+<p><a href="{% url 'compliance:consent_export' %}">{% trans "Export the whole ledger" %}</a> ·
+<a href="{% url 'compliance:dashboard' %}">{% trans "Back to the data map" %}</a></p>
+{% endblock %}

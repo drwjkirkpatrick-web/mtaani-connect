@@ -1,0 +1,72 @@
+"""Compliance templates — member KDPA page (Prompt 40).
+
+Deliberately light for the data budget: server-render text, no JS, no
+images. i18n-marked (gettext) per the standing rule. Extends the shared
+base like every sibling app.
+"""
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Your data" %} — Mtaani{% endblock %}
+
+{% block content %}
+<h1>{% trans "Your data" %}</h1>
+<p class="muted">
+  {% blocktrans trimmed %}
+    Your data stays yours: export it, ask for deletion, or correct your
+    profile — every ask is recorded in the DSAR ledger.
+  {% endblocktrans %}
+</p>
+
+<section>
+  <h2>{% trans "Export my data" %}</h2>
+  <p>
+    <a class="btn" href="{% url 'compliance:export_my_data' %}">
+      {% trans "Download a readable file of everything this app holds for me" %}
+    </a>
+  </p>
+</section>
+
+<section>
+  <h2>{% trans "Correct my data" %}</h2>
+  <p>
+    {% blocktrans trimmed %}Profile corrections are self-serve —{% endblocktrans %}
+    <a href="{% url 'profiles:me' %}">{% trans "edit your profile" %}</a>.
+  </p>
+</section>
+
+<section>
+  <h2>{% trans "Delete my account" %}</h2>
+  {% if open_delete %}
+  <p class="muted">{% trans "Deletion request is pending — a compliance reviewer will confirm it." %}</p>
+  {% else %}
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="kind" value="DELETE">
+    <label>
+      {% trans "Why (kept in the ledger):" %}
+      <input type="text" name="note" maxlength="200">
+    </label>
+    <button type="submit">{% trans "Request account deletion" %}</button>
+  </form>
+  {% endif %}
+</section>
+
+<section>
+  <h2>{% trans "My requests" %}</h2>
+  {% for r in my_requests %}
+  <p>{{ r.created_at.date }} — {{ r.kind }}: {{ r.status }}{% if r.note %} ({% trans "note" %}: {{ r.note }}){% endif %}</p>
+  {% empty %}
+  <p class="muted">{% trans "No requests yet." %}</p>
+  {% endfor %}
+</section>
+
+<section>
+  <h2>{% trans "My consent timeline" %}</h2>
+  {% for c in consents %}
+  <p>{{ c.created_at|date:"Y-m-d H:i" }} — {{ c.purpose_key }} v{{ c.doc_version }}{% if c.source_ip %} ({% trans "from" %} {{ c.source_ip }}){% endif %}</p>
+  {% empty %}
+  <p class="muted">{% trans "No consent record yet." %}</p>
+  {% endfor %}
+</section>
+{% endblock %}

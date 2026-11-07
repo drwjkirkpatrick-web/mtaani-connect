@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}#{{ req.pk }} {{ req.kind }} — Mtaani{% endblock %}
+{% block content %}
+<h1>#{{ req.pk }} — {{ req.kind }} · {{ req.status }}</h1>
+<p>{{ req.user.username }} — {% trans "opened" %} {{ req.created_at|date:"Y-m-d H:i" }}</p>
+{% if req.note %}<p>{% trans "Member note" %}: {{ req.note }}</p>{% endif %}
+{% if req.handled_at %}
+<p>{% trans "Handled by" %} {{ req.handled_by }} {{ req.handled_at|date:"Y-m-d H:i" }} — {{ req.note }}</p>
+{% endif %}
+
+{% if req.status == "OPEN" %}
+<section>
+  {# DELETE fulfilment runs the anonymization (evidence-preserving); #}
+  {# ACCESS fulfilment renders the archive in-line; refuse needs a reason. #}
+  {% if req.kind == "DELETE" %}
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="fulfill">
+    <label>{% trans "Operator note (optional):" %} <input name="note"></label>
+    <button type="submit">{% trans "CONFIRM erasure (anonymize the account)" %}</button>
+  </form>
+  {% elif req.kind == "ACCESS" %}
+  <p>{% trans "The archive below is what the member gets; fulfil to stamp it." %}</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="fulfill">
+    <button type="submit">{% trans "Mark fulfilled (archive shown below)" %}</button>
+  </form>
+  {% else %}
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="fulfill">
+    <label>{% trans "Operator note:" %} <input name="note"></label>
+    <button type="submit">{% trans "Mark fulfilled (member self-served the correction)" %}</button>
+  </form>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="refuse">
+    <label>{% trans "Refusal reason (required):" %} <input name="note" required></label>
+    <button type="submit">{% trans "Refuse" %}</button>
+  </form>
+</section>
+{% endif %}
+
+{% if archive_text %}
+<h2>{% trans "Access archive (readable)" %}</h2>
+<pre>{{ archive_text }}</pre>
+{% endif %}
+
+<a href="{% url 'compliance:requests' %}">{% trans "Back to the queue" %}</a>
+{% endblock %}

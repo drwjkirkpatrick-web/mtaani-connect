@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "DSAR queue" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Data requests" %}</h1>
+<form method="get">
+  <label>{% trans "Search by username:" %} <input type="text" name="q" value="{{ q }}"></label>
+  <button type="submit">{% trans "Search" %}</button>
+</form>
+<table>
+  <thead>
+    <tr><th>#</th><th>{% trans "Member" %}</th><th>{% trans "Kind" %}</th><th>{% trans "Status" %}</th><th>{% trans "Opened" %}</th><th></th></tr>
+  </thead>
+  <tbody>
+    {% for r in requests %}
+    <tr>
+      <td>{{ r.pk }}</td>
+      <td>{{ r.user.username }}</td>
+      <td>{{ r.kind }}</td>
+      <td>{{ r.status }}</td>
+      <td>{{ r.created_at|date:"Y-m-d" }}</td>
+      <td><a href="{% url 'compliance:request_detail' r.pk %}">{% trans "open" %}</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'compliance:dashboard' %}">{% trans "Back to the data map" %}</a>
+{% endblock %}

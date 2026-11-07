@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Data map" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "KDPA data map & DSAR queue" %}</h1>
+<p class="muted">
+  {# The auditor page: what data, why, on what basis, how long — per table. #}
+  {% blocktrans trimmed %}
+    Every model that holds personal data, its purpose, lawful basis
+    (CONSENT / CONTRACT / LEGITIMATE_INTEREST / LEGAL_OBLIGATION) and
+    retention. The registry syncs from the hand-maintained inventory on
+    every load — what you read is what the code does.
+  {% endblocktrans %}
+</p>
+
+<h2>{% trans "Data map" %}</h2>
+<table>
+  <thead>
+    <tr>
+      <th>{% trans "Table" %}</th>
+      <th>{% trans "Personal fields" %}</th>
+      <th>{% trans "Purpose" %}</th>
+      <th>{% trans "Lawful basis" %}</th>
+      <th>{% trans "Retention (days)" %}</th>
+      <th>{% trans "Notes" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in entries %}
+    <tr>
+      <td>{{ e.app_label }}.{{ e.model_name }}</td>
+      <td>{{ e.fields|join:", " }}</td>
+      <td>{{ e.purpose }}</td>
+      <td>{{ e.lawful_basis }}</td>
+      <td>{% if e.retention_days is None %}{% trans "account lifetime" %}{% else %}{{ e.retention_days }}{% endif %}</td>
+      <td>{{ e.notes }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>{% trans "Open data requests" %}</h2>
+{% for r in open_requests %}
+<p>
+  <a href="{% url 'compliance:request_detail' r.pk %}">#{{ r.pk }} {{ r.kind }} — {{ r.user.username }} ({{ r.created_at.date }})</a>
+</p>
+{% empty %}
+<p class="muted">{% trans "Queue empty." %}</p>
+{% endfor %}
+
+<h2>{% trans "Recently handled" %}</h2>
+{% for r in recent_requests %}
+<p>#{{ r.pk }} {{ r.kind }} {{ r.status }} — {{ r.user.username }}</p>
+{% empty %}
+<p class="muted">{% trans "None yet." %}</p>
+{% endfor %}
+
+<p>
+  <a href="{% url 'compliance:requests' %}">{% trans "Search the queue" %}</a> ·
+  <a href="{% url 'compliance:user_consents' %}">{% trans "Consent timeline search" %}</a> ·
+  <a href="{% url 'compliance:consent_export' %}">{% trans "Consent ledger export" %}</a>
+</p>
+{% endblock %}
