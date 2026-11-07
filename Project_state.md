@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 2 CLOSED (17–19, 20–24); Phase 3 Transport under way (25 done)
+> **Current phase:** build — Phase 3 waves: 25–30 landed; 31 (alerts) next, then Phase 4
 > **Overall health:** green
 
 ---
@@ -102,7 +102,24 @@ KDPA-compliant from day one.
 - [x] Prompt 25 — routes & GTFS: Route/Stage/RouteStage/Fare/Sacco + aliases
       (trigram), Digital-Matatus-format seeder (probes columns; shapes never
       fabricated; no-zip degrade; idempotent, preserves admin edits),
-      seed-quality labels, community CorrectionQueue; 27 tests (621)
+      seed-quality labels, community CorrectionQueue; 27 tests
+- [x] Prompt 26 — fleet & crew: plate-validated vehicles (normalized),
+  crew two-party approval gate (same-sacco admin ≠ applicant), tenant wall
+  at the query layer (cross-tenant 403, staff no bypass), FleetAudit;
+  58 tests
+- [x] Prompt 30 — crowd reports: six event types at stages only, merged
+  (10-min window; riders stay distinct via link rows), PURE injected-clock
+  weighting (crowd × trust × recency decay), overlay contract frozen for 28;
+  27 tests
+- [x] Prompt 27 — tracking sessions: hashed scoped tokens (rotate kills old),
+  derived LIVE/ENDED/EXPIRED, R1/R2/R3 privacy rules in the QUERY LAYER
+  (boundary anchors + 1 km ring), 12-h cap + 72-h prune sweeps; 61 tests
+- [x] Prompt 28 — ingest & live map: token-auth batch ingest (≤50, dedupe,
+  >150 km/h → ESTIMATE not deletion; new PingPoint columns), Leaflet+OSM map
+  with 2 MiB tile-budget stub, zoom caps, honest empty state; 49 tests
+- [x] Prompt 29 — crew trip page: <20 KB four-state page, low-battery geo
+  polling, versioned offline buffer (200 cap + KB counter), 27 doors only;
+  22 tests (838)
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -111,11 +128,10 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Phase 3 wave — Prompts 26 (fleet & crew registration) +
-      30 (passenger crowd reports) in parallel
+- [ ] Prompt 31 — arrival estimates & follow alerts — closes Phase 3
 
 ### Not Started
-- [ ] Phase 3 remainder (27, 28, 29, 31), Phase 4 (32–35), Phase 5 (36–42)
+- [ ] Phase 4 (32–35: AI/ML answers, model answer door, ML ops), Phase 5 (36–42)
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -142,12 +158,12 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Prompt 26 (fleet: plate-validated vehicles, nickname search,
-> crew onboarding behind SACCO-admin approval, tenant isolation) and
-> Prompt 30 (crowd reports: boarders/alighters at a stage in a time window)
-> in parallel — both depend only on 25 which just landed. Then 27
-> (authorized tracking sessions), 28 + 29, 31. Suite at 621; PHASE 2
-> CLOSED (prompts 01–19, 20–24).
+> **Next:** Prompt 31 (Arrival estimates & follow alerts — depends on 28 ✓
+> and 13 ✓) closes Phase 3. Then Phase 4: 32 → 33 → 34/35. NOTE: the 28/29
+> wave died mid-flight on an Ollama Cloud billing 429 and was finished
+> parent-side from the partials. Sweeps to cron at launch: barter
+> expire_stale_offers, listings expire_stale_listings, reviews
+> publish_due_reviews, tracking expire_sessions + prune_pings. Suite at 838.
 
 ## 6. Environment & Tooling Notes
 

@@ -1121,8 +1121,8 @@ Parallelizable groups (one subagent each, no shared files):
 | 25 | Route & stage database + GTFS seeder | ✅ |
 | 26 | Vehicle, SACCO & crew registration | ✅ |
 | 27 | Authorized tracking sessions | ✅ |
-| 28 | Location ingestion & live map | ☐ |
-| 29 | Driver/conductor low-data flow | ☐ |
+| 28 | Location ingestion & live map | ✅ |
+| 29 | Driver/conductor low-data flow | ✅ |
 | 30 | Passenger crowd reports | ✅ |
 | 31 | Arrival estimates & follow alerts | ☐ |
 | 32 | Traffic & route planning | ☐ |
