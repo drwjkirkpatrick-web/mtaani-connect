@@ -63,6 +63,9 @@ INSTALLED_APPS = [
     "apps.ai",
     # Phase 4 closers (Prompt 35's content-language prefs; 34 lives inside ai).
     "apps.lang",
+    # Phase 5 (Prompts 37, 38; 36 = pure library in core).
+    "apps.analytics",
+    "apps.monetize",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
