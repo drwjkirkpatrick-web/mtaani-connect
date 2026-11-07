@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 3 CLOSED (25–31); Phase 4 Intelligence begins (32)
+> **Current phase:** build — Phase 4 under way (32, 33 landed; 34/35 next)
 > **Overall health:** green
 
 ---
@@ -124,6 +124,17 @@ KDPA-compliant from day one.
   one-tap notify opts, honest-arithmetic ETA (rolling speed + remaining
   distance, ±25% band, ESTIMATE label inseparable, silence without data),
   30-min alert dedupe, MockPush adapter registry; 29 tests
+- [x] Prompt 32 — traffic & route planning: PURE stage-graph Dijkstra
+  (no Django imports, test-pinned), hop minutes from stage coords with a
+  4-min fallback, 5-min transfers, ≤300 m walk legs; crowd-annotated
+  disruption weights + source separation (official vs community, every
+  line cites its reports), usual-route + steer-clear alternates, fare
+  range aggregation; disconnected → honest None; 38 tests
+- [x] Prompt 33 — AI abstraction layer: LLMProvider ABC + deterministic
+  MockLLM, documented Ollama/OpenAI-compat stubs (no SDK imports —
+  source-scanned), token-only cost ledger + daily budget guard that
+  degrades BEFORE the call, versioned prompt files, run_call single door,
+  badge-ai labeling seam pinned to qa's rendered marker; 34 tests
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -132,11 +143,11 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Prompt 32 — traffic & route planning (Dijkstra over the stage graph)
+- [ ] Prompts 34 ("Ask Mtaani" assistant) + 35 (multilingual completion) in
+      parallel — closes Phase 4
 
 ### Not Started
-- [ ] Phase 4 remainder (33 AI layer, 34 local-adaptation assistant, 35
-      multilingual completion), Phase 5 (36–42)
+- [ ] Phase 5 (36–42)
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -163,10 +174,9 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Prompt 32 (Traffic & route planning: Dijkstra over the stage
-> graph estate→estate; traffic reports as first-class events; crowd feeds
-> in) — then 33 (AI abstraction layer) → 34 ("Ask Mtaani" assistant) →
-> 35 (multilingual). Suite at 867; PHASE 3 CLOSED (25–31).
+> **Next:** Prompts 34 (assistant on apps/ai: run_call + prompt_text +
+> ai_label doors; draft-only, labeled) and 35 (locale/ gettext + core i18n)
+> in parallel close Phase 4. Then Phase 5 (36–42). Suite at 939.
 
 ## 6. Environment & Tooling Notes
 
