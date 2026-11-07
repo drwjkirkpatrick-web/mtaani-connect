@@ -1,0 +1,38 @@
+{# _legs.html — one plan section, included three ways by plan.html. #}
+{# heading/test_id come from the include; legs from the payload. #}
+{% load i18n %}
+<div data-test="{{ test_id }}">
+  <h3>{{ heading }}</h3>
+  {% if legs|length == 0 %}<p class="muted">{% trans "You are already there." %}</p>{% endif %}
+  <ul class="traffic-legs">
+  {% for leg in legs %}
+    <li class="card" data-test="traffic-leg">
+      {% if leg.kind == "walk" %}
+        <span class="badge" data-test="traffic-walk-badge">{% trans "WALK" %}</span>
+        {# Labeled by real distance: minutes from the leg's own payload. #}
+        {% blocktrans with a=leg.from_stage_name b=leg.to_stage_name m=leg.minutes d=leg.distance_km %}Walk {{ a }} → {{ b }}: ~{{ m }} min ({{ d }} km){% endblocktrans %}
+      {% elif leg.kind == "transfer" %}
+        <span class="badge" data-test="traffic-transfer-badge">{% trans "CHANGE" %}</span>
+        {% blocktrans with a=leg.from_stage_name r=leg.route_name m=leg.minutes %}At {{ a }}, change to {{ r }} — allow ~{{ m }} min wait{% endblocktrans %}
+      {% else %}
+        {# Route data carries its OWN source: seeded (2018 GTFS) or official (curated). #}
+        <span class="badge" data-test="traffic-route-name">Matatu {{ leg.route_name }}</span>
+        {% if leg.source == "seed" %}<span class="badge" data-test="traffic-source-seed">{% trans "seed (2018 GTFS)" %}</span>{% else %}<span class="badge" data-test="traffic-source-official">{% trans "official" %}</span>{% endif %}
+        {% if leg.delay_minutes > 0 %}<span class="badge" data-test="traffic-leg-delay">+{{ leg.delay_minutes }} min</span>{% endif %}
+        {% blocktrans with a=leg.from_stage_name b=leg.to_stage_name m=leg.minutes %}Matatu {{ a }} → {{ b }}: ~{{ m }} min{% endblocktrans %}
+      {% endif %}
+      {% if leg.fare %}<span class="badge" data-test="traffic-leg-fare">{% blocktrans with lo=leg.fare.lo hi=leg.fare.max %}KSh {{ lo }}–{{ hi }}{% endblocktrans %}</span>{% endif %}
+      {% if leg.kind == "stage-hop" and not leg.fare %}<span class="muted" data-test="traffic-fare-missing">{% trans "fare unknown for this segment" %}</span>{% endif %}
+      {% if leg.estimated %}<span class="badge" data-test="traffic-estimated">{% trans "estimate (no coordinates)" %}</span>{% endif %}
+      <ul>
+        {% for d in leg.disruptions %}
+        <li class="muted" data-test="traffic-leg-disruption">
+          {{ d.count }} × {{ d.type_label|default:d.kind }} {% trans "at" %} {{ d.stage_name }} — {% trans "first seen" %} {{ d.first_seen_at }} ({{ d.age_min }} min ago)
+          {% if d.note %}“{{ d.note }}”{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+  </ul>
+</div>

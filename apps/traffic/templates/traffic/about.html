@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "How the planner works" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "How the journey planner works" %}</h1>
+<p>
+  {% trans "The plan walks the shared stage graph: consecutive matatu hops on one route, transfers when routes share a stage (with a realistic change-wait), and short labelled WALK legs of at most 300 metres." %}
+</p>
+
+<h2>{% trans "Two sources, kept apart" %}</h2>
+<ul>
+  <li>
+    <strong data-test="traffic-about-official">{% trans "Official / seeded route data:" %}</strong>
+    {% trans "routes and stages from the 2018 Digital Matatus GTFS seed (badged 'seed') or curated by admins (badged 'official'). These decide where matatus go." %}
+  </li>
+  <li>
+    <strong data-test="traffic-about-community">{% trans "Community-reported conditions:" %}</strong>
+    {% trans "rider reports (delays, flooding, closures) weighted and time-expired by the crowd system. Every condition line cites how many riders reported it, when it was first seen and how old it is — and reports older than 2 hours are dropped at read time, never shown as current." %}
+  </li>
+</ul>
+
+<h2>{% trans "What the numbers are" %}</h2>
+<ul>
+  <li>{% trans "Minutes are honest estimates computed from stage-to-stage distances at one city walking pace — the routes database carries no live speeds, and we do not invent them." %}</li>
+  <li>{% trans "Fares are observed RANGES per leg and for the whole journey — matatu fares move with time and weather, so there is never one official number." %}</li>
+  <li>{% trans "When a stage has no coordinates, its hop carries a flagged default estimate instead of a guessed distance." %}</li>
+  <li>{% trans "When no route connects where you are to where you're going, we say so — no plan is fabricated." %}</li>
+</ul>
+
+<p>
+  {% trans "Reported conditions change which route the planner prefers, but they never silently change the story: the current plan, the usual route and a steer-clear alternative are each shown with their own citations." %}
+</p>
+<p><a href="{% url 'traffic:plan' %}">{% trans "Plan a journey" %}</a> —
+   <a href="{% url 'crowd:index' %}">{% trans "Community transport reports" %}</a></p>
+{% endblock %}

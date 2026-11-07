@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Journey planner" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Journey planner" %}</h1>
+<p class="muted">
+  {# The honesty line first: what this page can and cannot know. #}
+  {% trans "Plans ride the shared route network (official/seeded data) with community-reported conditions shown separately. Times are estimates from stage distances — not live GPS." %}
+  <a href="{% url 'traffic:about' %}">{% trans "How this works" %}</a>
+</p>
+
+<form method="get" action="{% url 'traffic:plan' %}" data-test="traffic-plan-form">
+  <label for="from">{% trans "From stage" %} <input id="from" name="from" value="{{ raw_from }}"></label>
+  <label for="to">{% trans "To stage" %} <input id="to" name="to" value="{{ raw_to }}"></label>
+  <button type="submit">{% trans "Plan journey" %}</button>
+</form>
+
+{% if message %}
+<p class="card" data-test="traffic-unknown" role="alert">{{ message }}</p>
+{% endif %}
+{% if from_suggestions or to_suggestions %}
+<ul class="muted" data-test="traffic-suggestions">
+  {% for s in from_suggestions %}<li>Near: {{ s.name }}</li>{% endfor %}
+  {% for s in to_suggestions %}<li>Near: {{ s.name }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+{% if payload %}
+  {% if payload.status == "OK" %}
+    <h2 data-test="traffic-plan-summary">
+      {% blocktrans with f=payload.from_stage.name t=payload.to_stage.name %}{{ f }} → {{ t }}{% endblocktrans %},
+      {% blocktrans count count=payload.total_minutes %}~{{ count }} minute{% plural %}~{{ count }} minutes{% endblocktrans %}
+    </h2>
+    <p data-test="traffic-fare-total" class="badge">
+      {{ payload.fare_display }}
+      {# Confidence label comes FROM the payload — never a bare number. #}
+      {% if payload.fares.confidence == "OBSERVED_RANGES" %}({% trans "observed ranges" %})
+      {% elif payload.fares.confidence == "PARTIAL_FARES" %}({% trans "some legs lack observed fares — totals incomplete" %})
+      {% else %}({% trans "no paid legs" %}){% endif %}
+    </p>
+
+    {% if payload.disruption_lines %}
+    <div class="card" data-test="traffic-disruption-lines">
+      <strong>{% trans "Community-reported conditions (each line cites its reports):" %}</strong>
+      <ul>
+        {% for line in payload.disruption_lines %}<li data-test="traffic-disruption-line">{{ line }}</li>{% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% with heading_1=_("Current plan (with reported conditions)") %}
+    {% include "traffic/_legs.html" with legs=payload.plan.legs heading=heading_1 test_id="traffic-plan" %}
+    {% endwith %}
+    {# usual / avoiding nest INSIDE the plan dict from the pure planner. #}
+    {% if payload.plan.usual %}
+    {% with heading_2=_("Usual route (before the reports)") %}
+    {% include "traffic/_legs.html" with legs=payload.plan.usual.legs heading=heading_2 test_id="traffic-usual" %}
+    {% endwith %}
+    {% endif %}
+    {% if payload.plan.avoiding %}
+    {% with heading_3=_("Alternative — steers clear of every reported condition") %}
+    {% include "traffic/_legs.html" with legs=payload.plan.avoiding.legs heading=heading_3 test_id="traffic-avoiding" %}
+    {% endwith %}
+    {% endif %}
+
+    {% for msg in payload.messages %}<p class="muted">{{ msg }}</p>{% endfor %}
+    <p class="muted">
+      {# SOURCE SEPARATION: route lines above are official/seed; conditions are community (top card). #}
+      <a href="{% url 'traffic:plan_json' %}?from={{ raw_from|urlencode }}&amp;to={{ raw_to|urlencode }}">{% trans "JSON mirror" %}</a>
+    </p>
+  {% else %}
+    <p class="card" data-test="traffic-empty-plan" role="alert">{{ payload.message }}</p>
+  {% endif %}
+{% endif %}
+{% endblock %}
