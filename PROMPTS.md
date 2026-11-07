@@ -1124,7 +1124,7 @@ Parallelizable groups (one subagent each, no shared files):
 | 28 | Location ingestion & live map | ✅ |
 | 29 | Driver/conductor low-data flow | ✅ |
 | 30 | Passenger crowd reports | ✅ |
-| 31 | Arrival estimates & follow alerts | ☐ |
+| 31 | Arrival estimates & follow alerts | ✅ |
 | 32 | Traffic & route planning | ☐ |
 | 33 | AI abstraction layer | ☐ |
 | 34 | Local-adaptation assistant | ☐ |
