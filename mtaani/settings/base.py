@@ -52,6 +52,9 @@ INSTALLED_APPS = [
     "apps.crowd",
     # Phase 3 wave 3 (Prompt 27 — privacy core of the flagship).
     "apps.tracking",
+    # Phase 3 wave 4 (Prompt 28; 29 = apps/crew page + app).
+    "apps.map",
+    "apps.crew",
 ]
 
 MIDDLEWARE = [

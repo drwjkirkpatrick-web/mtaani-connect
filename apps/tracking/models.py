@@ -44,7 +44,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.core.types import TimestampedModel
+from apps.core.types import Confidence, TimestampedModel
 
 # ----------------------------------------------------------------- constants
 # The DEFAULT cap (module constant per spec): a crew member who forgets to
@@ -230,6 +230,26 @@ class PingPoint(TimestampedModel):
     # 9 digits total: lon "180.000000" fits exactly (3 + 6); lat comfortably.
     lat = models.DecimalField(_("Latitude"), max_digits=9, decimal_places=6)
     lon = models.DecimalField(_("Longitude"), max_digits=9, decimal_places=6)
+    # --- Prompt 28 additive columns ONLY (no existing field changed) --------
+    # WHY a per-ping speed column: the ingest plausibility review (ingest.py,
+    # IMPOSSIBLE_SPEED_KMH) needs the recorded speed to JUDGE and to DISPLAY.
+    # Null when the device sent none. Device-reported, or the server-computed
+    # implied speed when IT triggered the review (ingest.py documents where).
+    speed_kmh = models.DecimalField(
+        _("Speed (km/h)"), max_digits=6, decimal_places=2, null=True, blank=True,
+        help_text=_("Device-reported speed; fill from implied speed when the "
+                    "plausibility review downgraded the ping."),
+    )
+    # Source label AT THE PING LAYER (Confidence enum): LIVE_GPS for a normal
+    # authorized fix, ESTIMATE when the plausibility review kept the row but
+    # flagged it — the map must render the label HONESTLY (never silently
+    # upgrade it). Default LIVE_GPS keeps the pre-28 semantic for existing
+    # rows: session-authorized fixes were live GPS by definition.
+    confidence = models.CharField(
+        _("Ping confidence"),
+        max_length=16, choices=Confidence.choices,
+        default=Confidence.LIVE_GPS.value, db_index=True,
+    )
     recorded_at = models.DateTimeField(
         _("Recorded at"),  # device stamp — the dedupe key (28's ingest)
         help_text=_("Device clock at capture; dedupe key per session."),

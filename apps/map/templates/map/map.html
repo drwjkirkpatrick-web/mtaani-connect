@@ -1,0 +1,138 @@
+{% load i18n %}<!doctype html>
+{# Prompt 28 — the ONE live-map page. Standalone (not base.html): the rider's
+   data budget rules here — the map needs no tab bar, no shell JS, no heavy
+   CSS; every byte is the OSM tiles + a few KB of page. #}
+{# =============================================================== #}
+{# SW TILE-CACHE WORK — REQUIRED in the parent service-worker pass #}
+{# (Prompt 28 pitfall verbatim: "cache them in the SW"). #}
+<!-- {{ tile_budget_note }} -->
+{# The page ships the contract as an HTML comment + the pinned constants #}
+{# live in apps/map/tiling.py (TILE_BUDGET_BYTES = 2 MiB stub of record). #}
+{# =============================================================== #}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% trans "Live matatu map" %} — Mtaani</title>
+  {# Preconnect: open sockets to the script CDN and the tile host BEFORE the
+     deferred script runs — on 3G the TLS handshake is the expensive part. #}
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
+  {# Leaflet from the CDN, pinned version, integrity-checked, deferred:
+     integrity + defer are the lazy-loading floor for the map on 3G. #}
+  <link rel="stylesheet" href="{{ leaflet_css_url }}" integrity="{{ leaflet_css_integrity }}" crossorigin="anonymous">
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; color: #1c1c1c; }
+    h1 { font-size: 1.1rem; margin: .6rem .8rem .2rem; }
+    .map-wrap { position: relative; margin: .5rem .8rem; }
+    #map { height: 70vh; min-height: 320px; border: 1px solid #ccc;
+           border-radius: 10px; background: #e8ecf1; }
+    /* MARKER VOCABULARY — Confidence rendered visibly (Prompt 28 spec): */
+    .map-pin { width: 16px; height: 16px; border-radius: 50%;
+               box-sizing: border-box; box-shadow: 0 0 0 2px #ffffff; }
+    .conf-live     { background: #1565c0; }                  /* filled dot  = LIVE_GPS           */
+    .conf-report   { background: #ffffff; border: 2.5px solid #6a1b9a; } /* hollow  = COMMUNITY_REPORT */
+    .conf-estimate { background: #ffffff; border: 2.5px dashed #ef6c00; } /* dashed ring = ESTIMATE    */
+    .conf-nodata   { background: #9e9e9e; opacity: .6; }     /* unknown — honest gray fallback */
+    .map-legend { list-style: none; display: flex; gap: 1rem;
+                  padding: .4rem .2rem 0; font-size: .82rem; margin: .2rem .8rem; }
+    .conf-glyph { display: inline-block; width: 14px; height: 14px;
+                  border-radius: 50%; vertical-align: -2px;
+                  margin-right: .3rem; box-sizing: border-box; }
+    .conf-live     { box-shadow: 0 0 0 0; }
+    .map-empty { margin: .5rem .9rem; padding: .6rem .8rem; border: 1px dashed #999;
+                 border-radius: 8px; color: #444; }
+    .map-muted { margin: .4rem .9rem .6rem; font-size: .85rem; color: #666; }
+    .crowd-extra li { margin: .2rem 0; }
+  </style>
+</head>
+<body>
+<h1>{% trans "Live matatu map" %}{% if route %} — {{ route.name_en }}{% endif %}</h1>
+
+{# The empty state is SERVER-RENDERED from the payload's empty flag — an
+   explicit honest notice, never a placeholder or spun-up marker. #}
+{% if empty %}
+<p class="map-empty" data-test="map-empty-state">
+  {% if has_route %}
+    {% trans "No live data for this route right now — nothing is shown until crew publish a trip or riders report from this route." %}
+  {% else %}
+    {% trans "No live matatu data anywhere right now." %}
+  {% endif %}
+</p>
+{% endif %}
+
+<div class="map-wrap"><div id="map" data-tile-lazy="updateWhenIdle"
+     data-test="map-canvas" role="application" aria-label="{% trans 'Live matatu map' %}"></div></div>
+
+<ul class="map-legend" data-test="map-legend">
+  <li><span class="conf-glyph conf-live"></span>{% trans "Live GPS fix" %}</li>
+  <li><span class="conf-glyph conf-report"></span>{% trans "Rider report (pinned at its stage)" %}</li>
+  <li><span class="conf-glyph conf-estimate"></span>{% trans "Unverified estimate" %}</li>
+</ul>
+
+{% if not has_route %}
+<p class="map-muted">{% trans "Rider reports load with a route — open a route page and follow its live map for stage-by-stage signals." %}</p>
+{% elif crowd_extra %}
+<p class="map-muted">{% trans "Reports at stages without map coordinates (shown as text, never invented onto the map):" %}</p>
+<ul class="crowd-extra">
+  {% for row in crowd_extra %}<li>{{ row.display }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+{# The data island: exactly one payload, straight from the serializers. #}
+{{ payload|json_script:"map-data" }}
+{{ tiles_config|json_script:"tiles-config" }}
+
+<script src="{{ leaflet_js_url }}" integrity="{{ leaflet_js_integrity }}" crossorigin="anonymous" defer></script>
+<script>
+/* Prompt 28 map JS — the ONLY logic: place the payload's markers honestly.
+   No fabricated positions, no auto-pan animation beyond fitting the data,
+   no route-line invention (route geometry is the routes app's concern). */
+window.addEventListener("load", function () {
+  if (typeof L === "undefined") { return; } // offline/off-CDN: server-rendered truth above stays
+  var payload = JSON.parse(document.getElementById("map-data").textContent);
+  var tiles = JSON.parse(document.getElementById("tiles-config").textContent);
+  /* Tiles: OSM raster under tiling.py's caps — maxZoom stops the display,
+     maxNativeZoom stops the FETCH (bytes), updateWhenIdle = lazy loads. */
+  var map = L.map("map");
+  L.tileLayer(tiles.url, tiles.options).addTo(map);
+  /* Confidence → CSS class (the vocabulary tests pin these literals): */
+  var MARKER_FOR = {
+    LIVE_GPS: "conf-live",            /* filled dot   */
+    COMMUNITY_REPORT: "conf-report",  /* hollow dot   */
+    ESTIMATE: "conf-estimate"         /* dashed ring  */
+  };
+  function pin(confidence) {
+    var cls = MARKER_FOR[confidence] || "conf-nodata"; /* unknown = honest gray */
+    return L.divIcon({ className: "map-pin " + cls,
+                       html: "", iconSize: [16, 16], iconAnchor: [8, 8] });
+  }
+  var anchors = {}, fit = [];
+  (payload.crowd.anchors || []).forEach(function (a) { anchors[a.stage_id] = a; });
+  /* Crowd reports: anchored at STAGE GEOMETRY ONLY — an entry whose stage has
+     no known coordinates renders in the text list above, never on the map. */
+  (payload.crowd.entries || []).forEach(function (row) {
+    var anchor = anchors[row.stage_id];
+    if (!anchor) { return; }
+    L.marker([anchor.lat, anchor.lon], {
+      icon: pin(row.confidence), title: row.type_label
+    }).addTo(map).bindPopup("<strong>" + row.type_label + "</strong><br>" + row.display);
+  });
+  /* Vehicle positions: one marker per retained ping, class = its OWN
+     confidence (LIVE_GPS filled / ESTIMATE dashed-ring). */
+  (payload.sessions || []).forEach(function (entry) {
+    (entry.positions || []).forEach(function (pos) {
+      fit.push([pos.lat, pos.lon]);
+      L.marker([pos.lat, pos.lon], {
+        icon: pin(pos.confidence),
+        title: (entry.nickname || entry.plate) + " — " + pos.confidence
+      }).addTo(map).bindTooltip(entry.plate + " (" + pos.confidence + ")");
+    });
+  });
+  if (fit.length === 1) { map.setView(fit[0], 15); }
+  else if (fit.length > 1) { map.fitBounds(fit, { padding: [24, 24], maxZoom: 15 }); }
+  else { map.setView([-1.2864, 36.8172], 12); /* Nairobi default frame */ }
+});
+</script>
+</body>
+</html>

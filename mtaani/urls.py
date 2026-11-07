@@ -35,5 +35,7 @@ urlpatterns = [
     path("fleet/", include("apps.fleet.urls")),
     path("crowd/", include("apps.crowd.urls")),
     path("tracking/", include("apps.tracking.urls")),
+    path("map/", include("apps.map.urls")),
+    path("crew/", include("apps.crew.urls")),
     path("transport/", TemplateView.as_view(template_name="stub.html"), name="transport_stub"),
 ]
