@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 4 under way (32, 33 landed; 34/35 next)
+> **Current phase:** build — Phase 4 CLOSED (32–35); Phase 5 begins (36–38)
 > **Overall health:** green
 
 ---
@@ -135,6 +135,18 @@ KDPA-compliant from day one.
   source-scanned), token-only cost ledger + daily budget guard that
   degrades BEFORE the call, versioned prompt files, run_call single door,
   badge-ai labeling seam pinned to qa's rendered marker; 34 tests
+- [x] Prompt 34 — Ask Mtaani assistant: deterministic retrieval over the
+  guides PUBLIC door (cited guides == top-k), strict assistant-v2 prompt
+  for MEDICAL/ELECTRICAL/CONSTRUCTION with safety_warning appended
+  VERBATIM (never overridden), AI badge on every ai-content render,
+  5/day per-user quota (rejected runs write ZERO rows), AssistantRun
+  sidecar beside the ledger; 22 tests
+- [x] Prompt 35 — Kiswahili completion: sw catalog 21 → 1383 entries
+  (1115 reviewed + 260 fuzzy=needs-review; drift=0 pinned by a suite-
+  failing detector using Django's real template lexer); .mo via polib
+  (msgfmt absent — compilemessages documented for deploy); content-lang
+  prefs (en/sw/both, session fallback), pure neutral-fallback chips,
+  Sheng-free-form content documented; PHASE 4 CLOSED
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -143,11 +155,12 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Prompts 34 ("Ask Mtaani" assistant) + 35 (multilingual completion) in
-      parallel — closes Phase 4
+- [ ] Phase 5 wave 1 — 36 (rate limiting) + 37 (analytics) + 38
+      (monetization hooks)
 
 ### Not Started
-- [ ] Phase 5 (36–42)
+- [ ] Phase 5 remainder (39 budgets audit, 40 KDPA compliance, 41 security/
+      backups, 42 deployment & launch)
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -174,9 +187,9 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Prompts 34 (assistant on apps/ai: run_call + prompt_text +
-> ai_label doors; draft-only, labeled) and 35 (locale/ gettext + core i18n)
-> in parallel close Phase 4. Then Phase 5 (36–42). Suite at 939.
+> **Next:** Phase 5: dispatch 36 + 37 + 38 in parallel (disjoint dirs;
+> throttle middleware is parent-owned in mtaani/settings/ at integration),
+> then 40+39, then 41+42. Suite at 983; PHASE 4 CLOSED (32–35).
 
 ## 6. Environment & Tooling Notes
 

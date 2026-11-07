@@ -1127,8 +1127,8 @@ Parallelizable groups (one subagent each, no shared files):
 | 31 | Arrival estimates & follow alerts | ✅ |
 | 32 | Traffic & route planning | ✅ |
 | 33 | AI abstraction layer | ✅ |
-| 34 | Local-adaptation assistant | ☐ |
-| 35 | Multilingual completion | ☐ |
+| 34 | Local-adaptation assistant | ✅ |
+| 35 | Multilingual completion | ✅ |
 | 36 | Rate limiting & abuse prevention | ☐ |
 | 37 | Privacy-safe analytics & admin | ☐ |
 | 38 | Monetization hooks (off by default) | ☐ |
