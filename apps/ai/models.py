@@ -18,6 +18,8 @@ WRITE PATH: rows are created ONLY by ledger.log_call / run_call (one
 door — the no-auto-publish contract test pins that ``complete()``
 itself writes nothing, here or anywhere else).
 """
+from django.conf import settings
+from django.core.validators import MaxLengthValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -69,3 +71,75 @@ class AICall(TimestampedModel):
     def total_tokens(self) -> int:
         """in + out — the number the budget guard spends against."""
         return self.tokens_in + self.tokens_out
+
+
+# ============================================================================
+# Prompt 34 — the "Ask Mtaani" sidecar (assistant state, NOT ledger data).
+# ============================================================================
+# WHY a sidecar and not a user column on AICall: the Prompt 33 ledger is
+# provider-agnostic spend history — user-free by contract (it must survive
+# provider renames/removals). AssistantRun carries the member's half of one
+# adaptation: who asked with which intake texts, which guides the retrieval
+# cited (JSON [{pk, title, safety_category}] — EXACTLY the retrieval top-k,
+# tested), the labelled draft + the verbatim safety block it renders with,
+# and one boolean community-verification click. It DOUBLES as the per-user
+# daily quota counter (assistant.ASSISTANT_DAILY_RUNS_PER_USER counts
+# today's rows) — no separate quota table, no counter to reset: the date
+# filter rolls forward by itself, exactly like AICall's day accounting.
+class AssistantRun(TimestampedModel):
+    """One "Ask Mtaani" adaptation run (Prompt 34) — draft-only state.
+
+    Rows exist ONLY for successful ledgered runs (a quota-refused or
+    AI-unavailable attempt writes nothing — the honest empty state). The
+    row is what the result page + the "Did this work for you?" click
+    render from, and its created_at (day filter) IS the per-user quota.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="assistant_runs",
+    )
+    # The guided intake (Prompt 34: "What do you have? What do you need?").
+    # Length bounds restated on the MODEL so any future write path
+    # inherits them (the form's max_length is not the last line).
+    have_text = models.TextField(
+        _("What the member has"),
+        blank=True,
+        default="",
+        validators=[MaxLengthValidator(500)],
+    )
+    need_text = models.TextField(
+        _("What the member needs"),
+        blank=True,
+        default="",
+        validators=[MaxLengthValidator(500)],
+    )
+    # JSON list of {"pk": int, "title": str, "safety_category": str}.
+    # URLs are deliberately NOT stored — renders derive them fresh
+    # ({% url 'guides:detail' pk %}) so a stored link can never rot.
+    cited = models.JSONField(_("Cited guides"), blank=True, default=list)
+    # The labelled LLM draft — DRAFT-ONLY content, always rendered with
+    # the AI badge (Prompt 12 contract).
+    draft_text = models.TextField(_("Adapted draft"), blank=True, default="")
+    # The appended safety-warning block (gated categories): the guides'
+    # own warnings VERBATIM — the assistant never drops or overrides one.
+    safety_block = models.TextField(_("Safety block"), blank=True, default="")
+    gated = models.BooleanField(_("Safety gate applied"), default=False)
+    # v1 community verification: ONE click, ONE honest flag, NO
+    # aggregation — community stats are Prompt 08's realm and stay there.
+    verified_helpful = models.BooleanField(
+        _("Marked helpful"), default=False
+    )
+
+    class Meta:
+        verbose_name = _("Assistant run")
+        verbose_name_plural = _("Assistant runs")
+        # Newest first — the status meter/counters read "today" from here.
+        ordering = ["-created_at"]
+        # Index for the per-user daily quota read (user + created_at__date).
+        indexes = [models.Index(fields=["user", "created_at"])]
+
+    def __str__(self) -> str:
+        gated = "gated" if self.gated else "ungated"
+        return f"ask#{self.pk} {self.user} — {len(self.cited)} cited ({gated})"

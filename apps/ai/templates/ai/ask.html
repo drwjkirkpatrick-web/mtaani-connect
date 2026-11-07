@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load i18n %}
+{# Prompt 34 — "Ask Mtaani", the local-adaptation assistant. The intake is
+   two guided questions; the result is a DRAFT adapted from published
+   guides, ALWAYS shown with the AI-assisted badge (Prompt 12), with the
+   guides it cites linked underneath and the members' safety warnings
+   appended verbatim when the run is gated. Honest states (quota spent /
+   AI unavailable) show a plain system message and NO AI content — so no
+   AI badge there (the label covers AI content, not system copy). #}
+{% block title %}{% trans "Ask Mtaani" %} — Mtaani{% endblock %}
+{% block content %}
+<article>
+  <h1>{% trans "Ask Mtaani — the local-adaptation assistant" %}</h1>
+  <p class="muted">{% trans "It adapts published guide steps to what you can actually get locally. Every answer is a draft with the AI label — verify the guides it cites, and never rely on it for anything it marks as risky." %}</p>
+
+  <p class="badge-row">
+    <span class="badge">{% blocktranslate with remaining=runs_remaining limit=runs_limit %}{{ remaining }} of {{ limit }} free adaptations left today{% endblocktranslate %}</span>
+  </p>
+
+  <section class="card">
+    <h2>{% trans "What do you have?" %}</h2>
+    <form method="post" action="{% url 'ai:ask' %}">{% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">{% trans "Adapt it for me" %}</button>
+    </form>
+  </section>
+
+  {% if state_message %}
+    {# Honest degraded state: quota spent or AI unavailable — system copy,
+       no AI content, hence no badge (the Prompt 12 label marks AI output;
+       this message is the app being truthful about a state). #}
+    <p class="badge">⚠ {{ state_message }}</p>
+  {% endif %}
+  {% if verify_thanks %}
+    <p class="badge">{% trans "Asante — noted. This run was marked helpful." %}</p>
+  {% endif %}
+
+  {% if result %}
+    <section class="card">
+      {# THE LABELING CONTRACT (Prompt 12 ⇄ 33): the draft shows with
+         ai_label()'s badge, on EVERY run render — gated or not. #}
+      <p class="badge-row"><span class="badge {{ result.label.1 }}">{{ result.label.0 }}</span></p>
+
+      <h2>{% trans "Your adapted plan (draft)" %}</h2>
+      <p>{{ result.draft|linebreaks }}</p>
+
+      {% if result.safety_block %}
+        {# SAFETY GATE (Prompt 34): the cited guides' own warnings,
+           VERBATIM — the assistant never overrides them, and this block
+           is appended after the draft, exactly as stored on the run. #}
+        <div class="card">
+          <strong>{% trans "Safety warning" %}</strong>
+          <p>{{ result.safety_block|linebreaks }}</p>
+        </div>
+      {% endif %}
+
+      <h2>{% trans "Adapted from these guides" %}</h2>
+      <ul>
+        {% for g in result.cited %}
+          <li>
+            <a href="{% url 'guides:detail' g.pk %}">{{ g.title }}</a>
+            {% if g.safety_category and g.safety_category != "NONE" %}
+              <span class="badge">⚠ {{ g.safety_category }}</span>
+            {% endif %}
+          </li>
+        {% empty %}
+          <li class="muted">{% trans "No published guide matched — the answer stands ungrounded; read it with extra care." %}</li>
+        {% endfor %}
+      </ul>
+
+      {# COMMUNITY VERIFICATION (Prompt 34): one click, one flag on the
+         run row — aggregation stays on the guides themselves (Prompt 08). #}
+      <form method="post" action="{% url 'ai:helpful' result.run.pk %}">{% csrf_token %}
+        <button type="submit">{% trans "Did this work for you?" %}</button>
+      </form>
+      <p class="muted">{% trans "Marking a run helpful only flags this answer for you — community verification lives on the guides themselves (“This worked for me”)." %}</p>
+    </section>
+  {% endif %}
+</article>
+{% endblock %}

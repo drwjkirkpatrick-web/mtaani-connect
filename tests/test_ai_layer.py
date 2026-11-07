@@ -342,7 +342,12 @@ def test_prompt_version_pinning_refuses_unversioned_names():
 
 
 def test_prompt_catalog_lists_shipped_files():
-    assert prompts.list_prompts() == ["assistant-v1", "probe-echo-v1"]
+    # NOTE (Prompt 34 wave): assistant-v2.md lands per the Prompt 34 brief
+    # (the versioned strict-guardrail prompt for gated topics) — the exact
+    # catalog assertion tracks it; version-pinning semantics unchanged.
+    assert prompts.list_prompts() == [
+        "assistant-v1", "assistant-v2", "probe-echo-v1"
+    ]
 
 
 def test_probe_prompt_file_ships_with_the_status_page():

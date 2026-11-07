@@ -1,6 +1,7 @@
-"""Views for the AI app (PROMPTS.md Prompt 33) — staff-only status + probe.
+"""Views for the AI app: Prompt 33 staff status/probe + Prompt 34 "Ask
+Mtaani" member assistant.
 
-Everything here is admin-ish (``staff_member_required``): the ledger
+The Prompt 33 half is admin-ish (``staff_member_required``): the ledger
 tracks spend and config health; it is not a member-facing feature and
 NOTHING here publishes content.
 
@@ -22,14 +23,17 @@ from __future__ import annotations
 
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse, JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_GET, require_POST
 
-from . import ledger, prompts, providers
+from . import assistant, ledger, prompts, providers
+from .forms import AskAssistantForm
 from .labeling import ai_label
+from .models import AssistantRun
 
 #: Bounded lists (hard rule): the ledger stays readable at any volume.
 MAX_RECENT_CALLS = 20
@@ -97,6 +101,54 @@ def _status_context(**extra) -> dict:
     return context
 
 
+@login_required
+def ask(request: HttpRequest) -> HttpResponse:
+    """'Ask Mtaani' (Prompt 34) — the member-facing local-adaptation
+    assistant. GET: the guided-intake form (what do you have / what do you
+    need) + the honest per-user today-meter. POST: the full door —
+    quota → guides corpus retrieval → ONE ledgered run_call with the
+    STRICT versioned prompt (assistant-v2) → the safety gate (gated
+    categories append the cited guides' own warnings VERBATIM) → one
+    AssistantRun row → the draft render: AI badge (Prompt 12), cited
+    guides (titled + linked), safety block, and the community-verify CTA.
+
+    DEGRADES HONESTLY (never a 500, never a fake answer):
+    - assistant.AssistantQuotaExceeded → "AI assistance is resting for
+      today…" — the per-user free-tier quota (brief §8); NO AI content in
+      this state, so NO AI badge (the label covers AI content; none shows);
+    - ledger.AiUnavailable → "AI temporarily unavailable…" (budget spent
+      or a stub/misconfigured provider) — same honesty, no badge, no row.
+
+    WHY login_required: the quota is PER USER and the verify click writes
+    the member's run row; this is the app's first member surface (the
+    ledger bookkeeping below stays staff-only).
+    """
+    form = AskAssistantForm(request.POST or None)
+    used = assistant.runs_used_today(request.user)
+    context = {
+        "form": form,
+        "runs_used": used,
+        "runs_limit": assistant.ASSISTANT_DAILY_RUNS_PER_USER,
+        "runs_remaining": assistant.quota_remaining(request.user),
+        "result": None,
+        "state_message": "",
+        "verify_thanks": False,
+        "label": ai_label(),  # the render's badge pair (Prompt 12)
+    }
+    if request.method == "POST" and form.is_valid():
+        try:
+            context["result"] = assistant.ask(
+                request.user,
+                have_text=form.cleaned_data["have_text"],
+                need_text=form.cleaned_data["need_text"],
+            )
+        except assistant.AssistantQuotaExceeded as exc:
+            context["state_message"] = str(exc.message)
+        except ledger.AiUnavailable as exc:
+            context["state_message"] = str(exc.message)
+    return render(request, "ai/ask.html", context)
+
+
 @staff_member_required
 def status_page(request: HttpRequest) -> HttpResponse:
     """The admin-ish GET page: today's spend, remaining, recent ledger."""
@@ -151,3 +203,34 @@ def mock_probe(request: HttpRequest) -> HttpResponse:
         context["probe_row"] = row
         context["probe_label"], context["probe_class"] = ai_label()
     return render(request, "ai/status.html", context)
+
+
+@login_required
+@require_POST
+def ask_helpful(request: HttpRequest, pk: int) -> HttpResponse:
+    """The community-verification click (Prompt 34): "Did this work for
+    you?" → ONE honest boolean on the member's OWN run row + a plain
+    thanks message, rendered without any further processing.
+
+    BOUNDARY (documented, intentional): this is NOT community aggregation.
+    Prompts 08 owns that surface (GuideConfirmation, "This worked for me
+    in [ward]" on the GUIDE itself); v1 keeps the assistant's click as a
+    per-run flag — no content-bearing write, no counts shown. A member can
+    only mark their own run (the lookup filters ``user=request.user``;
+    someone else's run is a 404, never a leak).
+    """
+    run = get_object_or_404(AssistantRun, pk=pk, user=request.user)
+    assistant.mark_helpful(run)
+    return render(
+        request,
+        "ai/ask.html",
+        {
+            "form": AskAssistantForm(),
+            "runs_used": assistant.runs_used_today(request.user),
+            "runs_limit": assistant.ASSISTANT_DAILY_RUNS_PER_USER,
+            "runs_remaining": assistant.quota_remaining(request.user),
+            "result": None,
+            "state_message": "",
+            "verify_thanks": True,
+        },
+    )
