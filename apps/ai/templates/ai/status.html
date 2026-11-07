@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load i18n %}
+{# Prompt 33 — staff-only AI status + mock probe. This page is the ONLY
+   surface allowed to show an AI draft, and it shows it LABELED (the
+   badge below is ai_label()'s pair — same contract as Prompt 12). #}
+{% block title %}{% trans "AI status" %} — Mtaani{% endblock %}
+{% block content %}
+<article>
+  <h1>{% trans "AI status" %}</h1>
+  <p class="muted">{% trans "Provider-agnostic AI layer (Prompt 33). Cost is counted in TOKENS per day — no currency figures by design; the provider choice is config, not code." %}</p>
+
+  <section class="card">
+    <h2>{% trans "Today" %}</h2>
+    {% if status.unavailable %}
+      <p class="badge">⚠ {{ status.unavailable_message }}</p>
+    {% endif %}
+    <p class="badge-row">
+      <span class="badge">{% trans "Provider" %}: {{ status.provider_setting }} → {{ status.provider_active|default_if_none:"—" }}</span>
+      {% blocktranslate with used=status.used_tokens budget=status.budget %}Tokens today: {{ used }} / {{ budget }}{% endblocktranslate %}
+      {% blocktranslate with remaining=status.remaining_tokens %}Remaining: {{ remaining }}{% endblocktranslate %}
+    </p>
+    <p class="muted">{% trans "When the day is spent, AI features degrade to “AI temporarily unavailable” instead of overspending. Nothing is auto-published: every surface showing AI content shows a label." %}</p>
+  </section>
+
+  <section>
+    <h2>{% trans "Recent calls (ledger)" %}</h2>
+    <ul>
+    {% for call in recent_calls %}
+      <li>
+        <span class="muted">{{ call.created_at|date:"Y-m-d H:i" }}</span>
+        {{ call.provider }} / {{ call.model }} —
+        {% blocktranslate with tin=call.tokens_in tout=call.tokens_out ms=call.elapsed_ms %}{{ tin }} in / {{ tout }} out / {{ ms }} ms{% endblocktranslate %}
+        {% if call.purpose %} [{{ call.purpose }}]{% endif %}
+      </li>
+    {% empty %}
+      <li class="muted">{% trans "No AI calls logged yet." %}</li>
+    {% endfor %}
+    </ul>
+    {# NOTE: bounded at 20 rows (the ≤20-list hard rule). #}
+  </section>
+
+  <section class="card">
+    <h2>{% trans "Mock echo probe" %}</h2>
+    <p class="muted">{% trans "Makes exactly ONE Mock-provider call (from the shipped probe-echo-v1 prompt file), logs it, and shows the labelled draft. Draft-only: it is published nowhere." %}</p>
+    <form method="post" action="{% url 'ai:probe' %}">{% csrf_token %}
+      <button type="submit">{% trans "Run probe" %}</button>
+    </form>
+    {% if probe_error %}
+      <p class="badge">⚠ {{ probe_error }}</p>
+    {% endif %}
+    {% if probe %}
+      {# THE LABELING CONTRACT: the draft shows with ai_label()'s badge. #}
+      <p class="badge-row"><span class="badge {{ probe_class }}">{{ probe_label }}</span></p>
+      <p>{{ probe.text|linebreaks }}</p>
+      {% blocktranslate with tin=probe_row.tokens_in tout=probe_row.tokens_out ms=probe_row.elapsed_ms fr=probe.finish_reason purpose=probe_row.purpose %}{{ tin }} tokens in, {{ tout }} out, {{ ms }} ms — {{ fr }}; logged as [{{ purpose }}].{% endblocktranslate %}
+    {% endif %}
+  </section>
+</article>
+{% endblock %}

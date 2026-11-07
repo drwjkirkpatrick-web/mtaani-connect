@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     "apps.alerts",
     # Phase 4 (Prompt 32).
     "apps.traffic",
+    # Phase 4 (Prompt 33).
+    "apps.ai",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
