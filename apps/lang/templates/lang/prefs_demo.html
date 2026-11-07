@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n lang_chips %}
+{% block title %}{% trans "Language" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "Language" %}</h1>
+<p class="muted">{% trans "Content language" %}: <strong>{{ current }}</strong></p>
+
+<div class="chips">
+  {% for value, label in choices %}
+    <form method="post" action="{% url 'lang_prefs_set' %}" class="inline">
+      {% csrf_token %}
+      <input type="hidden" name="value" value="{{ value }}">
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="badge{% if value == current %} active{% endif %}">{{ label }}</button>
+    </form>
+  {% endfor %}
+</div>
+
+<h2>{% trans "mixed feed chips" %}</h2>
+<ul class="post-list">
+  {% for item, chip in zip %}
+    <li class="card">
+      <p>{{ item.title }}</p>
+      {% include "lang/_chip.html" with chip=chip %}
+    </li>
+  {% empty %}
+    <li class="muted">{% trans "Nothing here yet." %}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

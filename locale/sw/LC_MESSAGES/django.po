@@ -1,71 +1,6404 @@
-#
+# Kiswahili (sw) catalog for Mtaani Connect UI chrome.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mtaani Connect 0.5\n"
+"Language-Team: Mtaani community <sw@example.invalid>\n"
 "Language: sw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: apps.core.i18n.refresh (Prompt 35; gettext CLI absent on dev box)\n"
 
-msgid "Mtaani Connect"
-msgstr "Mtaani Connect"
+#: apps/listings/templates/listings/search.html:81
+#, fuzzy
+msgid ""
+"\n"
+"Nothing listed within %(km)s km of %(area)s right now.\n"
+"        "
+msgstr ""
+"\n"
+"Hakuna kilichotangazwa kwenye kilomita %(km)s kutoka %(area)s kwa sasa.\n"
+"        "
 
-msgid "Home"
-msgstr "Nyumbani"
+#: apps/disputes/templates/disputes/case_detail.html:45
+msgid " — MediaRef"
+msgstr " — marejeo ya media"
 
-msgid "Guides"
-msgstr "Mwongozo"
+#: apps/crowd/forms.py:38
+msgid "%(chars)s characters max — plain, factual."
+msgstr "Herufi hafizi %(chars)s — maneno halisi tu."
 
-msgid "Market"
-msgstr "Soko"
+#: apps/traffic/services.py:206
+#, fuzzy
+msgid "%(core)s — since %(first_seen)s (%(age).0f min ago)"
+msgstr "%(core)s — tangu %(first_seen)s (dakika %(age).0f zilizopita)"
 
-msgid "Chats"
-msgstr "Mazungumzo"
+#: apps/search/templates/search/results.html:17
+msgid "%(count)s result"
+msgstr "matokeo %(count)s"
 
-msgid "Transport"
-msgstr "Usafiri"
+#: apps/search/templates/search/results.html:17
+msgid "%(count)s result"
+msgid_plural "%(count)s results"
+msgstr[0] "matokeo %(count)s"
+msgstr[1] "matokeo %(count)s"
 
-msgid "Log in"
-msgstr "Ingia"
+#: apps/search/templates/search/results.html:17
+msgid "%(count)s results"
+msgstr "matokeo %(count)s"
 
-msgid "Join"
-msgstr "Jiunge"
+#: apps/routes/templates/routes/list.html:22
+msgid "%(counter)s SACCO"
+msgstr "SACCO %(counter)s"
 
-msgid "Log out"
-msgstr "Toka"
+#: apps/routes/templates/routes/list.html:22
+msgid "%(counter)s SACCO"
+msgid_plural "%(counter)s SACCOs"
+msgstr[0] "SACCO %(counter)s"
+msgstr[1] "SACCO %(counter)s"
 
-msgid "You are offline"
-msgstr "Hauna mtandao"
+#: apps/routes/templates/routes/list.html:22
+msgid "%(counter)s SACCOs"
+msgstr "SACCO %(counter)s"
+
+#: apps/qa/templates/qa/list.html:35
+msgid "%(counter)s answer"
+msgstr "jibu %(counter)s"
+
+#: apps/qa/templates/qa/list.html:35
+msgid "%(counter)s answer"
+msgid_plural "%(counter)s answers"
+msgstr[0] "jibu %(counter)s"
+msgstr[1] "majibu %(counter)s"
+
+#: apps/qa/templates/qa/list.html:35
+msgid "%(counter)s answers"
+msgstr "majibu %(counter)s"
+
+#: apps/fleet/templates/fleet/crew_roster.html:12
+msgid "%(counter)s approved seat"
+msgstr "kiti kimeidhinishwa %(counter)s"
+
+#: apps/fleet/templates/fleet/crew_roster.html:12
+msgid "%(counter)s approved seat"
+msgid_plural "%(counter)s approved seats"
+msgstr[0] "kiti kimeidhinishwa %(counter)s"
+msgstr[1] "viti vimeidhinishwa %(counter)s"
+
+#: apps/fleet/templates/fleet/crew_roster.html:12
+msgid "%(counter)s approved seats"
+msgstr "viti vimeidhinishwa %(counter)s"
+
+#: apps/qa/templates/qa/detail.html:31
+msgid "%(counter)s community verification"
+msgstr "uthibitisho wa jamii %(counter)s"
+
+#: apps/qa/templates/qa/detail.html:31
+msgid "%(counter)s community verification"
+msgid_plural "%(counter)s community verifications"
+msgstr[0] "uthibitisho wa jamii %(counter)s"
+msgstr[1] "uthibitisho wa jamii %(counter)s"
+
+#: apps/qa/templates/qa/detail.html:31
+msgid "%(counter)s community verifications"
+msgstr "uthibitisho wa jamii %(counter)s"
+
+#: apps/fleet/templates/fleet/dashboard.html:13
+msgid "%(counter)s crew request"
+msgstr "ombi la kaya %(counter)s"
+
+#: apps/fleet/templates/fleet/dashboard.html:13
+msgid "%(counter)s crew request"
+msgid_plural "%(counter)s crew requests"
+msgstr[0] "ombi la kaya %(counter)s"
+msgstr[1] "maombi ya kaya %(counter)s"
+
+#: apps/fleet/templates/fleet/dashboard.html:13
+msgid "%(counter)s crew requests"
+msgstr "maombi ya kaya %(counter)s"
+
+#: apps/follows/templates/follows/followers_list.html:12
+msgid "%(counter)s follower"
+msgstr "mfuasi %(counter)s"
+
+#: apps/follows/templates/follows/followers_list.html:12
+msgid "%(counter)s follower"
+msgid_plural "%(counter)s followers"
+msgstr[0] "mfuasi %(counter)s"
+msgstr[1] "wafuasi %(counter)s"
+
+#: apps/follows/templates/follows/followers_list.html:12
+msgid "%(counter)s followers"
+msgstr "wafuasi %(counter)s"
+
+#: apps/groups/templates/groups/detail.html:34
+msgid "%(counter)s member"
+msgstr "mwanachama %(counter)s"
+
+#: apps/groups/templates/groups/detail.html:34
+msgid "%(counter)s member"
+msgid_plural "%(counter)s members"
+msgstr[0] "mwanachama %(counter)s"
+msgstr[1] "wajumbe %(counter)s"
+
+#: apps/groups/templates/groups/detail.html:34
+msgid "%(counter)s members"
+msgstr "wajumbe %(counter)s"
+
+#: apps/posts/templates/posts/list.html:31
+msgid "%(counter)s photos"
+msgstr "picha %(counter)s"
+
+#: apps/routes/templates/routes/list.html:16
+msgid "%(counter)s route"
+msgstr "njia %(counter)s"
+
+#: apps/routes/templates/routes/list.html:16
+msgid "%(counter)s route"
+msgid_plural "%(counter)s routes"
+msgstr[0] "njia %(counter)s"
+msgstr[1] "njia %(counter)s"
+
+#: apps/routes/templates/routes/list.html:16
+msgid "%(counter)s routes"
+msgstr "njia %(counter)s"
+
+#: apps/fleet/templates/fleet/dashboard.html:31
+#: apps/fleet/templates/fleet/vehicle_detail.html:14
+#: apps/fleet/templates/fleet/search.html:22
+msgid "%(counter)s seat"
+msgstr "kiti %(counter)s"
+
+#: apps/fleet/templates/fleet/dashboard.html:31
+#: apps/fleet/templates/fleet/vehicle_detail.html:14
+#: apps/fleet/templates/fleet/search.html:22
+msgid "%(counter)s seat"
+msgid_plural "%(counter)s seats"
+msgstr[0] "kiti %(counter)s"
+msgstr[1] "viti %(counter)s"
+
+#: apps/fleet/templates/fleet/dashboard.html:31
+#: apps/fleet/templates/fleet/vehicle_detail.html:14
+#: apps/fleet/templates/fleet/search.html:22
+msgid "%(counter)s seats"
+msgstr "viti %(counter)s"
+
+#: apps/routes/templates/routes/list.html:19
+msgid "%(counter)s stage"
+msgstr "kituo %(counter)s"
+
+#: apps/routes/templates/routes/list.html:19
+msgid "%(counter)s stage"
+msgid_plural "%(counter)s stages"
+msgstr[0] "kituo %(counter)s"
+msgstr[1] "vituo %(counter)s"
+
+#: apps/routes/templates/routes/list.html:19
+msgid "%(counter)s stages"
+msgstr "vituo %(counter)s"
+
+#: apps/traffic/templates/traffic/plan.html:31
+msgid "%(f)s → %(t)s"
+msgstr "%(f)s → %(t)s"
+
+#: apps/listings/lifecycle.py:49
+#, fuzzy
+msgid "%(from_state)s listings cannot move to %(to_state)s."
+msgstr "Bidhaa zenye hali ya %(from_state)s haziwezi kwenda %(to_state)s."
+
+#: apps/listings/templates/listings/search.html:24
+msgid "%(km)s km"
+msgstr "kilomita %(km)s"
+
+#: apps/qa/templates/qa/detail.html:13
+#, fuzzy
+msgid "%(label)s — take care and verify before acting"
+msgstr "%(label)s — angalia kwa makini na hakiki kabla ya kuchukua hatua"
+
+#: apps/alerts/eta.py:160
+msgid "%(lo)s–%(hi)s min"
+msgstr "dakika %(lo)s–%(hi)s"
+
+#: apps/barter/models.py:62
+msgid "%(mode)s is not a barter mode."
+msgstr "%(mode)s si mtindo wa kubadilishana."
+
+#: apps/disputes/services.py:1037
+#, fuzzy
+msgid "%(n)d listings created in %(hours)sh; account %(days)d day(s) old."
+msgstr ""
+"Bidhaa %(n)d zimewekwa ndani ya masaa %(hours)sh; akaunti ina siku %(days)d."
+
+#: apps/messaging/services.py:256
+msgid "%(name)s & %(you)s"
+msgstr "%(name)s na %(you)s"
+
+#: apps/alerts/services.py:244
+#, fuzzy
+msgid "%(name)s (%(plate)s) is approaching %(stage)s — about %(range)s."
+msgstr "%(name)s (%(plate)s) inakaribia %(stage)s — takriban %(range)s."
+
+#: apps/alerts/services.py:251
+#, fuzzy
+msgid "%(name)s (%(plate)s) is approaching %(stage)s."
+msgstr "%(name)s (%(plate)s) inakaribia %(stage)s."
+
+#: apps/follows/templates/follows/following_list.html:21
+msgid "%(name)s is not following anyone yet."
+msgstr "%(name)s hajafuata mtu yeyote kwa sasa."
+
+#: apps/alerts/services.py:62
+msgid "%(name)s removed from your follows."
+msgstr "%(name)s ameondolewa kwenye unafuatao."
+
+#: apps/ai/templates/ai/ask.html:9
+msgid "%(remaining)s of %(limit)s free adaptations left today"
+msgstr ""
+
+#: apps/traffic/services.py:217
+msgid "%(tail)s; planned as +%(delay).0f min."
+msgstr "%(tail)s; imepangwa +dakika %(delay).0f."
+
+#: apps/messaging/views.py:105
+msgid "%(time)s — %(name)s: %(text)s"
+msgstr "%(time)s — %(name)s: %(text)s"
+
+#: apps/ai/templates/ai/status.html:26
+msgid "%(tin)s in / %(tout)s out / %(ms)s ms"
+msgstr ""
+
+#: apps/ai/templates/ai/status.html:48
+msgid ""
+"%(tin)s tokens in, %(tout)s out, %(ms)s ms — %(fr)s; logged as "
+"[%(purpose)s]."
+msgstr ""
+
+#: apps/barter/models.py:63
+msgid "%(value)s is not an offer state."
+msgstr "%(value)s si hali ya ofa."
+
+#: apps/fleet/templates/fleet/dashboard.html:36
+#, fuzzy
+msgid "%(vehicle.approved_crew)s crew · %(vehicle.pending_crew)s pending"
+msgstr ""
+"kaya iliyoidhinishwa %(vehicle.approved_crew)s · inasubiri "
+"%(vehicle.pending_crew)s"
+
+#: apps/messaging/views.py:101
+msgid "(member)"
+msgstr "(mwanachama)"
+
+#: apps/routes/templates/routes/route_detail.html:45
+msgid "(no GTFS shape data for this route)"
+msgstr "(hakuna data za GTFS za njia hii)"
+
+#: apps/tracking/admin.py:19
+msgid "(none yet)"
+msgstr "(bado hakuna)"
+
+#: apps/messaging/views.py:111
+msgid "(photo)"
+msgstr "(picha)"
+
+#: apps/barter/templates/barter/detail.html:71
+msgid "(this page)"
+msgstr "(ukurasa huu)"
+
+#: apps/messaging/templates/messaging/detail.html:12
+msgid "(waiting for the other member)"
+msgstr "(inasubiri mwanachama mwenza)"
+
+#: apps/barter/templates/barter/list.html:58
+msgid "+ KES"
+msgstr "+ KES"
+
+#: apps/services/templates/services/detail.html:20
+#: apps/services/templates/services/provider.html:31
+msgid "/ hour"
+msgstr "/ saa"
+
+#: apps/reviews/services.py:374
+#, fuzzy
+msgid "0.6 × mean deal stars (0–5) + 0.4 × 5 × trust usefulness (0–1)"
+msgstr ""
+"0.6 × wastani wa nyota za miamala (0–5) + 0.4 × 5 × manufaa ya uaminifu "
+"(0–1)"
+
+#: apps/posts/templates/posts/list.html:31
+msgid "1 photo"
+msgstr "picha 1"
+
+#: apps/posts/templates/posts/list.html:31
+msgid "1 photo"
+msgid_plural "%(counter)s photos"
+msgstr[0] "picha 1"
+msgstr[1] "picha %(counter)s"
+
+#: apps/alerts/eta.py:156
+msgid "< 1 min"
+msgstr "chini ya dakika 1"
+
+#: apps/disputes/models.py:202
+msgid "A case needs its opening time."
+msgstr "Kesi inahitaji wakati wake wa kufungwa."
+
+#: apps/disputes/models.py:296
+#, fuzzy
+msgid "A chat-message evidence row needs its thread id."
+msgstr ""
+"Uthibitisho wa ujumbe wa menja unahitaji kitambulisho chake cha mstari."
+
+#: apps/barter/models.py:424
+#, fuzzy
+msgid "A counteroffer goes back to the member who made the offer."
+msgstr "Ofa ya kumwangu inarudi kwa mwanachama aliyoitoa ofa."
+
+#: apps/fleet/services.py:216
+msgid "A crew seat needs a vehicle."
+msgstr "Kiti cha kaya kinahitaji gari."
+
+#: apps/disputes/models.py:213
+msgid "A decided case names the decider and time."
+msgstr "Kesi iliyohukumiwa inaonyesha hukimuzi wake na wakati."
+
+#: apps/barter/templates/barter/compose.html:72
+#, fuzzy
+msgid ""
+"A draft is yours alone — nothing moves until you send it, and after it is on"
+" the table the terms are locked."
+msgstr ""
+"Rasimu ni yako pekee — hakuna kitu kinachotembea mpaka utume, na baada ya "
+"kuwadhi mezani masharti yanakufa."
+
+#: apps/listings/models.py:93
+msgid "A listing can hold up to %(n)d photos."
+msgstr "Bidhaa inaweza kupakia picha hafizi %(n)d."
+
+#: apps/messaging/models.py:129
+#, fuzzy
+msgid "A listing enquiry needs its listing reference."
+msgstr "Huji la bidhaa linahitaji marejeo yake."
+
+#: apps/tracking/models.py:199
+msgid "A live session has no ended reason."
+msgstr "Kipindi kilicho hai hakina sababu ya kumalizika."
+
+#: apps/messaging/models.py:43
+msgid "A message can carry at most %(n)d photos."
+msgstr "Ujumbe unaweza kubeba picha hafizi %(n)d."
+
+#: apps/disputes/models.py:292
+#, fuzzy
+msgid "A message evidence row points at one message or one offer."
+msgstr "Uthibitisho wa ujumbe unaelekeza ujumbe mmoja au ofa moja."
+
+#: apps/fleet/models.py:238
+#, fuzzy
+msgid "A pending request has no approval or revocation yet."
+msgstr "Ombi lililosubiri halina idhini wala futa kwaya bado."
+
+#: apps/posts/models.py:40
+msgid "A post can hold up to %(n)d photos."
+msgstr "Chapisho linaweza kupakia picha hafizi %(n)d."
+
+#: apps/disputes/models.py:396
+msgid "A proposal names what the outcome lands on."
+msgstr "Pendekezo linaonyesha matokeo yanayokusudiwa."
+
+#: apps/moderation/models.py:136
+msgid "A report needs a target."
+msgstr "Ripoti inahitaji lengwa."
+
+#: apps/messaging/templates/messaging/privacy.html:16
+#, fuzzy
+msgid "A reported message goes to human review in the moderation queue."
+msgstr ""
+"Ujumbe ulioripotiwa unapelekwa ukaguzi wa binadamu katika foleni ya "
+"usimamizi."
+
+#: apps/fleet/models.py:246
+#, fuzzy
+msgid "A revocation needs the revoking human and moment."
+msgstr "Futio linahitaji binadamu anayefuta na wakati wake."
+
+#: apps/crowd/models.py:50
+#, fuzzy
+msgid "A route/destination hint only fits a \"matatu here now\" sighting."
+msgstr "Kidokezo cha njia/marudio kinafaa tu uonaji wa 'matatu pahapa sasa'."
+
+#: apps/services/models.py:83
+#, fuzzy
+msgid "A service portfolio can hold up to %(n)d images."
+msgstr "Folda ya huduma ina picha hafizi %(n)d."
+
+#: apps/tracking/models.py:191
+msgid "A session cannot end before it starts."
+msgstr "Kipindi hakiwezi kumalizika kabla ya kuanza kwake."
+
+#: apps/tracking/models.py:195
+#, fuzzy
+msgid "A session cannot end past its cap — it already has."
+msgstr ""
+"Kipindi hakiwezi kukoma kupita mpaka wakwe — tayari limekwisha fanya hivyo."
+
+#: apps/disputes/templates/disputes/case_detail.html:114
+msgid "A short evidence note"
+msgstr "Maelezo mafupi ya uthibitisho"
+
+#: apps/barter/services.py:78
+#, fuzzy
+msgid "A side can list at most %(n)d items — keep the offer focused."
+msgstr "Upande unaweza kutaja vitu hafizi %(n)d — ifanya ofa iendesheke."
+
+#: apps/moderation/services.py:386
+#, fuzzy
+msgid "A suspension must be confirmed by a different moderator."
+msgstr "Kuzuiwa lazima kithibitishwe na msimamizi tofauti."
+
+#: apps/moderation/services.py:360
+msgid "A suspension needs a stated reason."
+msgstr "Kuzuiwa kunahitaji sababu iliyoandikwa."
+
+#: apps/disputes/models.py:308
+#, fuzzy
+msgid "A text evidence row holds just the note — nothing else."
+msgstr "Uthibitisho wa maandiko unashika maelezo tu — hakuna kengine."
+
+#: apps/fleet/models.py:59
+#, fuzzy
+msgid "A vehicle needs a registration plate (e.g. KCA 123K)."
+msgstr "Gari linahitaji namba ya usajili (mf. KCA 123K)."
+
+#: apps/fleet/models.py:153
+#, fuzzy
+msgid "A vehicle with this plate is already registered."
+msgstr "Gari lenye namba hii ya usajili tayari limewekwa."
+
+#: apps/qa/templates/qa/detail.html:24
+msgid "AI answer — verify before relying on it"
+msgstr "Jibu la AI — hakiki kabla ya kutegemea"
+
+#: apps/ai/models.py:60
+msgid "AI call"
+msgstr "Mwito wa AI"
+
+#: apps/ai/models.py:61
+msgid "AI calls"
+msgstr "Mawito ya AI"
+
+#: apps/ai/apps.py:15
+msgid "AI layer"
+msgstr "Tabaka la AI"
+
+#: apps/ai/templates/ai/status.html:3 apps/ai/templates/ai/status.html:6
+msgid "AI status"
+msgstr "Hali ya AI"
+
+#: apps/ai/views.py:45
+#, fuzzy
+msgid "AI temporarily unavailable — the daily token budget is spent."
+msgstr "AI haipatikani kwa sasa — bajeti ya tokeni ya leo imeisha."
+
+#: apps/ai/ledger.py:53
+msgid "AI temporarily unavailable — try again soon."
+msgstr "AI haipatikani kwa sasa — jaribu hivi karibuni."
+
+#: apps/ai/labeling.py:34
+msgid "AI-assisted — verify before relying on it"
+msgstr "Kwa msaada wa AI — hakiki kabla ya kutegemea"
+
+#: apps/barter/templates/barter/detail.html:40
+msgid "Accept these terms"
+msgstr "Kubali masharti haya"
+
+#: apps/qa/templates/qa/detail.html:60
+msgid "Accept this answer"
+msgstr "Kubali jibu hili"
+
+#: apps/core/types.py:49
+msgid "Accepted"
+msgstr "Imekubaliwa"
+
+#: apps/qa/models.py:88 apps/qa/templates/qa/detail.html:21
+msgid "Accepted answer"
+msgstr "Jibu lililokubaliwa"
+
+#: apps/crowd/models.py:66
+msgid "Accident"
+msgstr "Ajali"
+
+#: apps/moderation/models.py:260 apps/fleet/models.py:307
+msgid "Action"
+msgstr "Kitendo"
+
+#: apps/listings/models.py:77 apps/fleet/models.py:86
+msgid "Active"
+msgstr "Hai"
+
+#: apps/fleet/models.py:310
+msgid "Actor"
+msgstr "Mhusika"
+
+#: apps/ai/templates/ai/ask.html:14
+msgid "Adapt it for me"
+msgstr "Ushikie mimi"
+
+#: apps/ai/models.py:124
+msgid "Adapted draft"
+msgstr "Rasimu iliyoshikua"
+
+#: apps/ai/templates/ai/ask.html:30
+msgid "Adapted from these guides"
+msgstr "Yalishikia kwa miongozo hii"
+
+#: apps/alerts/models.py:226
+msgid "Adapter receipt"
+msgstr "Risiti ya kiunganishi"
+
+#: apps/disputes/templates/disputes/case_detail.html:119
+msgid "Add a short note to the case"
+msgstr "Ongeza maelezo mafupi kweseni kesi"
+
+#: apps/disputes/models.py:238
+msgid "Added by"
+msgstr "Imeongezwa na"
+
+#: apps/fleet/models.py:267
+msgid "Admin"
+msgstr "Msimamizi mkuu"
+
+#: apps/guides/models.py:47
+msgid "Advanced"
+msgstr "Juu"
+
+#: apps/listings/templates/listings/form.html:21
+msgid "After it is up you can attach 1 photo"
+msgstr "Baada ya kutangazwa unaweza kupakia picha 1"
+
+#: apps/listings/templates/listings/form.html:21
+#, fuzzy
+msgid "After it is up you can attach 1 photo"
+msgid_plural "After it is up you can attach up to %(counter)s photos"
+msgstr[0] "Baada ya kutangazwa unaweza kupakia picha 1"
+msgstr[1] "Baada ya kutangazwa unaweza kupakia picha hafizi %(counter)s"
+
+#: apps/services/templates/services/form.html:21
+#, fuzzy
+msgid "After it is up you can attach 1 portfolio image"
+msgstr "Baada ya kutangazwa unaweza kuongeza picha 1 ya kazi"
+
+#: apps/services/templates/services/form.html:21
+#, fuzzy
+msgid "After it is up you can attach 1 portfolio image"
+msgid_plural ""
+"After it is up you can attach up to %(counter)s portfolio images"
+msgstr[0] "Baada ya kutangazwa unaweza kuongeza picha 1 ya kazi"
+msgstr[1] ""
+"Baada ya kutangazwa unaweza kuongeza picha hafizi %(counter)s za kazi"
+
+#: apps/listings/templates/listings/form.html:21
+#, fuzzy
+msgid "After it is up you can attach up to %(counter)s photos"
+msgstr "Baada ya kutangazwa unaweza kupakia picha hafizi %(counter)s"
+
+#: apps/services/templates/services/form.html:21
+#, fuzzy
+msgid "After it is up you can attach up to %(counter)s portfolio images"
+msgstr "Baada ya kutangazwa unaweza kuongeza picha hafizi %(counter)s za kazi"
+
+#: apps/disputes/admin.py:29
+#: apps/disputes/templates/disputes/case_detail.html:14
+msgid "Age"
+msgstr "Umri"
+
+#: apps/disputes/templates/disputes/my_cases.html:12
+msgid "Age:"
+msgstr "Umri:"
+
+#: apps/alerts/models.py:224
+msgid "Alert body"
+msgstr "Maudhui ya tahadhari"
+
+#: apps/alerts/services.py:56
+msgid "Alert radius set to %(km)s km (1–10)."
+msgstr "Masafa ya tahadhari yamewekwa kilomita %(km)s (1–10)."
+
+#: apps/alerts/models.py:101 apps/alerts/models.py:215
+#: apps/alerts/templates/alerts/my_follows.html:24
+#: apps/alerts/templates/alerts/my_follows.html:61
+msgid "Alert stage"
+msgstr "Kituo cha tahadhari"
+
+#: apps/alerts/views.py:226
+#, fuzzy
+msgid "Alert stage cleared — no approach alerts until you pick one."
+msgstr ""
+"Kituo cha tahadhari kimefutwa — hakuna taarifa za kukaribia mpaka uchague "
+"kimoja."
+
+#: apps/alerts/services.py:55
+msgid "Alert stage set to %(stage)s."
+msgstr "Kituo cha tahadhari kimewekwa %(stage)s."
+
+#: apps/alerts/models.py:223
+msgid "Alert title"
+msgstr "Kichwa cha tahadhari"
+
+#: apps/routes/models.py:187
+msgid "Alias"
+msgstr "Lakabu"
+
+#: apps/qa/templates/qa/list.html:16
+#: apps/listings/templates/listings/list.html:13
+#: apps/posts/templates/posts/list.html:11
+#: apps/guides/templates/guides/list.html:16
+msgid "All"
+msgstr "Zote"
+
+#: apps/listings/templates/listings/search.html:27
+msgid "All categories"
+msgstr "Kundi zote"
+
+#: apps/crowd/models.py:75
+msgid "Already counted this rider"
+msgstr "Dereva huyu tayari amehesabiwa"
+
+#: apps/fleet/services.py:374
+msgid "An admin seat needs a SACCO."
+msgstr "Kiti cha msimamizi kinahitaji SACCO."
+
+#: apps/fleet/services.py:372
+msgid "An admin seat needs a member."
+msgstr "Kiti cha msimamizi kinahitaji mwanachama."
+
+#: apps/fleet/models.py:242
+#, fuzzy
+msgid "An approval needs the approving human and moment."
+msgstr "Idhini inahitaji mtu aliyoipeana na wakati wake."
+
+#: apps/tracking/models.py:197
+msgid "An ended session records why."
+msgstr "Kipindi kilichokoma huandika sababu yakwe."
+
+#: apps/barter/models.py:176
+#, fuzzy
+msgid "An offer already on the table cannot go back to a draft."
+msgstr "Ofa iliyo mezani harudishwi kwenye rasimu."
+
+#: apps/barter/models.py:417
+msgid "An offer cannot supersede itself."
+msgstr "Ofa haiwezi kufanywa dharuri na yenyewe."
+
+#: apps/disputes/models.py:207
+msgid "An open case has no decision yet."
+msgstr "Kesi iliyo wazi haina uamuzi bado."
+
+#: apps/qa/models.py:149
+msgid "Answer"
+msgstr "Jibu"
+
+#: apps/qa/views.py:191
+msgid "Answer marked as verified."
+msgstr "Jibu limekwasha alama ya uthibitisho."
+
+#: apps/qa/views.py:150
+msgid "Answer posted — thank you for helping."
+msgstr "Jibu limetumwa — asante kwa kusaidia."
+
+#: apps/qa/templates/qa/detail.html:38
+msgid "Answered by"
+msgstr "Aliehibu"
+
+#: apps/qa/templates/qa/detail.html:18
+msgid "Answers"
+msgstr "Majibu"
+
+#: apps/listings/templates/listings/search.html:35
+msgid "Any condition"
+msgstr "Hali yoyote"
+
+#: apps/listings/templates/listings/search.html:18
+msgid "Any distance"
+msgstr "Masafa yoyote"
+
+#: apps/listings/templates/listings/search.html:10
+msgid "Any ward"
+msgstr "Wadi yoyote"
+
+#: apps/alerts/models.py:83
+msgid "Approach radius (km)"
+msgstr "Masafa ya kukaribiwa (km)"
+
+#: apps/alerts/templates/alerts/arrivals.html:23
+msgid "Approaching"
+msgstr "Inakaribia"
+
+#: apps/fleet/models.py:204
+msgid "Approval state"
+msgstr "Hali ya idhini"
+
+#: apps/fleet/templates/fleet/crew_pending.html:17
+#: apps/fleet/templates/fleet/crew_roster.html:24
+msgid "Approve"
+msgstr "Idhinisha"
+
+#: apps/fleet/models.py:180
+msgid "Approved"
+msgstr "Imeidhinishwa"
+
+#: apps/fleet/models.py:211
+msgid "Approved at"
+msgstr "Imeidhinishwa saa"
+
+#: apps/fleet/models.py:209
+msgid "Approved by"
+msgstr "Imeidhinishwa na"
+
+#: apps/tracking/models.py:70
+msgid "Approved crew (self)"
+msgstr "Kaya iliyoidhinishwa (mwenyewe)"
+
+#: apps/services/templates/services/provider.html:15
+msgid "Area: %(area)s"
+msgstr "Eneo: %(area)s"
+
+#: apps/services/templates/services/detail.html:42
+#, fuzzy
+msgid "Area: %(ward)s (ward only — meetings are agreed in your messages)."
+msgstr "Eneo: %(ward)s (wadi pekee — mikutano inakubaliwa kwenye menja yako)."
+
+#: apps/listings/templates/listings/detail.html:43
+#, fuzzy
+msgid ""
+"Area: %(ward)s (ward only — pickup points are agreed in your messages)."
+msgstr ""
+"Eneo: %(ward)s (wadi pekee — vituo vya kupakia vinakubaliwa kwenye menja "
+"yako)."
+
+#: apps/alerts/templates/alerts/arrivals.html:3
+#: apps/alerts/templates/alerts/my_follows.html:40
+#: apps/alerts/templates/alerts/my_follows.html:77
+msgid "Arrivals"
+msgstr "Mafika"
+
+#: apps/crew/templates/crew/trip.html:40
+msgid "As listed"
+msgstr "Kama ilivyowekwa"
+
+#: apps/ai/templates/ai/ask.html:19
+msgid "Asante — noted. This run was marked helpful."
+msgstr "Asante — imeandikwa. Mwito huu ulishikwa ni wa msaada."
+
+#: apps/ai/templates/ai/ask.html:3
+msgid "Ask Mtaani"
+msgstr "Uliize Mtaani"
+
+#: apps/ai/templates/ai/ask.html:6
+msgid "Ask Mtaani — the local-adaptation assistant"
+msgstr "Uliize Mtaani — msaidizi wa kufanya kwa hapa"
+
+#: apps/qa/templates/qa/list.html:60 apps/qa/templates/qa/ask.html:3
+#: apps/qa/templates/qa/ask.html:6
+msgid "Ask a question"
+msgstr "Uliza swali"
+
+#: apps/messaging/templates/messaging/list.html:46
+#, fuzzy
+msgid "Ask about something in the market and the chat starts here."
+msgstr "Uliza jambo sokoni na mazungumzo huanza hapa."
+
+#: apps/qa/templates/qa/detail.html:15
+msgid "Asked by"
+msgstr "Aliyeeiza"
+
+#: apps/ai/models.py:136
+msgid "Assistant run"
+msgstr "Mwendo wa msaidizi"
+
+#: apps/ai/models.py:137
+msgid "Assistant runs"
+msgstr "Mawendo ya msaidizi"
+
+#: apps/traffic/templates/traffic/_legs.html:18
+#, fuzzy
+msgid "At %(a)s, change to %(r)s — allow ~%(m)s min wait"
+msgstr "Kwa %(a)s, badilisha kwenye %(r)s — ruhusu dakika ~%(m)s za kusubiri"
+
+#: apps/listings/views.py:341 apps/posts/views.py:171
+#: apps/services/views.py:197
+msgid "Attach an image under field 'image'."
+msgstr "Pachikwa picha yaani chini ya jalada 'image'."
+
+#: apps/disputes/templates/disputes/case_detail.html:113
+#: apps/disputes/templates/disputes/case_detail.html:117
+msgid "Attach evidence"
+msgstr "Pachika uthibitisho"
+
+#: apps/disputes/templates/disputes/case_detail.html:115
+#: apps/disputes/templates/disputes/case_detail.html:120
+msgid "Attach note"
+msgstr "Pachika maelezo"
+
+#: apps/moderation/models.py:237
+msgid "Audit rows are immutable (no bulk updates)."
+msgstr "Sare za ukaguzi hazibadilishwi (hakuna kubadili kwa wingi)."
+
+#: apps/moderation/models.py:289
+#, fuzzy
+msgid "Audit rows are immutable; write a new row instead."
+msgstr "Sare za ukaguzi hazibadiliki; andika sare mpya badala yake."
+
+#: apps/moderation/models.py:240
+#, fuzzy
+msgid "Audit rows are never deleted (evidence retention)."
+msgstr "Sare za ukaguzi hazifutiwi kamwe (uhifadhi wa uthibitisho)."
+
+#: apps/moderation/models.py:293
+#, fuzzy
+msgid "Audit rows are never deleted; evidence is retained."
+msgstr "Sare za ukaguzi hazifutiwi kamwe; uthibitisho huhifadhiwa."
+
+#: apps/search/models.py:86
+msgid "Author"
+msgstr "Mwandishi"
+
+#: apps/tracking/models.py:118
+msgid "Authorization source"
+msgstr "Chanzo cha idhini"
+
+#: apps/tracking/models.py:115
+msgid "Authorized by"
+msgstr "Imeidhinishwa na"
+
+#: apps/listings/services.py:94
+msgid "Auto-flagged by the phone-pattern detector:"
+msgstr "Iliweka bendera kibodi cha kupata ndoano ya namba za simu:"
+
+#: apps/services/models.py:167 apps/services/forms.py:76
+msgid "Availability notes"
+msgstr "Maelezo ya upatikanaji"
+
+#: apps/services/templates/services/detail.html:30
+msgid "Availability:"
+msgstr "Upatikanaji:"
+
+#: apps/listings/models.py:193
+msgid "Awaiting category re-approval"
+msgstr "Inasubiri idhini upya ya kundi"
+
+#: apps/trust/models.py:190
+msgid "Awarded at"
+msgstr "Imetunukiwa saa"
 
 msgid "Back online"
 msgstr "Mtandao umerudi"
 
-msgid "Offline"
-msgstr "Nje ya mtandao"
+#: apps/messaging/templates/messaging/list.html:21
+msgid "Back to all chats"
+msgstr "Rudi mazungumzo yote"
 
-msgid "Search"
+#: apps/messaging/templates/messaging/listing_unavailable.html:10
+#: apps/messaging/templates/messaging/privacy.html:18
+msgid "Back to chats"
+msgstr "Rudi mazungumzo"
+
+#: apps/fleet/templates/fleet/crew_pending.html:22
+#: apps/fleet/templates/fleet/vehicle_detail.html:44
+msgid "Back to dashboard"
+msgstr "Rudi dashibodi"
+
+#: apps/guides/templates/guides/history.html:23
+msgid "Back to guide"
+msgstr "Rudi mwongozo"
+
+#: apps/disputes/templates/disputes/case_form.html:16
+msgid "Back to my cases"
+msgstr "Rudi kesi zangu"
+
+#: apps/tracking/templates/tracking/token.html:12
+msgid "Back to my sessions"
+msgstr "Rudi vipindi vyangu"
+
+#: apps/listings/templates/listings/search.html:116
+msgid "Back to the market"
+msgstr "Rudi sokoni"
+
+#: apps/fleet/templates/fleet/crew_roster.html:30
+msgid "Back to vehicle"
+msgstr "Rudi gari"
+
+#: apps/barter/templates/barter/compose.html:4
+#: apps/barter/templates/barter/detail.html:5
+#: apps/barter/templates/barter/list.html:3
+msgid "Barter"
+msgstr "Kubadilishana"
+
+#: apps/barter/templates/barter/list.html:6
+msgid "Barter & cash-plus"
+msgstr "Kubadilishana & pesa-nyongeza"
+
+#: apps/barter/templates/barter/detail.html:8
+msgid "Barter negotiation"
+msgstr "Majadiliano ya kubadilishana"
+
+#: apps/barter/templates/barter/detail.html:26
+#, fuzzy
+msgid "Barter only — no money changes hands through this app."
+msgstr "Kubadilishana tu — hakuna pesa inayobadilika kwaya kupitia app hii."
+
+#: apps/listings/templates/listings/detail.html:63
+msgid "Bump to top"
+msgstr "Pandisha juu"
+
+#: apps/messaging/templates/messaging/list.html:12
+#, fuzzy
+msgid ""
+"Buying happens in this chat — the system never shows or posts contact "
+"details. A member sharing their phone number is choosing to type it "
+"themselves; such messages are flagged for moderation's scam-pattern review."
+msgstr ""
+"Kununia kunatokea kwenye menja hii — mfumo hawaonyeshi au hawachapishi "
+"taarifa za kuwasiliana. Mwanachama anayegawanya namba yake ya simu amechagua"
+" kuiwika mwenyewe; jumbe hizo zinaonyeshwa kwa usimamizi kwa kuhofia "
+"unafundi."
+
+#: apps/traffic/templates/traffic/_legs.html:16
+msgid "CHANGE"
+msgstr "BADILI"
+
+#: apps/listings/templates/listings/form.html:25
+#: apps/posts/templates/posts/form.html:17
+#: apps/posts/templates/posts/remove.html:13
+#: apps/guides/templates/guides/delete.html:12
+msgid "Cancel"
+msgstr "Futa"
+
+#: apps/barter/templates/barter/detail.html:58
+msgid "Cancel this negotiation"
+msgstr "Futa majadiliano haya"
+
+#: apps/core/types.py:51 apps/moderation/models.py:47
+msgid "Cancelled"
+msgstr "Imefutwa"
+
+#: apps/tracking/templates/tracking/start.html:26
+#, fuzzy
+msgid ""
+"Cap in hours (%(min)s–%(max)s; leave blank for the %(max)s-hour default)"
+msgstr ""
+"Saa za kupepesa (%(min)s–%(max)s; acha tupu kwa ya kawaida ya masaa %(max)s)"
+
+#: apps/disputes/models.py:232 apps/disputes/models.py:328
+#: apps/disputes/templates/disputes/queue.html:18
+msgid "Case"
+msgstr "Kesi"
+
+#: apps/disputes/views.py:304
+msgid "Case dismissed."
+msgstr "Kesi imekataliwa."
+
+#: apps/disputes/views.py:284
+msgid "Case resolved."
+msgstr "Kesi imerejea."
+
+#: apps/disputes/views.py:237
+msgid "Case under review."
+msgstr "Kesi inaunduzwa."
+
+#: apps/disputes/templates/disputes/queue.html:8
+msgid "Cases awaiting decision"
+msgstr "Kesi zinazosubiri uamuzi"
+
+#: apps/barter/models.py:255 apps/barter/forms.py:47 apps/barter/forms.py:86
+msgid "Cash amount (KES)"
+msgstr "Kiasi cha pesa (KES)"
+
+#: apps/core/types.py:38
+msgid "Cash only"
+msgstr "Pesa pekee"
+
+#: apps/barter/templates/barter/compose.html:40
+msgid "Cash part (if any)"
+msgstr "Pande ya pesa (ikiwa ipo)"
+
+#: apps/core/types.py:40
+msgid "Cash plus barter"
+msgstr "Pesa pamoja na kubadilishana"
+
+#: apps/listings/models.py:146 apps/listings/forms.py:64
+#: apps/listings/templates/listings/search.html:26 apps/trust/models.py:97
+msgid "Category"
+msgstr "Kundi"
+
+#: apps/listings/views.py:81
+msgid "Category saved. / Imehifadhiwa."
+msgstr "Kundi limewekwa. / Imewa wekwa."
+
+#: apps/services/models.py:55
+msgid "Catering"
+msgstr "Mali ya kupika"
+
+#: apps/listings/templates/listings/detail.html:66
+msgid "Change category (needs moderator check)"
+msgstr "Badili kundi (inahitaji ukaguzi wa msimamizi)"
+
+#: apps/messaging/templates/messaging/privacy.html:3
+#: apps/messaging/templates/messaging/privacy.html:6
+msgid "Chat privacy note"
+msgstr "Kidole cha siri cha menja"
+
+#: apps/messaging/templates/messaging/detail.html:4
+#: apps/messaging/templates/messaging/list_anonymous.html:3
+#: apps/messaging/templates/messaging/list_anonymous.html:6
+#: apps/messaging/templates/messaging/list.html:3
+msgid "Chats"
+msgstr "Mazungumzo"
+
+#: apps/messaging/templates/messaging/privacy.html:8
+#, fuzzy
+msgid ""
+"Chats on Mtaani Connect are private between the two members in the "
+"conversation. This page states plainly what V1 protects — and what it does "
+"not."
+msgstr ""
+"Menja za Mtaani Connect ni siri kati ya wajumbe ndiyo wawili wa soga hiyo. "
+"Ukurasa huu unatoa hali halisi ya V1 inashika — na isiyoshika."
+
+#: apps/crew/templates/crew/trip.html:20
+msgid "Check my crew seats"
+msgstr "Angalia viti vyangu vya kaya"
+
+#: apps/moderation/forms.py:22
+msgid "Choose content type"
+msgstr "Chagua aina ya maudhui"
+
+#: apps/crew/templates/crew/trip.html:25
+#: apps/tracking/templates/tracking/start.html:16
+msgid "Choose…"
+msgstr "Chagua…"
+
+#: apps/ai/models.py:121
+msgid "Cited guides"
+msgstr "Miongozo iliyoletwa"
+
+#: apps/core/types.py:32
+msgid "City"
+msgstr "Jiji"
+
+#: apps/services/models.py:53
+msgid "Coding"
+msgstr "Kodisha"
+
+#: apps/listings/templates/listings/list.html:65
+#: apps/listings/templates/listings/search.html:90
+#: apps/guides/templates/guides/list.html:30
+#: apps/messaging/templates/messaging/list_anonymous.html:7
+msgid "Coming soon"
+msgstr "Inakuja hivi karibuni"
+
+#: apps/trust/services.py:74
+msgid "Community knowledge"
+msgstr "Elimu ya jamii"
+
+#: apps/core/types.py:22
+msgid "Community report"
+msgstr "Ripoti ya jamii"
+
+#: apps/traffic/templates/traffic/about.html:22
+msgid "Community transport reports"
+msgstr "Ripoti za usafirishaji wa jamii"
+
+#: apps/crowd/templates/crowd/stage_reports.html:8
+#, fuzzy
+msgid ""
+"Community transport signals — riders at this stage, weighted by trust and "
+"freshness."
+msgstr ""
+"Hali za usafiri za jamii — dereva kwenye kituo hiki, kwa uzito wa uaminifu "
+"na ubuni."
+
+#: apps/traffic/templates/traffic/plan.html:45
+#, fuzzy
+msgid "Community-reported conditions (each line cites its reports):"
+msgstr "Hali za jamii zilizoripotiwa (kila mstari unaeza ripoti zake):"
+
+#: apps/traffic/templates/traffic/about.html:11
+msgid "Community-reported conditions:"
+msgstr "Hali za jamii zilizoripotiwa:"
+
+#: apps/barter/models.py:178
+#, fuzzy
+msgid "Complete a deal only after its terms are agreed."
+msgstr "Kamilisha mianu baada ya masharti kuwa wakwe kupitishwa."
+
+#: apps/core/types.py:50
+msgid "Completed"
+msgstr "Imekamilika"
+
+#: apps/barter/templates/barter/listing_unavailable.html:14
+msgid "Compose an offer"
+msgstr "Andika ofa"
+
+#: apps/listings/models.py:149 apps/listings/forms.py:65
+#: apps/listings/templates/listings/search.html:34
+msgid "Condition"
+msgstr "Hali"
+
+#: apps/fleet/models.py:171
+msgid "Conductor"
+msgstr "Makonda"
+
+#: apps/disputes/templates/disputes/case_detail.html:93
+msgid "Confirm a proposal (different moderator)"
+msgstr "Thibitisha pendekezo (msimamizi mwenza)"
+
+#: apps/moderation/templates/moderation/queue.html:44
+msgid "Confirm suspension"
+msgstr "Thibitisha kuzuiwa"
+
+#: apps/moderation/models.py:46
+msgid "Confirmed"
+msgstr "Imethibitishwa"
+
+#: apps/disputes/models.py:360
+msgid "Confirmed at"
+msgstr "Imethibitishwa saa"
+
+#: apps/disputes/models.py:358
+#: apps/disputes/templates/disputes/case_detail.html:64
+msgid "Confirmed by"
+msgstr "Imethibitishwa na"
+
+#: apps/disputes/views.py:221
+msgid "Confirmed — the outcome is executed."
+msgstr "Imethibitishwa — jibu limepakiwi."
+
+#: apps/core/types.py:71
+msgid "Construction"
+msgstr "Ujenzi"
+
+#: apps/trust/services.py:77
+msgid "Construction handling"
+msgstr "Utunuku wa ujenzi"
+
+#: apps/routes/models.py:123
+msgid "Contact info (staff-curated)"
+msgstr "Taarifa za kuwasiliana (za huduma)"
+
+#: apps/moderation/forms.py:24
+msgid "Content ID"
+msgstr "Kitambulisho cha maudhui"
+
+#: apps/trust/models.py:90
+msgid "Content author (helpfulness recipient)"
+msgstr "Mwandishi wa maudhui (mwenye kupewa shukrani)"
+
+#: apps/search/models.py:92
+msgid "Content created at"
+msgstr "Maudhui yakitengenezwa saa"
+
+#: apps/lang/templates/lang/prefs_demo.html:7
+msgid "Content language"
+msgstr "Lugha ya maudhui"
+
+#: apps/moderation/models.py:55
+msgid "Content removed"
+msgstr "Maudhui yameondolewa"
+
+#: apps/moderation/models.py:56
+msgid "Content restored"
+msgstr "Maudhui yamekurudwa"
+
+#: apps/messaging/views.py:233
+msgid "Conversation unmuted."
+msgstr "Soga imerudishna sauti."
+
+#: apps/guides/models.py:35
+msgid "Cooking"
+msgstr "Kupika"
+
+#: apps/tracking/templates/tracking/start.html:10
+#, fuzzy
+msgid ""
+"Copy it now: only its hash is stored and it will never be displayed again."
+msgstr "Nakasili sasa: hash yake pekee inahifadhiwa wakwa haiionyeshwi tena."
+
+#: apps/routes/models.py:309
+msgid "Correction kind"
+msgstr "Aina ya marehemu"
+
+#: apps/routes/templates/routes/queue.html:3
+#: apps/routes/templates/routes/queue.html:6
+msgid "Correction queue"
+msgstr "Foleni ya marufuku"
+
+#: apps/routes/views.py:210
+msgid "Correction resolved."
+msgstr "Marufuku yamekurudwa."
+
+#: apps/routes/models.py:56
+msgid "Corridor colour"
+msgstr "Rangi ya mtaani"
+
+#: apps/barter/views.py:405
+#, fuzzy
+msgid "Counter draft saved — send it to put your terms on the table."
+msgstr "Rasimu ya kumwangu imewekwa — itumwe kuweka masharti yako mezani."
+
+#: apps/barter/views.py:416
+msgid "Counter this offer"
+msgstr "Mwangu ofa hii"
+
+#: apps/barter/templates/barter/detail.html:44
+msgid "Counter with new terms"
+msgstr "Mwangu na masharti mapya"
+
+#: apps/core/types.py:48
+msgid "Countered"
+msgstr "Imewanwa"
+
+#: apps/guides/models.py:40
+msgid "Crafts"
+msgstr "Uhunzi"
+
+#: apps/groups/templates/groups/form.html:11
+msgid "Create group"
+msgstr "Tengeneza kundi"
+
+#: apps/fleet/services.py:258
+#, fuzzy
+msgid ""
+"Crew approval needs a second human — you cannot approve your own request."
+msgstr ""
+"Idhini ya kaya inahitaji mtu wa pili — huwezi idhinisha ombi lako wakwe."
+
+#: apps/fleet/templates/fleet/crew_pending.html:3
+#: apps/fleet/templates/fleet/crew_pending.html:6
+#: apps/fleet/templates/fleet/dashboard.html:17
+msgid "Crew approval queue"
+msgstr "Foleni ya idhini ya kaya"
+
+#: apps/fleet/templates/fleet/vehicle_detail.html:42
+#: apps/fleet/templates/fleet/crew_roster.html:3
+#: apps/fleet/templates/fleet/crew_roster.html:7
+msgid "Crew board"
+msgstr "Bodi ya kaya"
+
+#: apps/fleet/services.py:218
+msgid "Crew is requested for active vehicles only."
+msgstr "Kaya inaombiwa kwa magari hai tu."
+
+#: apps/fleet/models.py:201 apps/fleet/forms.py:43
+msgid "Crew role"
+msgstr "Nafasi ya kaya"
+
+#: apps/fleet/templates/fleet/vehicle_detail.html:28
+msgid "Crew roster"
+msgstr "Orodha ya kaya"
+
+#: apps/fleet/models.py:322
+msgid "Crew seat"
+msgstr "Kiti cha kaya"
+
+#: apps/fleet/models.py:295
+msgid "Crew seat approved"
+msgstr "Kiti cha kaya kimeidhinishwa"
+
+#: apps/fleet/views.py:179
+msgid "Crew seat approved."
+msgstr "Kiti cha kaya kimeidhinishwa."
+
+#: apps/fleet/models.py:294
+msgid "Crew seat requested"
+msgstr "Kiti cha kaya kimeomba"
+
+#: apps/fleet/views.py:145
+#, fuzzy
+msgid "Crew seat requested — waiting for the SACCO admin."
+msgstr "Kiti cha kaya kimeombwa — kinasubiri msimamizi SACCO."
+
+#: apps/fleet/models.py:296
+msgid "Crew seat revoked"
+msgstr "Kiti cha kaya kimefutia"
+
+#: apps/fleet/views.py:193
+msgid "Crew seat revoked."
+msgstr "Kiti cha kaya kimefutwa."
+
+#: apps/crew/apps.py:8
+msgid "Crew trip page"
+msgstr "Ukurasa wa safari ya kaya"
+
+#: apps/crowd/templates/crowd/stage_reports.html:3
+msgid "Crowd reports"
+msgstr "Ripoti za umma"
+
+#: apps/routes/models.py:246
+msgid "Currency"
+msgstr "Sarafu"
+
+#: apps/barter/templates/barter/detail.html:65
+msgid "Current terms"
+msgstr "Masharti ya sasa"
+
+#: apps/reviews/models.py:161
+msgid "DRAFT (held) → PUBLISHED, by the sweep only."
+msgstr "RASIMU (inasubiriwa) → IMETANGAZWA, kwenye mfupi tu."
+
+#: apps/disputes/admin.py:25
+#: apps/disputes/templates/disputes/case_detail.html:8
+msgid "Deal"
+msgstr "Mianu"
+
+#: apps/reviews/services.py:323
+msgid "Deal #%(id)s"
+msgstr "Mianu #%(id)s"
+
+#: apps/reviews/models.py:118 apps/disputes/models.py:110
+msgid "Deal id"
+msgstr "Id ya mianu"
+
+#: apps/barter/models.py:201
+msgid "Deal mode"
+msgstr "Mtindo wa mianu"
+
+#: apps/reviews/forms.py:31
+msgid "Deal number"
+msgstr "Namba ya mianu"
+
+#: apps/reviews/models.py:117 apps/disputes/models.py:108
+msgid "Deal origin app"
+msgstr "App ya asili ya mianu"
+
+#: apps/barter/forms.py:41 apps/barter/forms.py:80
+#: apps/barter/templates/barter/compose.html:37
+#: apps/barter/templates/barter/detail.html:17
+msgid "Deal type"
+msgstr "Aina ya mianu"
+
+#: apps/disputes/templates/disputes/case_form.html:8
+msgid "Deal:"
+msgstr "Mianu:"
+
+#: apps/reviews/templates/reviews/received_list.html:17
+#: apps/reviews/templates/reviews/my_reviews.html:15
+msgid "Deal: %(deal)s"
+msgstr "Mianu: %(deal)s"
+
+#: apps/moderation/models.py:111 apps/moderation/models.py:218
+#: apps/disputes/models.py:152
+msgid "Decided at"
+msgstr "Ilikukwa saa"
+
+#: apps/disputes/models.py:150
+msgid "Decided by"
+msgstr "Ilikukwa na"
+
+#: apps/disputes/templates/disputes/case_detail.html:75
+msgid "Decision"
+msgstr "Uamuzi"
+
+#: apps/moderation/models.py:114 apps/disputes/models.py:154
+#: apps/disputes/templates/disputes/case_detail.html:104
+msgid "Decision note"
+msgstr "Maelezo ya uamuzi"
+
+#: apps/listings/models.py:133 apps/listings/forms.py:62
+#: apps/groups/models.py:44 apps/services/models.py:129
+msgid "Description"
+msgstr "Maelezo"
+
+#: apps/listings/models.py:138 apps/listings/forms.py:63
+#: apps/services/models.py:134 apps/services/forms.py:72
+msgid "Description (Kiswahili)"
+msgstr "Maelezo (Kiswahili)"
+
+#: apps/groups/forms.py:19
+msgid "Description (up to 500 characters)"
+msgstr "Maelezo (hadi herufi 500)"
+
+#: apps/groups/services.py:71
+msgid "Description must be 500 characters or fewer."
+msgstr "Maelezo lazima iwe herufi 500 au chini yake."
+
+#: apps/crowd/models.py:107
+msgid "Destination hint"
+msgstr "Kidokezo cha marudio"
+
+#: apps/guides/models.py:270
+msgid "Details"
+msgstr "Maelezo"
+
+#: apps/moderation/forms.py:27 apps/guides/forms.py:113
+msgid "Details (optional)"
+msgstr "Maelezo (kama mtaani)"
+
+#: apps/tracking/models.py:255
+#, fuzzy
+msgid "Device clock at capture; dedupe key per session."
+msgstr "Saa ya simu wakati wa kipicha; ufunguo wa kupambua kwa kipindi."
+
+#: apps/ai/templates/ai/ask.html:42
+msgid "Did this work for you?"
+msgstr "Ilifanya kwako?"
+
+#: apps/messaging/templates/messaging/list.html:37
+msgid "Direct chat"
+msgstr "Menja ya moja-kwa-moja"
+
+#: apps/messaging/models.py:52
+#: apps/messaging/templates/messaging/detail.html:11
+msgid "Direct conversation"
+msgstr "Soga ya moja-kwa-moja"
+
+#: apps/barter/models.py:101
+msgid "Direct negotiation"
+msgstr "Majadiliano ya moja-kwa-moja"
+
+#: apps/crew/templates/crew/trip.html:39
+msgid "Direction"
+msgstr "Mwelekeo"
+
+#: apps/moderation/templates/moderation/queue.html:30
+#: apps/disputes/templates/disputes/case_detail.html:111
+msgid "Dismiss"
+msgstr "Kata"
+
+#: apps/disputes/templates/disputes/case_detail.html:110
+msgid "Dismissal note"
+msgstr "Maelezo ya kukatia"
+
+#: apps/moderation/models.py:39 apps/disputes/models.py:57
+msgid "Dismissed"
+msgstr "Ilikatiwa"
+
+#: apps/disputes/templates/disputes/case_detail.html:3
+#: apps/disputes/templates/disputes/case_detail.html:6
+msgid "Dispute case"
+msgstr "Kesi ya mgogoro"
+
+#: apps/reviews/models.py:147
+msgid "Dispute note (required for 1-star reviews)"
+msgstr "Maelezo ya mgogoro (lazima kwa maoni ya nata 1)"
+
+#: apps/disputes/templates/disputes/queue.html:3
+#: apps/disputes/templates/disputes/queue.html:6
+msgid "Dispute queue"
+msgstr "Foleni ya migogoro"
+
+#: apps/disputes/models.py:197 apps/disputes/services.py:88
+#, fuzzy
+msgid "Disputes exist for barter, marketplace and service deals only."
+msgstr "Migogoro inaunduzwa kwa mianu wa kubadilishana, soko na huduma tu."
+
+#: apps/core/types.py:46 apps/core/types.py:78 apps/moderation/models.py:45
+msgid "Draft"
+msgstr "Rasimu"
+
+#: apps/guides/templates/guides/detail.html:11
+msgid "Draft preview — only you can see this"
+msgstr "Muonekano wa rasimu — wewe tu unaona hii"
+
+#: apps/barter/views.py:228
+#, fuzzy
+msgid "Draft saved — it lands on their table only when you send it."
+msgstr "Rasimu imewekwa — inafika mezani kwao mpaka uiwike."
+
+#: apps/barter/views.py:307
+msgid "Draft updated."
+msgstr "Rasimu imepambazwa."
+
+#: apps/moderation/templates/moderation/queue.html:39
+msgid "Drafted by"
+msgstr "Aliehuza"
+
+#: apps/fleet/models.py:170
+msgid "Driver"
+msgstr "Dereva"
+
+#: apps/disputes/models.py:86
+msgid "Duplicate listing text"
+msgstr "Maandiko ya bidhaa yanafanana"
+
+#: apps/disputes/templates/disputes/queue.html:11
+msgid "ESCALATED"
+msgstr "IMEFUPUA"
+
+#: apps/listings/templates/listings/detail.html:48
+#: apps/posts/templates/posts/detail.html:26
+#: apps/guides/templates/guides/detail.html:63
+#: apps/services/templates/services/detail.html:47
+msgid "Edit"
+msgstr "Badili"
+
+#: apps/barter/templates/barter/detail.html:48
+msgid "Edit draft"
+msgstr "Badili rasimu"
+
+#: apps/guides/templates/guides/form.html:3
+#: apps/guides/templates/guides/form.html:6
+msgid "Edit guide"
+msgstr "Badili mwongozo"
+
+#: apps/listings/templates/listings/form.html:3
+msgid "Edit listing"
+msgstr "Badili bidhaa"
+
+#: apps/services/templates/services/form.html:3
+msgid "Edit service"
+msgstr "Badili huduma"
+
+#: apps/barter/views.py:320
+msgid "Edit your draft"
+msgstr "Badili rasimu yako"
+
+#: apps/listings/templates/listings/form.html:6
+msgid "Edit your listing"
+msgstr "Badili bidhaa yako"
+
+#: apps/posts/templates/posts/form.html:6
+msgid "Edit your post"
+msgstr "Badili chapisho lako"
+
+#: apps/services/templates/services/form.html:6
+msgid "Edit your service"
+msgstr "Badili huduma yako"
+
+#: apps/guides/templates/guides/form.html:12
+#, fuzzy
+msgid ""
+"Editing saves a new draft revision — the published guide does not change "
+"until you publish it. Photos are not carried over, so re-add the ones you "
+"want."
+msgstr ""
+"Kubadili huweka rasimu mpya ya mwongozo — mwongozo uliotangazwa hakubadiliki"
+" mpaka utangaze wakwe. Picha hazibebebwi, kwaya hivyo ongeza zako upya zile "
+"unazohitaji."
+
+#: apps/feed/templates/feed/list.html:27 apps/posts/models.py:60
+#: apps/posts/templates/posts/detail.html:8
+#: apps/posts/templates/posts/list.html:14
+msgid "Educational"
+msgstr "Elimu"
+
+#: apps/posts/forms.py:32
+msgid "Educational content"
+msgstr "Maudhui ya elimu"
+
+#: apps/ai/models.py:44
+msgid "Elapsed (ms)"
+msgstr "Muda (ms)"
+
+#: apps/core/types.py:70
+msgid "Electrical"
+msgstr "Umeme"
+
+#: apps/trust/services.py:76
+msgid "Electrical handling"
+msgstr "Utunuku wa umeme"
+
+#: apps/listings/models.py:46
+msgid "Electronics"
+msgstr "Mjini"
+
+#: apps/crew/templates/crew/trip.html:61
+msgid "End trip"
+msgstr "Simama safari"
+
+#: apps/tracking/models.py:84
+msgid "Ended"
+msgstr "Imekomea"
+
+#: apps/tracking/models.py:136
+msgid "Ended at"
+msgstr "Ilikomea saa"
+
+#: apps/tracking/models.py:142
+msgid "Ended reason"
+msgstr "Sababu ya kukomea"
+
+#: apps/qa/templates/qa/detail.html:8 apps/qa/templates/qa/list.html:27
+msgid "English question shown — no Kiswahili yet"
+msgstr "Swali la Kiengezi linaonyeshwa — hakuna la Kiswahili bado"
+
+#: apps/guides/templates/guides/detail.html:8
+msgid "English title shown — no Kiswahili title yet"
+msgstr "Kichwa cha Kiengezi kinaonyeshwa — hakuna cha Kiswahili bado"
+
+#: apps/search/models.py:78
+msgid "Entity URL"
+msgstr "URL ya kilicholenga"
+
+#: apps/search/models.py:51
+msgid "Entity kind"
+msgstr "Aina ya kilicholenga"
+
+#: apps/disputes/models.py:96
+msgid "Escalated"
+msgstr "Imefupua"
+
+#: apps/core/types.py:23
+msgid "Estimate"
+msgstr "Takrimu"
+
+#: apps/disputes/templates/disputes/case_detail.html:25
+msgid "Evidence"
+msgstr "Uthibitisho"
+
+#: apps/disputes/views.py:264
+msgid "Evidence attached."
+msgstr "Uthibitisho umepachikwa."
+
+#: apps/disputes/templates/disputes/case_detail.html:105
+msgid "Execute on confirm"
+msgstr "Tekeleza kwenye kuthibitisha"
+
+#: apps/listings/models.py:80 apps/core/types.py:52 apps/tracking/models.py:85
+msgid "Expired"
+msgstr "Imepita muda"
+
+#: apps/crew/templates/crew/trip.html:70
+msgid "Failed sends (device counter, this tab)"
+msgstr "Kutuma kunashindwa (kihesabu cha simu, tab hii)"
+
+#: apps/traffic/templates/traffic/about.html:15
+#, fuzzy
+msgid ""
+"Fares are observed RANGES per leg and for the whole journey — matatu fares "
+"move with time and weather, so there is never one official number."
+msgstr ""
+"Nauli huwa MASAKA kwa pamoja ya vipande na kwa safari yote — nauli za matatu"
+" zinabubujika na muda na hali ya hewa, kwaya hivyo hakuna namba rasimu moja."
+
+#: apps/feed/templates/feed/list.html:3
+msgid "Feed"
+msgstr "Feed"
+
+#: apps/crowd/templates/crowd/report_form.html:3
+#: apps/crowd/templates/crowd/report_form.html:6
+msgid "File a crowd report"
+msgstr "Weka ripoti ya umma"
+
+#: apps/crowd/templates/crowd/my_reports.html:20
+msgid "File a report"
+msgstr "Weka ripoti"
+
+#: apps/listings/templates/listings/list.html:40
+msgid "Find"
 msgstr "Tafuta"
 
-msgid "Settings"
-msgstr "Mipangilio"
+#: apps/fleet/templates/fleet/search.html:3
+#: apps/fleet/templates/fleet/search.html:6
+msgid "Find a matatu"
+msgstr "Pata matatu"
+
+#: apps/routes/templates/routes/list.html:25
+msgid "Find a stage or route"
+msgstr "Pata kituo ama njia"
+
+#: apps/listings/templates/listings/search.html:6
+msgid "Find listings near a ward"
+msgstr "Pata bidhaa karibu na wadi"
+
+#: apps/listings/templates/listings/search.html:3
+msgid "Find near a ward"
+msgstr "Pata karibu na wadi"
+
+#: apps/follows/templates/follows/followers_list.html:24
+msgid "Follow back"
+msgstr "Dhihisha kufuata"
+
+#: apps/alerts/templates/alerts/my_follows.html:12
+msgid "Follow matatu"
+msgstr "Fuata matatu"
+
+#: apps/alerts/templates/alerts/my_follows.html:7
+#, fuzzy
+msgid ""
+"Follow matatus and routes, pick an alert stage and radius, and switch "
+"notifications on in one tap. Notifications start OFF."
+msgstr ""
+"Fuata matatu na njia, chagua kituo na radiusi ya tahadhari, na ukue taarifa "
+"kwa bofia moja. Taarifa zinaanza PANGA."
+
+#: apps/alerts/templates/alerts/my_follows.html:52
+msgid "Follow route"
+msgstr "Fuata njia"
+
+#: apps/feed/templates/feed/list.html:36
+#, fuzzy
+msgid ""
+"Follow the neighbours whose tips you use, or share something useful "
+"yourself."
+msgstr ""
+"Fuata majirani wale unaotumia kidokezo chao, ama wewe kubahalisha kitu cha "
+"wema."
+
+#: apps/follows/templates/follows/followers_list.html:4
+#: apps/follows/templates/follows/followers_list.html:8
+msgid "Followers"
+msgstr "Wafuasi"
+
+#: apps/feed/templates/feed/list.html:21
+#: apps/follows/templates/follows/following_list.html:4
+msgid "Following"
+msgstr "Unafuata"
+
+#: apps/tracking/templates/tracking/token.html:8
+#, fuzzy
+msgid ""
+"For session %(sid)s on %(plate)s. Copy this token now: only its hash is "
+"stored and it will never be displayed again."
+msgstr ""
+"Kwa kipindi %(sid)s kwenye %(plate)s. Nakasili tokeni hii sasa: hash yake "
+"pekee inahifadhiwa wakwa haiionyeshwi tena."
+
+#: apps/barter/templates/barter/compose.html:45
+msgid "For whom"
+msgstr "Kwa nani"
+
+#: apps/routes/templates/routes/correction_form.html:7
+#, fuzzy
+msgid ""
+"Found a wrong stage order, a missing route or an off fare? Tell a moderator "
+"— people, not scripts, fix the network."
+msgstr ""
+"Umepata mpangilio mbaya wa vituo, njia isiyopo au nauli isiyo kweli? Waambie"
+" msimamizi — watu, si maandishi, hutungia mtandao."
+
+#: apps/disputes/templates/disputes/queue.html:36
+msgid "Fraud flags (annotations — humans decide)"
+msgstr "Bendera za unafundi (maoni — watu wanatukwa)"
+
+#: apps/barter/templates/barter/detail.html:14
+msgid "From listing"
+msgstr "Kutoka bidhaa"
+
+#: apps/traffic/templates/traffic/plan.html:12
+msgid "From stage"
+msgstr "Kutoka kituo"
+
+#: apps/barter/templates/barter/compose.html:9
+msgid "From the market"
+msgstr "Kutoka sokoni"
+
+#: apps/routes/models.py:130
+msgid "GTFS agency_id"
+msgstr "GTFS agency_id"
+
+#: apps/routes/models.py:65
+msgid "GTFS route_id"
+msgstr "GTFS route_id"
+
+#: apps/routes/models.py:84
+msgid "GTFS shape points"
+msgstr "Ndoano za GTFS shape"
+
+#: apps/routes/models.py:73
+msgid "GTFS shapes.txt line"
+msgstr "Mstari wa GTFS shapes.txt"
+
+#: apps/routes/models.py:148
+msgid "GTFS stop_id"
+msgstr "GTFS stop_id"
+
+#: apps/listings/models.py:100
+#, fuzzy
+msgid ""
+"Give a price or mark the listing negotiable — one of the two is required."
+msgstr ""
+"Weka bei au alama ya bidhaa kubadilisha (negotiable) — mojawapo zinafaa."
+
+#: apps/disputes/forms.py:27
+msgid "Give the deal this dispute is about."
+msgstr "Toa mianu ya mgogoro huu."
+
+#: apps/groups/services.py:69
+msgid "Give your group a name."
+msgstr "Toa kundi zako jina."
+
+#: apps/listings/models.py:60
+msgid "Good"
+msgstr "Wakweli"
+
+#: apps/core/types.py:87
+msgid "Goods"
+msgstr "Bidhaa"
+
+#: apps/fleet/models.py:271
+msgid "Granted by"
+msgstr "Ilipeanwa na"
+
+#: apps/groups/views.py:110
+msgid "Group created — share it with your people."
+msgstr "Kundi litengenezwa — yabahalisha na watu zako."
+
+#: apps/groups/forms.py:16
+msgid "Group name"
+msgstr "Jina la kundi"
+
+#: apps/groups/templates/groups/list.html:4
+#: apps/groups/templates/groups/list.html:7
+msgid "Groups"
+msgstr "Vikundi"
+
+#: apps/groups/templates/groups/form.html:8
+#, fuzzy
+msgid ""
+"Groups bring people together around an interest, an estate (neighbourhood) "
+"or a profession."
+msgstr "Vikundi vinakusanya watu kuzunguka hamu, mtaa au taaluma."
+
+#: apps/follows/templates/follows/followers_list.html:14
+#, fuzzy
+msgid "Growing — the follower count appears once it reaches 10."
+msgstr "Inajengwa — uhisabu wa wafuasi unaonyeshwa mpaka ufike 10."
+
+#: apps/posts/templates/posts/_preview.html:12 apps/search/models.py:46
+msgid "Guide"
+msgstr "Mwongozo"
+
+#: apps/feed/templates/feed/list.html:30
+msgid "Guide linked"
+msgstr "Mwongozo umeunganishwa"
+
+#: apps/posts/templates/posts/_preview.html:9
+msgid "Guide no longer available"
+msgstr "Mwongozo hapo tena"
+
+#: apps/guides/views.py:168
+msgid "Guide published — thank you for sharing."
+msgstr "Mwongozo umetangazwa — asante kwa kubahalisha."
+
+#: apps/guides/views.py:261
+msgid "Guide removed."
+msgstr "Mwongozo umeondolewa."
+
+#: apps/guides/templates/guides/list.html:3
+#: apps/guides/templates/guides/list.html:6 apps/search/views.py:157
+#: templates/base.html:22
+msgid "Guides"
+msgstr "Miongozo"
+
+#: apps/routes/models.py:158
+msgid "Hailable en route"
+msgstr "Inapanda njian"
+
+#: apps/listings/models.py:44
+msgid "Handmade"
+msgstr "Imetengenezwa na mkono"
+
+#: apps/core/types.py:60
+msgid "Harassment"
+msgstr "Ufutio"
+
+#: apps/crowd/forms.py:41
+msgid "Heading towards (optional)"
+msgstr "Kwenda (kama mtaani)"
+
+#: apps/guides/models.py:39
+msgid "Health education"
+msgstr "Elimu ya afya"
+
+#: apps/crew/templates/crew/trip.html:68
+msgid "Held in the device queue"
+msgstr "Unabeswa kwenye foleni ya simu"
+
+#: apps/reviews/templates/reviews/my_reviews.html:13
+#, fuzzy
+msgid "Held — publishes with the counterpart's review, or after 14 days"
+msgstr "Inasubiriwa — inatangazwa na maoni ya mwenza, au baada ya siku 14"
+
+#: apps/trust/views.py:46
+msgid "Helpful vote removed."
+msgstr "Kura ya msaada imeondolewa."
+
+#: apps/disputes/models.py:429
+msgid "Heuristic"
+msgstr "Kidude"
+
+#: apps/messaging/templates/messaging/detail.html:63
+msgid "Hide my read receipts"
+msgstr "Ficha risiti zangu za kusoma"
+
+#: apps/guides/templates/guides/detail.html:20
+msgid "History"
+msgstr "Historia"
+
+#: templates/base.html:18
+msgid "Home"
+msgstr "Nyumbani"
+
+#: apps/services/models.py:67
+msgid "Hourly rate"
+msgstr "Beki ya saa"
+
+#: apps/traffic/templates/traffic/about.html:6
+msgid "How the journey planner works"
+msgstr "Mpango wa safari inafanyaje"
+
+#: apps/traffic/templates/traffic/about.html:3
+msgid "How the planner works"
+msgstr "Mpango inafanyaje"
+
+#: apps/traffic/templates/traffic/plan.html:10
+msgid "How this works"
+msgstr "Hii inafanyaje"
+
+#: apps/barter/models.py:91 apps/barter/templates/barter/compose.html:50
+#: apps/barter/templates/barter/detail.html:79
+msgid "I give"
+msgstr "Nanatoa"
+
+#: apps/barter/models.py:92 apps/barter/templates/barter/compose.html:61
+#: apps/barter/templates/barter/detail.html:84
+msgid "I want"
+msgstr "Nanataka"
+
+#: apps/disputes/models.py:79
+msgid "Image"
+msgstr "Picha"
+
+#: apps/disputes/templates/disputes/case_detail.html:44
+msgid "Image attached ("
+msgstr "Picha imepachikwa ("
+
+#: apps/disputes/models.py:304
+msgid "Image evidence needs one MediaRef id."
+msgstr "Uthibitisho wa picha unahitaji id ya MediaRef moja."
+
+#: apps/core/types.py:94
+msgid "Interest"
+msgstr "Hamu"
+
+#: apps/guides/models.py:46
+msgid "Intermediate"
+msgstr "Kati"
+
+#: apps/moderation/views.py:86
+msgid "Invalid report."
+msgstr "Ripoti si sahihi."
+
+#: apps/ai/templates/ai/ask.html:7
+msgid ""
+"It adapts published guide steps to what you can actually get locally. Every "
+"answer is a draft with the AI label — verify the guides it cites, and never "
+"rely on it for anything it marks as risky."
+msgstr ""
+
+#: apps/posts/templates/posts/remove.html:7
+#, fuzzy
+msgid ""
+"It disappears from public views. The record stays for trust and dispute "
+"evidence."
+msgstr ""
+"Inatoroka na umma. Ukumbi unashika kwa uaminifu na uthibitisho wa migogoro."
+
+#: apps/listings/templates/listings/remove.html:8
+#: apps/services/templates/services/remove.html:8
+#, fuzzy
+msgid ""
+"It is hidden for everyone, not deleted — moderators may still read it if a "
+"dispute needs the record."
+msgstr ""
+"Imefichwa kwa wote, haifutwa — wasimamizi wanaona bado kama mgogoro "
+"unahitaji ukumbi."
+
+#: apps/messaging/templates/messaging/listing_unavailable.html:8
+#, fuzzy
+msgid ""
+"It may have been removed, or the marketplace is still syncing. Nothing was "
+"sent and no conversation was created — try again from the listing."
+msgstr ""
+"Kwa punguza yaliyoondolewa, ama soko linaandamanishwa bado. Hakuna "
+"kilitumwua wala soga kuikuliwa — ujaribu upya kutoka bidhaa."
+
+#: apps/guides/templates/guides/detail.html:49
+msgid "It worked for me"
+msgstr "Ilinafanya kwa mimi"
+
+#: apps/tracking/templates/tracking/token.html:10
+#: apps/tracking/templates/tracking/start.html:12
+#, fuzzy
+msgid "It works only for this one session and this one vehicle."
+msgstr "Inafanya kwa kipindi hii hii na gari hili hili tu."
+
+#: apps/barter/models.py:445 apps/barter/forms.py:27
+msgid "Item"
+msgstr "Kitu"
+
+#: apps/traffic/templates/traffic/plan.html:71
+msgid "JSON mirror"
+msgstr "Kagwe ya JSON"
+
+#: templates/home.html:12
+msgid "Join"
+msgstr "Jiunge"
+
+#: apps/groups/templates/groups/detail.html:28
+msgid "Join group"
+msgstr "Jiunge kundi"
+
+#: apps/messaging/models.py:157
+msgid "Joined at"
+msgstr "Hapagemea saa"
+
+#: apps/traffic/templates/traffic/plan.html:3
+#: apps/traffic/templates/traffic/plan.html:6
+msgid "Journey planner"
+msgstr "Mpango wa safari"
+
+#: apps/listings/templates/listings/detail.html:23
+#: apps/listings/templates/listings/list.html:56
+#: apps/listings/templates/listings/search.html:64
+#: apps/services/templates/services/detail.html:19
+msgid "KSh %(amount)s"
+msgstr "KSh %(amount)s"
+
+#: apps/services/templates/services/list.html:43
+msgid "KSh %(amount)s / hour"
+msgstr "KSh %(amount)s / saa"
+
+#: apps/traffic/services.py:238
+msgid "KSh %(lo)s"
+msgstr "KSh %(lo)s"
+
+#: apps/traffic/services.py:239 apps/traffic/templates/traffic/_legs.html:35
+msgid "KSh %(lo)s–%(hi)s"
+msgstr "KSh %(lo)s–%(hi)s"
+
+#: apps/listings/templates/listings/remove.html:13
+#: apps/services/templates/services/remove.html:13
+msgid "Keep it"
+msgstr "Bamba"
+
+#: apps/disputes/models.py:241 apps/groups/models.py:41
+#: apps/services/models.py:111
+msgid "Kind"
+msgstr "Aina"
+
+#: apps/guides/templates/guides/list.html:32
+msgid "Know how to do something well? Share it."
+msgstr "Unajibu vya kufanya jambo vizuri? Kubalisha."
+
+#: apps/routes/templates/routes/stage_detail.html:12
+msgid "Known as"
+msgstr "Anajulikana kama"
+
+#: apps/trust/models.py:57
+msgid "Known helper"
+msgstr "Msaada anajulikana"
+
+#: apps/lang/templates/lang/prefs_demo.html:3
+#: apps/lang/templates/lang/prefs_demo.html:6
+#: templates/core/_lang_switch.html:2
+msgid "Language"
+msgstr "Lugha"
+
+#: apps/barter/models.py:267
+msgid "Last negotiation activity"
+msgstr "Kitendo cha majadiliano cha mwisho"
+
+#: apps/messaging/models.py:160
+msgid "Last read at"
+msgstr "Kusoma kwa mwisho saa"
+
+#: apps/crowd/models.py:114
+msgid "Last rider reported at"
+msgstr "Ripoti ya dereva ya mwisho saa"
+
+#: apps/search/models.py:93
+msgid "Last trigger refresh"
+msgstr "Kuvusha vishikaji cha mwisho"
 
 msgid "Later"
 msgstr "Baadaye"
 
-msgid "Coming soon"
-msgstr "Inakuja hivi karibuni"
+#: apps/routes/models.py:150 apps/tracking/models.py:231
+msgid "Latitude"
+msgstr "Latitudo"
+
+#: apps/listings/search.py:150
+msgid "Latitude (approximate)"
+msgstr "Latitudo (takrimu)"
+
+#: apps/reviews/templates/reviews/review_form.html:3
+#: apps/reviews/templates/reviews/review_form.html:6
+msgid "Leave a review"
+msgstr "Weka maoni"
+
+#: apps/listings/forms.py:71
+#, fuzzy
+msgid "Leave empty and tick Negotiable if the price is open."
+msgstr "Acha tupu na uwe alama ya Bei ya maongezi kama bei ni ya maongezi."
+
+#: apps/guides/forms.py:28
+#, fuzzy
+msgid "Leave empty to show the English title in its place."
+msgstr "Acha tupu kwa kuonyesha kichwa cha Kiengezi hapo."
+
+#: apps/groups/templates/groups/detail.html:21
+msgid "Leave group"
+msgstr "Gonda kundi"
+
+#: apps/trust/models.py:150 apps/trust/models.py:186
+msgid "Level"
+msgstr "Ngazi"
+
+#: apps/listings/models.py:197
+msgid "Lifecycle"
+msgstr "Mendo wa hali"
+
+#: apps/trust/models.py:153
+#, fuzzy
+msgid "Lifetime helpful-vote count needed to hold this level."
+msgstr "Kura ya msaada ya maisha yanatajika kushika ngazi hii."
+
+#: apps/listings/models.py:59
+msgid "Like new"
+msgstr "Kama mpya"
+
+#: apps/posts/forms.py:39
+msgid "Link a guide"
+msgstr "Unganisha mwongozo"
+
+#: apps/posts/models.py:67
+msgid "Linked guide"
+msgstr "Mwongozo uliounganishwa"
+
+#: apps/posts/models.py:73
+msgid "Linked listing"
+msgstr "Bidhaa iliyounganishwa"
+
+#: apps/listings/templates/listings/form.html:23
+#: apps/services/templates/services/form.html:23
+msgid "List it"
+msgstr "Weka bidhaa"
+
+#: apps/barter/templates/barter/compose.html:13
+#: apps/posts/templates/posts/_preview.html:6
+#: apps/messaging/templates/messaging/detail.html:10
+#: apps/messaging/templates/messaging/list.html:34
+msgid "Listing"
+msgstr "Bidhaa"
+
+#: apps/listings/views.py:68
+msgid "Listing back on sale. / Imerudishwa sokoni."
+msgstr "Bidhaa imeuduzwa sokoni. / Imerudishwa sokoni."
+
+#: apps/listings/templates/listings/detail.html:53
+msgid "Listing lifecycle"
+msgstr "Mendo wa hali ya bidhaa"
+
+#: apps/posts/templates/posts/form.html:14
+#, fuzzy
+msgid ""
+"Listing links arrive with the marketplace (17). Tip: link a how-to guide so "
+"neighbours can act on your post."
+msgstr ""
+"Viungo vya bidhaa vinakuvu na soko (17). Kidokezo: unganisha mwongozo wa "
+"kufanya kwaye majirani waweza kuwa kitendo kwa chapisho lako."
+
+#: apps/posts/templates/posts/_preview.html:9
+msgid "Listing no longer available"
+msgstr "Bidhaa hapo tena"
+
+#: apps/messaging/templates/messaging/listing_unavailable.html:3
+msgid "Listing not available"
+msgstr "Bidhaa haipo"
+
+#: apps/listings/views.py:67
+#, fuzzy
+msgid "Listing parked. Tap Resume when trading again. / Imepumzishwa."
+msgstr "Bidhaa imepangana. Bofia Endelea kwa kubishana tena. / Imepumzishwa."
+
+#: apps/listings/templates/listings/detail.html:37
+#: apps/listings/templates/listings/list.html:50
+msgid "Listing photo"
+msgstr "Picha ya bidhaa"
+
+#: apps/listings/views.py:222
+msgid "Listing removed. / Tangazo limeondolewa."
+msgstr "Bidhaa imeondolewa. / Tangazo limeondolewa."
+
+#: apps/listings/views.py:183
+msgid "Listing up. / Imetangazwa."
+msgstr "Bidhaa imetangazwa. / Imetangazwa."
+
+#: apps/tracking/models.py:83
+msgid "Live"
+msgstr "Hali"
+
+#: apps/core/types.py:20
+msgid "Live GPS"
+msgstr "GPS ya hali"
+
+#: apps/map/templates/map/map.html:23
+msgid "Live GPS fix"
+msgstr "GPS ya hali imeweza"
+
+#: apps/map/templates/map/map.html:10 apps/map/templates/map/map.html:13
+#: apps/map/templates/map/map.html:22
+msgid "Live matatu map"
+msgstr "Ramani ya matatu ya hali"
+
+#: apps/tracking/templates/tracking/start.html:3
+#: apps/tracking/templates/tracking/start.html:6
+msgid "Live tracking"
+msgstr "Ufuatiliaji ya hali"
+
+#: apps/feed/templates/feed/list.html:24
+#, fuzzy
+msgid "Local"
+msgstr "Wa hapa"
+
+#: apps/routes/templates/routes/stage_detail.html:20
+msgid "Location"
+msgstr "Enelotembea"
+
+#: apps/qa/templates/qa/detail.html:54 apps/qa/templates/qa/detail.html:69
+#: apps/guides/templates/guides/detail.html:51 templates/home.html:14
+msgid "Log in"
+msgstr "Ingia"
+
+#: apps/crowd/services.py:109
+msgid "Log in before filing a crowd report."
+msgstr "Ingia kabla ya kupawa ripoti ya umma."
+
+#: apps/reviews/models.py:62
+msgid "Log in to leave a review."
+msgstr "Ingia kwa kuweka maoni."
+
+#: apps/tracking/services.py:79
+msgid "Log in to manage tracking sessions."
+msgstr "Ingia kwa kusimamia vipindi vya ufuatiliaji."
+
+#: apps/trust/services.py:136
+msgid "Log in to mark content helpful."
+msgstr "Ingia kwa kushika maudhui ya msaada."
+
+#: apps/moderation/services.py:159
+msgid "Log in to report content."
+msgstr "Ingia kwa kuripoti maudhui."
+
+#: apps/fleet/services.py:212
+msgid "Log in to request a crew seat."
+msgstr "Ingia kwa kuomba kiti cha kaya."
+
+#: apps/disputes/services.py:87
+msgid "Log in to use dispute cases."
+msgstr "Ingia kwa kutumia kesi za migogoro."
+
+msgid "Log out"
+msgstr "Toka"
+
+#: apps/crowd/models.py:62
+msgid "Long delays at this stage"
+msgstr "Sasizi ndefu kwenye kituo hiki"
+
+#: apps/routes/models.py:153 apps/tracking/models.py:232
+msgid "Longitude"
+msgstr "Longitudo"
+
+#: apps/listings/search.py:151
+msgid "Longitude (approximate)"
+msgstr "Longitudo (takrimu)"
+
+#: apps/guides/templates/guides/offline.html:14
+msgid "MB"
+msgstr "MB"
+
+#: apps/qa/models.py:165
+msgid "Machine-generated (AI) answer"
+msgstr "Jibu la mfumo (AI)"
+
+#: apps/search/models.py:70
+msgid "MaintainedSearchVector"
+msgstr "MaintainedSearchVector"
+
+#: apps/ai/templates/ai/status.html:35
+msgid ""
+"Makes exactly ONE Mock-provider call (from the shipped probe-echo-v1 prompt "
+"file), logs it, and shows the labelled draft. Draft-only: it is published "
+"nowhere."
+msgstr ""
+
+#: apps/fleet/templates/fleet/dashboard.html:38
+msgid "Manage"
+msgstr "Simamia"
+
+#: apps/alerts/templates/alerts/arrivals.html:29
+msgid "Manage follows"
+msgstr "Simama unafuatao"
+
+#: apps/disputes/models.py:66 apps/disputes/forms.py:54
+msgid "Mark for review"
+msgstr "Shika kwa ukaguzi"
+
+#: apps/routes/admin.py:74
+msgid "Mark selected corrections resolved"
+msgstr "Shika marehemu yaliyochagua kutambuliwa"
+
+#: apps/barter/templates/barter/detail.html:53
+msgid "Mark the exchange done"
+msgstr "Shika mabadilishano kumalizia"
+
+#: apps/trust/views.py:49
+msgid "Marked as helpful — thank you."
+msgstr "Imeshikwa ya msaada — asante."
+
+#: apps/ai/models.py:132
+msgid "Marked helpful"
+msgstr "Imeshikwa ya msaada"
+
+#: apps/listings/views.py:69
+msgid "Marked sold — congrats! / Imeuzwa."
+msgstr "Imewekwa ya mauzo — hongela! / Imeuzwa."
+
+#: apps/listings/templates/listings/list.html:3
+#: apps/listings/templates/listings/list.html:6 templates/base.html:26
+msgid "Market"
+msgstr "Soko"
+
+#: apps/disputes/forms.py:15
+msgid "Marketplace deal"
+msgstr "Mianu wa soko"
+
+#: apps/barter/models.py:100
+msgid "Marketplace listing"
+msgstr "Bidhaa ya soko"
+
+#: apps/messaging/models.py:51
+msgid "Marketplace listing enquiry"
+msgstr "Huji la bidhaa ya soko"
+
+#: apps/ai/templates/ai/ask.html:43
+msgid ""
+"Marking a run helpful only flags this answer for you — community "
+"verification lives on the guides themselves (“This worked for me”)."
+msgstr ""
+
+#: apps/traffic/templates/traffic/_legs.html:31
+msgid "Matatu %(a)s → %(b)s: ~%(m)s min"
+msgstr "Matatu %(a)s → %(b)s: dakika ~%(m)s"
+
+#: apps/crowd/models.py:67
+msgid "Matatu here now"
+msgstr "Matatu hapa sasa"
+
+#: apps/routes/templates/routes/list.html:6
+msgid "Matatu routes"
+msgstr "Njia za matatu"
+
+#: apps/alerts/templates/alerts/my_follows.html:8
+msgid "Matatus"
+msgstr "Matatu"
+
+#: apps/services/forms.py:41
+msgid "Math tutoring, Form 2–4, evening…"
+msgstr "Kusomesha hesabu, Kidari 2–4, jioni…"
+
+#: apps/disputes/models.py:254
+msgid "MediaRef id"
+msgstr "Id ya MediaRef"
+
+#: apps/core/types.py:69
+msgid "Medical"
+msgstr "Dawa"
+
+#: apps/trust/services.py:75
+msgid "Medical handling"
+msgstr "Utunuku wa dawa"
+
+#: apps/fleet/models.py:194 apps/groups/models.py:30
+msgid "Member"
+msgstr "Mwanachama"
+
+#: apps/groups/templates/groups/detail.html:31 apps/messaging/models.py:103
+msgid "Members"
+msgstr "Wajumbe"
+
+#: apps/listings/templates/listings/list.html:68
+#, fuzzy
+msgid ""
+"Members list goods for sale — contact stays in the app, never on the page."
+msgstr "Wajumbe huleta bidhaa ya uza — kuwasiliana kunasakwa app, si ukurasa."
+
+#: apps/crowd/models.py:74
+msgid "Merged into an open report"
+msgstr "Yameungwa kwenye ripoti ya wazi"
+
+#: apps/messaging/models.py:192 apps/messaging/forms.py:23
+#: apps/messaging/templates/messaging/detail.html:66
+msgid "Message"
+msgstr "Ujumbe"
+
+#: apps/disputes/models.py:300
+#, fuzzy
+msgid "Message evidence needs a message id or an offer version id."
+msgstr "Uthibitisho wa ujumbe unahitaji id ya ujumbe ama id ya toleo la ofa."
+
+#: apps/disputes/models.py:248
+msgid "Message id"
+msgstr "Id ya ujumbe"
+
+#: apps/services/templates/services/detail.html:44
+msgid "Message provider"
+msgstr "Mtaoi wa ujumbe"
+
+#: apps/listings/templates/listings/detail.html:45
+msgid "Message seller"
+msgstr "Mujumbe muuza"
+
+#: apps/messaging/templates/messaging/list.html:16
+msgid "Message the seller"
+msgstr "Mujumbe muuza"
+
+#: apps/disputes/models.py:245
+msgid "Message thread id"
+msgstr "Id ya mstari wa ujumbe"
+
+#: apps/messaging/forms.py:43
+msgid "Message to report"
+msgstr "Ujumbe wa kuripoti"
+
+#: apps/messaging/models.py:41
+#, fuzzy
+msgid "Messages are immutable — an honest chat leaves no edits."
+msgstr "Jumbe hazibadilishwa — menja ya wakweli huwacha hakuna kubadilishu."
+
+#: apps/messaging/templates/messaging/privacy.html:10
+#, fuzzy
+msgid ""
+"Messages travel over TLS and are stored on our servers. There is NO end-to-"
+"end encryption in this version; it is being evaluated for a later release. "
+"We say that openly instead of implying more protection than there is."
+msgstr ""
+"Jumbe hunja kwaya TLS na huhifadhiwa server zetu. HAKUNA kubandika mwisho-"
+"kwa-mwisho kwenye toleo hii; inatunukiwa kwa kutoka baada. Tunasema hivyo "
+"wima badala ya kufikia usalama si upya."
+
+#: apps/trust/models.py:156
+msgid "Min last-90-days helpful votes"
+msgstr "Kura ya msaada ya siku 90 inapima"
+
+#: apps/trust/models.py:152
+msgid "Min lifetime helpful votes"
+msgstr "Kura ya msaada ya maisha inapima"
+
+#: apps/traffic/templates/traffic/about.html:14
+#, fuzzy
+msgid ""
+"Minutes are honest estimates computed from stage-to-stage distances at one "
+"city walking pace — the routes database carries no live speeds, and we do "
+"not invent them."
+msgstr ""
+"Dakika ni takrimu za ukweli zikitengenezwa kutoka masafa ya kituo-kwa-kituo "
+"kwa kasi ya kutembea ya jiji — nta ya njia hubea kasi za hali, na hatubuni."
+
+#: apps/core/types.py:61
+msgid "Misinformation"
+msgstr "Habari mbaya"
+
+#: apps/routes/models.py:288
+msgid "Missing route"
+msgstr "Njia isiyopo"
+
+#: apps/routes/models.py:289
+msgid "Missing stage"
+msgstr "Kituo kachose"
+
+#: apps/ai/templates/ai/status.html:34
+msgid "Mock echo probe"
+msgstr "Kidude cha Mock"
+
+#: apps/ai/models.py:39
+msgid "Model"
+msgstr "Mfumo"
+
+#: apps/moderation/templates/moderation/queue.html:3
+#: apps/moderation/templates/moderation/queue.html:6
+msgid "Moderation queue"
+msgstr "Foleni ya usimamizi"
+
+#: apps/groups/models.py:29
+msgid "Moderator"
+msgstr "Msimamizi"
+
+#: apps/disputes/templates/disputes/case_detail.html:83
+msgid "Moderator actions"
+msgstr "Vitendo vya msimamizi"
+
+#: apps/moderation/views.py:64
+msgid "Moderator role required."
+msgstr "Nafasi ya msimamizi inahitajika."
+
+#: apps/routes/templates/routes/corrections_mine.html:17
+msgid "Moderator:"
+msgstr "Msimamizi:"
+
+#: templates/home.html:3 templates/home.html:5 templates/base.html:3
+#: templates/base.html:6
+msgid "Mtaani Connect"
+msgstr "Mtaani Connect"
+
+#: apps/messaging/models.py:161
+msgid "Muted"
+msgstr "Imepaza sauti"
+
+#: apps/routes/templates/routes/corrections_mine.html:3
+#: apps/routes/templates/routes/corrections_mine.html:6
+msgid "My corrections"
+msgstr "Marehemu yangu"
+
+#: apps/fleet/templates/fleet/crew_form.html:14
+#: apps/fleet/templates/fleet/crew_mine.html:3
+#: apps/fleet/templates/fleet/crew_mine.html:6
+msgid "My crew seats"
+msgstr "Viti vyangu vya kaya"
+
+#: apps/crowd/templates/crowd/my_reports.html:3
+#: apps/crowd/templates/crowd/my_reports.html:6
+msgid "My crowd reports"
+msgstr "Ripoti zangu za umma"
+
+#: apps/disputes/templates/disputes/my_cases.html:3
+#: apps/disputes/templates/disputes/my_cases.html:6
+msgid "My dispute cases"
+msgstr "Kesi zangu za migogoro"
+
+#: apps/alerts/templates/alerts/my_follows.html:3
+#: apps/alerts/templates/alerts/my_follows.html:6
+msgid "My follows"
+msgstr "Unafuatao"
+
+#: apps/tracking/templates/tracking/my_sessions.html:3
+#: apps/tracking/templates/tracking/my_sessions.html:6
+msgid "My tracking sessions"
+msgstr "Vipindi vyangu vya ufuatiliaji"
+
+#: apps/crew/templates/crew/trip.html:3 apps/crew/templates/crew/trip.html:16
+msgid "My trip"
+msgstr "Safari yangu"
+
+#: apps/routes/templates/routes/list.html:7
+#, fuzzy
+msgid ""
+"Nairobi route network — search by stage nickname, SACCO or destination."
+msgstr ""
+"Mtandao wa njia za Nairobi — takusa kwa jina la stage, SACCO au marudio."
+
+#: apps/groups/models.py:40
+msgid "Name"
+msgstr "Jina"
+
+#: apps/routes/models.py:48
+msgid "Name (English)"
+msgstr "Jina (Kiengezi)"
+
+#: apps/routes/models.py:52
+msgid "Name (Kiswahili)"
+msgstr "Jina (Kiswahili)"
+
+#: apps/barter/models.py:465 apps/barter/services.py:75
+msgid "Name the item — 'what', as offered."
+msgstr "Toa kitu jina — 'nini', kama kilitolewa."
+
+#: apps/disputes/models.py:95
+msgid "Needs attention"
+msgstr "Inahitaji kufikiwa"
+
+#: apps/listings/forms.py:67 apps/services/models.py:69
+msgid "Negotiable"
+msgstr "Bei ya maongezi"
+
+#: apps/listings/templates/listings/detail.html:26
+#: apps/listings/templates/listings/list.html:57
+#: apps/listings/templates/listings/search.html:65
+#: apps/services/templates/services/detail.html:22
+msgid "Negotiable / Bei ya maongezi"
+msgstr "Negotiable / Bei ya maongezi"
+
+#: apps/services/models.py:94
+#, fuzzy
+msgid "Negotiable rates are agreed in your messages — clear the amount field."
+msgstr "Beki za maongezi zinakubaliwa kwenye menja — safisha jalada la kiasi."
+
+#: apps/disputes/models.py:78
+msgid "Negotiation message"
+msgstr "Ujumbe wa majadiliano"
+
+#: apps/core/types.py:31 apps/core/types.py:95
+msgid "Neighbourhood"
+msgstr "Mtaa"
+
+#: apps/listings/models.py:42
+msgid "New / sealed"
+msgstr "Mpya / imefanyiwa fufu"
+
+#: apps/disputes/models.py:87
+msgid "New account, bulk listings"
+msgstr "Akaunti mpya, bidhaa nyingi"
+
+#: apps/crowd/models.py:73
+msgid "New report opened"
+msgstr "Ripoti mpya imewakwa"
+
+#: apps/feed/templates/feed/list.html:49 apps/qa/templates/qa/list.html:55
+#: apps/listings/templates/listings/list.html:83
+#: apps/listings/templates/listings/search.html:112
+msgid "Next"
+msgstr "Ifuatayo"
+
+#: apps/fleet/models.py:102 apps/fleet/templates/fleet/vehicle_detail.html:8
+msgid "Nickname"
+msgstr "Lakabu ya stage"
+
+#: apps/alerts/templates/alerts/my_follows.html:11
+msgid "Nickname, e.g. Mwangaza"
+msgstr "Lakabu, mf. Mwangaza"
+
+#: apps/routes/templates/routes/search.html:8
+msgid "Nickname, stage, SACCO or destination"
+msgstr "Lakabu, kituo, SACCO au marudio"
+
+#: apps/ai/templates/ai/status.html:31
+msgid "No AI calls logged yet."
+msgstr "Hakuna mawito ya AI yaliyowandikwa bado."
+
+#: apps/routes/templates/routes/list.html:40
+msgid "No GTFS zip found."
+msgstr "Hakuna GTFS zip iliyopatikana."
+
+#: apps/routes/templates/routes/list.html:12
+#, fuzzy
+msgid ""
+"No GTFS zip found. Routes added by hand in admin are the source of truth — "
+"nothing is invented to fill the list."
+msgstr ""
+"Hakuna GTFS zip iliyopatikana. Njia zilizoingizwa na mkono ndani ya "
+"msimamizi ndiyo chanzo cha ukweli — hakuna kilichofunguliwa kwaya kuijaza "
+"orodha."
+
+#: apps/alerts/services.py:66
+#, fuzzy
+msgid "No active matatu found for that nickname — check the spelling."
+msgstr "Hakuna matatu wa hali na lakabu hiyo — angalia maandiko yake."
+
+#: apps/crew/templates/crew/trip.html:31
+msgid "No active vehicle holds your seat right now."
+msgstr "Hakuna gari wa hali unaoshika kiti chako sasa."
+
+#: apps/qa/templates/qa/detail.html:63
+#, fuzzy
+msgid "No answers yet — the community will help soon."
+msgstr "Hakuna majibu bado — jamii itasaidia hivi karibuni."
+
+#: apps/barter/templates/barter/list.html:73
+msgid "No completed exchanges yet."
+msgstr "Hakuna mabadilishano yaliyokamilika bado."
+
+#: apps/guides/templates/guides/detail.html:43
+msgid "No confirmations yet."
+msgstr "Hakuna uthibitisho bado."
+
+#: apps/routes/templates/routes/stage_detail.html:26
+#, fuzzy
+msgid "No coordinates recorded — nothing is invented to fill the map."
+msgstr ""
+"Hakuna misingi ya ramani imewandikwa — hakuna kitu kilichofunguliwa kwaya "
+"kuijaza ramani."
+
+#: apps/fleet/templates/fleet/crew_mine.html:15
+msgid "No crew seats requested yet."
+msgstr "Hakuna viti vya kaya vilivyoombwa bado."
+
+#: apps/fleet/templates/fleet/vehicle_detail.html:39
+msgid "No crew seats yet."
+msgstr "Hakuna viti vya kaya bado."
+
+#: apps/crowd/templates/crowd/stage_reports.html:29
+#, fuzzy
+msgid ""
+"No current rider reports for this stage — nothing is shown when nobody has "
+"reported anything recent."
+msgstr ""
+"Hakuna ripoti za dereva kwa kituo hiki sasa — hakuna kitu kinachoonyeshwa "
+"mpaka mtu aripoti kitu cha sasa."
+
+#: apps/core/types.py:24
+msgid "No data"
+msgstr "Hakuna data"
+
+#: apps/groups/templates/groups/detail.html:12
+msgid "No description yet."
+msgstr "Hakuna maelezo bado."
+
+#: apps/disputes/templates/disputes/my_cases.html:19
+msgid "No dispute cases yet."
+msgstr "Hakuna kesi za migogoro bado."
+
+#: apps/barter/templates/barter/list.html:61
+msgid "No drafts."
+msgstr "Hakuna rasimu."
+
+#: apps/disputes/templates/disputes/case_detail.html:56
+msgid "No evidence attached yet."
+msgstr "Hakuna uthibitisho uliopachikwa bado."
+
+#: apps/alerts/templates/alerts/arrivals.html:26
+msgid "No followed matatus on this route right now."
+msgstr "Hakuna matatu walioufuata kwenye njia hii sasa."
+
+#: apps/disputes/templates/disputes/queue.html:43
+msgid "No fraud flags recorded."
+msgstr "Hakuna bendera za unafundi zilizowandikwa."
+
+#: apps/groups/templates/groups/list.html:24
+#, fuzzy
+msgid ""
+"No groups here yet — start one for an interest, an estate or a profession."
+msgstr "Hakuna vikundi hapa bado — fungua moja ya hamu, mtaa au taaluma."
+
+#: apps/posts/forms.py:42
+msgid "No guide linked"
+msgstr "Hakuna mwongozo uliounganishwa"
+
+#: apps/routes/models.py:75
+msgid "No line available"
+msgstr "Hakuna mstari unaopatikana"
+
+#: apps/routes/templates/routes/route_detail.html:47
+#, fuzzy
+msgid "No line available — stages lack coordinates on this route."
+msgstr "Hakuna mstari — vituo havi na misingi ya ramani kwenye njia hii."
+
+#: apps/map/templates/map/map.html:17
+#, fuzzy
+msgid ""
+"No live data for this route right now — nothing is shown until crew publish "
+"a trip or riders report from this route."
+msgstr ""
+"Hakuna data ya hali kwa njia hii sasa — hakuna kinachoonyeshwa mpaka kaya "
+"itangaze safari au dereva aripoti kutoka njia hii."
+
+#: apps/map/templates/map/map.html:19
+msgid "No live matatu data anywhere right now."
+msgstr "Hakuna data ya hali ya matatu popote sasa."
+
+#: apps/fleet/templates/fleet/search.html:12
+#, fuzzy
+msgid "No matatu matches — nothing invented to fill the list."
+msgstr "Hakuna matatu anayengemea — hakuna kilichofunguliwa kuijaza orodha."
+
+#: apps/routes/templates/routes/search.html:37
+#, fuzzy
+msgid ""
+"No match. Try a nickname, SACCO or destination — or open a 'missing route' "
+"correction."
+msgstr ""
+"Hakuna mfanano. Jaribu lakabu, SACCO au marudio — ama fungua marehemu ya "
+"'njia isiyopo'."
+
+#: apps/barter/views.py:215
+#, fuzzy
+msgid "No member with that username — check the spelling."
+msgstr "Hakuna mwanachama na jina hilo — angalia maandiko."
+
+#: apps/groups/templates/groups/detail.html:42
+msgid "No members yet."
+msgstr "Hakuna wajumbe bado."
+
+#: apps/messaging/templates/messaging/detail.html:40
+msgid "No messages yet — say hello."
+msgstr "Hakuna jumbe bado — sepo."
+
+#: apps/routes/templates/routes/stage_detail.html:18
+msgid "No nicknames recorded yet."
+msgstr "Hakuna lakabu zilizowandikwa bado."
+
+#: apps/routes/templates/routes/route_detail.html:37
+#, fuzzy
+msgid ""
+"No observed fares yet. GTFS feeds carry none — fares are added by admins and"
+" the community."
+msgstr ""
+"Hakuna nauli zilizopatikana bado. GTFS hazibeba hata moja — nauli huongezwa "
+"na wasimamizi na jamii."
+
+#: apps/follows/templates/follows/followers_list.html:28
+msgid "No one follows %(name)s yet."
+msgstr "Hakuna atakayekuva %(name)s bado."
+
+#: apps/disputes/templates/disputes/queue.html:22
+msgid "No open cases."
+msgstr "Hakuna kesi zilizo wazi."
+
+#: apps/barter/templates/barter/list.html:44
+msgid "No open offers of your own."
+msgstr "Hakuna ofa zako zilizo wazi."
+
+#: apps/moderation/templates/moderation/queue.html:32
+msgid "No open reports."
+msgstr "Hakuna ripoti zilizo wazi."
+
+#: apps/disputes/templates/disputes/case_detail.html:72
+msgid "No outcomes proposed yet."
+msgstr "Hakuna majibu yaliyopendekezwa bado."
+
+#: apps/fleet/templates/fleet/crew_pending.html:19
+msgid "No pending crew requests."
+msgstr "Hakuna maombi ya kaya yanayosubiri."
+
+#: apps/disputes/templates/disputes/queue.html:34
+msgid "No pending proposals."
+msgstr "Hakuna mapendekezo yanayosubiri."
+
+#: apps/listings/templates/listings/detail.html:28
+#: apps/listings/templates/listings/list.html:59
+#: apps/listings/templates/listings/search.html:67
+msgid "No price set"
+msgstr "Bei haijawekwa"
+
+#: apps/ai/templates/ai/ask.html:38
+#, fuzzy
+msgid ""
+"No published guide matched — the answer stands ungrounded; read it with "
+"extra care."
+msgstr ""
+"Hakuna mwongozo wa kutangazwa waliopatikana — jibu halisi; soma kwa makini "
+"zaidi."
+
+#: apps/reviews/templates/reviews/received_list.html:23
+#, fuzzy
+msgid ""
+"No published reviews yet — reviews appear here only once the counterpart has"
+" submitted too, or after 14 days."
+msgstr ""
+"Hakuna maoni yaliyotangazwa bado — maoni yanaonyeshwa hapa tu kama mwenza "
+"kaweka lakwe pia, au baada ya siku 14."
+
+#: apps/guides/templates/guides/offline.html:19
+#, fuzzy
+msgid "No published version yet — nothing kept offline."
+msgstr "Hakuna toleo lililotangazwa bado — hakuna kilichohifadhiwa mtandaoni."
+
+#: apps/qa/templates/qa/list.html:39
+msgid "No questions yet."
+msgstr "Hakuna maswali bado."
+
+#: apps/search/templates/search/results.html:36
+msgid "No results for “%(q)s”."
+msgstr "Hakuna matokeo kwa “%(q)s”."
+
+#: apps/guides/templates/guides/history.html:20
+msgid "No revisions yet."
+msgstr "Hakuna mapambuzi bado."
+
+#: apps/routes/templates/routes/stage_detail.html:35
+msgid "No route links this stage yet."
+msgstr "Hakuna njia inayounganisha kituo hiki bado."
+
+#: apps/fleet/templates/fleet/vehicle_detail.html:25
+#, fuzzy
+msgid "No routes in the network yet — nothing to assign."
+msgstr "Hakuna njia kwenye mtandao bado — hakuna kipacho."
+
+#: apps/routes/templates/routes/list.html:38
+msgid "No routes yet — run the GTFS import in admin."
+msgstr "Hakuna njia bado — endesha GTFS import ndani ya msimamizi."
+
+#: apps/services/templates/services/list.html:54
+#: apps/services/templates/services/provider.html:47
+msgid "No services listed here yet."
+msgstr "Hakuna huduma zilizowekwa hapa bado."
+
+#: apps/tracking/templates/tracking/operator_sessions.html:26
+msgid "No sessions on this vehicle yet."
+msgstr "Hakuna vipindi kwenye gari hili bado."
+
+#: apps/tracking/templates/tracking/my_sessions.html:28
+msgid "No sessions yet."
+msgstr "Hakuna vipindi bado."
+
+#: apps/core/types.py:72
+msgid "No special handling"
+msgstr "Hakuna utunuku wa pekee"
+
+#: apps/routes/templates/routes/route_detail.html:27
+#, fuzzy
+msgid ""
+"No stage order recorded yet (the feed's trip data is missing or admins "
+"haven't linked stages)."
+msgstr ""
+"Hakuna mpangilio wa vituo uliowandikwa bado (data ya safari ya feed haipo "
+"wala wasimamizi hawajaunga vituo)."
+
+#: apps/guides/templates/guides/detail.html:35
+msgid "No steps yet."
+msgstr "Hakuna hatua bado."
+
+#: apps/listings/views.py:326
+msgid "No such listing."
+msgstr "Hakuna bidhaa hiyo."
+
+#: apps/posts/views.py:156
+msgid "No such post."
+msgstr "Hakuna chapisho hilo."
+
+#: apps/map/views.py:46
+msgid "No such route."
+msgstr "Hakuna njia hiyo."
+
+#: apps/services/views.py:181
+msgid "No such service."
+msgstr "Hakuna huduma hiyo."
+
+#: apps/moderation/templates/moderation/queue.html:49
+msgid "No suspension drafts awaiting confirmation."
+msgstr "Hakuna rasimu za kuzuiwa zinazosubiri uthibitisho."
+
+#: apps/fleet/templates/fleet/dashboard.html:19
+#, fuzzy
+msgid "No vehicles registered yet — none invented to fill the list."
+msgstr ""
+"Hakuna magari yaliyowekwa bado — hakuna kilichofunguliwa kuijaza orodha."
+
+#: apps/fleet/templates/fleet/crew_roster.html:27
+msgid "Nobody on this crew yet."
+msgstr "Hakuna mtu kwenye kaya hii bado."
+
+#: apps/alerts/templates/alerts/my_follows.html:25
+#: apps/alerts/templates/alerts/my_follows.html:62
+msgid "None — no approach alerts"
+msgstr "Hakuna — hapana taarifa za kukaribia"
+
+#: apps/disputes/models.py:94
+msgid "Normal"
+msgstr "Ya kawaida"
+
+#: apps/alerts/eta.py:39
+msgid "Not enough live data to estimate."
+msgstr "Data ya hali si ya kutosha kubuni takrimu."
+
+#: apps/crew/templates/crew/trip.html:34
+msgid "Not sure"
+msgstr "Sijui vizuri"
+
+#: apps/alerts/eta.py:40
+msgid "Not tracking right now."
+msgstr "Haufuatili sasa."
+
+#: apps/disputes/templates/disputes/case_detail.html:53
+msgid "Not visible to you."
+msgstr "Haionekani kwaye."
+
+#: apps/moderation/models.py:82 apps/disputes/models.py:80
+#: apps/fleet/models.py:324 apps/messaging/forms.py:53
+msgid "Note"
+msgstr "Maelezo"
+
+#: apps/crowd/models.py:102 apps/crowd/forms.py:35
+msgid "Note (optional)"
+msgstr "Maelezo (kama mtaani)"
+
+#: apps/disputes/models.py:256
+msgid "Note text"
+msgstr "Maandiko ya maelezo"
+
+#: apps/lang/templates/lang/prefs_demo.html:23
+#: apps/posts/templates/posts/list.html:41
+msgid "Nothing here yet."
+msgstr "Hakuna kitu hapa bado."
+
+#: apps/feed/templates/feed/list.html:35
+msgid "Nothing in your feed yet."
+msgstr "Hakuna kitu kwenye feed yako bado."
+
+#: apps/listings/templates/listings/search.html:92
+msgid "Nothing matched those filters."
+msgstr "Hakuna kitu kilichofanana na safu husika."
+
+#: apps/listings/templates/listings/list.html:67
+msgid "Nothing on sale here yet."
+msgstr "Hakuna kinachouzwa hapa bado."
+
+#: apps/guides/templates/guides/offline.html:30
+msgid "Nothing saved for offline yet."
+msgstr "Hakuna kilichohifadhiwa ya nje ya mtandao bado."
+
+#: apps/barter/templates/barter/list.html:25
+msgid "Nothing waiting on you."
+msgstr "Hakuna kinakusubiri."
+
+#: apps/routes/templates/routes/queue.html:37
+msgid "Nothing yet."
+msgstr "Hakuna bado."
+
+#: apps/alerts/services.py:54
+msgid "Notifications switched OFF for %(name)s."
+msgstr "Huduma ya taarifa kwaya kwa %(name)s."
+
+#: apps/alerts/services.py:53
+msgid "Notifications switched ON for %(name)s."
+msgstr "Huduma ya taarifuwa yaliwachwa kwenye %(name)s."
+
+#: apps/alerts/models.py:227
+msgid "Notified at"
+msgstr "Ilionyoa saa"
+
+#: apps/alerts/models.py:81
+msgid "Notify me"
+msgstr "Nionyoa"
+
+#: apps/alerts/templates/alerts/my_follows.html:17
+#: apps/alerts/templates/alerts/my_follows.html:55
+msgid "Notify off"
+msgstr "Taarifa zima"
+
+#: apps/alerts/templates/alerts/my_follows.html:17
+#: apps/alerts/templates/alerts/my_follows.html:55
+msgid "Notify on"
+msgstr "Taarifa waka"
+
+#: apps/guides/templates/guides/form.html:10
+#, fuzzy
+msgid "Number the steps in order (1, 2, 3…). Leave a row empty to skip it."
+msgstr "Panga hatua zina namba (1, 2, 3…). Acha mstari tupu kupuuzia ndiyo."
+
+#: apps/routes/templates/routes/route_detail.html:29
+msgid "Observed fares"
+msgstr "Nauli zilizopatikana"
+
+#: apps/routes/templates/routes/stage_detail.html:38
+msgid "Observed fares from here"
+msgstr "Nauli zilizopatikana huita"
+
+#: apps/barter/templates/barter/listing_unavailable.html:3
+msgid "Offer"
+msgstr "Ofa"
+
+#: apps/services/templates/services/form.html:3
+#: apps/services/templates/services/form.html:6
+#: apps/services/templates/services/list.html:78
+msgid "Offer a service"
+msgstr "Toa huduma"
+
+#: apps/barter/templates/barter/list.html:46
+#: apps/barter/templates/barter/list.html:63
+msgid "Offer a trade"
+msgstr "Toa mbadilisho"
+
+#: apps/barter/templates/barter/listing_unavailable.html:6
+msgid "Offer unavailable"
+msgstr "Ofa haipo"
+
+#: apps/disputes/templates/disputes/case_detail.html:33
+msgid "Offer version"
+msgstr "Toleo la ofa"
+
+#: apps/barter/templates/barter/detail.html:76
+msgid "Offered to you by"
+msgstr "Ulitolewa na"
+
+#: apps/traffic/templates/traffic/about.html:9
+msgid "Official / seeded route data:"
+msgstr "Data ya njia ya rasimu / ya mwisho:"
+
+#: templates/offline.html:3
+msgid "Offline"
+msgstr "Yaa mtandao"
+
+#: apps/guides/templates/guides/offline.html:3
+#: apps/guides/templates/guides/offline.html:6
+msgid "Offline guides"
+msgstr "Miongozo ya nje ya mtandao"
+
+#: apps/guides/templates/guides/offline.html:9
+#, fuzzy
+msgid "Offline storage is over 50 MB. Remove guides you no longer need."
+msgstr ""
+"Hifadhi ya nje ya mtandao ina zaidi ya 50 MB. Ondoa miongozo uloshitaji."
+
+#: apps/routes/templates/routes/route_detail.html:39
+msgid "On the map"
+msgstr "Kwenye ramani"
+
+#: templates/home.html:6 templates/offline.html:5
+#, fuzzy
+msgid ""
+"One app for how Kenya moves, learns, trades, and looks out for each other."
+msgstr "App moja ya Kenya kunakufuata kujifunza, kubishana, na kuangaliana."
+
+#: apps/barter/templates/barter/compose.html:51
+#, fuzzy
+msgid "One item per row — quantity is free text ('2 kg', 'sewing hour')."
+msgstr ""
+"Kitu kimoja kwa mstari — kiasi ni maandiko huru ('2 kg', 'saa la mshonewa')."
+
+#: apps/disputes/templates/disputes/case_form.html:11
+#, fuzzy
+msgid ""
+"One open case per deal — describe exactly what was promised and what "
+"happened. Messages from the negotiation are attached automatically."
+msgstr ""
+"Kesi moja ya wazi kwa mianu — eleza sawasawa kilichoshawadiwa na kilieko. "
+"Jumbe za majadiliano zina pachikwa kibodi."
+
+#: apps/fleet/services.py:142
+#, fuzzy
+msgid "Only a SACCO admin of this SACCO can edit its vehicles."
+msgstr "Msimamizi SACCO wa SACCO hii tu anaweza kubadili magari yake."
+
+#: apps/fleet/services.py:117
+#, fuzzy
+msgid "Only a SACCO admin of this SACCO can register its vehicles."
+msgstr "Msimamizi SACCO wa SACCO hii tu anaweza kuweka magari yake."
+
+#: apps/fleet/services.py:157
+#, fuzzy
+msgid "Only a SACCO admin of this SACCO can retire its vehicles."
+msgstr "Msimamizi SACCO wa SACCO hii tu anaweza kustaafu magari yake."
+
+#: apps/fleet/services.py:254
+#, fuzzy
+msgid "Only a SACCO admin of this vehicle's SACCO can approve crew."
+msgstr "Msimamizi SACCO wa SACCO ya gari hili tu anaweza kuidhinisha kaya."
+
+#: apps/fleet/services.py:279
+#, fuzzy
+msgid "Only a SACCO admin of this vehicle's SACCO can revoke crew."
+msgstr "Msimamizi SACCO wa SACCO ya gari hili tu anaweza kufuta kaya."
+
+#: apps/guides/services.py:203
+#, fuzzy
+msgid "Only a draft or under-review revision can be published."
+msgstr "Rasimu au pambuzi uliounduzwa tu inaweza kutangazwa."
+
+#: apps/guides/services.py:217
+#, fuzzy
+msgid "Only a draft revision can be submitted for review."
+msgstr "Rasimu tu ya pambuzi inaweza kupawa ukaguzi."
+
+#: apps/moderation/services.py:411
+msgid "Only a draft suspension can be cancelled."
+msgstr "Kuzuiwa kwa rasimu tu kunaweza kufutwa."
+
+#: apps/moderation/services.py:382
+msgid "Only a draft suspension can be confirmed."
+msgstr "Kuzuiwa kwa rasimu tu kunaweza kuthibitishwa."
+
+#: apps/barter/models.py:72
+#, fuzzy
+msgid "Only a member of this negotiation can do that."
+msgstr "Mwanachama wa majadiliano haya tu inaweza kufanya hivyo."
+
+#: apps/fleet/services.py:251
+msgid "Only a pending crew request can be approved."
+msgstr "Ombi la kaya lililosubiri tu linaweza kuidhinishwa."
+
+#: apps/disputes/models.py:394
+#, fuzzy
+msgid "Only an open (or under-review) case can receive proposals."
+msgstr "Kesi ya wazi (au ya kuunduzwa) tu inaweza kupokea mapendekezo."
+
+#: apps/moderation/services.py:199
+msgid "Only an open report can move under review."
+msgstr "Ripoti ya wazi tu inaweza kwenya ukaguzi."
+
+#: apps/fleet/services.py:276
+msgid "Only approved crew can be revoked."
+msgstr "Kaya iliyoidhinishwa tu inaweza kufutwa."
+
+#: apps/crowd/forms.py:45
+#, fuzzy
+msgid "Only for \"matatu here now\" — plain text, never coordinates."
+msgstr "Kwa 'matatu pahapa sasa' tu — maandiko halisi, si misingi ya ramani."
+
+#: apps/messaging/models.py:133
+#, fuzzy
+msgid "Only listing-based threads carry a listing reference."
+msgstr "Mineno unaounganisha bidhaa tu unabebea marejeo ya bidhaa."
+
+#: apps/disputes/services.py:98
+msgid "Only moderators administer dispute cases."
+msgstr "Wasimamizi tu ndiyo wanatwaa kesi za migogoro."
+
+#: apps/moderation/services.py:409
+msgid "Only moderators can cancel suspensions."
+msgstr "Wasimamizi tu ndiyo wanazeza kufuta vuziwa."
+
+#: apps/moderation/services.py:380
+msgid "Only moderators can confirm suspensions."
+msgstr "Wasimamizi tu ndiyo wanazeza kuthibitisha vuziwa."
+
+#: apps/moderation/services.py:355
+msgid "Only moderators can draft suspensions."
+msgstr "Wasimamizi tu ndiyo wanazeza kuhusa vuziwa."
+
+#: apps/routes/views.py:205
+msgid "Only moderators resolve corrections."
+msgstr "Wasimamizi tu ndiyo wanamalizia marehemu."
+
+#: apps/routes/views.py:218
+msgid "Only moderators see the queue."
+msgstr "Wasimamizi tu ndiyo wanaona foleni."
+
+#: apps/fleet/services.py:376
+#, fuzzy
+msgid "Only platform staff can grant SACCO adminship."
+msgstr ""
+"Wafanyakazi wa mfumo tu ndiyo wanaweza kupewa uwezo wa msimamizi SACCO."
+
+#: apps/trust/models.py:38
+#, fuzzy
+msgid "Only posts and answers can receive helpful votes."
+msgstr "Chapisho na majibu tu vinaweza kupokea kura za msaada."
+
+#: apps/moderation/models.py:142
+#, fuzzy
+msgid "Only posts, guides, Q&A and profiles can be reported."
+msgstr "Chapisho, miongozo, majibu-swali na mabili tu vinaweza kuripotiwa."
+
+#: apps/moderation/services.py:252
+msgid "Only removed content can be restored."
+msgstr "Maudhui yaliyoondolewa tu yanaweza kurudishwa."
+
+#: apps/posts/views.py:159
+msgid "Only the author can add photos."
+msgstr "Mwandishi tu ndiye anaweza kuongeza picha."
+
+#: apps/guides/views.py:186
+msgid "Only the author can edit this guide."
+msgstr "Mwandishi tu ndiye anaweza kubadili mwongozo huu."
+
+#: apps/guides/views.py:258
+msgid "Only the author can remove this guide."
+msgstr "Mwandishi tu ndiye anaweza kuondoa mwongozo huu."
+
+#: apps/barter/services.py:73
+#, fuzzy
+msgid "Only the member the offer was made to can accept or counter it."
+msgstr "Mwanachama aliwepofanyiwa ofa tu ndiye anaweza kukubali au kuiwanwa."
+
+#: apps/barter/views.py:381
+#, fuzzy
+msgid "Only the member the offer was made to can counter it."
+msgstr "Mwanachama aliwepofanyiwa ofa tu ndiye anaweza kuiwanwa."
+
+#: apps/barter/services.py:70
+msgid "Only the offer's maker can send or edit it."
+msgstr "Mwenye kutengeneza ofa tu ndiye anaweza kuiwika au kubadili."
+
+#: apps/disputes/services.py:101
+#, fuzzy
+msgid "Only the parties of this deal or a moderator may work on the case."
+msgstr "Wawili wa mianu hii au msimamizi tu ndiyo wanashika kesi kwaya."
+
+#: apps/services/views.py:184
+msgid "Only the provider can add portfolio images."
+msgstr "Mtaoi tu ndiye anaweza kuongeza picha za kazi."
+
+#: apps/listings/views.py:329
+msgid "Only the seller can add photos."
+msgstr "Muuza tu ndiye anaweza kuongeza picha."
+
+#: apps/barter/services.py:74
+#, fuzzy
+msgid "Only the two members in this negotiation can do that."
+msgstr ""
+"Wajumbe ndiyo wawili wa majadiliano haya tu ndiyo wanaweza kufanya hivyo."
+
+#: apps/messaging/models.py:42
+#, fuzzy
+msgid "Only thread members can act on this conversation."
+msgstr "Wajumbe wa mstari huu tu ndiyo wanaanza kwenya soga hii."
+
+#: apps/routes/models.py:294 apps/routes/templates/routes/queue.html:10
+#: apps/moderation/models.py:36 apps/disputes/models.py:54
+msgid "Open"
+msgstr "Wazi"
+
+#: apps/disputes/templates/disputes/case_form.html:3
+#: apps/disputes/templates/disputes/case_form.html:6
+msgid "Open a dispute"
+msgstr "Fungua mgogoro"
+
+#: apps/guides/templates/guides/offline.html:31
+msgid "Open a guide and choose Save for offline."
+msgstr "Fungua mwongozo na kuchagua Hifadhi ya nje ya mtandao."
+
+#: apps/disputes/templates/disputes/my_cases.html:8
+msgid "Open a new case"
+msgstr "Fungua kesi mpya"
+
+#: apps/disputes/templates/disputes/my_cases.html:17
+#: apps/disputes/templates/disputes/case_form.html:14
+msgid "Open case"
+msgstr "Fungua kesi"
+
+#: apps/moderation/templates/moderation/queue.html:8
+msgid "Open reports"
+msgstr "Ripoti zilizo wazi"
+
+#: apps/disputes/templates/disputes/queue.html:16
+msgid "Opened"
+msgstr "Ilimwakwa"
+
+#: apps/disputes/models.py:134
+msgid "Opened at"
+msgstr "Ilimwakwa saa"
+
+#: apps/routes/models.py:321
+#: apps/disputes/templates/disputes/case_detail.html:22
+msgid "Opened by"
+msgstr "Ilimwakwa na"
+
+#: apps/disputes/models.py:116
+msgid "Opener"
+msgstr "Mwakiaji"
+
+#: apps/fleet/templates/fleet/vehicle_detail.html:16
+msgid "Operating routes"
+msgstr "Njia zinazotekeleza"
+
+#: apps/fleet/templates/fleet/dashboard.html:3
+#: apps/fleet/templates/fleet/dashboard.html:6
+msgid "Operator dashboard"
+msgstr "Dashibodi ya muendeshaji"
+
+#: apps/reviews/models.py:139 apps/reviews/forms.py:43
+msgid "Optional — at most %(n)s characters."
+msgstr "Kwa mtaani — herufi hafizi %(n)s."
+
+#: apps/barter/models.py:239 apps/messaging/models.py:78
+msgid "Origin kind"
+msgstr "Aina ya asili"
+
+#: apps/barter/forms.py:100
+msgid "Origin listing"
+msgstr "Bidhaa ya asili"
+
+#: apps/messaging/models.py:88
+#, fuzzy
+msgid "Origin listing id (no FK while listings builds concurrently)"
+msgstr "Id ya bidhaa asilia (hakuna FK wakati bidhaa zinajengwa pamoja)"
+
+#: apps/barter/models.py:246
+#, fuzzy
+msgid "Origin listing id (no FK while listings may evolve)"
+msgstr "Id ya bidhaa asilia (hakuna FK wakati bidhaa zinaweza kupambua)"
+
+#: apps/barter/templates/barter/detail.html:64
+msgid "Original offer"
+msgstr "Ofa ya asili"
+
+#: apps/disputes/models.py:138
+msgid "Outcome"
+msgstr "Matokeo"
+
+#: apps/groups/models.py:28
+msgid "Owner"
+msgstr "Mmiliki"
+
+#: apps/listings/templates/listings/detail.html:57
+msgid "Pause"
+msgstr "Panga"
+
+#: apps/listings/models.py:78
+msgid "Paused"
+msgstr "Ilepata"
+
+#: apps/listings/models.py:210
+msgid "Paused at"
+msgstr "Ilepata saa"
+
+#: apps/fleet/models.py:179
+msgid "Pending approval"
+msgstr "Inasubiri idhini"
+
+#: apps/search/views.py:160
+msgid "People"
+msgstr "Watu"
+
+#: apps/search/models.py:49
+#, fuzzy
+msgid "Person"
+msgstr "Mtu"
+
+#: apps/messaging/models.py:207
+msgid "Phone-shaped text"
+msgstr "Maandiko ya namba ya simu"
+
+#: apps/messaging/models.py:256
+#: apps/messaging/templates/messaging/detail.html:30
+msgid "Photo"
+msgstr "Picha"
+
+#: apps/messaging/models.py:44
+msgid "Photo positions run from 1 to %(n)d."
+msgstr "Nafasi za picha zinaanzisha 1 hadi %(n)d."
+
+#: apps/listings/models.py:94 apps/posts/models.py:41
+msgid "Photo slot must be between 1 and %(n)d."
+msgstr "Nafasi ya picha lazima iwe kati ya 1 na %(n)d."
+
+#: apps/services/models.py:56
+msgid "Photography"
+msgstr "Upigaji picha"
+
+#: apps/messaging/models.py:202
+#: apps/messaging/templates/messaging/detail.html:68
+msgid "Photos"
+msgstr "Picha"
+
+#: apps/posts/templates/posts/detail.html:29
+msgid "Photos you attach stay in your album."
+msgstr "Picha ulopachikwa zinasakwa kwenye album yako."
+
+#: apps/fleet/services.py:214
+msgid "Pick a crew role: driver or conductor."
+msgstr "Chagua nafasi ya kaya: dereva au makonda."
+
+#: apps/crew/views.py:236
+msgid "Pick a direction from the list."
+msgstr "Chagua mwelekeo kutoka orodha."
+
+#: apps/listings/templates/listings/search.html:8
+#, fuzzy
+msgid ""
+"Pick a known ward centre — distance is measured ward-to-ward (approximate). "
+"Your own position is never used."
+msgstr ""
+"Chagua kituo cha wadi chachojulikana — masafa huziwa wadi-kwa-wadi "
+"(takrimu). Nafasi yako wakwe haishitajiwa."
+
+#: apps/messaging/views.py:277
+msgid "Pick a message and a reason to report."
+msgstr "Chagua ujumbe na sababu ya kuripoti."
+
+#: apps/messaging/services.py:43
+msgid "Pick a reason for the report from the list."
+msgstr "Chagua sababu ya ripoti kutoka orodha."
+
+#: apps/reviews/views.py:160
+msgid "Pick a reason for the report."
+msgstr "Chagua sababu ya ripoti."
+
+#: apps/crew/views.py:241
+#, fuzzy
+msgid "Pick a route that this vehicle actually serves."
+msgstr "Chagua njia gari hili huendi."
+
+#: apps/alerts/views.py:170
+msgid "Pick a route to follow."
+msgstr "Chagua njia ya kufuata."
+
+#: apps/alerts/models.py:55
+#, fuzzy
+msgid "Pick a stage that lies on one of this vehicle's routes."
+msgstr "Chagua kituo kilipo kwenye njia zake za gari hili."
+
+#: apps/alerts/models.py:52
+msgid "Pick a stage that lies on this route."
+msgstr "Chagua kituo kilipo njia hii."
+
+#: apps/groups/services.py:75
+msgid "Pick a valid group type."
+msgstr "Chagua aina ya kundi ya kweli."
+
+#: apps/disputes/views.py:180
+msgid "Pick an outcome to propose."
+msgstr "Chagua jibu la kupendekeza."
+
+#: apps/disputes/services.py:116
+msgid "Pick an uploaded image to attach."
+msgstr "Chagua picha kupachika."
+
+#: apps/listings/lifecycle.py:54
+msgid "Pick one of the listed categories."
+msgstr "Chagua kundi moja ya orodha."
+
+#: apps/barter/services.py:293
+msgid "Pick the member you are dealing with."
+msgstr "Chagua mwanachama unafanyia mianu."
+
+#: apps/routes/forms.py:23
+#, fuzzy
+msgid "Pick the route if your correction mentions one."
+msgstr "Chagua njia kama marehemu yako inaeza."
+
+#: apps/crowd/forms.py:32
+msgid "Pick the route if your report mentions one."
+msgstr "Chagua njia kama ripoti yako inaeza."
+
+#: apps/routes/forms.py:27
+#, fuzzy
+msgid "Pick the stage if your correction targets one."
+msgstr "Chagua kituo kama marehemu yako inadanganya."
+
+#: apps/crowd/forms.py:26
+#, fuzzy
+msgid ""
+"Pick the stage you are standing at — reports are events at stages, never "
+"guessed positions."
+msgstr ""
+"Chagua kituo ulipo — ripoti ni matoko ya vituo, si nafasi zilizobuniwa."
+
+#: apps/fleet/forms.py:48
+msgid "Pick the vehicle (plate)"
+msgstr "Chagua gari (namba ya usajili)"
+
+#: apps/disputes/templates/disputes/case_detail.html:86
+msgid "Pick up (under review)"
+msgstr "Panga (inaunduzi)"
+
+#: apps/tracking/models.py:249
+msgid "Ping confidence"
+msgstr "Ukubali wa pinyi"
+
+#: apps/tracking/ingest.py:397
+#, fuzzy
+msgid "Pings too large — the batch is smaller than that."
+msgstr "Pinyi ni kubwa — fungu ni dogo kuliko hiyo."
+
+#: apps/qa/templates/qa/answer_form.html:15 apps/qa/templates/qa/ask.html:10
+msgid "Plain text only — no formatting."
+msgstr "Maandiko halisi tu — hakuna muundo."
+
+#: apps/traffic/templates/traffic/about.html:20
+msgid "Plan a journey"
+msgstr "Panga safari"
+
+#: apps/traffic/templates/traffic/plan.html:16
+msgid "Plan journey"
+msgstr "Panga safari"
+
+#: apps/traffic/templates/traffic/plan.html:8
+#, fuzzy
+msgid ""
+"Plans ride the shared route network (official/seeded data) with community-"
+"reported conditions shown separately. Times are estimates from stage "
+"distances — not live GPS."
+msgstr ""
+"Mipango inatambaa mtandao wa njia iliyoshirikishwa (data rasimu) na hali za "
+"jamii zilizoripotiwa hukuonyeshwa kando. Muda ni takrimu kutoka masafa ya "
+"vituo — si GPS ya hali."
+
+#: apps/fleet/templates/fleet/search.html:8
+msgid "Plate or nickname"
+msgstr "Namba ya usajili au lakabu"
+
+#: apps/fleet/templates/fleet/vehicle_form.html:7
+#, fuzzy
+msgid ""
+"Plates like KCA 123K, KDA 123AB or legacy KZ 8463. Nicknames are the beloved"
+" matatu names — searchable."
+msgstr ""
+"Namba za usajili kama KCA 123K, KDA 123AB au KZ 8463. Lakabu ni majina ya "
+"matatu — zinatafutika."
+
+#: apps/routes/models.py:338
+msgid "Point the correction at a route or stage."
+msgstr "Ndoa marehemu njia au kituo."
+
+#: apps/services/models.py:84
+msgid "Portfolio slot must be between 1 and %(n)d."
+msgstr "Nafasi ya picha lakazi lazima iwe kati ya 1 na %(n)d."
+
+#: apps/routes/models.py:213 apps/listings/models.py:261
+#: apps/posts/models.py:114 apps/guides/models.py:189
+msgid "Position"
+msgstr "Nafasi"
+
+#: apps/tracking/templates/tracking/start.html:29
+#, fuzzy
+msgid ""
+"Positions are public only while this session is live, and stop automatically"
+" at the cap."
+msgstr ""
+"Nafasi ni za umma wakati wa kipindi hii hai tu, na zinasimama kibodi kwenye "
+"mpaka."
+
+#: apps/posts/forms.py:21 apps/posts/templates/posts/form.html:15
+#: apps/posts/templates/posts/detail.html:3 apps/search/models.py:47
+msgid "Post"
+msgstr "Chapisha"
+
+#: apps/qa/templates/qa/answer_form.html:14
+msgid "Post answer"
+msgstr "Tuma jibu"
+
+#: apps/posts/templates/posts/detail.html:17
+#: apps/posts/templates/posts/list.html:26
+msgid "Post photo"
+msgstr "Picha ya chapisho"
+
+#: apps/qa/templates/qa/ask.html:9
+msgid "Post question"
+msgstr "Tuma swali"
+
+#: apps/search/models.py:31
+#, fuzzy
+msgid "Postgres tsvector (maintained by search triggers)"
+msgstr "Postgres tsvector (inashikwa na vishikaji cha utafutaji)"
+
+#: apps/posts/templates/posts/list.html:3
+#: apps/posts/templates/posts/list.html:6 apps/search/views.py:158
+msgid "Posts"
+msgstr "Machapisho"
+
+#: apps/feed/templates/feed/list.html:42 apps/qa/templates/qa/list.html:47
+#: apps/listings/templates/listings/list.html:76
+#: apps/listings/templates/listings/search.html:103
+msgid "Prev"
+msgstr "Kabla"
+
+#: apps/listings/models.py:157 apps/listings/forms.py:66
+msgid "Price (KSh)"
+msgstr "Bei (KSh)"
+
+#: apps/listings/templates/listings/search.html:42
+msgid "Price from (KSh)"
+msgstr "Bei kwa kuanza (KSh)"
+
+#: apps/listings/models.py:164
+msgid "Price negotiable"
+msgstr "Bei ya maongezi"
+
+#: apps/messaging/templates/messaging/detail.html:14
+#: apps/messaging/templates/messaging/list_anonymous.html:13
+#: apps/messaging/templates/messaging/list.html:26
+msgid "Privacy note"
+msgstr "Kidole cha siri"
+
+#: apps/core/types.py:96
+msgid "Profession"
+msgstr "Taaluma"
+
+#: apps/disputes/models.py:362
+msgid "Proposal note"
+msgstr "Maelezo ya pendekezo"
+
+#: apps/disputes/templates/disputes/case_detail.html:58
+msgid "Proposals"
+msgstr "Mapendekezo"
+
+#: apps/disputes/templates/disputes/queue.html:24
+msgid "Proposals awaiting confirmation"
+msgstr "Mapendekezo yanayosubiri uthibitisho"
+
+#: apps/disputes/templates/disputes/case_detail.html:91
+msgid "Propose (no action)"
+msgstr "Pendekeza (hakuna kitendo)"
+
+#: apps/disputes/templates/disputes/case_detail.html:89
+msgid "Propose outcome"
+msgstr "Pendekeza jibu"
+
+#: apps/disputes/models.py:331
+msgid "Proposed action"
+msgstr "Kitendo kilichopendekezwa"
+
+#: apps/disputes/models.py:350
+#: apps/disputes/templates/disputes/case_detail.html:61
+#: apps/disputes/templates/disputes/queue.html:29
+msgid "Proposed by"
+msgstr "Kilipendekezwa na"
+
+#: apps/disputes/forms.py:48
+msgid "Proposed outcome"
+msgstr "Jibu lililopendekezwa"
+
+#: apps/ai/models.py:38 apps/ai/templates/ai/status.html:12
+msgid "Provider"
+msgstr "Mtumishi"
+
+#: apps/ai/templates/ai/status.html:7
+msgid ""
+"Provider-agnostic AI layer (Prompt 33). Cost is counted in TOKENS per day — "
+"no currency figures by design; the provider choice is config, not code."
+msgstr ""
+
+#: apps/services/templates/services/list.html:55
+#, fuzzy
+msgid ""
+"Providers show what they do — contact stays in the app, never on the page."
+msgstr ""
+"Mtaoi wanaonyesha wanachofanya — kuwasiliana kunasakwa app, si ukurasa."
+
+#: apps/routes/templates/routes/stage_detail.html:22
+#, fuzzy
+msgid "Public stop location (approximate, seed data):"
+msgstr "Nafasi ya kituo ya umma (takrimu, data ya mwisho):"
+
+#: apps/crew/templates/crew/trip.html:58
+#, fuzzy
+msgid "Public while live — until %(until)s, then it stops on its own."
+msgstr "Umma wakati wa hali — hadi %(until)s, basi inasimama wakwe."
+
+#: apps/guides/templates/guides/history.html:17
+msgid "Publish"
+msgstr "Tangaza"
+
+#: apps/guides/templates/guides/form.html:17
+msgid "Publish guide"
+msgstr "Tangaza mwongozo"
+
+#: apps/guides/templates/guides/detail.html:59
+msgid "Publish this revision"
+msgstr "Tangaza pambuzi hii"
+
+#: apps/core/types.py:79 apps/reviews/templates/reviews/my_reviews.html:13
+msgid "Published"
+msgstr "Imetangazwa"
+
+#: apps/reviews/models.py:163 apps/guides/models.py:144
+msgid "Published at"
+msgstr "Imetangazwa saa"
+
+#: apps/crew/templates/crew/trip.html:65
+#, fuzzy
+msgid "Publishing stopped. Nothing goes out from an ended trip."
+msgstr "Kutangaza kumepangana. Hakuna kinatoka kwa safari iliyokoma."
+
+#: apps/tracking/templates/tracking/token.html:3
+msgid "Publishing token (shown once)"
+msgstr "Tokeni ya kutangaza (inakimya mara moja)"
+
+#: apps/tracking/templates/tracking/token.html:6
+msgid "Publishing token — shown once"
+msgstr "Tokeni ya kutangaza — inakimya mara moja"
+
+#: apps/crew/templates/crew/trip.html:47
+msgid "Publishing ·"
+msgstr "Kutangaza ·"
+
+#: apps/ai/models.py:49
+msgid "Purpose"
+msgstr "Kwa"
+
+#: apps/qa/templates/qa/list.html:3
+msgid "Q&A"
+msgstr "Maswali-majibu"
+
+#: apps/barter/models.py:450 apps/barter/forms.py:32
+msgid "Quantity"
+msgstr "Kiasi"
+
+#: apps/search/models.py:48
+msgid "Question"
+msgstr "Swali"
+
+#: apps/qa/models.py:58
+msgid "Question (English)"
+msgstr "Swali (Kiengezi)"
+
+#: apps/qa/models.py:60
+msgid "Question (Kiswahili)"
+msgstr "Swali (Kiswahili)"
+
+#: apps/qa/models.py:64
+msgid "Question details"
+msgstr "Maelezo ya swali"
+
+#: apps/qa/views.py:124
+#, fuzzy
+msgid "Question posted — the community can now answer."
+msgstr "Swali limetumwa — jamii inaweza kuhapu."
+
+#: apps/search/views.py:159
+msgid "Questions"
+msgstr "Maswali"
+
+#: apps/qa/templates/qa/list.html:6
+msgid "Questions and answers"
+msgstr "Maswali na majibu"
+
+#: apps/routes/templates/routes/queue.html:26
+msgid "Queue empty."
+msgstr "Foleni tupu."
+
+#: apps/listings/templates/listings/detail.html:10
+msgid "Queued for review"
+msgstr "Imefungwa foleni kwa ukaguzi"
+
+#: apps/alerts/templates/alerts/my_follows.html:35
+#: apps/alerts/templates/alerts/my_follows.html:72
+msgid "Radius (km, 1–10)"
+msgstr "Radiusi (km, 1–10)"
+
+#: apps/alerts/services.py:57
+#, fuzzy
+msgid "Radius must be a whole number between 1 and 10 km."
+msgstr "Radiusi lazima iwe namba ya kutosha kati ya kilomita 1 na 10."
+
+#: apps/services/models.py:157 apps/services/forms.py:75
+msgid "Rate (KSh)"
+msgstr "Beki (KSh)"
+
+#: apps/services/models.py:148 apps/services/forms.py:74
+msgid "Rate type"
+msgstr "Aina ya beki"
+
+#: apps/tracking/models.py:92
+msgid "Reached the session cap (auto-expired)"
+msgstr "Kimeafika mpaka wa kipindi (kimefutwa kibodi)"
+
+#: apps/messaging/templates/messaging/detail.html:56
+msgid "Read receipts"
+msgstr "Risiti za kusoma"
+
+#: apps/messaging/views.py:253
+msgid "Read receipts updated — %(state)s."
+msgstr "Risiti za kusoma zimepambazwa — %(state)s."
+
+#: apps/guides/templates/guides/offline.html:23
+msgid "Ready offline"
+msgstr "Wako nje ya mtandao"
+
+#: apps/moderation/models.py:80 apps/moderation/models.py:210
+#: apps/moderation/models.py:266 apps/moderation/forms.py:25
+msgid "Reason"
+msgstr "Sababu"
+
+#: apps/moderation/models.py:64
+msgid "Recategorization approved"
+msgstr "Sekundu ya kundi imeidhinishwa"
+
+#: apps/tracking/models.py:258
+msgid "Received at"
+msgstr "Ilikaribisha saa"
+
+#: apps/ai/templates/ai/status.html:20
+msgid "Recent calls (ledger)"
+msgstr "Mawito ya karibuni (kitabu)"
+
+#: apps/routes/templates/routes/queue.html:28
+msgid "Recently resolved"
+msgstr "Yakikaribishiwe upya"
+
+#: apps/barter/templates/barter/list.html:65
+msgid "Recently settled"
+msgstr "Yakikaribishiwe kwa hivi karibuni"
+
+#: apps/tracking/models.py:202
+msgid "Record who authorized it."
+msgstr "Wandika nani aliwa idhini."
+
+#: apps/tracking/models.py:254
+msgid "Recorded at"
+msgstr "Imewandikwa saa"
+
+#: apps/tracking/ingest.py:95
+#, fuzzy
+msgid "Refused: the tracking credentials on this request are not valid."
+msgstr "Ombi limekataliwa: uhusiano wa ufuatiliaji wa ombi hili hawa kweli."
+
+#: apps/fleet/templates/fleet/vehicle_form.html:3
+#: apps/fleet/templates/fleet/vehicle_form.html:6
+#: apps/fleet/templates/fleet/dashboard.html:15
+msgid "Register a vehicle"
+msgstr "Weka gari"
+
+#: apps/fleet/templates/fleet/vehicle_form.html:15
+msgid "Register it"
+msgstr "Uweka"
+
+#: apps/tracking/templates/tracking/operator_sessions.html:29
+msgid "Register your SACCO's vehicles first."
+msgstr "Weka magari ya SACCO yako kwa kwanza."
+
+#: apps/routes/models.py:40
+msgid "Registered"
+msgstr "Imewekwa"
+
+#: apps/routes/models.py:39
+msgid "Registration pending"
+msgstr "Uwezi unasubiriwa"
+
+#: apps/fleet/models.py:99
+msgid "Registration plate"
+msgstr "Namba ya usajili"
+
+#: apps/routes/models.py:126
+msgid "Registration status"
+msgstr "Hali ya uwezi"
+
+#: apps/ai/templates/ai/status.html:18
+msgid "Remaining: %(remaining)s"
+msgstr "Zilizopo: %(remaining)s"
+
+#: apps/crew/templates/crew/trip.html:72
+#, fuzzy
+msgid ""
+"Reminder: a trip stops on its own after %(h)s h — the session cap. A "
+"forgotten trip never publishes past it."
+msgstr ""
+"Kumbusho: safari inasimama wakwe baada ya masaa %(h)s — mpaka wa kipindi. "
+"Safari iliyosahauliwa haikutangaza zaidi."
+
+#: apps/disputes/models.py:415
+#, fuzzy
+msgid "Removal and mark-for-review apply to a listing or service."
+msgstr "Kuondoa na kushika ukaguzi huendela bidhaa au huduma."
+
+#: apps/listings/templates/listings/detail.html:50
+#: apps/posts/templates/posts/detail.html:28
+#: apps/guides/templates/guides/detail.html:65
+#: apps/services/templates/services/detail.html:49
+msgid "Remove"
+msgstr "Ondoa"
+
+#: apps/moderation/templates/moderation/queue.html:28
+msgid "Remove content"
+msgstr "Ondoa maudhui"
+
+#: apps/guides/templates/guides/offline.html:28
+msgid "Remove from offline"
+msgstr "Toa kwenye nje ya mtandao"
+
+#: apps/guides/templates/guides/delete.html:3
+#: apps/guides/templates/guides/delete.html:6
+msgid "Remove guide"
+msgstr "Ondoa mwongozo"
+
+#: apps/listings/templates/listings/remove.html:3
+msgid "Remove listing"
+msgstr "Ondoa bidhaa"
+
+#: apps/posts/templates/posts/remove.html:3
+msgid "Remove post"
+msgstr "Ondoa chapisho"
+
+#: apps/services/templates/services/remove.html:3
+msgid "Remove service"
+msgstr "Ondoa huduma"
+
+#: apps/disputes/models.py:65 apps/disputes/forms.py:53
+msgid "Remove the listing"
+msgstr "Ondoa bidhaa"
+
+#: apps/listings/templates/listings/remove.html:6
+msgid "Remove this listing?"
+msgstr "Utoe bidhaa hii?"
+
+#: apps/posts/templates/posts/remove.html:6
+msgid "Remove this post?"
+msgstr "Utoe chapisho hili?"
+
+#: apps/services/templates/services/remove.html:6
+msgid "Remove this service?"
+msgstr "Utoe huduma hii?"
+
+#: apps/core/types.py:81
+msgid "Removed"
+msgstr "Imeondolewa"
+
+#: apps/listings/templates/listings/detail.html:84
+msgid "Renew"
+msgstr "Sasaisha upya"
+
+#: apps/listings/models.py:211
+msgid "Renewed at"
+msgstr "Imepangana saa"
+
+#: apps/guides/models.py:37 apps/services/models.py:52
+msgid "Repairs"
+msgstr "Magreza"
+
+#: apps/crowd/models.py:166
+msgid "Report"
+msgstr "Ripoti"
+
+#: apps/routes/templates/routes/correction_form.html:3
+#: apps/routes/templates/routes/correction_form.html:6
+#: apps/routes/templates/routes/corrections_mine.html:24
+msgid "Report a correction"
+msgstr "Ripoti marehemu"
+
+#: apps/routes/templates/routes/route_detail.html:53
+#, fuzzy
+msgid "Report a correction (wrong stage order / missing route)"
+msgstr "Ripoti marehemu (mpangilio mbaya wa vituo / njia isiyopo)"
+
+#: apps/messaging/templates/messaging/detail.html:42
+msgid "Report a message"
+msgstr "Ripoti ujumbe"
+
+#: apps/routes/templates/routes/stage_detail.html:48
+msgid "Report a wrong position or missing route"
+msgstr "Ripoti nafasi mbaya au njia isiyopo"
+
+#: apps/moderation/templates/moderation/report_form.html:3
+#: apps/moderation/templates/moderation/report_form.html:6
+msgid "Report content"
+msgstr "Ripoti maudhui"
+
+#: apps/moderation/models.py:53
+msgid "Report created"
+msgstr "Ripoti imetengenezwa"
+
+#: apps/moderation/models.py:57
+msgid "Report dismissed"
+msgstr "Ripoti imekataliwa"
+
+#: apps/reviews/views.py:170
+msgid "Report limit reached — try again later."
+msgstr "Mipima ya ripoti imeafika — jaribu baadaye."
+
+#: apps/crowd/models.py:99
+msgid "Report type"
+msgstr "Aina ya ripoti"
+
+#: apps/crowd/templates/crowd/stage_reports.html:10
+msgid "Report what you see here"
+msgstr "Ripoti unachoona hapa"
+
+#: apps/moderation/templates/moderation/queue.html:13
+msgid "Reported by"
+msgstr "Iliripotiwa na"
+
+#: apps/traffic/templates/traffic/about.html:18
+#, fuzzy
+msgid ""
+"Reported conditions change which route the planner prefers, but they never "
+"silently change the story: the current plan, the usual route and a steer-"
+"clear alternative are each shown with their own citations."
+msgstr ""
+"Hali zilizoripotiwa zinaabadili njia mpango unaopendeza, wakwa hazibadilishi"
+" kwaya soga: mpango wa sasa, njia ya kawaida, na njia ya mwingine "
+"hukuonyeshwa na marejeo yake."
+
+#: apps/crowd/models.py:96
+msgid "Reporter"
+msgstr "Mripoti"
+
+#: apps/moderation/templates/moderation/report_form.html:24
+#, fuzzy
+msgid ""
+"Reports are limited to 10 per hour; misuse of the report system is "
+"discouraged."
+msgstr ""
+"Ripoti zinapima 10 kwa saa; matumizi makwepa ya mfumo wa ripoti hajarushwa."
+
+#: apps/map/templates/map/map.html:29
+#, fuzzy
+msgid ""
+"Reports at stages without map coordinates (shown as text, never invented "
+"onto the map):"
+msgstr ""
+"Ripoti kwenye vituo bila misingi ya ramani (inaskia maandiko, si ramani "
+"kwaya):"
+
+#: apps/crowd/templates/crowd/my_reports.html:8
+#, fuzzy
+msgid ""
+"Reports you filed at stages. Other riders see these as weighted counts, not "
+"your name."
+msgstr ""
+"Ripoti uloweka vituo. Wenza wengine wanaona hizi kwaya ngaruku, si jina "
+"lako."
+
+#: apps/reviews/templates/reviews/_reputation.html:9
+msgid "Reputation"
+msgstr "Sifa"
+
+#: apps/fleet/templates/fleet/crew_form.html:3
+#: apps/fleet/templates/fleet/crew_form.html:6
+#: apps/fleet/templates/fleet/crew_mine.html:18
+msgid "Request a crew seat"
+msgstr "Omba kiti cha kaya"
+
+#: apps/fleet/templates/fleet/crew_form.html:12
+msgid "Request it"
+msgstr "Uiombe"
+
+#: apps/fleet/templates/fleet/crew_pending.html:7
+#, fuzzy
+msgid ""
+"Requests on YOUR vehicles only. Approving must be done by a different human "
+"than the applicant."
+msgstr ""
+"Maombi kwenye magari YAKO tu. Idhini lazima ifanywe na mtu tofauti na "
+"muombaji."
+
+#: apps/reviews/forms.py:52
+#, fuzzy
+msgid "Required for 1-star reviews — at least %(min)s characters."
+msgstr "Lazima kwa maoni ya nata 1 — herufi %(min)s au zaidi."
+
+#: apps/reviews/models.py:152
+#, fuzzy
+msgid "Required for 1-star reviews: what was promised vs what happened."
+msgstr "Lazima kwa maoni ya nata 1: kilichoshawadiwa dhidi ya kilieko."
+
+#: apps/guides/forms.py:43
+#, fuzzy
+msgid "Required for medical, electrical or construction guides."
+msgstr "Lazima kwa miongozo ya huduma, umeme au jengo."
+
+#: apps/routes/models.py:328 apps/routes/templates/routes/queue.html:23
+#: apps/disputes/templates/disputes/case_detail.html:107
+msgid "Resolution note"
+msgstr "Maelezo ya kumalizia"
+
+#: apps/routes/templates/routes/queue.html:24
+msgid "Resolve"
+msgstr "Malizia"
+
+#: apps/disputes/templates/disputes/case_detail.html:108
+msgid "Resolve (no action)"
+msgstr "Malizia (hakuna kitendo)"
+
+#: apps/routes/models.py:295 apps/moderation/models.py:38
+#: apps/disputes/models.py:56
+msgid "Resolved"
+msgstr "Imemaliziwa"
+
+#: apps/routes/admin.py:80
+msgid "Resolved in admin bulk action"
+msgstr "Imemaliziwa kwa kitendo cha wingi cha wasimamizi"
+
+#: apps/moderation/templates/moderation/queue.html:29
+msgid "Restore"
+msgstr "Kurudisha"
+
+#: apps/listings/templates/listings/detail.html:77
+msgid "Resume"
+msgstr "Endelea"
+
+#: apps/fleet/templates/fleet/dashboard.html:41
+msgid "Retire"
+msgstr "Staafisha"
+
+#: apps/fleet/models.py:87
+msgid "Retired"
+msgstr "Imestaafu"
+
+#: apps/fleet/services.py:261
+msgid "Retired vehicles cannot gain crew approvals."
+msgstr "Magari yaliyostaafu hayapati idhini za kaya."
+
+#: apps/tracking/services.py:84
+#, fuzzy
+msgid "Retired vehicles cannot publish live positions."
+msgstr "Magari yaliyostaafu hayachapu nafasi za hali."
+
+#: apps/crew/templates/crew/trip.html:41
+msgid "Return"
+msgstr "Kurudi"
+
+#: apps/fleet/admin.py:36
+msgid "Return selected seats to pending"
+msgstr "Rudisha viti vilivyochagua kuwa yanayosubiri"
+
+#: apps/moderation/templates/moderation/queue.html:27
+msgid "Review"
+msgstr "Ukaguzi"
+
+#: apps/disputes/templates/disputes/queue.html:32
+msgid "Review case"
+msgstr "Shika kesi"
+
+#: apps/moderation/models.py:54
+msgid "Review started"
+msgstr "Ukaguzi waanza"
+
+#: apps/reviews/models.py:135
+msgid "Review text"
+msgstr "Maandiko ya ukaguzi"
+
+#: apps/reviews/models.py:130
+msgid "Reviewed member"
+msgstr "Mwanachama alioukaguzi"
+
+#: apps/reviews/models.py:124
+msgid "Reviewer"
+msgstr "Mkaguzi"
+
+#: apps/reviews/templates/reviews/review_form.html:13
+msgid "Reviewing the counterpart of: %(deal)s"
+msgstr "Ukaguzi wa mwenza wa: %(deal)s"
+
+#: apps/services/templates/services/detail.html:51
+msgid "Reviews"
+msgstr "Maoni"
+
+#: apps/reviews/models.py:53
+#, fuzzy
+msgid ""
+"Reviews can only reference completed marketplace, service or barter deals."
+msgstr ""
+"Maoni yanaweza kueleza mianu ya soko, huduma au kubadilishana tu "
+"yaliyokamilika."
+
+#: apps/services/templates/services/detail.html:62
+msgid "Reviews coming soon / Hakuna maoni bado."
+msgstr "Maoni yanakuja / Hakuna maoni bado."
+
+#: apps/reviews/templates/reviews/received_list.html:3
+#: apps/reviews/templates/reviews/received_list.html:6
+msgid "Reviews of you"
+msgstr "Maoni ya wewe"
+
+#: apps/reviews/templates/reviews/my_reviews.html:3
+#: apps/reviews/templates/reviews/my_reviews.html:6
+msgid "Reviews you left"
+msgstr "Maoni uloyoweka"
+
+#: apps/guides/templates/guides/history.html:3
+#: apps/guides/templates/guides/history.html:6
+msgid "Revision history"
+msgstr "Historia ya mapambuzi"
+
+#: apps/guides/views.py:248
+msgid "Revision published."
+msgstr "Pambuzi imetangazwa."
+
+#: apps/fleet/services.py:283
+#, fuzzy
+msgid "Revocation is an operator action — ask the SACCO admin to remove you."
+msgstr "Kufutia ni kitendo cha muendeshaji — waombe msimamizi SACCO kukutoa."
+
+#: apps/fleet/templates/fleet/vehicle_detail.html:36
+#: apps/fleet/templates/fleet/crew_roster.html:20
+msgid "Revoke"
+msgstr "Futia"
+
+#: apps/fleet/models.py:181
+msgid "Revoked"
+msgstr "Imefutia"
+
+#: apps/fleet/models.py:216
+msgid "Revoked at"
+msgstr "Imefutia saa"
+
+#: apps/fleet/models.py:214
+msgid "Revoked by"
+msgstr "Imefutia na"
+
+#: apps/crowd/models.py:170 apps/alerts/models.py:77
+msgid "Rider"
+msgstr "Dereva"
+
+#: apps/map/templates/map/map.html:24
+msgid "Rider report (pinned at its stage)"
+msgstr "Ripoti ya dereva (imefanywa mshika kwenye kituo chake)"
+
+#: apps/map/templates/map/map.html:27
+#, fuzzy
+msgid ""
+"Rider reports load with a route — open a route page and follow its live map "
+"for stage-by-stage signals."
+msgstr ""
+"Ripoti za dereva zinaanza njia — fungua ukurasa wa njia na ufuata ramani "
+"yake ya hali kwa vituo na vituo."
+
+#: apps/crowd/models.py:109
+msgid "Riders reported"
+msgstr "Dereva waliota ripoti"
+
+#: apps/listings/templates/listings/search.html:56
+#, fuzzy
+msgid ""
+"Ring: everything within %(km)s km of %(area)s — measured approximately from "
+"ward to ward, never address-level."
+msgstr ""
+"Mzunguko: kila kitu ndani ya kilomita %(km)s kutoka %(area)s — muda kwa wadi"
+" kwa wadi, si barabara binafsi."
+
+#: apps/listings/templates/listings/search.html:84
+#, fuzzy
+msgid "Rings measure from these approximate ward centres: %(areas)s"
+msgstr "Mzunguko hutengeneza kutoka vituo hivi vya wadi: %(areas)s"
+
+#: apps/trust/models.py:56
+msgid "Rising helper"
+msgstr "Msaada wa mwingi"
+
+#: apps/groups/models.py:81
+msgid "Role"
+msgstr "Nafasi"
+
+#: apps/tracking/templates/tracking/my_sessions.html:18
+msgid "Rotate token"
+msgstr "Zungusha tokeni"
+
+#: apps/routes/models.py:208 apps/routes/models.py:235
+#: apps/routes/models.py:312 apps/routes/forms.py:22
+msgid "Route"
+msgstr "Njia"
+
+#: apps/crew/templates/crew/trip.html:33 apps/crowd/forms.py:29
+msgid "Route (optional)"
+msgstr "Njia (kama mtaani)"
+
+#: apps/alerts/models.py:62 apps/alerts/models.py:209
+msgid "Route follow"
+msgstr "Kufuata njia"
+
+#: apps/alerts/templates/alerts/my_follows.html:51
+msgid "Route id"
+msgstr "Id ya njia"
+
+#: apps/routes/templates/routes/list.html:3
+#: apps/routes/templates/routes/search.html:15 apps/fleet/models.py:126
+#: apps/alerts/templates/alerts/my_follows.html:48
+msgid "Routes"
+msgstr "Njia"
+
+#: apps/routes/templates/routes/list.html:41
+#, fuzzy
+msgid ""
+"Routes can be added by hand in admin — nothing is invented to fill the list."
+msgstr ""
+"Njia zinapekwa na mkono ndani ya wasimamizi — hakuna kitu kilichobuniwa "
+"kuijaza orodha."
+
+#: apps/fleet/views.py:110
+msgid "Routes saved."
+msgstr "Njia zimewekwa."
+
+#: apps/routes/templates/routes/stage_detail.html:28
+msgid "Routes through here"
+msgstr "Njia zinapita hapa"
+
+#: apps/ai/templates/ai/status.html:38
+msgid "Run probe"
+msgstr "Endesha kidude"
+
+#: apps/fleet/models.py:123 apps/fleet/models.py:263 apps/fleet/models.py:314
+msgid "SACCO"
+msgstr "SACCO"
+
+#: apps/tracking/models.py:71
+msgid "SACCO admin"
+msgstr "Msimamizi SACCO"
+
+#: apps/fleet/models.py:297
+msgid "SACCO admin granted"
+msgstr "Msimamizi SACCO aliwa idhini"
+
+#: apps/routes/templates/routes/search.html:24
+msgid "SACCO match"
+msgstr "SACCO ya mfanano"
+
+#: apps/routes/models.py:121
+msgid "SACCO name"
+msgstr "Jina la SACCO"
+
+#: apps/routes/templates/routes/route_detail.html:13
+#: apps/routes/templates/routes/list.html:35
+msgid "SACCO not recorded"
+msgstr "SACCO haijawandikwa"
+
+#: apps/routes/models.py:59
+msgid "SACCOs"
+msgstr "SACCO"
+
+#: apps/qa/templates/qa/detail.html:27 apps/qa/templates/qa/detail.html:35
+#: apps/core/types.py:63 apps/guides/templates/guides/detail.html:23
+msgid "Safety"
+msgstr "Usalama"
+
+#: apps/ai/models.py:127
+msgid "Safety block"
+msgstr "Kuziba usalama"
+
+#: apps/ai/models.py:128
+msgid "Safety gate applied"
+msgstr "Lango la usalama lilipita"
+
+#: apps/qa/models.py:70 apps/qa/models.py:156 apps/guides/models.py:78
+#: apps/guides/models.py:136
+msgid "Safety handling"
+msgstr "Utunuku wa usalama"
+
+#: apps/guides/templates/guides/list.html:28
+msgid "Safety note"
+msgstr "Maelezo ya usalama"
+
+#: apps/qa/models.py:159 apps/guides/models.py:83 apps/guides/models.py:139
+#: apps/guides/forms.py:38
+msgid "Safety warning"
+msgstr "Tahadhari ya usalama"
+
+#: apps/listings/templates/listings/form.html:23
+#: apps/posts/templates/posts/form.html:15
+#: apps/services/templates/services/form.html:23
+#: templates/profiles/edit.html:14
+msgid "Save"
+msgstr "Hifadhi"
+
+#: apps/barter/templates/barter/compose.html:71
+msgid "Save counter draft"
+msgstr "Hifadhi rasimu ya kumwangu"
+
+#: apps/barter/templates/barter/compose.html:71
+msgid "Save draft"
+msgstr "Hifadhi rasimu"
+
+#: apps/guides/templates/guides/form.html:17
+msgid "Save draft revision"
+msgstr "Hifadhi rasimu ya pambuzi"
+
+#: apps/guides/templates/guides/detail.html:70
+msgid "Save for offline"
+msgstr "Hifadhi ya nje ya mtandao"
+
+#: apps/fleet/templates/fleet/vehicle_detail.html:27
+msgid "Save routes"
+msgstr "Hifadhi njia"
+
+#: apps/guides/views.py:205
+#, fuzzy
+msgid "Saved as a new draft revision — publish it when ready."
+msgstr "Iliwekwa kama rasimu mpya ya pambuzi — itangaze kwa tayari."
+
+#: apps/guides/templates/guides/detail.html:70
+msgid "Saved for offline"
+msgstr "Ilihifadhiwa ya nje ya mtandao"
+
+#: apps/guides/templates/guides/offline.html:11
+#, fuzzy
+msgid "Saved guides stay readable without spending data."
+msgstr "Miongozo iliyowekwa inasoma bila matumizi ya data."
+
+#: apps/listings/views.py:206 apps/services/views.py:142
+msgid "Saved. / Imehifadhiwa."
+msgstr "Imehifadhiwa. / Imewekwa."
+
+#: apps/core/types.py:59
+msgid "Scam"
+msgstr "Unafundi"
+
+#: apps/routes/templates/routes/list.html:27
+#: apps/routes/templates/routes/search.html:10
+#: apps/qa/templates/qa/list.html:12
+#: apps/listings/templates/listings/list.html:29
+msgid "Search"
+msgstr "Tafuta"
+
+#: apps/search/templates/search/results.html:7
+msgid "Search Mtaani Connect"
+msgstr "Tafuta Mtaani Connect"
+
+#: apps/fleet/templates/fleet/search.html:7
+#, fuzzy
+msgid "Search by plate, the beloved nickname, or a route it works."
+msgstr "Takusa kwa namba ya usajili, lakabu, au njia inaofanya."
+
+#: apps/listings/templates/listings/search.html:88
+msgid "Search everywhere instead"
+msgstr "Kwaya utafute popote"
+
+#: apps/guides/templates/guides/list.html:9
+msgid "Search guides"
+msgstr "Takusa miongozo"
+
+#: apps/search/templates/search/results.html:9
+#: apps/search/templates/search/results.html:40
+msgid "Search guides, posts, questions and people."
+msgstr "Tafuta miongozo, machapisho, maswali na watu."
+
+#: apps/listings/templates/listings/list.html:28
+msgid "Search listing titles"
+msgstr "Takusa kichwa cha bidhaa"
+
+#: apps/listings/templates/listings/list.html:36
+msgid "Search near a ward"
+msgstr "Takusa karibu wadi"
+
+#: apps/qa/templates/qa/list.html:9
+msgid "Search questions"
+msgstr "Takusa maswali"
+
+#: apps/routes/templates/routes/search.html:3
+msgid "Search routes"
+msgstr "Takusa njia"
+
+#: apps/services/templates/services/list.html:26
+msgid "Search service titles"
+msgstr "Takusa kichwa cha huduma"
+
+#: apps/services/templates/services/list.html:25
+msgid "Search services…"
+msgstr "Takusa huduma…"
+
+#: apps/routes/templates/routes/search.html:6
+msgid "Search the network"
+msgstr "Takusa mtandao"
+
+#: apps/listings/templates/listings/list.html:27
+msgid "Search titles…"
+msgstr "Takusa kichwa…"
+
+#: apps/fleet/models.py:113
+msgid "Seats"
+msgstr "Viti"
+
+#: apps/fleet/models.py:115
+msgid "Seats (5–80)."
+msgstr "Viti (5–80)."
+
+#: apps/listings/models.py:43
+msgid "Second-hand"
+msgstr "Ya kumwangu"
+
+#: apps/search/templates/search/results.html:20
+msgid "See all"
+msgstr "Tazama zote"
+
+#: apps/messaging/templates/messaging/detail.html:36
+msgid "Seen"
+msgstr "Imeona"
+
+#: apps/listings/templates/listings/form.html:3
+#: apps/listings/templates/listings/form.html:6
+#: apps/listings/templates/listings/list.html:89
+msgid "Sell something"
+msgstr "Uza kitu"
+
+#: apps/listings/templates/listings/detail.html:73
+#: apps/messaging/templates/messaging/detail.html:70
+msgid "Send"
+msgstr "Tuma"
+
+#: apps/routes/templates/routes/correction_form.html:11
+msgid "Send correction"
+msgstr "Tuma marehemu"
+
+#: apps/moderation/templates/moderation/report_form.html:23
+#: apps/crowd/templates/crowd/report_form.html:11
+#: apps/messaging/templates/messaging/detail.html:55
+msgid "Send report"
+msgstr "Tuma ripoti"
+
+#: apps/barter/templates/barter/detail.html:35
+msgid "Send this offer"
+msgstr "Tuma ofa hii"
+
+#: apps/crew/templates/crew/trip.html:69
+msgid "Sent (device counter, this tab)"
+msgstr "Zilikutumia (kihesabu cha simu, tab hii)"
+
+#: apps/crew/templates/crew/trip.html:55
+msgid "Sent about"
+msgstr "Ilikutumia saa"
+
+#: apps/messaging/models.py:189
+msgid "Sent by"
+msgstr "Ilikutumia na"
+
+#: apps/tracking/models.py:259
+#, fuzzy
+msgid "Server arrival moment (mock/real ingest set it together)."
+msgstr "Muda wa kufika server (mock/real ingest ziliwachi pamoja)."
+
+#: apps/core/types.py:88
+msgid "Service"
+msgstr "Huduma"
+
+#: apps/disputes/forms.py:16
+msgid "Service deal"
+msgstr "Mianu wa huduma"
+
+#: apps/services/templates/services/list.html:37
+msgid "Service photo"
+msgstr "Picha ya huduma"
+
+#: apps/services/templates/services/detail.html:36
+#: apps/services/templates/services/provider.html:40
+msgid "Service portfolio image"
+msgstr "Picha ya picha lakazi za huduma"
+
+#: apps/services/views.py:158
+msgid "Service removed. / Huduma imeondolewa."
+msgstr "Huduma imeondolewa. / Huduma imeondolewa."
+
+#: apps/services/views.py:127
+msgid "Service up. / Huduma imetangazwa."
+msgstr "Huduma imetangazwa. / Huduma imetangazwa."
+
+#: apps/services/templates/services/list.html:3
+#: apps/services/templates/services/list.html:6
+#: apps/services/templates/services/provider.html:4
+msgid "Services"
+msgstr "Huduma"
+
+#: apps/tracking/models.py:228
+msgid "Session"
+msgstr "Kipindi"
+
+#: apps/tracking/models.py:139
+msgid "Session cap (hours)"
+msgstr "Mpaka wa kipindi (masaa)"
+
+#: apps/tracking/models.py:185 apps/tracking/services.py:88
+#, fuzzy
+msgid "Session cap must be between 1 and %(max)s hours."
+msgstr "Mpaka wa kipindi lazima iwe kati ya masaa 1 na %(max)s."
+
+#: apps/tracking/views.py:121
+msgid "Session ended — publishing stopped."
+msgstr "Kipindi kimekomea —  Kutangaza kimepangana."
+
+#: apps/tracking/views.py:96
+msgid "Session started — publishing live."
+msgstr "Kipindi kimeanza — kutangaza kwakima."
+
+#: apps/alerts/templates/alerts/my_follows.html:37
+#: apps/alerts/templates/alerts/my_follows.html:74
+msgid "Set radius"
+msgstr "Weka radiusi"
+
+#: apps/alerts/templates/alerts/my_follows.html:32
+#: apps/alerts/templates/alerts/my_follows.html:69
+msgid "Set stage"
+msgstr "Weka kituo"
+
+#: templates/profiles/privacy.html:3 templates/profiles/edit.html:3
+#: templates/profiles/edit.html:6
+msgid "Settings"
+msgstr "Mipangilio"
+
+#: apps/routes/models.py:78
+msgid "Shape source"
+msgstr "Chanzo ya ndoano"
+
+#: apps/guides/templates/guides/form.html:3
+#: apps/guides/templates/guides/form.html:6
+#: apps/guides/templates/guides/list.html:50
+msgid "Share a guide"
+msgstr "Kubalisha mwongozo"
+
+#: apps/posts/templates/posts/form.html:3
+#: apps/posts/templates/posts/form.html:6
+#: apps/posts/templates/posts/list.html:59
+msgid "Share a post"
+msgstr "Kubalisha chapisho"
+
+#: apps/posts/templates/posts/list.html:42
+#, fuzzy
+msgid "Share a tip, a deal you saw, or a question for your neighbours."
+msgstr "Kubalisha kidokezo, mianu uliona, au swali kwa majirani zako."
+
+#: apps/posts/forms.py:27
+msgid "Share what's happening — short is perfect"
+msgstr "Kubahalisha unachofanya — fupi inafaa"
+
+#: apps/moderation/templates/moderation/queue.html:26
+msgid "Short decision note"
+msgstr "Maelezo mafupi ya uamuzi"
+
+#: apps/messaging/templates/messaging/list.html:23
+msgid "Show muted chats"
+msgstr "Onya menja zilizoniisha sauti"
+
+#: apps/messaging/templates/messaging/detail.html:63
+msgid "Show my read receipts"
+msgstr "Onya risiti zangu za kusoma"
+
+#: apps/messaging/models.py:164
+msgid "Show read receipts"
+msgstr "Onya risiti za kusoma"
+
+#: apps/messaging/templates/messaging/list.html:19
+#, fuzzy
+msgid ""
+"Showing conversations you muted (the report flow mutes a thread for you)."
+msgstr ""
+"Inaskia soga uloziziisha sauti (mwendo wa ripoti unazizisha mstari kwaye)."
+
+#: apps/crew/templates/crew/trip.html:50
+#, fuzzy
+msgid ""
+"Shown once — copy it now; only its hash is stored and it never shows again."
+msgstr ""
+"Inakimya mara moja — nakasili sasa; hash yake pekee inahifadhiwa wakwa "
+"haionyeshwi tena."
+
+#: apps/barter/models.py:442
+msgid "Side"
+msgstr "Upande"
+
+#: apps/messaging/templates/messaging/list_anonymous.html:11
+msgid "Sign in"
+msgstr "Ingia"
+
+#: apps/messaging/templates/messaging/list_anonymous.html:9
+#, fuzzy
+msgid "Sign in to see your conversations and to answer listing enquiries."
+msgstr "Ingia kwa kuona soga zako na kuhapu huji za bidhaa."
+
+#: apps/guides/models.py:76 apps/guides/forms.py:31
+msgid "Skill level"
+msgstr "Ngazi ya ujuzi"
+
+#: apps/services/templates/services/provider.html:21
+msgid "Skills:"
+msgstr "Ujuzi:"
+
+#: apps/listings/models.py:79 apps/listings/templates/listings/detail.html:60
+#: apps/listings/templates/listings/detail.html:80
+msgid "Sold"
+msgstr "Imeuzwa"
+
+#: apps/listings/models.py:209
+msgid "Sold at"
+msgstr "Imeuzwa saa"
+
+#: apps/listings/templates/listings/detail.html:87
+msgid "Sold — thanks for the trade."
+msgstr "Imeuzwa — asante kwa mbianu."
+
+#: apps/search/models.py:52
+msgid "Source app"
+msgstr "App ya chanzo"
+
+#: apps/routes/models.py:248
+msgid "Source confidence"
+msgstr "Ukubali wa chanzo"
+
+#: apps/search/models.py:53
+msgid "Source model"
+msgstr "Mfumo ya chanzo"
+
+#: apps/routes/models.py:252
+msgid "Source note"
+msgstr "Maelezo ya chanzo"
+
+#: apps/search/models.py:54
+msgid "Source pk"
+msgstr "pk ya chanzo"
+
+#: apps/core/types.py:58
+msgid "Spam"
+msgstr "Zuzi"
+
+#: apps/tracking/models.py:239
+msgid "Speed (km/h)"
+msgstr "Kasi (km/s)"
+
+#: apps/routes/models.py:185 apps/routes/models.py:211
+#: apps/routes/models.py:316 apps/routes/forms.py:26
+msgid "Stage"
+msgstr "Kituo"
+
+#: apps/crowd/models.py:64
+msgid "Stage closed"
+msgstr "Kituo kimefungwa"
+
+#: apps/routes/models.py:147
+msgid "Stage name"
+msgstr "Jina ya kituo"
+
+#: apps/routes/models.py:74
+msgid "Stage-to-stage join (approximate)"
+msgstr "Kuunganisha kituo-kwa-kituo (takrimu)"
+
+#: apps/routes/templates/routes/route_detail.html:19
+#: apps/routes/templates/routes/search.html:27
+msgid "Stages"
+msgstr "Vituo"
+
+#: apps/reviews/models.py:133 apps/reviews/forms.py:34
+msgid "Stars"
+msgstr "Nyota"
+
+#: apps/reviews/models.py:41
+msgid "Stars must be between 1 and 5."
+msgstr "Nyota lazima iwe kati ya 1 na 5."
+
+#: apps/messaging/templates/messaging/list.html:9
+msgid "Start a buying enquiry"
+msgstr "Anza huji ya kununua"
+
+#: apps/groups/templates/groups/form.html:4
+#: apps/groups/templates/groups/form.html:7
+#: apps/groups/templates/groups/list.html:42
+msgid "Start a group"
+msgstr "Anza kundi"
+
+#: apps/tracking/templates/tracking/my_sessions.html:34
+msgid "Start live tracking"
+msgstr "Anza ufuatiliaji ya hali"
+
+#: apps/crew/templates/crew/trip.html:42
+#: apps/tracking/templates/tracking/start.html:30
+msgid "Start publishing"
+msgstr "Anza kutangaza"
+
+#: apps/tracking/templates/tracking/operator_sessions.html:17
+#: apps/tracking/templates/tracking/my_sessions.html:20
+msgid "Started"
+msgstr "Ilianza"
+
+#: apps/tracking/models.py:128
+msgid "Started at"
+msgstr "Ilianza saa"
+
+#: apps/messaging/models.py:97
+msgid "Started by"
+msgstr "Ilianza na"
+
+#: apps/reviews/models.py:156
+msgid "State"
+msgstr "Hali"
+
+#: apps/services/models.py:91
+#, fuzzy
+msgid "State the rate — hourly and fixed rates need an amount in KSh."
+msgstr "Eleza beki — beki ya saa na ya imara vinahitaji kiasi ya KSh."
+
+#: apps/barter/templates/barter/detail.html:21
+#: apps/barter/templates/barter/detail.html:90
+msgid "Stated cash"
+msgstr "Pesa iliyoandikwa"
+
+#: apps/routes/models.py:324 apps/qa/models.py:94 apps/listings/models.py:173
+#: apps/barter/models.py:207
+msgid "Status"
+msgstr "Hali"
+
+#: apps/guides/templates/guides/detail.html:30
+msgid "Step photo"
+msgstr "Picha ya hatua"
+
+#: apps/guides/forms.py:66
+msgid "Step photo (optional)"
+msgstr "Picha ya hatua (kama mtaani)"
+
+#: apps/guides/templates/guides/form.html:9
+msgid "Steps"
+msgstr "Hatua"
+
+#: apps/guides/models.py:220
+msgid "Steps start at position 1."
+msgstr "Hatua zinaanza nafasi 1."
+
+#: apps/tracking/templates/tracking/operator_sessions.html:15
+#: apps/tracking/templates/tracking/my_sessions.html:15
+msgid "Stop publishing"
+msgstr "Simama kutangaza"
+
+#: apps/tracking/models.py:91
+msgid "Stopped by crew or SACCO admin"
+msgstr "Kwasimamwa na kaya au msimamizi SACCO"
+
+#: apps/guides/templates/guides/offline.html:12
+msgid "Storage used:"
+msgstr "Hifadhi ilipya:"
+
+#: apps/crew/templates/crew/trip.html:66
+msgid "Stored by the server"
+msgstr "Imehifadhiwa na server"
+
+#: apps/qa/templates/qa/list.html:40
+#, fuzzy
+msgid "Stuck on something practical? Ask the community."
+msgstr "Umeungana na jambo la halisi? Uuliza jamii."
+
+#: apps/reviews/templates/reviews/review_form.html:23
+msgid "Submit review"
+msgstr "Toa maoni"
+
+#: apps/barter/models.py:234
+msgid "Supersedes"
+msgstr "Inafanywa dharuri"
+
+#: apps/disputes/models.py:64 apps/disputes/forms.py:52
+msgid "Suspend the account"
+msgstr "Zuia akaunti"
+
+#: apps/moderation/models.py:62
+msgid "Suspension cancelled"
+msgstr "Kuzuiwa imefutwa"
+
+#: apps/moderation/models.py:61
+msgid "Suspension confirmed"
+msgstr "Kuzuiwa kimenuhihwa"
+
+#: apps/moderation/models.py:60
+msgid "Suspension drafted"
+msgstr "Kuzuiwa iliuza"
+
+#: apps/moderation/templates/moderation/queue.html:34
+msgid "Suspension drafts"
+msgstr "Rasimu za kuzuiwa"
+
+#: apps/services/models.py:54
+msgid "Tailoring"
+msgstr "Ushonaji"
+
+#: apps/moderation/templates/moderation/queue.html:16
+msgid "Target"
+msgstr "Lengwa"
+
+#: apps/trust/models.py:101
+msgid "Target id"
+msgstr "Id ya lengwa"
+
+#: apps/crowd/templates/crowd/report_form.html:7
+#, fuzzy
+msgid ""
+"Tell other riders what the stage looks like right now. Reports are events at"
+" stages — never guessed vehicle positions."
+msgstr ""
+"Waambie dereva wenza kituo kinavyotamba sasa. Ripoti ni matoko ya vituo — si"
+" nafasi za gari zilizobuniwa."
+
+#: apps/guides/views.py:284 apps/guides/services.py:239
+msgid "Tell us the ward where this worked."
+msgstr "Tueleze wadi ilionafanya."
+
+#: apps/search/models.py:64
+msgid "Text"
+msgstr "Maandiko"
+
+#: apps/guides/views.py:282
+msgid "Thank you — confirmation saved."
+msgstr "Asante — uthibitisho umewekwa."
+
+#: apps/crowd/views.py:100
+#, fuzzy
+msgid "Thank you — your report is live for other riders."
+msgstr "Asante — ripoti yako ya hali kwa dereva wenza."
+
+#: apps/reviews/views.py:178
+msgid "Thanks — the review is queued for moderators."
+msgstr "Asante — maoni yamefungwa foleni kwa wasimamizi."
+
+#: apps/routes/views.py:174
+#, fuzzy
+msgid "Thanks — your correction is queued for review."
+msgstr "Asante — marehemu yako yamefungwa foleni kwa ukaguzi."
+
+#: apps/qa/services.py:157
+msgid "That answer does not belong to this question."
+msgstr "Jibu hilo halisi swali hii."
+
+#: apps/disputes/services.py:487
+msgid "That case is not waiting to be picked up."
+msgstr "Kesi hii hainasubiri kupwa."
+
+#: apps/moderation/forms.py:49
+msgid "That content could not be found."
+msgstr "Maudhui hayo hayapatikani."
+
+#: apps/trust/models.py:45
+msgid "That content no longer exists."
+msgstr "Maudhui hayo hayapo tena."
+
+#: apps/reviews/models.py:50
+#, fuzzy
+msgid "That deal does not exist or is not part of your deals to review."
+msgstr "Mianu hiyo haipo wala si mianu yako ya kuukaguzi."
+
+#: apps/disputes/services.py:118
+#, fuzzy
+msgid "That evidence is already attached to this case."
+msgstr "Uthibitisho huo tayari umepachikwa kesi hii."
+
+#: apps/disputes/models.py:313
+msgid "That evidence kind does not exist."
+msgstr "Aina ya uthibitisho haipo."
+
+#: apps/disputes/services.py:117
+msgid "That image belongs to another member."
+msgstr "Picha hii ya mwanachama mwingine."
+
+#: apps/services/models.py:86
+msgid "That image is already in this portfolio."
+msgstr "Picha hii tayari iwa picha-lakazi hii."
+
+#: apps/barter/templates/barter/listing_unavailable.html:8
+#, fuzzy
+msgid ""
+"That is your own listing — offers start from someone else's listing, or from"
+" a direct negotiation by username."
+msgstr ""
+"Bidhaa hii ni yako — ofa huanza kwa bidhaa ya mwenzako, ama majadiliano ya "
+"moja-kwa-moja kwa jina."
+
+#: apps/barter/views.py:442
+msgid "That listing isn't available."
+msgstr "Bidhaa hii haipo."
+
+#: apps/barter/services.py:196 apps/messaging/services.py:204
+#: apps/messaging/services.py:206
+msgid "That listing reference is not valid."
+msgstr "Marejeo ya bidhaa hii hawa kweli."
+
+#: apps/moderation/views.py:196
+msgid "That member could not be found."
+msgstr "Mwanachama huyo haapatikani."
+
+#: apps/disputes/templates/disputes/case_detail.html:50
+msgid "That message no longer exists."
+msgstr "Ujumbe huo haupo tena."
+
+#: apps/barter/models.py:186
+msgid "That move is not part of the offer flow."
+msgstr "Kitendo hiki hakisi mendo wa ofa."
+
+#: apps/disputes/services.py:95
+#, fuzzy
+msgid "That negotiation has no sent terms yet — send it before disputing it."
+msgstr ""
+"Majadiliano haya hayajaandika masharti — yatuma kabla ya kuyagombanisha."
+
+#: apps/barter/services.py:68
+#, fuzzy
+msgid ""
+"That offer is no longer on the table — counter the current terms instead."
+msgstr "Ofa hiyo haipo mezani tena — mwangu masharti ya sasa badala."
+
+#: apps/barter/views.py:376
+msgid "That offer is no longer on the table."
+msgstr "Ofa hiyo haipo mezani tena."
+
+#: apps/disputes/services.py:518
+msgid "That outcome does not exist."
+msgstr "Jibu hilo halipo."
+
+#: apps/listings/models.py:96
+msgid "That photo is already on this listing."
+msgstr "Picha hii tayari iwa bidhaa hii."
+
+#: apps/posts/models.py:43
+msgid "That photo is already on this post."
+msgstr "Picha hii tayari iwa chapisho hii."
+
+#: apps/listings/models.py:95 apps/posts/models.py:42
+msgid "That photo slot is taken."
+msgstr "Nafasi ya picha hii kuchukuwa."
+
+#: apps/services/models.py:85
+msgid "That portfolio slot is taken."
+msgstr "Nafasi ya picha-lakazi hii kuchukuwa."
+
+#: apps/disputes/services.py:106
+msgid "That proposal is already confirmed."
+msgstr "Pendekezo hili tayari limethibitishwa."
+
+#: apps/disputes/services.py:615
+#, fuzzy
+msgid "That target cannot be removed (no status lifecycle)."
+msgstr "Lengwa hili haliwezi kuondolewa (hakuna mendo wa hali)."
+
+#: apps/tracking/services.py:93
+msgid "That tracking session has already ended."
+msgstr "Kipindi cha ufuatiliaji hiki tayari kimekomea."
+
+#: apps/feed/templates/feed/list.html:55
+#, fuzzy
+msgid ""
+"That's everything for now. This feed is finite on purpose — come back when "
+"your neighbours share more."
+msgstr ""
+"Hiyari yote kwa sasa. Feed hii ni ya kupima kwaye — arudi kwa majirani zako "
+"wakikubalisha zaidi."
+
+#: apps/qa/models.py:130
+#, fuzzy
+msgid "The accepted answer must belong to this question."
+msgstr "Jibu lililokubaliwa lazima lisi swali hii."
+
+#: apps/fleet/models.py:105
+#, fuzzy
+msgid "The beloved matatu names — searchable. Leave blank if it has none."
+msgstr "Majina ya matatu kwaya — yanaafuta. Acha tupu kama halina."
+
+#: apps/disputes/templates/disputes/case_detail.html:17
+msgid "The claim"
+msgstr "Madai"
+
+#: apps/disputes/forms.py:34
+msgid "The deal as agreed — terms, items, cash."
+msgstr "Mianu kawakubalika — masharti, vitu, pesa."
+
+#: apps/ai/forms.py:29
+#, fuzzy
+msgid "The goal to adapt — e.g. cook ugali, or the guide's name."
+msgstr "Dhumuni hili — mf. pika ugali, ama jina la mwongozo."
+
+#: apps/groups/views.py:88 apps/groups/services.py:103
+msgid "The group owner cannot leave their own group."
+msgstr "Mwenye kundi haisuudi kundi lake."
+
+#: apps/barter/templates/barter/detail.html:60
+msgid "The negotiation so far"
+msgstr "Majadiliano hadi sasa"
+
+#: apps/traffic/templates/traffic/about.html:7
+#, fuzzy
+msgid ""
+"The plan walks the shared stage graph: consecutive matatu hops on one route,"
+" transfers when routes share a stage (with a realistic change-wait), and "
+"short labelled WALK legs of at most 300 metres."
+msgstr ""
+"Mpango inatambaa mtandao wa vituo: matatu ya jirani njia moja, kubadili njia"
+" vituo shiriki (na kusubiri halali), na vipande vya KUTEMBEA fupi vya mita "
+"hafizi 300."
+
+#: apps/moderation/services.py:243
+msgid "The reported content no longer exists."
+msgstr "Maudhui yaliyoripotiwa hayapo tena."
+
+#: apps/messaging/templates/messaging/privacy.html:12
+#, fuzzy
+msgid ""
+"The system never shows or posts your phone number. A phone number reaches a "
+"chat only when a member types it in themselves — that is an explicit choice,"
+" made per message."
+msgstr ""
+"Mfumo hawaonyeshi au hawachapishi namba yako ya simu. Namba ya simu inafika "
+"menja tu kama mwanachama mwenyewe amewika — uchaguzi wa wajibu, kwa kila "
+"ujumbe."
+
+#: apps/barter/forms.py:95
+msgid "Their username"
+msgstr "Jina la mwenza"
+
+#: apps/barter/templates/barter/compose.html:19
+#: apps/barter/templates/barter/list.html:15
+msgid "They give"
+msgstr "Wanatoa"
+
+#: apps/barter/templates/barter/compose.html:24
+msgid "They want"
+msgstr "Wanataka"
+
+#: apps/disputes/services.py:97
+#, fuzzy
+msgid "This case is decided — nothing can change it now."
+msgstr "Kesi hii iliwa kwa uamuzi — hakuna inayobadiliki sasa."
+
+#: apps/disputes/services.py:96
+msgid "This deal already has an open dispute case."
+msgstr "Mianu hii tayari ina kesi ya mgogoro ya wazi."
+
+#: apps/guides/templates/guides/delete.html:8
+#, fuzzy
+msgid ""
+"This hides the guide from everyone. Nothing is deleted — moderators can "
+"still see it if it is reported."
+msgstr ""
+"Hii inaficha mwongozo kwa wote. Hakuna kufuta — wasimamizi wanaona bado kama"
+" iliripotiwa."
+
+#: apps/listings/templates/listings/detail.html:85
+#, fuzzy
+msgid "This listing expired — renewing puts it back with the same details."
+msgstr "Bidhaa hii imepita muda — kuwasha upya huweka na maelezo yakwe."
+
+#: apps/messaging/templates/messaging/listing_unavailable.html:6
+msgid "This listing isn't available for messages yet"
+msgstr "Bidhaa hii haipo kwa menja bado"
+
+#: apps/barter/services.py:81
+#, fuzzy
+msgid ""
+"This negotiation is closed at %(state)s — nothing left to decide on it."
+msgstr "Majadiliano haya yamefungwa %(state)s — hakuna kinapangana juu yake."
+
+#: apps/barter/models.py:317 apps/barter/models.py:336
+msgid "This offer chain is damaged — no root found."
+msgstr "Mnyambuliu wa ofa hii umemwagiwa — hakuna mzizi."
+
+#: apps/barter/models.py:166
+msgid "This offer is already accepted."
+msgstr "Ofa hii tayari imekubaliwa."
+
+#: apps/crew/templates/crew/trip.html:74
+#, fuzzy
+msgid ""
+"This page starts and ends trips without JavaScript; its live counters need "
+"it."
+msgstr ""
+"Ukurasa huu unaanza na kusimama safari bila JavaScript; kihebhesabu chake "
+"cha hali kichitaji."
+
+#: apps/moderation/services.py:251
+#, fuzzy
+msgid "This target cannot be removed (no status lifecycle)."
+msgstr "Lengwa hili haliwezi kuondolewa (hakuna mendo wa hali)."
+
+#: apps/tracking/services.py:87
+#, fuzzy
+msgid "This vehicle already has a live tracking session — one at a time."
+msgstr ""
+"Gari hili tayari lina kipindi cha ufuatiliaji ya hali — kimoja kwa wakati."
+
+#: apps/fleet/services.py:160
+msgid "This vehicle is already retired."
+msgstr "Gari hili tayari limestaafu."
+
+#: apps/guides/templates/guides/detail.html:37
+msgid "This worked for me"
+msgstr "Ili na mimi"
+
+#: apps/qa/templates/qa/detail.html:51
+msgid "This worked — verify"
+msgstr "Ili na — hakiki"
+
+#: apps/listings/forms.py:72
+#, fuzzy
+msgid "Tick for the Negotiable badge — handshake, Karibu market."
+msgstr "Alama ya beji ya Bei ya maongezi — mikono hii, Karibu soko."
+
+#: apps/posts/forms.py:36
+#, fuzzy
+msgid "Tick when this teaches something useful to the neighbourhood."
+msgstr "Alama inaokolewa kitu ni cha manufaa kwa mtaa."
+
+#: apps/listings/models.py:122 apps/listings/forms.py:60
+#: apps/messaging/models.py:76 apps/services/models.py:118
+msgid "Title"
+msgstr "Kichwa"
+
+#: apps/guides/models.py:71 apps/guides/models.py:131 apps/guides/forms.py:23
+#: apps/search/models.py:59
+msgid "Title (English)"
+msgstr "Kichwa (Kiengezi)"
+
+#: apps/listings/models.py:127 apps/listings/forms.py:61
+#: apps/guides/models.py:73 apps/guides/models.py:133
+msgid "Title (Kiswahili)"
+msgstr "Kichwa (Kiswahili)"
+
+#: apps/routes/models.py:241 apps/traffic/templates/traffic/plan.html:14
+msgid "To stage"
+msgstr "Kwa kituo"
+
+#: apps/ai/templates/ai/status.html:8
+msgid "Today"
+msgstr "Leo"
+
+#: apps/alerts/templates/alerts/my_follows.html:21
+#: apps/alerts/templates/alerts/my_follows.html:58
+msgid "Toggle notifications"
+msgstr "Badilisha taarifa"
+
+#: apps/tracking/models.py:125
+msgid "Token hash"
+msgstr "Hash ya tokeni"
+
+#: apps/tracking/models.py:208
+msgid "Token hash must be a sha256 hex digest."
+msgstr "Hash ya tokeni lazima iwe sha256 hex ya kweli."
+
+#: apps/tracking/views.py:138
+msgid "Token rotated — the old one no longer works."
+msgstr "Tokeni ilizungushwa — ya kale haifanya tena."
+
+#: apps/ai/models.py:40
+msgid "Tokens in"
+msgstr "Tokeni ndani"
+
+#: apps/ai/models.py:41
+msgid "Tokens out"
+msgstr "Tokeni nje"
+
+#: apps/ai/templates/ai/status.html:16
+msgid "Tokens today: %(used)s / %(budget)s"
+msgstr "Tokeni leo: %(used)s / %(budget)s"
+
+#: apps/listings/models.py:48
+msgid "Tools"
+msgstr "Zana"
+
+#: apps/alerts/models.py:221
+msgid "Tracking session"
+msgstr "Kipindi cha ufuatiliaji"
+
+#: apps/tracking/templates/tracking/operator_sessions.html:3
+msgid "Tracking sessions (operator)"
+msgstr "Vipindi vya ufuatiliaji (muendeshaji)"
+
+#: apps/tracking/templates/tracking/operator_sessions.html:6
+msgid "Tracking sessions — our vehicles"
+msgstr "Vipindi vya ufuatiliaji — magari yetu"
+
+#: apps/barter/templates/barter/list.html:7
+#, fuzzy
+msgid ""
+"Trade goods, skills and time — with or without a stated cash part. Two "
+"members settle any cash between themselves (M-Pesa); this app never holds "
+"money or items."
+msgstr ""
+"Badilishana bidhaa, ujuzi na muda — na au bila ya pesa iliyoandikwa. Wajumbe"
+" ndiyo wawili hutawaka pesa yoyote (M-Pesa); app hii haishikwa pesa wala "
+"vitu."
+
+#: apps/guides/models.py:41 templates/base.html:34
+msgid "Transport"
+msgstr "Usafiri"
+
+#: apps/crew/templates/crew/trip.html:64
+msgid "Trip ended"
+msgstr "Safari imekomea"
+
+#: apps/crew/views.py:284
+msgid "Trip ended — publishing stopped."
+msgstr "Safari imekomea — kutangaza kimepangana."
+
+#: apps/crew/templates/crew/trip.html:53
+#, fuzzy
+msgid ""
+"Trip still live, but this page can no longer send pings without the show-"
+"once token — nothing new goes out from this tab. Press End trip when done."
+msgstr ""
+"Safari bado ya hali, wakwa ukurasa huu hawezi kupaka pinyi bila ya tokeni ya"
+" kwa-mara — hakuna mpya inatoka tab hii. Bofia Safari imekomea kwa "
+"kumalizia."
+
+#: apps/crew/templates/crew/trip.html:18
+#, fuzzy
+msgid ""
+"Trips open once a SACCO admin has approved your crew seat. Nothing is "
+"published until then."
+msgstr ""
+"Safari zinafungu mpaka msimamizi SACCO aidhinishi kiti chako cha kaya. "
+"Hakuna iliotangazwa kabla."
+
+#: apps/trust/apps.py:11
+msgid "Trust signals"
+msgstr "Hali za uaminifu"
+
+#: apps/trust/models.py:58
+msgid "Trusted helper"
+msgstr "Msaada mwaminifu"
+
+#: apps/search/templates/search/results.html:37
+msgid "Try different words or check your spelling."
+msgstr "Jaribu maneno mengine au angalia tahajia yako."
+
+#: apps/services/models.py:51
+msgid "Tutoring"
+msgstr "Kusomesha"
+
+#: apps/traffic/templates/traffic/about.html:8
+msgid "Two sources, kept apart"
+msgstr "Vyanzo viwili, vitapambwa"
+
+#: apps/guides/forms.py:91
+#, fuzzy
+msgid "Two steps have the same position number — renumber the steps."
+msgstr "Hatua mbili na namba ya nafasi yakwe — panga hatua upya."
+
+#: apps/guides/services.py:115
+msgid "Two steps share position %(n)s."
+msgstr "Hatua mbili zimefanya nafasi %(n)s."
+
+#: apps/search/templates/search/results.html:41
+msgid "Type a few words and press Search."
+msgstr "Andika maneno machache kisha bonyeza Tafuta."
+
+#: apps/groups/forms.py:17
+msgid "Type of group"
+msgstr "Aina ya kundi"
+
+#: apps/core/types.py:80 apps/moderation/models.py:37
+#: apps/disputes/models.py:55
+msgid "Under review"
+msgstr "Inaunduzi"
+
+#: apps/qa/templates/qa/detail.html:45
+msgid "Undo my verification"
+msgstr "Futa uthibitisho wangu"
+
+#: apps/follows/templates/follows/following_list.html:17
+#: apps/alerts/templates/alerts/my_follows.html:44
+#: apps/alerts/templates/alerts/my_follows.html:81
+msgid "Unfollow"
+msgstr "Acha kufuata"
+
+#: apps/alerts/services.py:52
+msgid "Unfollowed %(name)s."
+msgstr "Umeacha kufuata %(name)s."
+
+#: apps/follows/views.py:114
+msgid "Unfollowed %(username)s."
+msgstr "Umeacha kufuata %(username)s."
+
+#: apps/tracking/models.py:204
+msgid "Unknown authorization source."
+msgstr "Chanzo cha idhini hakijulikani."
+
+#: apps/moderation/forms.py:46
+msgid "Unknown content type."
+msgstr "Aina ya maudhui haijulikani."
+
+#: apps/moderation/services.py:226
+msgid "Unknown moderation decision."
+msgstr "Uamuzi wa usimamizi haijulikani."
+
+#: apps/crowd/models.py:47
+#, fuzzy
+msgid "Unknown report type — pick one of the listed kinds."
+msgstr "Aina ya ripoti haijulikani — chagua moja ya aina zilizoleta."
+
+#: apps/messaging/templates/messaging/detail.html:19
+msgid "Unmute"
+msgstr "Onya sauti"
+
+#: apps/routes/models.py:38
+msgid "Unregistered"
+msgstr "Haijawekwa"
+
+#: apps/map/templates/map/map.html:25
+msgid "Unverified estimate"
+msgstr "Takrimu ya bila uthibitisho"
+
+#: apps/posts/templates/posts/form.html:11
+#, fuzzy
+msgid "Up to %(max_chars)s characters — a short post is welcome as it is."
+msgstr "Hafizi herufi %(max_chars)s — chapisho fupi likubaliwa kwaya."
+
+#: apps/moderation/forms.py:31
+msgid "Up to 500 characters."
+msgstr "Hafizi herufi 500."
+
+#: apps/moderation/models.py:58
+msgid "User blocked"
+msgstr "Mtu wamefungwa"
+
+#: apps/moderation/models.py:59
+msgid "User unblocked"
+msgstr "Mtu wamefungua"
+
+#: apps/crew/templates/crew/trip.html:24 apps/tracking/models.py:111
+#: apps/tracking/templates/tracking/start.html:15 apps/fleet/models.py:198
+msgid "Vehicle"
+msgstr "Gari"
+
+#: apps/alerts/models.py:61 apps/alerts/models.py:201
+msgid "Vehicle follow"
+msgstr "Kufuata gari"
+
+#: apps/fleet/models.py:291
+msgid "Vehicle registered"
+msgstr "Gari limewekwa"
+
+#: apps/fleet/views.py:80
+msgid "Vehicle registered."
+msgstr "Gari limewekwa."
+
+#: apps/core/types.py:21
+msgid "Vehicle report"
+msgstr "Ripoti ya gari"
+
+#: apps/fleet/models.py:293
+msgid "Vehicle retired"
+msgstr "Gari limestaafu"
+
+#: apps/fleet/views.py:124
+msgid "Vehicle retired."
+msgstr "Gari limestaafu."
+
+#: apps/fleet/models.py:292
+msgid "Vehicle updated"
+msgstr "Gari limepambazwa"
+
+#: apps/alerts/templates/alerts/arrivals.html:10
+#, fuzzy
+msgid ""
+"Vehicles you follow on this route. Times are estimates from live pings — "
+"where the data is thin, we say so instead of guessing."
+msgstr ""
+"Magari uloufuata njia hii. Muda ni takrimu kutoka pinyi za hali — data "
+"chache, tunasema hivyo badala ya kubuni."
+
+#: apps/qa/views.py:184
+msgid "Verification removed."
+msgstr "Uthibitisho umefutwa."
+
+#: apps/services/templates/services/provider.html:10
+msgid "Verified seller"
+msgstr "Muuza mwaminifu"
 
 msgid "Verify"
 msgstr "Thibitisha"
 
-msgid "Language"
-msgstr "Lugha"
+#: apps/barter/templates/barter/detail.html:66 apps/guides/models.py:130
+#: apps/guides/templates/guides/offline.html:21
+msgid "Version"
+msgstr "Toleo"
 
+#: apps/feed/templates/feed/list.html:33
+#: apps/posts/templates/posts/list.html:39
+msgid "View post"
+msgstr "Onya chapisho"
+
+#: apps/trust/models.py:79
+msgid "Voter"
+msgstr "Mkitoa kura"
+
+#: apps/traffic/templates/traffic/_legs.html:11
+msgid "WALK"
+msgstr "KUTEMBEA"
+
+#: apps/barter/templates/barter/list.html:8
+msgid "Waiting on you"
+msgstr "Inakusubiri"
+
+#: apps/traffic/templates/traffic/_legs.html:14
+msgid "Walk %(a)s → %(b)s: ~%(m)s min (%(d)s km)"
+msgstr "Tembea %(a)s → %(b)s: dakika ~%(m)s (%(d)s km)"
+
+#: apps/search/models.py:74 apps/groups/models.py:42
+msgid "Ward"
+msgstr "Wadi"
+
+#: apps/groups/forms.py:18
+msgid "Ward (coarse area)"
+msgstr "Wadi (eneo jumla)"
+
+#: apps/listings/search.py:148
+msgid "Ward / area name"
+msgstr "Wadi / jina la eneo"
+
+#: apps/listings/models.py:168 apps/listings/forms.py:68
+#: apps/services/models.py:176 apps/services/forms.py:77
+msgid "Ward / neighbourhood"
+msgstr "Wadi / mtaa"
+
+#: apps/listings/search.py:155
+msgid "Ward centre (approximate)"
+msgstr "Kituo cha wadi (takrimu)"
+
+#: apps/listings/search.py:156
+msgid "Ward centres (approximate)"
+msgstr "Vituo vya wadi (takrimu)"
+
+#: apps/core/types.py:30
+msgid "Ward only"
+msgstr "Wadi tu"
+
+#: apps/listings/forms.py:55 apps/services/forms.py:64
+msgid "Ward or neighbourhood only — e.g. Kilimani"
+msgstr "Wadi au mtaa tu — mf. Kilimani"
+
+#: apps/listings/templates/listings/list.html:38
+#: apps/listings/templates/listings/search.html:9
+msgid "Ward to measure from"
+msgstr "Wadi ya kupima"
+
+#: apps/guides/models.py:269 apps/guides/forms.py:111
+msgid "Ward where this worked"
+msgstr "Wadi ili na hapa"
+
+#: apps/listings/templates/listings/search.html:86
+#, fuzzy
+msgid ""
+"Ward-level honesty: a listing in a ward we haven't mapped is left out of "
+"distance results instead of being guessed into them."
+msgstr ""
+"Ukweli wa wadi: bidhaa ya wadi tupitika ramani inawa nje ya matokeo ya "
+"masafa badala ya kubuni kwaya."
+
+#: apps/listings/templates/listings/list.html:63
+#: apps/listings/templates/listings/search.html:71
+#: apps/services/templates/services/list.html:50
+msgid "Ward: %(ward)s"
+msgstr "Wadi: %(ward)s"
+
+#: apps/disputes/models.py:406
+msgid "Warn and suspend apply to a member's account."
+msgstr "Onya na zima huendela akaunti ya mwanachama."
+
+#: apps/disputes/models.py:63 apps/disputes/forms.py:51
+msgid "Warn the member"
+msgstr "Onya mwanachama"
+
+#: templates/home.html:8
 msgid "Welcome"
 msgstr "Karibu"
 
+#: apps/groups/views.py:75
+msgid "Welcome to %(name)s."
+msgstr "Karibu %(name)s."
+
+#: apps/crowd/forms.py:19
+msgid "What are you seeing here?"
+msgstr "Unachona hapa?"
+
+#: apps/ai/forms.py:19
+msgid "What do you have on hand?"
+msgstr "Unao nini? "
+
+#: apps/ai/templates/ai/ask.html:10
+msgid "What do you have?"
+msgstr "Unacho nini?"
+
+#: apps/ai/forms.py:28
+msgid "What do you want to do?"
+msgstr "Nini unataka kufanya?"
+
+#: apps/services/forms.py:53
+#, fuzzy
+msgid "What exactly is the service, what does it cover?"
+msgstr "Huduma ni nini hasa, inashika nini?"
+
+#: apps/disputes/models.py:123 apps/disputes/forms.py:38
+#: apps/disputes/templates/disputes/case_detail.html:20
+msgid "What happened"
+msgstr "Kilikua"
+
+#: apps/listings/forms.py:47
+#, fuzzy
+msgid "What is it, what state is it in, pickup point?"
+msgstr "Ni nini, hali yakwe ni ipi, kituo cha kupakia?"
+
+#: apps/moderation/forms.py:21
+msgid "What should be reviewed?"
+msgstr "Nini inapaswa kuukaguzi?"
+
+#: apps/ai/models.py:107
+msgid "What the member has"
+msgstr "Mwanachama anacho"
+
+#: apps/ai/models.py:113
+msgid "What the member needs"
+msgstr "Mwanachama anahitaji"
+
+#: apps/traffic/templates/traffic/about.html:13
+msgid "What the numbers are"
+msgstr "Namba hii ni nini"
+
+#: apps/guides/models.py:194 apps/guides/forms.py:75
+msgid "What to do"
+msgstr "Kufanya nini"
+
+#: apps/disputes/models.py:119 apps/disputes/forms.py:31
+#: apps/disputes/templates/disputes/case_detail.html:18
+msgid "What was promised"
+msgstr "Kilichoshawadiwa"
+
+#: apps/reviews/forms.py:46
+msgid "What went wrong?"
+msgstr "Ni kicha kiliobaya?"
+
+#: apps/posts/models.py:54
+msgid "What's happening"
+msgstr "Unachofanya"
+
+#: apps/routes/models.py:318 apps/routes/forms.py:17
+msgid "What's wrong?"
+msgstr "Ni kicha kibaya?"
+
+#: apps/messaging/templates/messaging/privacy.html:14
+#, fuzzy
 msgid ""
-"One app for how Kenya moves, learns, trades, and looks out for each other."
+"When a message looks like it carries a phone number, moderation gets a flag "
+"for scam-pattern review (phone-number scams are the top marketplace risk). A"
+" flag never blocks your message by itself."
 msgstr ""
-"Programu moja kwa kusafiri, kujifunza, kufanya biashara na kuwasaidiana "
-"Kenya."
+"Kama ujumbe unaonekana kubeba namba ya simu, usimamizi unapata bendera ya "
+"ukaguzi wa mpango wa unafundi (unafundi wa namba za simu ni hatari kubwa "
+"zaidi ya soko). Bendera hakuzia ujumbe wako mwenyewe."
+
+#: apps/traffic/templates/traffic/about.html:16
+#, fuzzy
+msgid ""
+"When a stage has no coordinates, its hop carries a flagged default estimate "
+"instead of a guessed distance."
+msgstr ""
+"Kama kituo hakina misingi ya ramani, mbonyeo yake hubeba takrimu ya kawaida "
+"iliwaka bendera badala ya masafa ya kubuni."
+
+#: apps/traffic/templates/traffic/about.html:17
+#, fuzzy
+msgid ""
+"When no route connects where you are to where you're going, we say so — no "
+"plan is fabricated."
+msgstr ""
+"Kama hakuna njia inayaunga wako nawenda, tunasema hivyo — hakuna mpango "
+"uliobuniwa."
+
+#: apps/ai/templates/ai/status.html:19
+msgid ""
+"When the day is spent, AI features degrade to “AI temporarily unavailable” "
+"instead of overspending. Nothing is auto-published: every surface showing AI"
+" content shows a label."
+msgstr ""
+
+#: apps/crew/templates/crew/trip.html:44
+#, fuzzy
+msgid ""
+"While publishing, one small fix about every %(s)s s, low-accuracy mode, "
+"batched before sending — data stays cheap. Positions are public only while "
+"this trip is live and stop on their own after %(cap)s h."
+msgstr ""
+"Wakati wa kutangaza, kubadilisha dogo moja kwenye sekunde %(s)s, mwendo wa "
+"makini, humakia kabla ya kutuma — data hunawa nafuu. Nafasi ni za umma "
+"wakati safari hii ya hali tu, na husimama wakwe baada ya masaa %(cap)s."
+
+#: apps/follows/templates/follows/following_list.html:8
+msgid "Who %(name)s follows"
+msgstr "Unafuata %(name)s"
+
+#: apps/disputes/forms.py:58
+#, fuzzy
+msgid "Why"
+msgstr "Kwa nini"
+
+#: apps/disputes/models.py:440
+#, fuzzy
+msgid "Why it was flagged"
+msgstr "Kwa kuchukua iliwaka bendera"
+
+#: apps/listings/templates/listings/list.html:39
+#: apps/listings/templates/listings/search.html:17
+msgid "Within"
+msgstr "Ndani ya"
+
+#: apps/listings/models.py:62
+msgid "Worn"
+msgstr "Yaliyochakuwa"
+
+#: apps/messaging/models.py:45 apps/messaging/services.py:42
+msgid "Write a message or attach a photo."
+msgstr "Wika ujumbe ama pachika picha."
+
+#: apps/messaging/forms.py:30
+msgid "Write a message…"
+msgstr "Wika ujumbe…"
+
+#: apps/qa/templates/qa/detail.html:67 apps/qa/templates/qa/answer_form.html:3
+msgid "Write an answer"
+msgstr "Wika jibu"
+
+#: apps/disputes/models.py:311 apps/disputes/services.py:115
+msgid "Write the note the reviewer should read."
+msgstr "Wika maelezo mkaguzi apaswa kusoma."
+
+#: apps/disputes/services.py:319
+msgid "Write what happened, for your side."
+msgstr "Wika kilieko, upande wako."
+
+#: apps/disputes/models.py:200
+msgid "Write what was promised and what happened."
+msgstr "Wika kilichoshawadiwa na kilieko."
+
+#: apps/disputes/services.py:317
+msgid "Write what was promised — the deal as agreed."
+msgstr "Wika kilichoshawadiwa — mianu kawakubalika."
+
+#: apps/routes/models.py:290
+msgid "Wrong fare"
+msgstr "Nauli mbaya"
+
+#: apps/routes/models.py:287
+msgid "Wrong stage position"
+msgstr "Nafasi mbaya ya kituo"
+
+#: apps/listings/templates/listings/remove.html:11
+#: apps/posts/templates/posts/remove.html:11
+#: apps/guides/templates/guides/delete.html:10
+#: apps/services/templates/services/remove.html:11
+msgid "Yes, remove it"
+msgstr "Yea, iiondoa"
+
+#: apps/messaging/views.py:108
+#: apps/messaging/templates/messaging/detail.html:25
+msgid "You"
+msgstr "Wewe"
+
+#: apps/alerts/services.py:51
+msgid "You already follow %(name)s."
+msgstr "Tayari unaufuata %(name)s."
+
+#: apps/fleet/services.py:229
+#, fuzzy
+msgid "You are already approved crew on this vehicle in this role."
+msgstr "Tayari uwa kaya aliyeidhinishwa gari hili kwenye nafasi hii."
+
+#: apps/traffic/services.py:57
+#, fuzzy
+msgid "You are already at %(stage)s — pick a different destination."
+msgstr "Tayari uwa %(stage)s — chagua marudio tofauti."
+
+#: apps/traffic/templates/traffic/_legs.html:7
+msgid "You are already there."
+msgstr "Tayari uwa hapo."
+
+#: apps/barter/templates/barter/compose.html:18
+msgid "You are answering these terms"
+msgstr "Unahapu masharti haya"
+
+#: templates/base.html:8 templates/offline.html:4
+msgid "You are offline"
+msgstr "Hauna mtandao"
+
+#: apps/barter/templates/barter/listing_unavailable.html:12
+#, fuzzy
+msgid "You can still start a direct trade by username."
+msgstr "Bado unaweza kuanza mbianu ya moja-kwa-moja kwa jina."
+
+#: apps/moderation/models.py:178 apps/moderation/services.py:282
+msgid "You cannot block yourself."
+msgstr "Huwezi kubana wewe wakwe."
+
+#: apps/moderation/services.py:389
+msgid "You cannot confirm your own suspension."
+msgstr "Huwezi kuthibitisha kuzuiwa kwako."
+
+#: apps/follows/services.py:35
+msgid "You cannot follow yourself."
+msgstr "Huwezi kufuata wewe wakwe."
+
+#: apps/barter/models.py:71
+#, fuzzy
+msgid "You cannot make an offer to yourself — pick another member."
+msgstr "Huwezi kutoa ofa kwaye — chagua mwanachama mwingine."
+
+#: apps/trust/models.py:44
+#, fuzzy
+msgid "You cannot mark your own content as helpful — wait for the community."
+msgstr "Huwezi kushika maudhui yako kwaya msaada — subiri jamii."
+
+#: apps/reviews/models.py:44
+#, fuzzy
+msgid ""
+"You cannot review yourself — reviews are about the other party of a deal."
+msgstr "Huwezi kuiukaguzi wakwe — maoni ni kwa mwenza wa mianu."
+
+#: apps/messaging/services.py:45
+#, fuzzy
+msgid "You cannot start a conversation with yourself."
+msgstr "Huwezi kuanza soga na wewe wakwe."
+
+#: apps/messaging/services.py:44
+#, fuzzy
+msgid "You cannot start an enquiry conversation on your own listing."
+msgstr "Huwezi kuanza soga ya huji kwenye bidhaa yako."
+
+#: apps/moderation/models.py:229 apps/moderation/services.py:357
+msgid "You cannot suspend your own account."
+msgstr "Huwezi kuzuiwa akaunti yako."
+
+#: apps/qa/services.py:184
+#, fuzzy
+msgid "You cannot verify your own answer — wait for the community."
+msgstr "Huwezi kuhakiki jibu lako — subiri jamii."
+
+#: apps/qa/templates/qa/detail.html:47
+msgid "You cannot verify your own answer."
+msgstr "Huwezi kuhakiki jibu lako."
+
+#: apps/trust/models.py:41
+#, fuzzy
+msgid "You cannot vote on content that has been removed."
+msgstr "Huwezi kukitoa kura maudhui yaliyoondolewa."
+
+#: apps/moderation/templates/moderation/queue.html:46
+#, fuzzy
+msgid "You drafted this — another moderator must confirm."
+msgstr "Wewe uliuza rasimu hii — msimamizi mwenza lazima athibitishe."
+
+#: apps/alerts/templates/alerts/my_follows.html:46
+#, fuzzy
+msgid "You follow no matatus yet — find one by nickname."
+msgstr "Haufuati matatu bado — pata mmoja kwa lakabu."
+
+#: apps/alerts/templates/alerts/my_follows.html:83
+msgid "You follow no routes yet."
+msgstr "Haufuati njia bado."
+
+#: apps/barter/templates/barter/list.html:34
+msgid "You give"
+msgstr "Unatoa"
+
+#: apps/moderation/services.py:284
+msgid "You have already blocked this member."
+msgstr "Tayari umeabana mwanachama huyu."
+
+#: apps/reviews/models.py:47
+#, fuzzy
+msgid ""
+"You have already reviewed this deal — one review per reviewer per deal."
+msgstr "Tayari umeabana kesi hii — maoni ya mkaguzi moja kwa mianu."
+
+#: apps/moderation/services.py:299
+msgid "You have not blocked this member."
+msgstr "Haujabana mwanachama huyu."
+
+#: apps/crowd/templates/crowd/my_reports.html:17
+msgid "You have not filed any crowd reports yet."
+msgstr "Haujaweka ripoti za umma bado."
+
+#: apps/reviews/templates/reviews/my_reviews.html:23
+#, fuzzy
+msgid ""
+"You have not left any reviews yet — after a deal, leave one from the deal "
+"you completed."
+msgstr ""
+"Haujaweka maoni bado — baada ya mianu, weka moja kutoka mianu uliyokamila."
+
+#: apps/routes/views.py:160
+#, fuzzy
+msgid "You have reached the hourly limit of %(limit)s corrections."
+msgstr "Umeafika mpanga wa masaa %(limit)s ya marehemu."
+
+#: apps/crowd/views.py:65
+#, fuzzy
+msgid "You have reached the hourly limit of %(limit)s reports."
+msgstr "Umeafika mpanga wa masaa %(limit)s ya ripoti."
+
+#: apps/routes/templates/routes/corrections_mine.html:21
+msgid "You haven't reported anything yet."
+msgstr "Haujaripoti kitu bado."
+
+#: apps/groups/views.py:91
+msgid "You left the group."
+msgstr "Umegonda kundi."
+
+#: apps/barter/templates/barter/detail.html:74
+msgid "You made this offer"
+msgstr "Wewe ulituwa ofa hii"
+
+#: apps/groups/templates/groups/detail.html:23
+msgid "You moderate here"
+msgstr "Wewe husimamia hapa"
+
+#: apps/messaging/templates/messaging/detail.html:16
+#, fuzzy
+msgid ""
+"You muted this conversation — it's hidden from your chats list. Your history"
+" stays right here."
+msgstr ""
+"Umepaza sauti soga hii — imefichwa kwenye orodha ya menja. Historia yako "
+"inapo hapa."
+
+#: apps/follows/views.py:102
+msgid "You now follow %(username)s."
+msgstr "Sasa unaufuata %(username)s."
+
+#: apps/barter/templates/barter/list.html:27
+msgid "You offered"
+msgstr "Ulituwa ofa"
+
+#: apps/groups/templates/groups/detail.html:16
+msgid "You own this group."
+msgstr "Unawamiliki kundi hili."
+
+#: apps/fleet/templates/fleet/dashboard.html:7
+#, fuzzy
+msgid "Your SACCO's fleet — only vehicles of SACCOs you administer."
+msgstr "Gari la SACCO yako — magari ya SACCO unaosimamia tu."
+
+#: apps/ai/templates/ai/ask.html:24
+msgid "Your adapted plan (draft)"
+msgstr "Mpango wako wa mshikua (rasimu)"
+
+#: apps/tracking/templates/tracking/my_sessions.html:31
+#, fuzzy
+msgid "Your crew seat will appear once a SACCO approves it."
+msgstr "Kiti chako cha kaya kitaronya mpaka SACCO kaidhinisha."
+
+#: apps/barter/templates/barter/list.html:48
+msgid "Your drafts"
+msgstr "Rasimu zako"
+
+#: apps/feed/templates/feed/list.html:6
+msgid "Your feed"
+msgstr "Feed yako"
+
+#: apps/alerts/services.py:240
+msgid "Your matatu is approaching %(stage)s"
+msgstr "Matatu yako inakaribia %(stage)s"
+
+#: apps/guides/templates/guides/detail.html:72
+msgid "Your offline guides"
+msgstr "Miongozo yako ya nje ya mtandao"
+
+#: apps/tracking/templates/tracking/start.html:8
+msgid "Your publishing token — shown once"
+msgstr "Tokeni yako ya kutangaza — inaonyeshwa mara"
+
+#: apps/fleet/templates/fleet/crew_form.html:7
+#, fuzzy
+msgid ""
+"Your request sits pending until a SACCO admin approves it — the human gate "
+"before any position authority."
+msgstr ""
+"Ombi lako linasubiri mpaka msimamizi SACCO aidhinisha — lango la binadamu "
+"kabla ya idhini ya nafasi yoyote."
+
+#: apps/reviews/forms.py:37
+msgid "Your review"
+msgstr "Maoni yako"
+
+#: apps/reviews/templates/reviews/review_form.html:10
+#, fuzzy
+msgid ""
+"Your review is held until the counterpart submits theirs — then both publish"
+" together. If they never do, it publishes 14 days after you write it. Nobody"
+" can read your rating early."
+msgstr ""
+"Maoni yako yanashika mpaka mwenza aweke lake — hapo viwili vinatangazwa "
+"pamoja. Kama hataweza, yatatangazwa siku 14 baada ya kuwika. Hakuna "
+"kuisomeshwa mapema."
+
+#: apps/disputes/forms.py:41
+msgid "Your side of what went wrong."
+msgstr "Upande wako wa kiliocha."
+
+#: apps/qa/templates/qa/list.html:37
+msgid "accepted answer"
+msgstr "jibu lililokubaliwa"
+
+#: apps/tracking/templates/tracking/start.html:23
+msgid "already live"
+msgstr "tayari inatambaa"
+
+#: apps/qa/templates/qa/answer_form.html:9
+#, fuzzy
+msgid "answers to this question must include a safety warning."
+msgstr "majibu ya swali hili lazima yavume tahadhari ya usalama."
+
+#: apps/fleet/templates/fleet/crew_pending.html:10
+msgid "asks for"
+msgstr "anaomba"
+
+#: apps/traffic/templates/traffic/_legs.html:46
+#, fuzzy
+msgid "at"
+msgstr "saa"
+
+#: apps/disputes/templates/disputes/case_detail.html:67
+#, fuzzy
+msgid "awaiting confirmation by a DIFFERENT moderator"
+msgstr "inasubiri uthibitisho na msimamizi MWENZWE"
+
+#: apps/routes/templates/routes/stage_detail.html:10
+msgid "boarding at the marked bay"
+msgstr "abiria wanapanda kwenye kituo kilichowekwa alama"
+
+#: apps/guides/templates/guides/list.html:31
+msgid "community guides for Kenya."
+msgstr "miongozo ya jamii ya Kenya."
+
+#: apps/messaging/templates/messaging/list.html:45
+msgid "community messaging for Kenya."
+msgstr "menja ya jamii ya Kenya."
+
+#: apps/moderation/templates/moderation/queue.html:19
+msgid "content deleted by its author"
+msgstr "maudhui yamefutwa kwaya na mwandishi wake"
+
+#: apps/routes/templates/routes/search.html:40
+#, fuzzy
+msgid "e.g. 'Manyanga', 'Ambassadeur', 'Kinoo' — approximate spellings work."
+msgstr ""
+"mf. 'Manyanga', 'Ambassadeur', 'Kinoo' — maandiko yanayoachana yanafanya."
+
+#: apps/listings/templates/listings/list.html:37
+msgid "e.g. Kawangware"
+msgstr "mf. Kawangware"
+
+#: apps/services/forms.py:90
+#, fuzzy
+msgid "e.g. “Weekdays 5–8 pm, Saturday mornings.” Plain notes only."
+msgstr "mf. “Siku za 5–8 jioni, asubuhi za jumamosi.” Maelezo halisi tu."
+
+#: apps/tracking/templates/tracking/operator_sessions.html:20
+#: apps/tracking/templates/tracking/my_sessions.html:23
+msgid "ended"
+msgstr "imekomea"
+
+#: apps/traffic/templates/traffic/_legs.html:41
+msgid "estimate (no coordinates)"
+msgstr "takrimu (hakuna misingi ya ramani)"
+
+#: apps/traffic/templates/traffic/_legs.html:38
+msgid "fare unknown for this segment"
+msgstr "nauli ya vipande hii haijulikani"
+
+#: apps/crowd/templates/crowd/my_reports.html:14
+#, fuzzy
+msgid "filed"
+msgstr "imeka"
+
+#: apps/traffic/templates/traffic/_legs.html:48
+msgid "first seen"
+msgstr "ilionyeshwa kwanza"
+
+#: apps/barter/templates/barter/list.html:54
+#, fuzzy
+msgid "for"
+msgstr "kwa"
+
+#: apps/reviews/templates/reviews/_reputation.html:20
+#, fuzzy
+msgid "from %(n)s deal reviews (%(count)s in the last 90 days)"
+msgstr "kutoka maoni za mianu %(n)s (%(count)s katika siku 90 zilizopita)"
+
+#: apps/routes/templates/routes/search.html:32
+msgid "hailable en route"
+msgstr "inapanda njian"
+
+#: apps/routes/templates/routes/stage_detail.html:8
+#, fuzzy
+msgid ""
+"hailable en route — crews accept passengers along the segment, not only at "
+"the bay"
+msgstr "inapanda njian — kaya inakubali abiria njiani, si kituo tu"
+
+#: apps/messaging/views.py:254
+msgid "hidden"
+msgstr "kilificha"
+
+#: apps/crowd/templates/crowd/stage_reports.html:22
+msgid "min ago"
+msgstr "dakika zilizopita"
+
+#: apps/lang/templates/lang/prefs_demo.html:18
+msgid "mixed feed chips"
+msgstr "vibingi vya lugha katika feed"
+
+#: apps/traffic/templates/traffic/plan.html:42
+msgid "no paid legs"
+msgstr "hakuna vipande vilivyo kwa pesa"
+
+#: apps/reviews/templates/reviews/_reputation.html:11
+msgid "no reviews yet"
+msgstr "hakuna maoni bado"
+
+#: apps/traffic/templates/traffic/plan.html:38
+msgid "observed ranges"
+msgstr "masafa yaliyopatikana"
+
+#: apps/traffic/templates/traffic/_legs.html:25
+msgid "official"
+msgstr "rasimu"
+
+#: apps/fleet/templates/fleet/crew_pending.html:12
+#, fuzzy
+msgid "on"
+msgstr "kuwa"
+
+#: apps/feed/templates/feed/list.html:45
+#, fuzzy
+msgid "page"
+msgstr "ukurasa"
+
+#: apps/disputes/services.py:1087
+msgid "payment phrase: “%(phrase)s”"
+msgstr "maneno ya malipo: “%(phrase)s”"
+
+#: apps/disputes/services.py:1091
+msgid "phone-shaped text present (%(n)d)"
+msgstr "maandiko ya namba ya simu yako (%(n)d)"
+
+#: apps/guides/templates/guides/offline.html:24
+msgid "photos kept too"
+msgstr "picha zimehifadhiwa pia"
+
+#: apps/barter/templates/barter/compose.html:29
+#: apps/barter/templates/barter/list.html:22
+#: apps/barter/templates/barter/list.html:41
+msgid "plus KES"
+msgstr "pamoja na KES"
+
+#: apps/routes/templates/routes/stage_detail.html:32
+#, fuzzy
+msgid "position"
+msgstr "nafasi"
+
+#: apps/tracking/templates/tracking/operator_sessions.html:24
+#: apps/tracking/templates/tracking/my_sessions.html:26
+msgid "positions visible (privacy-filtered)"
+msgstr "nafasi zinaonyeshwa (kusafisha-siri)"
+
+#: apps/disputes/templates/disputes/case_detail.html:100
+msgid "proposed by"
+msgstr "kilipendekezwa na"
+
+#: apps/crew/templates/crew/trip.html:56
+msgid "queued"
+msgstr "imefungwa foleni"
+
+#: apps/crowd/templates/crowd/stage_reports.html:20
+#, fuzzy
+msgid "reported"
+msgstr "kuripotiwa"
+
+#: apps/fleet/templates/fleet/dashboard.html:27
+msgid "retired"
+msgstr "imestaafu"
+
+#: apps/traffic/templates/traffic/about.html:12
+#, fuzzy
+msgid ""
+"rider reports (delays, flooding, closures) weighted and time-expired by the "
+"crowd system. Every condition line cites how many riders reported it, when "
+"it was first seen and how old it is — and reports older than 2 hours are "
+"dropped at read time, never shown as current."
+msgstr ""
+"ripoti za dereva (uchelewa, maji, kufunga) zenye uzito na muda uliopwita na "
+"mfumo wa umma. Kila mstari wa hali unaeza dereva wapili walio ripoti, "
+"ilipatikana kwanza na umri wake — ripoti chache ya masaa 2 zinawa zimepata "
+"upya, hakuna kuonyeshwa kwaya hali."
+
+#: apps/routes/templates/routes/route_detail.html:41
+msgid "route line from GTFS shapes.txt (2018 seed)"
+msgstr "mstari ya njia kutoka GTFS shapes.txt (2018 mwisho)"
+
+#: apps/traffic/templates/traffic/about.html:10
+#, fuzzy
+msgid ""
+"routes and stages from the 2018 Digital Matatus GTFS seed (badged 'seed') or"
+" curated by admins (badged 'official'). These decide where matatus go."
+msgstr ""
+"njia na vituo kutoka 2018 Digital Matatus GTFS (beji 'mwisho') au "
+"kutengenezwa na wasimamizi (beji 'rasimu'). Hivi vinadanganya matatu wako "
+"wapi."
+
+#: apps/traffic/templates/traffic/_legs.html:23
+msgid "seed (2018 GTFS)"
+msgstr "mwisho (2018 GTFS)"
+
+#: apps/routes/templates/routes/list.html:23
+#, fuzzy
+msgid "seed-quality (2018 GTFS) — community-corrected"
+msgstr "ubora wa mwisho (2018 GTFS) — jamii kimengeneza"
+
+#: apps/routes/templates/routes/route_detail.html:17
+#, fuzzy
+msgid "seed-quality data (2018 GTFS) — corrected by the community over time"
+msgstr "data ya ubora wa mwisho (2018 GTFS) — jamii hukung'ang'anya kwa muda"
+
+#: apps/services/templates/services/form.html:22
+#, fuzzy
+msgid "show the actual skill: finished work, before/after beats promises."
+msgstr ""
+"onyesha ujuzi halisi: kazi iliyouzo, kabla/baada inafanywa zaidi ya ahadi."
+
+#: apps/messaging/views.py:254
+#, fuzzy
+msgid "showing"
+msgstr "inaskia"
+
+#: apps/services/templates/services/list.html:53
+msgid "skills are being listed."
+msgstr "ujuzi unaorodhewa."
+
+#: apps/listings/templates/listings/form.html:22
+#, fuzzy
+msgid "small, real photos of the actual item sell fastest."
+msgstr "picha ndogo za kweli za kitu husika huza haraka zaidi."
+
+#: apps/traffic/templates/traffic/plan.html:40
+#, fuzzy
+msgid "some legs lack observed fares — totals incomplete"
+msgstr "vipande vingine havi na nauli zilizopatikana — jumla haikamiliki"
+
+#: apps/routes/templates/routes/route_detail.html:44
+#, fuzzy
+msgid "stage-to-stage line — approximate, NOT the real road path"
+msgstr "mstari wa kituo-kwa-kituo — takrimu, SI barabara halisi"
+
+#: apps/routes/templates/routes/search.html:25
+msgid "stage/destination match"
+msgstr "kituo/marudio ya mfanano"
+
+#: apps/routes/templates/routes/route_detail.html:24
+msgid "start"
+msgstr "anza"
+
+#: apps/disputes/services.py:810
+msgid "the image was removed"
+msgstr "picha imeondolewa"
+
+#: apps/listings/templates/listings/list.html:66
+#: apps/listings/templates/listings/search.html:91
+msgid "the market is filling in."
+msgstr "soko linaejaza."
+
+#: apps/barter/templates/barter/list.html:18
+msgid "they want"
+msgstr "wanataka"
+
+#: apps/qa/templates/qa/detail.html:70
+msgid "to answer."
+msgstr "kuhapu."
+
+#: apps/guides/templates/guides/detail.html:52
+msgid "to confirm this worked."
+msgstr "kuthibitisha ili na."
+
+#: apps/qa/templates/qa/detail.html:55
+msgid "to verify answers."
+msgstr "kuthibitisha majibu."
+
+#: apps/reviews/templates/reviews/_reputation.html:23
+msgid "trust usefulness %(s)s"
+msgstr "manufaa ya uaminifu %(s)s"
+
+#: apps/listings/templates/listings/search.html:44
+msgid "up to"
+msgstr "hafizi"
+
+#: apps/barter/templates/barter/list.html:37
+msgid "you want"
+msgstr "unataka"
+
+#: apps/messaging/templates/messaging/list_anonymous.html:8
+msgid "your conversations, signed in."
+msgstr "soga zako, mmeingia."
+
+#: apps/traffic/templates/traffic/plan.html:34
+msgid "~%(count)s minute"
+msgstr "dakika ~%(count)s"
+
+#: apps/traffic/templates/traffic/plan.html:34
+msgid "~%(count)s minute"
+msgid_plural "~%(count)s minutes"
+msgstr[0] "dakika ~%(count)s"
+msgstr[1] "dakika ~%(count)s"
+
+#: apps/traffic/templates/traffic/plan.html:34
+msgid "~%(count)s minutes"
+msgstr "dakika ~%(count)s"
+
+#: apps/alerts/eta.py:159
+msgid "~%(m)s min"
+msgstr "dakika ~%(m)s"
+
+#: apps/disputes/templates/disputes/case_detail.html:94
+msgid "— pick a pending proposal —"
+msgstr "— chagua pendekezo lenyesubiri —"
+
+#: apps/disputes/forms.py:50
+msgid "— pick an outcome —"
+msgstr "— chagua jibu —"
+
+#: apps/alerts/services.py:69
+#, fuzzy
+msgid ""
+"“%(q)s” matches more than one active matatu — use the plate to pick one."
+msgstr ""
+"“%(q)s” inamwana matatu wa hali zaidi ya mmoja — shika namba ya usajili "
+"kuhuchagua mmoja."
+
+#: apps/listings/templates/listings/search.html:74
+#, fuzzy
+msgid "≈ %(km|floatformat:1)s km from %(area)s (ward-level)"
+msgstr "≈ kilomita %(km|floatformat:1)s kutoka %(area)s (wadi-wadi)"
+
+#: apps/ai/assistant.py:99
+#, fuzzy
+msgid ""
+"⚠ Safety warning — copied from the adapted guide(s), exactly as written:"
+msgstr "⚠ Tahadhari ya usalama — kopwa mwongozo, kama vile iliyoandikwa:"
+
+#: templates/profiles/profile.html:23
+msgctxt "profile"
+msgid "Skills"
+msgstr "Ujuzi"

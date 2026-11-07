@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     "apps.traffic",
     # Phase 4 (Prompt 33).
     "apps.ai",
+    # Phase 4 closers (Prompt 35's content-language prefs; 34 lives inside ai).
+    "apps.lang",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
