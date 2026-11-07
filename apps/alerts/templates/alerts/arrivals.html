@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Arrivals" %} — {{ stage.name }} — Mtaani{% endblock %}
+{% block content %}
+<h1>{{ stage.name }} — {{ route.name_en }}</h1>
+<p class="muted">
+  {# The honesty line: ranges are ESTIMATES; silence is real silence. #}
+  {% trans "Vehicles you follow on this route. Times are estimates from live pings — where the data is thin, we say so instead of guessing." %}
+</p>
+<ul class="alerts-arrivals" data-test="alerts-arrivals">
+{% for row in rows %}
+  <li class="card" data-test="alerts-arrival-row">
+    <strong>{{ row.plate }}</strong>{% if row.nickname %}· {{ row.nickname }}{% endif %}
+    {% if row.estimate %}
+      {# The label comes FROM the payload — an estimate cannot render unlabeled. #}
+      <span class="badge">{{ row.estimate_text }}</span>
+      <span class="badge" data-test="alerts-estimate-label">{{ row.estimate.confidence }}</span>
+    {% else %}
+      <span class="muted" data-test="alerts-no-estimate">{{ row.estimate_status }}</span>
+    {% endif %}
+    {% if row.approaching %}<span class="badge">{% trans "Approaching" %}</span>{% endif %}
+  </li>
+{% empty %}
+  <li class="muted" data-test="alerts-arrivals-empty">{% trans "No followed matatus on this route right now." %}</li>
+{% endfor %}
+</ul>
+<p><a href="{% url 'alerts:follows' %}">{% trans "Manage follows" %}</a></p>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "My follows" %} — Mtaani{% endblock %}
+{% block content %}
+<h1>{% trans "My follows" %}</h1>
+<p class="muted">
+  {% trans "Follow matatus and routes, pick an alert stage and radius, and switch notifications on in one tap. Notifications start OFF." %}
+</p>
+
+<h2>{% trans "Matatus" %}</h2>
+<form method="post" action="{% url 'alerts:follow_vehicle' %}" class="row">
+  {% csrf_token %}
+  <input type="text" name="nickname" maxlength="60" placeholder="{% trans 'Nickname, e.g. Mwangaza' %}" required>
+  <button type="submit">{% trans "Follow matatu" %}</button>
+</form>
+<ul class="alerts-follows" data-test="alerts-follows-vehicles">
+{% for item in vehicle_items %}
+  <li class="card" data-test="alerts-follow-row">
+    <strong>{{ item.row.vehicle.plate }}</strong>
+    {% if item.row.vehicle.nickname %}· {{ item.row.vehicle.nickname }}{% endif %}
+    <span class="badge">
+      {% if item.row.notify_enabled %}{% trans "Notify on" %}{% else %}{% trans "Notify off" %}{% endif %}
+    </span>
+    {# Each one-tap action is its own small POST form. #}
+    <form method="post" action="{% url 'alerts:toggle_notify' 'vehicle' item.row.pk %}">{% csrf_token %}
+      <button type="submit">{% trans "Toggle notifications" %}</button>
+    </form>
+    <form method="post" action="{% url 'alerts:set_stage' 'vehicle' item.row.pk %}">{% csrf_token %}
+      <label>
+        {% trans "Alert stage" %}
+        <select name="stage_id">
+          <option value="">{% trans "None — no approach alerts" %}</option>
+          {% for s in item.stage_options %}
+          <option value="{{ s.0 }}" {% if s.0 == item.row.notify_stage_id %}selected{% endif %}>{{ s.1 }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button type="submit">{% trans "Set stage" %}</button>
+    </form>
+    <form method="post" action="{% url 'alerts:set_radius' 'vehicle' item.row.pk %}">{% csrf_token %}
+      <label>{% trans "Radius (km, 1–10)" %} <input type="number" name="radius_km" min="1" max="10" value="{{ item.row.radius_km }}"></label>
+      <button type="submit">{% trans "Set radius" %}</button>
+    </form>
+    {% if item.arrivals_url %}<a href="{{ item.arrivals_url }}">{% trans "Arrivals" %}</a>{% endif %}
+    <form method="post" action="{% url 'alerts:remove_follow' 'vehicle' item.row.pk %}">{% csrf_token %}
+      <button type="submit">{% trans "Unfollow" %}</button>
+    </form>
+  </li>
+{% empty %}
+  <li class="muted" data-test="alerts-empty">{% trans "You follow no matatus yet — find one by nickname." %}</li>
+{% endfor %}
+</ul>
+
+<h2>{% trans "Routes" %}</h2>
+<form method="post" action="{% url 'alerts:follow_route' %}" class="row">
+  {% csrf_token %}
+  <input type="number" name="route_id" placeholder="{% trans 'Route id' %}" required>
+  <button type="submit">{% trans "Follow route" %}</button>
+</form>
+<ul class="alerts-follows" data-test="alerts-follows-routes">
+{% for item in route_items %}
+  <li class="card" data-test="alerts-follow-row">
+    <strong>{{ item.row.route.name_en }}</strong>
+    <span class="badge">
+      {% if item.row.notify_enabled %}{% trans "Notify on" %}{% else %}{% trans "Notify off" %}{% endif %}
+    </span>
+    <form method="post" action="{% url 'alerts:toggle_notify' 'route' item.row.pk %}">{% csrf_token %}
+      <button type="submit">{% trans "Toggle notifications" %}</button>
+    </form>
+    <form method="post" action="{% url 'alerts:set_stage' 'route' item.row.pk %}">{% csrf_token %}
+      <label>
+        {% trans "Alert stage" %}
+        <select name="stage_id">
+          <option value="">{% trans "None — no approach alerts" %}</option>
+          {% for s in item.stage_options %}
+          <option value="{{ s.0 }}" {% if s.0 == item.row.notify_stage_id %}selected{% endif %}>{{ s.1 }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button type="submit">{% trans "Set stage" %}</button>
+    </form>
+    <form method="post" action="{% url 'alerts:set_radius' 'route' item.row.pk %}">{% csrf_token %}
+      <label>{% trans "Radius (km, 1–10)" %} <input type="number" name="radius_km" min="1" max="10" value="{{ item.row.radius_km }}"></label>
+      <button type="submit">{% trans "Set radius" %}</button>
+    </form>
+    {% if item.arrivals_url %}<a href="{{ item.arrivals_url }}">{% trans "Arrivals" %}</a>{% endif %}
+    <form method="post" action="{% url 'alerts:remove_follow' 'route' item.row.pk %}">{% csrf_token %}
+      <button type="submit">{% trans "Unfollow" %}</button>
+    </form>
+  </li>
+{% empty %}
+  <li class="muted" data-test="alerts-empty">{% trans "You follow no routes yet." %}</li>
+{% endfor %}
+</ul>
+{% endblock %}

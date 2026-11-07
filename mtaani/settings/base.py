@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     # Phase 3 wave 4 (Prompt 28; 29 = apps/crew page + app).
     "apps.map",
     "apps.crew",
+    # Phase 3 closer (Prompt 31).
+    "apps.alerts",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
