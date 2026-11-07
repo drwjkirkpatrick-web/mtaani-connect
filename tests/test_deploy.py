@@ -19,9 +19,16 @@ def test_ci_names_the_budget_and_geo_suites_explicitly():
     assert "tests/test_budgets.py" in CI  # budget suite named
     assert "tests/test_traffic.py" in CI and "tests/test_listing_search.py" in CI
     assert "makemigrations --check" in CI  # drift guard
-    # pip-audit: local project isn't on PyPI, so --skip-editable is required
-    # for --strict to pass; the project's deps are still audited (2.10 flag).
-    assert "pip-audit" in CI and "--skip-editable" in CI
+    # pip-audit: the local root is an editable install, so the invocation
+    # MUST carry --skip-editable and MUST NOT pair it with --strict
+    # (pip-audit's --strict makes ANY skip fatal — reproduced locally).
+    audit_line = next(
+        line
+        for line in CI.splitlines()
+        if "pip-audit --" in line and not line.strip().startswith("#")
+    )
+    assert "--skip-editable" in audit_line
+    assert "--strict" not in audit_line
     assert "psycopg.connect" in CI  # a REAL connection, not a service echo
 
 
