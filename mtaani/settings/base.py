@@ -76,6 +76,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Prompt 36: systematic server-side throttles — LAST so a refused
+    # request never reaches a view, and it needs request.user. One
+    # enforcement site: the existing DB doors (moderation 10/h etc.) keep
+    # their authority; this mirrors their numbers (test-pinned equal).
+    "apps.core.throttle_django.ThrottleMiddleware",
 ]
 
 ROOT_URLCONF = "mtaani.urls"
