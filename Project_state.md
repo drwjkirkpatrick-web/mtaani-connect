@@ -1,7 +1,7 @@
 # Project State: Mtaani Connect
 
 > **Last updated:** 2026-11-06
-> **Current phase:** build — Phase 5 wave 2 landed (39, 40 salvaged); 41/42 remain
+> **Current phase:** BUILD COMPLETE — all 42 prompts landed; launch tasks remain (human)
 > **Overall health:** green
 
 ---
@@ -172,6 +172,17 @@ KDPA-compliant from day one.
   (evidence + audit trails survive), consent ledger + export, retention
   sweep through real 27 doors, DPIA for live location, ODPC checklist;
   26 tests
+- [x] Prompt 41 — security hardening & backups: headers on every response
+  (CSP allow-list = unpkg + osm tiles only; unsafe-inline flagged for the
+  nonce pass), cookie HttpOnly/SameSite/transport knobs, secrets-sweep
+  test (credential shapes fail the suite), backup_restore_drill.sh
+  (dry-run plan / executed rehearsal), runbooks for security + backups;
+  6 tests
+- [x] Prompt 42 — deployment, CI & launch: deploy compose + Caddy +
+  Dockerfile (secret-gated env), CI workflow that PROVES postgis exists,
+  runs the full suite + budget + geo suites + pip-audit (no untrusted
+  interpolations — test-pinned), /health/ endpoint, launch checklist,
+  operator README, ADR index; 4 tests. BUILD CONTRACT COMPLETE (1–42)
 - [x] Web research: Digital Matatus GTFS, KDPA 2019/ODPC, bundle economics,
       SACCO tracking landscape, competitors (`docs/research-notes.md`)
 - [x] Stack decision documented (`docs/adr/0001-stack-decision.md`)
@@ -180,12 +191,13 @@ KDPA-compliant from day one.
 - [x] Repo scaffolded on GitHub (private) with remote `origin` set
 
 ### In Progress
-- [ ] Prompts 41 (security hardening & backups) + 42 (deployment & launch)
+- [ ] none in code — launch tasks are human (launch checklist)
 
 ### Not Started
-- [ ] Post-build: cron scheduler wiring (sweeps list in ops notes), ODPC
-      registration (human), pilot conversations, promoted-slot seam if
-      demanded (38's library ready)
+- [ ] Cron scheduler wiring for the sweep functions (ops list below)
+- [ ] ODPC registration (human), pilot conversations, user research
+- [ ] 38's promoted-slot seam into listings search IF demand proves it
+- [ ] Throttle nonce pass for the crew page's inline JS (security.md)
 - [ ] User research (15–20 Nairobi interviews, brief §10) — may flip Phases 1/3
 - [ ] SACCO pilot conversations (3–5 operators)
 - [ ] ODPC registration (human task, launch blocker — see Prompt 40)
@@ -212,10 +224,13 @@ KDPA-compliant from day one.
 
 ## 5. Next Step (only ONE)
 
-> **Next:** Prompts 41 (headers/CSP/cookies/secrets-sweep/backup+restore
-> drill) + 42 (deploy/ runbook, launch docs, CI) — parent-side or
-> dispatched once Ollama credits return; the 429 killed the wave-2 pair
-> and both were salvaged in-place. Suite at 1112.
+> **Next:** LAUNCH, not build. The 42-prompt contract is COMPLETE: suite
+> 1,121 passed (1127 with deploy+security+manifest updates), all phases
+> closed. Human list in docs/launch-checklist.md (ODPC, pilots, staffing,
+> flags-off verify, cron wiring, backup rehearsal). Ops cron list: barter
+> expire_stale_offers, listings expire_stale_listings, reviews
+> publish_due_reviews, tracking expire_sessions + prune_pings,
+> alerts.alert_scan, analytics.rebuild_daily, compliance retention sweep.
 
 ## 6. Environment & Tooling Notes
 

@@ -1134,8 +1134,8 @@ Parallelizable groups (one subagent each, no shared files):
 | 38 | Monetization hooks (off by default) | ✅ |
 | 39 | Performance & data-budget audit | ✅ |
 | 40 | KDPA compliance workflows | ✅ |
-| 41 | Security hardening & backups | ☐ |
-| 42 | Deployment, CI & launch docs | ☐ |
+| 41 | Security hardening & backups | ✅ |
+| 42 | Deployment, CI & launch docs | ✅ |
 
 *Working name "Mtaani Connect" is a placeholder per the brief — the prompt
 set is name-agnostic (project package `mtaani` is trivially renamed).*
